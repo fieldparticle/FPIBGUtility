@@ -1,5 +1,13 @@
 # FPIBGUtility
-Project Proposal
+## Project Team
+Back End
+   Jack Bell - jb2ndr@ufl.edu
+   TBD
+Front end
+   Efren Lopez - efren.lopez@ufl.edu
+   Kristen Moy - kristenmoy@ufl.edu
+
+## Project Proposal
 
 Overview
 
