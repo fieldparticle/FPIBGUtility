@@ -1,0 +1,56 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "J:\\FPIBGUtility\\python\\frontend\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{3B5B2FA8-BD3F-4131-865D-04663BA78F97}|FrontEnd.pyproj|J:\\FPIBGUtility\\python\\FrontEnd\\FrontEnd.py||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{3B5B2FA8-BD3F-4131-865D-04663BA78F97}|FrontEnd.pyproj|solutionrelative:FrontEnd.py||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{00000000-0000-0000-0000-000000000000}|\u003CSolution\u003E|FrontEnd||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3B5B2FA8-BD3F-4131-865D-04663BA78F97}|FrontEnd.pyproj|J:\\FPIBGUtility\\python\\FrontEnd\\FrontEnd.pyproj||{B270807C-D8C6-49EB-8EBE-8E8D566637A1}|888888fd-3c4a-40da-aefb-5ac10f5e8b30",
+      "RelativeMoniker": "D:0:0:{3B5B2FA8-BD3F-4131-865D-04663BA78F97}|FrontEnd.pyproj|solutionrelative:FrontEnd.pyproj||{B270807C-D8C6-49EB-8EBE-8E8D566637A1}|888888fd-3c4a-40da-aefb-5ac10f5e8b30"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "FrontEnd",
+              "DocumentMoniker": "J:\\FPIBGUtility\\python\\FrontEnd\\FrontEnd.pyproj",
+              "RelativeDocumentMoniker": "FrontEnd.pyproj",
+              "ToolTip": "J:\\FPIBGUtility\\python\\FrontEnd\\FrontEnd.pyproj",
+              "RelativeToolTip": "FrontEnd.pyproj",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2025-01-20T15:38:15.224Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "FrontEnd.py",
+              "DocumentMoniker": "J:\\FPIBGUtility\\python\\frontend\\FrontEnd.py",
+              "RelativeDocumentMoniker": "FrontEnd.py",
+              "ToolTip": "J:\\FPIBGUtility\\python\\frontend\\FrontEnd.py*",
+              "RelativeToolTip": "FrontEnd.py*",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAWAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2025-01-20T15:36:29.502Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
