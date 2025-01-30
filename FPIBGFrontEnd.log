@@ -1,0 +1,3 @@
+yy_mm_dd:hr:min:Application Name:ObjectName:Function Name:Line Number:ErrCode:ErrString
+2025_1_30:14:23:FPIBGFrontEnd:ObjectName:Function:1:1:Opened Log File Successful
+2025_1_30:14:23:FPIBGFrontEnd:x:\FPIBGUtility\python\shared\FPIBGBase.py:testObject:29:0:Test 1 Success
