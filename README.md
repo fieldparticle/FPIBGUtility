@@ -21,6 +21,7 @@ Vulkan API but this will not be part of the project. Instead we are writing code
 It is a great project for people wanting to go into reaserch becasue there is allot of analysis of algoritm performance (time complexity)
 and formating analysis data. Nothing is complicated and all of the code is prototyped in Matlab.
 
+https://github.com/fieldparticle/FPIBGUtility/doc/index.html
 The paper on the application can be found here:
 https://github.com/fieldparticle/FPIBG/blob/main/2024_10_22_FPIBG_For%20_Publish.pdf
 
