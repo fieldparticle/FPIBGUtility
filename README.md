@@ -1,5 +1,5 @@
 # FPIBG Documentation
-The docuemtnation for FPIBG Utility can nefound at:
+The documentation for FPIBG Utility can be found at:
 
 https://fieldparticle.github.io/FPIBGUtility/
 
