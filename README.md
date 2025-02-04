@@ -1,9 +1,15 @@
+# FPIBG Documentation
+The documentation for FPIBG Utility can be found at:
+
+https://fieldparticle.github.io/FPIBGUtility/
+
+
 # FPIBGUtility
 ## Project Team
 Back End
 
 	Jack Bell - jb2ndr@ufl.edu
- 	TBD
+ 	Benjamin Rheault - brheault@ufl.edu
  
 Front end
 
