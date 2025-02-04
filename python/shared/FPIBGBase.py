@@ -3,24 +3,42 @@ from FPIBGConfig import FPIBGConfig
 import inspect
 
 
-## FPBIG Base class. This class is passed as an argument to all other classes.
-#
-#  FPIBG Base is a member object of all other classes. It contains the configuration file managment and error reporting.
 class FPIBGBase:
+    """
+    This class is the global class for all other classes
+
+    Attributes:
+        log (FPIBGLog): FPIBGLog for loogin information and errors
+    """
     
-    name = "empty"
     def __init__ (self,AppName):
+        """
+        Initializes the object with the application name.
+
+        Args:
+            AppName (string): THe Name of the application.
+
+        
+        """
         print(f"Created " + AppName)
         self.appName = AppName
-
-
+    
     def Create(self):
+        """
+        Creates the base object and memeber objects log and config
+
+        Args:
+            self : this.
+       
+        """
         self.log = FPIBGLog(self.appName)   
         self.log.Create()
         self.log.Open()
         self.cfg = FPIBGConfig
         #self.cfg.Create( )
-        
+       
+       
+       
 
 # @abstrctmethod
     def testObject(self,modNumber):
@@ -43,3 +61,5 @@ class FPIBGBase:
         self.log.Open()
     def Close(self):
         self.log.Close()
+
+    
