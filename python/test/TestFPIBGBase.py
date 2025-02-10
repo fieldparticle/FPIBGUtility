@@ -12,8 +12,6 @@ bc = FPIBGBase("FPIBGFrontEnd")
 help(FPIBGBase)
 #print("Using __doc__:")
 print(FPIBGBase.Create.__doc__)
-
-
 bc.Create()
 # Logging and configuration files are open from this point on.
 bc.testObject(1)
