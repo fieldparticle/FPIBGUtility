@@ -1,22 +1,25 @@
 import configparser
 import os
+import libconf
+import io
 
 class FPIBGConfig:
-      def __init__(self):
-            """
-            Constructor for the FPIBGConfig object.
-            Saves the path of the config as a variable.
-            """
-            self.configPath = os.path.join(get_repo_root(), "Particle.cfg")
-      
-      def GetStringField(self, field):
-            lineString = find_line_with_substring(self.configPath, field)
-            if lineString is None:
-                  print("Error: element not found")
-                  return None
-            else:
-                  fieldString = get_substring(lineString, '=', '\n')
-                  print(fieldString)
+    def __init__(self):
+        """
+        Constructor for the FPIBGConfig object.
+        Saves the path of the config as a variable.
+        Saves the configuration information as a dictionary.
+        """
+        self.configPath = os.path.join(get_repo_root(), "Particle.cfg")
+        with io.open(self.configPath) as f:
+            self.config = libconf.load(f)
+    
+    def GetConfig(self):
+        """
+        Function to retreive the config object.
+        This object contains all of the data from the configuration file as a dictionary.
+        """
+        return self.config
 
 
 def get_repo_root():
@@ -27,27 +30,3 @@ def get_repo_root():
         if current_dir == "/":
             raise FileNotFoundError("Could not find .git directory")
     return current_dir
-
-def find_line_with_substring(file_path, substring):
-    """Helper Function to locate the field being requested by finding the line in the config file that begins with that field"""
-    with open(file_path, 'r') as file:
-        for line in file:
-            if line.strip().startswith(substring):
-                return line.strip()
-    return None
-
-def get_substring(text, start_char, end_char):
-    start_index = text.find(start_char) + 1
-    end_index = len(text) - 1
-
-    if start_index != -1 and end_index != -1:
-        return text[start_index:end_index].strip()
-    else:
-        return None
-
-def main():
-      myConfig = FPIBGConfig()
-      myConfig.GetStringField("cap_name")
-
-if __name__=="__main__":
-    main()
