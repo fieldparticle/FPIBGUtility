@@ -991,7 +991,8 @@ WARN_LOGFILE           =
 # spaces. See also FILE_PATTERNS and EXTENSION_MAPPING
 # Note: If this tag is empty the current directory is searched.
 
-INPUT                  = X:/FPIBGUtility
+INPUT                  = X:/FPIBGUtility \
+                         ../doc
 
 # This tag can be used to specify the character encoding of the source files
 # that Doxygen parses. Internally Doxygen uses the UTF-8 encoding. Doxygen uses
@@ -1146,7 +1147,12 @@ EXAMPLE_RECURSIVE      = NO
 # that contain images that are to be included in the documentation (see the
 # \image command).
 
-IMAGE_PATH             =
+IMAGE_PATH             = ../doc/FPIBGProjectTOC \
+                         ../doc/FPIBGProjectSec001 \
+                         ../doc/FPIBGProjectSec002 \
+                         ../doc/FPIBGProjectSec003 \
+                         ../doc/FPIBGProjectSec004 \
+                         ../doc/FPIBGProjectSec005
 
 # The INPUT_FILTER tag can be used to specify a program that Doxygen should
 # invoke to filter for each input file. Doxygen will invoke the filter program
@@ -2607,7 +2613,7 @@ HIDE_UNDOC_RELATIONS   = YES
 # set to NO
 # The default value is: NO.
 
-HAVE_DOT               = NO
+HAVE_DOT               = YES
 
 # The DOT_NUM_THREADS specifies the number of dot invocations Doxygen is allowed
 # to run in parallel. When set to 0 Doxygen will base this on the number of
