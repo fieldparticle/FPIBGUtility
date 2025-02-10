@@ -1,40 +1,60 @@
 import socket
 import os
-import time
 
-SERVER_IP = "localhost"  # localhost' if both scripts are on the same machine
-SERVER_PORT = 5000
-BUFFER_SIZE = 4096
+class TCPIP:
+    def __init__(self, server_ip="127.0.0.1", server_port=5000, buffer_size=4096):
+        """Initialize the client configuration."""
+        self.server_ip = server_ip
+        self.server_port = server_port
+        self.buffer_size = buffer_size
+        self.client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
-#absolute path to the directory containing this script
-script_dir = os.path.dirname(os.path.abspath(__file__))
+        # locate the particle.cfg file
+        self.script_dir = os.path.dirname(os.path.abspath(__file__))
+        self.config_file_path = os.path.join(self.script_dir, '..', 'doc', 'Particle.cfg')
 
-#path to Particle.cfg relative to the client script directory
-config_file_path = os.path.join(script_dir, '..', 'doc', 'Particle.cfg')
+    def openConnection(self):
+        """Connect to the server."""
+        try:
+            self.client_socket.connect((self.server_ip, self.server_port))
+            print(f"Connected to server at {self.server_ip}:{self.server_port}")
+        except ConnectionRefusedError:
+            print("Error: Unable to connect to the server. Ensure the server is running.")
+            exit()
 
-if not os.path.exists(config_file_path):
-    print(f"Error: File {config_file_path} not found!")
-    exit()
+    def closeConnection(self):
+        """Close the client connection properly."""
+        self.client_socket.close()
+        print("Client connection closed.")
 
-client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-client_socket.connect((SERVER_IP, SERVER_PORT))
+    def readData(self):
+        """Receive confirmation message from the server."""
+        response = self.client_socket.recv(1024)
+        print(f"Server Response: {response.decode()}")
 
-filename = os.path.basename(config_file_path)
-client_socket.sendall(filename.encode())
-time.sleep(1)  # delay to avoid merging filename & file data
+    def writeData(self, ColumnName):
+        """Send the configuration file to the server."""
+        if not os.path.exists(self.config_file_path):
+            print(f"Error: File {self.config_file_path} not found!")
+            return
 
-#open and send file in chunks
-with open(config_file_path, "rb") as f:
-    while True:
-        data = f.read(BUFFER_SIZE)
-        if not data:
-            break
-        client_socket.sendall(data)
+        filename = os.path.basename(self.config_file_path)
+        self.client_socket.sendall(filename.encode())
 
-print(f"Sent file: {filename}")
+        with open(self.config_file_path, "rb") as f:
+            while True:
+                data = f.read(self.buffer_size)
+                if not data:
+                    break
+                self.client_socket.sendall(data)
 
-#receive confirmation from server
-response = client_socket.recv(1024)
-print(f"Server response: {response.decode()}")
+        print(f"Sent file: {filename}")
 
-client_socket.close()
+        #wait for response from server
+        self.readData()
+        self.closeConnection()
+
+if __name__ == "__main__":
+    client = TCPIP()
+    client.openConnection()
+    client.writeData("Particle.cfg")
