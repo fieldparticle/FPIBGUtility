@@ -19,31 +19,29 @@ class DataClass:
 
     def create_summary(self):
         csv_name = "../../../../FPIBGData/perf" + self.data_name + ".csv"
-        data = ['Name', 'fps', 'cpnums', 'cms', 'gms']
-        with open(csv_name, 'w', newline='') as file:
+        data = ['Name', 'fps', 'cpums', 'cms', 'gms']
+        with open(csv_name, mode= 'w', newline='') as file:
             writer = csv.writer(file)
             writer.writerow(data)
 
     def get_averages(self):
+        directory = "../../../../FPIBGData/perf" + self.data_name + ".csv"
         for i in self.data_files:
-            fps, cpnums, cms, gms, count = 0
-            filename = open(i, 'r')
-            file = csv.DictReader(filename)
-            for col in file:
-                count += 1
-                fps += col['fps']
-                cpnums += col['cpnums']
-                cms += col['cms']
-                gms += col['gms']
+            file_path = "C:/Users/krist/Downloads/FPIBGData/FPIBGData/perfData" + self.data_name + "/" + i
+            fps = cpums = cms = gms = count = 0
+            with open(file_path, 'r') as filename:
+                file = csv.DictReader(filename)
+                for col in file:
+                    count += 1
+                    fps += float(col['fps'])
+                    cpums += float(col['cpums'])
+                    cms += float(col['cms'])
+                    gms += float(col['gms'])
             fps = fps / count
-            cpnums = cpnums / count
+            cpums = cpums / count
             cms = cms / count
             gms = gms / count
-            average_list = [i, fps, cpnums, cms, gms]
-            self.writeToFile(average_list)
-
-    def writeToFile(self, averages: list):
-        directory = "../../../../FPIBGData/perf" + self.data_name + ".csv"
-        with open(directory, 'a', newline='') as f:
-            writer = csv.writer(f)
-            writer.writerow(averages)
+            average_list = [i, fps, cpums, cms, gms]
+            with open(directory, 'a', newline='') as file:
+                writer = csv.writer(file)
+                writer.writerow(average_list)
