@@ -1,5 +1,5 @@
 from datetime import datetime
-
+import inspect
 class FPIBGLog:
         
     veroseLevel = 1
@@ -17,20 +17,35 @@ class FPIBGLog:
     def fileObj(self) : pass
 
     def Open(self):
-        self.logname = self.appName + ".log"
-        self.fileObj = open(self.logname,"w+")
-        logstring = "{}_{}_{}:{}:{}:{}:{}:{}:{}:{}:{}\n".format("yy","mm","dd","hr","min","Application Name","ObjectName","Function Name","Line Number","ErrCode","ErrString")
+        
+        self.fileObj = open("FPIBG.log","w+")
+        logstring = "{}_{}_{}:{}:{}:{}:{}:{}:{}:{}:{}:{}\n".format("yy",
+                                                                   "mm",
+                                                                   "dd",
+                                                                   "hr",
+                                                                   "min",
+                                                                   "Application Name",
+                                                                   "ClassName",
+                                                                   "Function Name",
+                                                                   "ObjName",
+                                                                   "Line Number",
+                                                                   "ErrCode",
+                                                                   "ErrString")
         self.fileObj.write(str(logstring))  
-        self.log(1,"ObjectName","Function",1,"Opened Log File Successful")
-        print("Opened Log File for ",self.appName,".log")
+        self.log(inspect.currentframe().f_lineno,
+                            __file__,
+                            inspect.currentframe().f_code.co_name,
+                            "LogObject",
+                            0,
+                            "Opened Logfile success")
+        print("Opened Log File for FPIBG.log")
         
         
     #Line Number:Date:24hrtime:Application:Object:Function:ErrCode:Error String
-    def log(self,LineNumber,ObjectName,Function,ErrCode,ErrString):
-        current_time = datetime.now()
-        print(current_time.year,)
+    def log(self,LineNumber,ClassName,Function,ObjName,ErrCode,ErrString):
+        current_time = datetime.now()       
         timestr = "{}_{}_{}:{}:{}".format( current_time.year, current_time.month, current_time.day, current_time.hour, current_time.minute)
-        logstring = "{}:{}:{}:{}:{}:{}:{}\n".format(timestr,self.appName,ObjectName,Function,LineNumber,ErrCode,ErrString)
+        logstring = "{}:{}:{}:{}:{}:{}:{}:{}\n".format(timestr,self.appName,ClassName,Function,LineNumber,ObjName,ErrCode,ErrString)
         self.fileObj.write(str(logstring))  
         
     

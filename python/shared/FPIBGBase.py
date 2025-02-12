@@ -11,17 +11,17 @@ class FPIBGBase:
         log (FPIBGLog): FPIBGLog for loogin information and errors
     """
     
-    def __init__ (self,AppName):
+    def __init__ (self,ObjName):
         """
         Initializes the object with the application name.
 
         Args:
-            AppName (string): THe Name of the application.
+            Moniker (string): THe Name of the object.
 
         
         """
-        print(f"Created " + AppName)
-        self.appName = AppName
+        print(f"Created " + ObjName)
+        self.ObjName = ObjName
     
     def Create(self):
         """
@@ -31,29 +31,39 @@ class FPIBGBase:
             self : this.
        
         """
-        self.log = FPIBGLog(self.appName)   
+        self.log = FPIBGLog("GlobalLoggingObject")   
         self.log.Create()
         self.log.Open()
-        self.cfg = FPIBGConfig
-        #self.cfg.Create( )
-       
-       
+        self.cfg = FPIBGConfig("GlobalConfigObject")
+        self.cfg.Create(self.log)
        
 
 # @abstrctmethod
-    def testObject(self,modNumber):
-        if modNumber == 1:
+    def testObject(self,modNumber,dbglvl):
+        if modNumber == 1 and dbglvl == 5:
             print(f"Running Mod" , modNumber , " Test")
             self.log.log(   inspect.currentframe().f_lineno,
                             __file__,
                             inspect.currentframe().f_code.co_name,
+                            self.ObjName,
                             0,
                             "Test 1 Success")
-            return
+            return 0
+        elif modNumber == 2 and dbglvl == 5:
+            print(f"Running Mod" , modNumber , " Test")
+            self.log.log(   inspect.currentframe().f_lineno,
+                            __file__,
+                            inspect.currentframe().f_code.co_name,
+                            self.ObjName,
+                            0,
+                            "Test 2 Success")
+            return 0
         
+    
         self.log.log(   inspect.currentframe().f_lineno,
                             __file__,
                             inspect.currentframe().f_code.co_name,
+                            self.Moniker,
                             1,
                             "Invalid test number")
 

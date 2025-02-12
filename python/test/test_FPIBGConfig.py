@@ -15,6 +15,7 @@ sharedDir = get_repo_root() + "/python/shared"
 sys.path.append(os.path.abspath(sharedDir))
 
 from FPIBGConfig import *
+from FPIBGLog import *
 
 # def test_name():
 #     cObj = FPIBGConfig()
@@ -22,9 +23,13 @@ from FPIBGConfig import *
 #     assert cDict.name == "particleOnly"
 
 def main():
-    cObj = FPIBGConfig()
-    cDic = cObj.GetConfig()
-    print(cDic)
+    cObj = FPIBGConfig("ConfigObject")
+    log = FPIBGLog("GlobalLoggingObject")   
+    log.Create()
+    log.Open()
+    cObj.Create(log)
+    cObj.testObject(1,5)
+    
 
 
 if __name__ == "__main__":
