@@ -11,23 +11,23 @@ class DataClass:
 
     # Returns true if number of .tst files equal to number of R or D files
     def check_data_files(self) -> bool:
-        directory = "../../../../FPIBGData/perfdata" + self.data_name
+        directory = "C:/FPIBGData/FPIBGData/perfdata" + self.data_name
         tst_files = [i for i in os.listdir(directory) if i.endswith(".tst")]
         dr_ext = "D.csv" if self.m_drflag else "R.csv"
         self.data_files = [i for i in os.listdir(directory) if i.endswith(dr_ext)]
         return len(tst_files) == len(self.data_files)
 
     def create_summary(self):
-        csv_name = "../../../../FPIBGData/perf" + self.data_name + ".csv"
+        csv_name = "C:/FPIBGData/FPIBGData/perf" + self.data_name + ".csv"
         data = ['Name', 'fps', 'cpums', 'cms', 'gms']
         with open(csv_name, mode= 'w', newline='') as file:
             writer = csv.writer(file)
             writer.writerow(data)
 
     def get_averages(self):
-        directory = "../../../../FPIBGData/perf" + self.data_name + ".csv"
+        directory = "C:/FPIBGData/FPIBGData/perf" + self.data_name + ".csv"
         for i in self.data_files:
-            file_path = "C:/Users/krist/Downloads/FPIBGData/FPIBGData/perfData" + self.data_name + "/" + i
+            file_path = "C:/FPIBGData/FPIBGData/perfData" + self.data_name + "/" + i
             fps = cpums = cms = gms = count = 0
             with open(file_path, 'r') as filename:
                 file = csv.DictReader(filename)
