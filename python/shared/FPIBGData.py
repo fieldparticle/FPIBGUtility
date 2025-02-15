@@ -8,6 +8,7 @@ class DataClass:
         self.m_drflag = drflag
         self.data_files = []
         self.data_name = data_name
+        self.average_list = []
 
     # Returns true if number of .tst files equal to number of R or D files
     def check_data_files(self) -> bool:
@@ -41,7 +42,8 @@ class DataClass:
             cpums = cpums / count
             cms = cms / count
             gms = gms / count
-            average_list = [i, fps, cpums, cms, gms]
+            avg_list = [i, fps, cpums, cms, gms]
             with open(directory, 'a', newline='') as file:
                 writer = csv.writer(file)
-                writer.writerow(average_list)
+                writer.writerow(avg_list)
+            self.average_list.append(avg_list)
