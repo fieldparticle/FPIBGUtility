@@ -24,7 +24,7 @@ This project provides a client server Frontend to the FPIBG particle simulation 
 
 The documentation can be found here:
 
-https://github.com/fieldparticle/FPIBGUtility/doc/index.htmlFront-end
+https://fieldparticle.github.io/FPIBGUtility/
 
 # Installation
 
