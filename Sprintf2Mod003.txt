@@ -32,7 +32,7 @@ class MyClass
 # object is "MyObject"
 
 # All classes also have the following functions. You can pass on open and close if they do nothing yet.
-def Create(self, gobj):
+def Create(self, gobj,...):
     self.gobj = gobj;
     pass
 def Open():
@@ -53,7 +53,7 @@ myObj.Close()
 
 # In each of your classes Create() function, write to the log as shown below.
 import inspect
-def Create(self,gobj):
+def Create(self,gobj,...):
     self.log = gobj
     self.log.log(   inspect.currentframe().f_lineno,         # This is the line number 
                         __file__,                               # This is the file name

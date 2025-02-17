@@ -1,4 +1,4 @@
 yy_mm_dd:hr:min:Application Name:ClassName:Function Name:ObjName:Line Number:ErrCode:ErrString
-2025_2_12:16:18:GlobalLoggingObject:x:\FPIBGMain\FPIBGUtility\python\shared\FPIBGLog.py:Open:35:LogObject:0:Opened Logfile success
-2025_2_12:16:18:GlobalLoggingObject:x:\FPIBGMain\FPIBGUtility\python\shared\FPIBGConfig.py:Create:12:ConfigObject:0:Test 1 Success
-2025_2_12:16:18:GlobalLoggingObject:x:\FPIBGMain\FPIBGUtility\python\shared\FPIBGConfig.py:testObject:43:ConfigObject:0:Test 1 Success
+2025_2_17:16:39:GlobalLoggingObject:X:\FPIBGMain\FPIBGUtility\python\shared\FPIBGLog.py:Open:35:LogObject:0:Opened Logfile success
+2025_2_17:16:39:GlobalLoggingObject:X:\FPIBGMain\FPIBGUtility\python\shared\FPIBGConfig.py:Create:14:GlobalConfigObject:0:Test 1 Success
+2025_2_17:16:39:GlobalLoggingObject:X:\FPIBGMain\FPIBGUtility\python\shared\FPIBGMainWin.py:Create:34:FPIBGMainWin:0:Test 1 Main Window Success

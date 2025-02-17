@@ -10,15 +10,15 @@ class FPIBGLog:
         print(type(self))
 
    
-    def Create(self):
-       
+    def Create(self,LogName):
+        self.logName = LogName
         print("Created Log File for ",self.appName)
 
     def fileObj(self) : pass
 
     def Open(self):
         
-        self.fileObj = open("FPIBG.log","w+")
+        self.fileObj = open(self.logName,"w+")
         logstring = "{}_{}_{}:{}:{}:{}:{}:{}:{}:{}:{}:{}\n".format("yy",
                                                                    "mm",
                                                                    "dd",

@@ -5,11 +5,11 @@ from TabClass import *
 import inspect
 
 class FPIBGMainWin(QWidget):
-    def __init__(self, *args, **kwargs):
+    def __init__(self, ObjName, *args, **kwargs):
         super().__init__(*args, **kwargs)
-
-        self.setWindowTitle('PyQt QTabWidget')
-
+        self.ObjName = ObjName
+        self.setWindowTitle('FPIBG Main Window')
+        self.setGeometry(100, 100, 1024, 768)
         main_layout = QGridLayout(self)
         self.setLayout(main_layout)
 
@@ -34,7 +34,8 @@ class FPIBGMainWin(QWidget):
         self.bs.log.log(   inspect.currentframe().f_lineno,
                             __file__,
                             inspect.currentframe().f_code.co_name,
+                            self.ObjName,
                             0,
-                            "Created FPIBGMainWindow")
+                            "Test 1 Main Window Success")
 
    

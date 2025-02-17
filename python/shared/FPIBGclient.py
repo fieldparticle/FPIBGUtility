@@ -2,7 +2,7 @@ import socket
 import os
 
 class TCPIP:
-    def __init__(self, server_ip="127.0.0.1", server_port=5000, buffer_size=4096):
+    def __init__(self, server_ip="10.228.0.211", server_port=5001, buffer_size=4096):
         """Initialize the client configuration."""
         self.server_ip = server_ip
         self.server_port = server_port
