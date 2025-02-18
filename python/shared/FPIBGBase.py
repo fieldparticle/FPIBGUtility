@@ -23,7 +23,7 @@ class FPIBGBase:
         print(f"Created " + ObjName)
         self.ObjName = ObjName
     
-    def Create(self):
+    def Create(self,CfgFileName,LogName):
         """
         Creates the base object and memeber objects log and config
 
@@ -32,10 +32,10 @@ class FPIBGBase:
        
         """
         self.log = FPIBGLog("GlobalLoggingObject")   
-        self.log.Create()
+        self.log.Create(LogName)
         self.log.Open()
         self.cfg = FPIBGConfig("GlobalConfigObject")
-        self.cfg.Create(self.log)
+        self.cfg.Create(self.log,CfgFileName)
        
 
 # @abstrctmethod
@@ -48,6 +48,7 @@ class FPIBGBase:
                             self.ObjName,
                             0,
                             "Test 1 Success")
+            self.cfg.testObject(modNumber,dbglvl)
             return 0
         elif modNumber == 2 and dbglvl == 5:
             print(f"Running Mod" , modNumber , " Test")

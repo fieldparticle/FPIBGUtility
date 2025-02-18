@@ -12,20 +12,19 @@ class TabObj(QTabWidget):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
     
+        self.tabFormGenConfig = TabGenConfig()
+        self.tabFormGenVPerf = TabGenVPerf()
+        self.tabFormReports = TabReports()
+        self.tabFormRunRpt = TabRunRpt()
+        self.tabFormRunSim = TabRunSim()
+        self.tabFormSetup = TabSetup()
+
     def SetForm(self):
         # personal page
-        personal_page = QWidget(self)
-        layout = QFormLayout()
-        personal_page.setLayout(layout)
-        layout.addRow('First Name:', QLineEdit(self))
-        layout.addRow('Last Name:', QLineEdit(self))
-        layout.addRow('DOB:', QDateEdit(self))
-        self.addTab(personal_page, 'Personal Info')
-
-        # contact pane
-        contact_page = QWidget(self)
-        layout = QFormLayout()
-        contact_page.setLayout(layout)
-        layout.addRow('Phone Number:', QLineEdit(self))
-        layout.addRow('Email Address:', QLineEdit(self))
-        self.addTab(contact_page, 'Personal Info')
+       
+        self.addTab(self.tabFormGenConfig, 'General Configuration')
+        self.addTab(self.tabFormGenVPerf, 'Verification and Performance Testing')
+        self.addTab(self.tabFormReports, 'Reports')
+        self.addTab(self.tabFormRunRpt, 'Run')
+        self.addTab(self.tabFormRunSim, 'Run Simulation Movie')
+        self.addTab(self.tabFormSetup, 'Decode Reports')
