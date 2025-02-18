@@ -1,6 +1,6 @@
 import sys
 syspth = sys.path
-sys.path.append("x:\\FPIBGMain\\FPIBGUtility\\python\\shared")
+sys.path.append("x:\\SPRINT002MOD003\\FPIBGUtility\\python\\shared")
 '''Demonstrates triple double quotes
     docstrings and does nothing really.'''
 syspth1 = sys.path

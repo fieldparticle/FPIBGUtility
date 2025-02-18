@@ -17,6 +17,7 @@ class MyClass:
     def Create(self,BaseObj):
         ## bobj contains the global object.
         self.bobj = BaseObj
+        self.cfg = self.bobj.cfg.config
         
     ##  Performs opening of file and communcations and takes no input. Any data this function needs 
     #    is assigned to class members in the Create function
@@ -58,4 +59,6 @@ class MyClass:
                             0,
                             "Test 1 Success")
             self.bobj.cfg.testObject(modNumber,dbglvl)
+            print(self.cfg.application.window.title)
+            
             return 0
