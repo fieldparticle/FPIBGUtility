@@ -4,11 +4,27 @@ import csv
 
 class DataClass:
 
-    def __init__(self, drflag, data_name):
+    def __init__(self, drflag, data_name, ObjName):
         self.m_drflag = drflag
         self.data_files = []
         self.data_name = data_name
         self.average_list = []
+        self.ObjName = ObjName
+
+    def Create(self, BaseObj):
+        self.bobj = BaseObj
+
+    def Open(self):
+        pass
+
+    def Close(self):
+        pass
+
+    def Read(self):
+        pass
+
+    def Write(self):
+        pass
 
     # Returns true if number of .tst files equal to number of R or D files
     def check_data_files(self) -> bool:
