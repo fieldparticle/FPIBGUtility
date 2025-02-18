@@ -5,7 +5,7 @@ import sys
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../shared')))
 
-from dataclass import (DataClass)
+from FPIBGData import (DataClass)
 
 def test_check_data_files():
     testdata = DataClass(True, "PQB")
@@ -13,7 +13,7 @@ def test_check_data_files():
 
 def test_create_summary():
     testdata = DataClass(True, "PQB")
-    csv_name = "../../../..FPIBGData/perfPQB.csv"
+    csv_name = "C:/FPIBGData/FPIBGData/perfPQB.csv"
     testdata.create_summary()
     if os.path.exists(csv_name):
         assert True
@@ -22,7 +22,7 @@ def test_create_summary():
     
 def test_get_averages():
     testdata = DataClass(True, "PQB")
-    csv_name = "../../../../FPIBGData/perfPQB.csv"
+    csv_name = "C:/FPIBGData/FPIBGData/perfPQB.csv"
     testdata.check_data_files()
     testdata.create_summary()
     testdata.get_averages()
