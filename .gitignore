@@ -173,3 +173,7 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+
+# Ignore user-specific configuration and logs
+ELConfig.cfg
+ELLogging.log
