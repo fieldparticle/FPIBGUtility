@@ -6,7 +6,7 @@ class TabReports(QTabWidget):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
     
-    def SetForm(self):
+    def Create(self):
         # personal page
         personal_page = QWidget(self)
         layout = QFormLayout()

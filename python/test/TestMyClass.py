@@ -1,11 +1,15 @@
-import sys
-syspth = sys.path
-sys.path.append("x:\\SPRINT002MOD003\\FPIBGUtility\\python\\shared")
-'''Demonstrates triple double quotes
-    docstrings and does nothing really.'''
-syspth1 = sys.path
-import os
-cwd = os.getcwd()
+
+###############################################################
+## Preamble to every script. Will append the shared directory #
+import sys                                                    #  
+import os                                                     #
+syspth = sys.path                                             #
+cwd = os.getcwd()                                             #
+shrddir = cwd + "\\python\\shared"                            #
+sys.path.append(shrddir)                                      #
+# Now do imports                                              #
+###############################################################
+
 from FPIBGBase import *
 from MyClass import *
 bc = FPIBGBase("GlobalBaseClass")

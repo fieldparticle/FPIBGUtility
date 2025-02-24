@@ -1,0 +1,4 @@
+yy_mm_dd:hr:min:Application Name:ClassName:Function Name:ObjName:Line Number:ErrCode:ErrString
+2025_2_24:8:3:GlobalLoggingObject:X:\SPRINT002MOD003\FPIBGUtility\python\shared\FPIBGLog.py:Open:43:LogObject:0:Opened Logfile success
+2025_2_24:8:3:GlobalLoggingObject:X:\SPRINT002MOD003\FPIBGUtility\python\shared\FPIBGConfig.py:Create:14:GlobalConfigObject:0:Test 1 Success
+2025_2_24:8:3:GlobalLoggingObject:X:\SPRINT002MOD003\FPIBGUtility\python\shared\FPIBGMainWin.py:Create:35:FPIBGMainWin:0:Test 1 Main Window Success
