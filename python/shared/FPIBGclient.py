@@ -2,7 +2,7 @@ import socket
 import os
 
 class TCPIP:
-    def __init__(self, server_ip="127.0.0.1", server_port=50004, buffer_size=4096):
+    def __init__(self, server_ip="10.228.15.208", server_port=50004, buffer_size=4096):
         """Initialize the client configuration."""
         self.server_ip = server_ip
         self.server_port = server_port
@@ -48,11 +48,12 @@ class TCPIP:
             msg = ""
             msg = input("Enter Command:")
             self.command = msg
+            if msg != "quit":
+                self.readData()
             self.command = self.command.encode('utf-8')
             totalsent = 0
             sent = self.client_socket.sendall(self.command)
-            if msg != "quit":
-                self.readData()
+            
 
        # with open(self.config_file_path, "rb") as f:
        #     while True:

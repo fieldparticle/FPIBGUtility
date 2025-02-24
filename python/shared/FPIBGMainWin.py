@@ -3,7 +3,7 @@ from PyQt6.QtWidgets import QApplication, QWidget,  QFormLayout, QGridLayout, QT
 from PyQt6.QtCore import Qt
 from TabClass import *
 import inspect
-
+## The main window object that contains the tabs for the utility
 class FPIBGMainWin(QWidget):
     def __init__(self, ObjName, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -13,7 +13,8 @@ class FPIBGMainWin(QWidget):
         main_layout = QGridLayout(self)
         self.setLayout(main_layout)
 
-        # create a tab widget
+
+        ## Create a tab widget
         tabSetup        = TabObj(self)
         
         # add pane to the tab widget

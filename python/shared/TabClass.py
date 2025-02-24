@@ -19,6 +19,7 @@ class TabObj(QTabWidget):
         self.tabFormRunSim = TabRunSim()
         self.tabFormSetup = TabSetup()
 
+
     def SetForm(self):
         # personal page
        
@@ -27,4 +28,4 @@ class TabObj(QTabWidget):
         self.addTab(self.tabFormReports, 'Reports')
         self.addTab(self.tabFormRunRpt, 'Run')
         self.addTab(self.tabFormRunSim, 'Run Simulation Movie')
-        self.addTab(self.tabFormSetup, 'Decode Reports')
+        self.addTab(self.tabFormSetup, 'Setup')

@@ -9,10 +9,8 @@ import os
 cwd = os.getcwd()
 from FPIBGBase import FPIBGBase
 bc = FPIBGBase("GlobalBaseClass")
-#help(FPIBGBase)
-#print("Using __doc__:")
-#print(FPIBGBase.Create.__doc__)
 bc.Create("Particle.cfg","MyLog.log")
+
 # Logging and configuration files are open from this point on.
 bc.testObject(1,5)
 bc.testObject(2,5)
