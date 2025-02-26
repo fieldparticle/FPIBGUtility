@@ -42,28 +42,19 @@ class TCPIP:
         filename = os.path.basename(self.config_file_path)
         #self.client_socket.sendall(filename.encode())
         #self.client_socket.send("Hello")
-        self.command = ""
-        msg = ""
-        while msg != "quit":
+    def CommandLoop(self)    
+            self.command = ""
             msg = ""
-            msg = input("Enter Command:")
-            self.command = msg
-            if msg != "quit":
-                self.readData()
-            self.command = self.command.encode('utf-8')
-            totalsent = 0
-            sent = self.client_socket.sendall(self.command)
-            
+            while msg != "quit":
+                msg = ""
+                msg = input("Enter Command:")
+                self.command = msg
+                if msg != "quit":
+                    self.readData()
+                self.command = self.command.encode('utf-8')
+                totalsent = 0
+                sent = self.client_socket.sendall(self.command)
 
-       # with open(self.config_file_path, "rb") as f:
-       #     while True:
-       #        data = f.read(self.buffer_size)
-       #         if not data:
-       #             break
-       #         self.client_socket.sendall(data)
-
-        print(f"Sent file: {filename}")
-
-        #wait for response from server
-        self.readData()
-        self.closeConnection()
+            #wait for response from server
+            self.readData()
+            self.closeConnection()
