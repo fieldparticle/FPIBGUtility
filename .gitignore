@@ -177,3 +177,24 @@ cython_debug/
 # Ignore user-specific configuration and logs
 ELConfig.cfg
 ELLogging.log
+
+# Add these to your existing .gitignore:
+
+# macOS system files
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
