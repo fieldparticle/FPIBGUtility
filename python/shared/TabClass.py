@@ -25,6 +25,7 @@ class TabObj(QTabWidget):
         self.tabFormRunRpt = TabRunRpt()
         self.tabFormRunSim = TabRunSim()
         self.tabFormSetup = TabSetup()
+        
 
         ## Add the tabs to tabs to this tab container.
         self.addTab(self.tabFormWelcome, 'Welcome')
@@ -34,6 +35,9 @@ class TabObj(QTabWidget):
         self.addTab(self.tabFormRunRpt, 'Run')
         self.addTab(self.tabFormRunSim, 'Run Simulation Movie')
         self.addTab(self.tabFormSetup, 'Setup')
+        
+
         ## Call set form to 
         self.tabFormWelcome.Create()
         self.tabFormSetup.Create()
+        self.tabFormGenConfig.Create()

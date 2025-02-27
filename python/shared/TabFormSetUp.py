@@ -10,7 +10,7 @@ class TabSetup(QTabWidget):
     def Create(self):
 
         ## Create a container for all objects
-        self.setupcontainer = QWidget(self);
+        self.setupcontainer = QWidget(self)
         ## Set up a layout object
         self.CommPanel = QGridLayout()
         ## Add the layout to the container
