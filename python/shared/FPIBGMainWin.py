@@ -1,34 +1,37 @@
 import sys
 from PyQt6.QtWidgets import QApplication, QWidget,  QFormLayout, QGridLayout, QTabWidget, QLineEdit, QDateEdit, QPushButton
 from PyQt6.QtCore import Qt
+from PyQt6.QtGui import QIcon
 from TabClass import *
 import inspect
-
+## The main window object that contains the tabs for the utility
 class FPIBGMainWin(QWidget):
     def __init__(self, ObjName, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.ObjName = ObjName
-        self.setWindowTitle('FPIBG Main Window')
+        self.setWindowTitle('FPIBG Utility Main Window')
         self.setGeometry(100, 100, 1024, 768)
-        main_layout = QGridLayout(self)
-        self.setLayout(main_layout)
-
-        # create a tab widget
-        tabSetup        = TabObj(self)
+        self.setWindowIcon(QIcon("Logo.png"))
         
-        # add pane to the tab widget
-        tabSetup.SetForm()
-        #tab.addTab(contact_page, 'Contact Info')
+        main_layout = QGridLayout(self)
+        
+
+        ## Create a tab widget
+        tabSetup = TabObj(self)
+        tabSetup.Create()
 
         main_layout.addWidget(tabSetup, 0, 0, 2, 1)
         main_layout.addWidget(tabSetup, 0, 0, 2, 1)
-        main_layout.addWidget(QPushButton('Save'), 2, 0,
-                              alignment=Qt.AlignmentFlag.AlignLeft)
-        main_layout.addWidget(QPushButton('Cancel'), 2, 0,
+        self.quitBtn = QPushButton('Quit')
+        main_layout.addWidget(self.quitBtn, 2, 0,
                               alignment=Qt.AlignmentFlag.AlignRight)
-
+        self.quitBtn.clicked.connect(self.on_clicked)
+        self.setLayout(main_layout)
         self.show()
-
+    
+    def on_clicked(self) :
+        exit()
+        
     def Create(self,FPIBGBase):
         self.bs = FPIBGBase
         self.bs.log.log(   inspect.currentframe().f_lineno,

@@ -1,5 +1,5 @@
 import sys
-from PyQt6.QtWidgets import QApplication, QWidget,  QFormLayout, QGridLayout, QTabWidget, QLineEdit, QDateEdit, QPushButton
+from PyQt6.QtWidgets import QApplication, QWidget,  QFormLayout, QGridLayout, QTabWidget, QLineEdit, QDateEdit, QPushButton,QLabel
 from PyQt6.QtCore import Qt
 
 class TabSetup(QTabWidget):
@@ -7,12 +7,17 @@ class TabSetup(QTabWidget):
         super().__init__(*args, **kwargs)
     
     
-    def SetForm(self):
-        # personal page
-        personal_page = QWidget(self)
-        layout = QFormLayout()
-        personal_page.setLayout(layout)
-        layout.addRow('First Name:', QLineEdit(self))
-        layout.addRow('Last Name:', QLineEdit(self))
-        layout.addRow('DOB:', QDateEdit(self))
-        self.addTab(personal_page, 'Personal Info')
+    def Create(self):
+
+        ## Create a container for all objects
+        self.setupcontainer = QWidget(self)
+        ## Set up a layout object
+        self.CommPanel = QGridLayout()
+        ## Add the layout to the container
+        self.setupcontainer.setLayout(self.CommPanel)
+        ## Add items to the layout
+        self.CommPanel.addWidget(QLabel('Username:'), 0, 0)
+        self.CommPanel.addWidget(QLineEdit(), 0, 1)
+
+        #self.show()
+      

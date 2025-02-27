@@ -1,4 +1,3 @@
-
 ###############################################################
 ## Preamble to every script. Will append the shared directory #
 import sys                                                    #  
@@ -9,11 +8,19 @@ shrddir = cwd + "\\python\\shared"                            #
 sys.path.append(shrddir)                                      #
 # Now do imports                                              #
 ###############################################################
-from FPIBGBase import FPIBGBase
-bc = FPIBGBase("GlobalBaseClass")
-bc.Create("ParticleJB.cfg","FPIBGLogJB.log")
 
-# Logging and configuration files are open from this point on.
-bc.testObject(1,5)
-bc.testObject(2,5)
+from FPIBGBase import *
+from FPIBGData import *
+bc = FPIBGBase("GlobalBaseClass")
+bc.Create("ParticleKM.cfg",'KMLog.log')
+myClass = DataClass(True, "ExampleObject")
+myClass.Create(bc,"PQB")
+myClass.Open()
+if (myClass.check_data_files() != True):
+    print("Did not work") 
+myClass.create_summary()
+myClass.get_averages()
+print(myClass.average_list)
+    
 bc.Close()
+myClass.Close() 
