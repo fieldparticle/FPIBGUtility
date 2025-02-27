@@ -14,4 +14,3 @@ class TabGenConfig(QTabWidget):
         layout.addRow('First Name:', QLineEdit(self))
         layout.addRow('Last Name:', QLineEdit(self))
         layout.addRow('DOB:', QDateEdit(self))
-        self.addTab(personal_page, 'Personal Info')
