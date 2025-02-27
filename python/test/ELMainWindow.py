@@ -1,5 +1,15 @@
-import sys
-import os
+
+###############################################################
+## Preamble to every script. Will append the shared directory #
+import sys                                                    #  
+import os                                                     #
+syspth = sys.path                                             #
+cwd = os.getcwd()                                             #
+shrddir = cwd + "\\python\\shared"                            #
+sys.path.append(shrddir)                                      #
+# Now do imports                                              #
+###############################################################
+
 import datetime
 import configparser
 import socket
@@ -8,11 +18,11 @@ from PyQt6.QtWidgets import (
     QApplication, QWidget, QGridLayout, QTabWidget, 
     QVBoxLayout, QHBoxLayout, QLineEdit, QTextEdit, 
     QPushButton, QLabel, QFrame
-)
+);
 from PyQt6.QtCore import Qt, pyqtSignal
 
 # add shared directory to python path for imports
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "shared")))
+#sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "shared")))
 from FPIBGclient import TCPIP
 
 # ensure python can find `tabclass.py`
@@ -237,7 +247,7 @@ class FPIBGMainWin(QWidget):
         
         # add general setup tab
         tabSetup = TabObj(self)
-        tabSetup.SetForm()
+        tabSetup.Create()
         tabs.addTab(tabSetup, "General")
 
         # add tcpip setup tab

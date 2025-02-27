@@ -1,12 +1,21 @@
-import sys
-import os
-syspth = sys.path
-os.chdir("..\\")
-sys.path.append("X:\\SPRINT002MOD003\\FPIBGUtility\\python\\shared")
-'''Demonstrates triple double quotes
-    docstrings and does nothing really.'''
+###############################################################
+## Preamble to every script. Will append the shared directory #
+import sys                                                    #  
+import os                                                     #
+syspth = sys.path                                             #
+cwd = os.getcwd()                                             #
+shrddir = cwd + "\\python\\shared"                            #
+sys.path.append(shrddir)                                      #
+# Now do imports                                              #
+###############################################################
+
+from FPIBGBase import *
 from FPIBGclient import TCPIP
-client = TCPIP()
-client.openConnection()
-client.writeData("Particle.cfg")
+
+bc = FPIBGBase("GlobalBaseClass")
+bc.Create("ParticleJB.cfg",'MyLog.log')
+tcpc = TCPIP("ExampleObject")
+tcpc.Create(bc)
+tcpc.Open()
+tcpc.CommandLoop()
 
