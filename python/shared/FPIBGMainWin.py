@@ -12,16 +12,13 @@ class FPIBGMainWin(QWidget):
         self.setWindowTitle('FPIBG Utility Main Window')
         self.setGeometry(100, 100, 1024, 768)
         self.setWindowIcon(QIcon("Logo.png"))
-
+        
         main_layout = QGridLayout(self)
-        self.setLayout(main_layout)
+        
 
         ## Create a tab widget
-        tabSetup        = TabObj(self)
-        
-        # add pane to the tab widget
+        tabSetup = TabObj(self)
         tabSetup.Create()
-        #tab.addTab(contact_page, 'Contact Info')
 
         main_layout.addWidget(tabSetup, 0, 0, 2, 1)
         main_layout.addWidget(tabSetup, 0, 0, 2, 1)
@@ -29,7 +26,7 @@ class FPIBGMainWin(QWidget):
         main_layout.addWidget(self.quitBtn, 2, 0,
                               alignment=Qt.AlignmentFlag.AlignRight)
         self.quitBtn.clicked.connect(self.on_clicked)
-
+        self.setLayout(main_layout)
         self.show()
     
     def on_clicked(self) :
