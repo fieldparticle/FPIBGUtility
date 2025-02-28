@@ -5,10 +5,13 @@ import datetime
 
 
 class TabGenConfig(QTabWidget):
+    """ Object for the General Configuration Tab. This contains a form which allows the user to enter the specifications they would like to use for the simulation. """
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
     
     def Create(self):
+        """ Constructor for the TabGenConfig object, which sets up the form on the tab. """
         ## Set up a layout object
         layout = QFormLayout()
 
