@@ -11,7 +11,6 @@ sys.path.append(shrddir)                                      #
 
 from FPIBGBase import *
 from FPIBGclient import TCPIP
-
 bc = FPIBGBase("GlobalBaseClass")
 bc.Create("ParticleJB.cfg",'MyLog.log')
 tcpc = TCPIP("ExampleObject")
