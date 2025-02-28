@@ -33,18 +33,30 @@ class TCPIP:
 
     def Read(self):
         """Receive confirmation message from the server."""
-        response = self.client_socket.recv(1024)
-        print(f"Server Response: {response.decode()}")
+        self.response = self.client_socket.recv(self.buffer_size)
+        print(f"Server Response: {self.response.decode()}")
 
     def Write(self, ColumnName):
         """Send the configuration file to the server."""
         if not os.path.exists(self.config_file_path):
             print(f"Error: File {self.config_file_path} not found!")
             return
+        
+    def RecieveFile(self):
+        # Send the send command to the server
+        self.command = self.command.encode('utf-8')
+        sent = self.client_socket.sendall(self.command)
+        #Read the number of blocks
+        self.Read()
+        #print("Number of blocks:{self.response.decode()}) 
+        int_array = [byte for byte in self.response]
+        print(int_array)
+        f= open("file1.txt", "w")
+        for i in range(int_array[0]):
+            self.response = self.client_socket.recv(self.buffer_size)
+            f.writelines(self.response.decode())
 
-        filename = os.path.basename(self.config_file_path)
-        #self.client_socket.sendall(filename.encode())
-        #self.client_socket.send("Hello")
+            
     def CommandLoop(self):    
             self.command = ""
             msg = ""
@@ -52,18 +64,18 @@ class TCPIP:
                 msg = ""
                 msg = input("Enter Command:")
                 self.command = msg
-                if msg != "quit":
-                    self.Read()
-                else:
-                    self.command = self.command.encode('utf-8')
-                    totalsent = 0
-                    sent = self.client_socket.sendall(self.command)    
-                    self.Close()
-                    return     
-                self.command = self.command.encode('utf-8')
-                totalsent = 0
-                sent = self.client_socket.sendall(self.command)
-
-            #wait for response from server
-            self.readData()
+                match msg:
+                    case "quit":
+                        self.command = self.command.encode('utf-8')
+                        totalsent = 0
+                        sent = self.client_socket.sendall(self.command)    
+                        self.Close()
+                        return
+                    case "send":     
+                        self.RecieveFile()
+                    case "test": 
+                        self.command = self.command.encode('utf-8')
+                        sent = self.client_socket.sendall(self.command)
+                        self.Read()
+                              
             self.closeConnection()
