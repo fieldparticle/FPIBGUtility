@@ -33,6 +33,7 @@ class TabGenConfig(QTabWidget):
         self.setLayout(layout)
     
     def browseFolder(self):
+        """ Opens a dialog window for the user to select a folder in the file system. """
         folder = QFileDialog.getExistingDirectory(self, "Select Folder")
         if folder:
             self.folderLineEdit.setText(folder)
