@@ -1,6 +1,6 @@
 import socket
 import os
-
+import time
 class TCPIP:
     def __init__(self, ObjectName):
         self.objname = ObjectName
@@ -15,6 +15,8 @@ class TCPIP:
         self.server_ip = self.cfg.server_ip
         self.server_port = self.cfg.server_port
         self.buffer_size = self.cfg.server_buf_size
+        self.saveimgdir = self.cfg.save_img_dir
+        self.savecvsdir = self.cfg.save_csv_dir
         self.client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
     def Open(self):
@@ -42,21 +44,54 @@ class TCPIP:
             print(f"Error: File {self.config_file_path} not found!")
             return
         
-    def RecieveFile(self):
+    def RecieveCSVFile(self):
         # Send the send command to the server
         self.command = self.command.encode('utf-8')
         sent = self.client_socket.sendall(self.command)
         #Read the number of blocks
         self.Read()
-        #print("Number of blocks:{self.response.decode()}) 
         int_array = [byte for byte in self.response]
         print(int_array)
-        f= open("file1.txt", "w")
+        outdir = self.savecvsdir + "/perfdataPQB/0000CollisionDataSetTESTXTEST.csv"
+        f = open(outdir, "w")
         for i in range(int_array[0]):
             self.response = self.client_socket.recv(self.buffer_size)
             f.writelines(self.response.decode())
 
-            
+    def RecieveImgFile(self):
+        # Send the send command to the server
+        self.command = self.command.encode('utf-8')
+        sent = self.client_socket.sendall(self.command)
+        #Read the number of blocks
+        self.Read()
+        int_array = [byte for byte in self.response]
+        outdir = self.saveimgdir + "/file001.png"
+        f = open(outdir, "wb")
+        for i in range(int_array[0]):
+            self.response = self.client_socket.recv(self.buffer_size)
+            f.write(self.response)
+
+    def RunLoop(self):
+        self.command = "runseries"
+        self.command = self.command.encode('utf-8')
+        sent = self.client_socket.sendall(self.command)    
+        time.sleep(1.0)
+        ret = 0
+        while ret == 0:
+            self.response = self.client_socket.recv(self.buffer_size)
+            print(f"Server Response: {self.response.decode()}")
+            msg = self.response.decode();
+            msg = msg.split(",")
+            match msg[0]:
+                case "quit":
+                    ret = 1;
+                case "perfline":
+                    self.response = self.client_socket.recv(self.buffer_size)
+                    print(f"Server Response: {self.response.decode()}")
+                case "endline":
+                    ret = 1
+            time.sleep(1.0)
+
     def CommandLoop(self):    
             self.command = ""
             msg = ""
@@ -71,11 +106,15 @@ class TCPIP:
                         sent = self.client_socket.sendall(self.command)    
                         self.Close()
                         return
-                    case "send":     
-                        self.RecieveFile()
+                    case "sendcsv":     
+                        self.RecieveCSVFile()
+                    case "sendimg":     
+                        self.RecieveImgFile()
                     case "test": 
                         self.command = self.command.encode('utf-8')
                         sent = self.client_socket.sendall(self.command)
                         self.Read()
+                    case "runseries":
+                        self.RunLoop()
                               
             self.closeConnection()
