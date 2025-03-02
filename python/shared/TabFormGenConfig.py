@@ -1,5 +1,5 @@
 import sys
-from PyQt6.QtWidgets import QApplication, QWidget,  QFormLayout, QGridLayout, QTabWidget, QLineEdit, QDateEdit, QPushButton, QLabel, QHBoxLayout, QFileDialog
+from PyQt6.QtWidgets import QApplication, QWidget,  QFormLayout, QGridLayout, QTabWidget, QLineEdit, QDateEdit, QPushButton, QLabel, QHBoxLayout, QFileDialog, QVBoxLayout, QGroupBox, QCheckBox
 from PyQt6.QtCore import Qt
 import datetime
 
@@ -12,10 +12,38 @@ class TabGenConfig(QTabWidget):
     
     def Create(self):
         """ Constructor for the TabGenConfig object, which sets up the form on the tab. """
-        ## Set up a layout object
-        layout = QFormLayout()
+        # ## Set up a layout object
+        # layout = QFormLayout()
 
-        # Create the line edit for the folder path, with a button to browse
+        # ## FOLDER SELECTION ##
+        # self.folderLineEdit = QLineEdit()
+        # self.browseButton = QPushButton("Browse")
+        # self.browseButton.clicked.connect(self.browseFolder)
+        # # Add the folder line edit and the browse button to an HBox 
+        # hbox = QHBoxLayout()
+        # hbox.addWidget(self.folderLineEdit)
+        # hbox.addWidget(self.browseButton)
+        # # Add that HBox to the layout
+        # layout.addRow("Folder:", hbox)
+
+
+
+        # ## SUBMIT BUTTON ##
+        # self.submitButton = QPushButton("Submit")
+        # self.submitButton.clicked.connect(self.sendFormData)
+        # # Add that button to the layout
+        # layout.addWidget(self.submitButton)
+
+        
+        # self.setLayout(layout)
+
+
+        main_layout = QVBoxLayout()
+
+        ### SECTION 1: FOLDER SELECTION ###
+        folder_group = QGroupBox("Folder Selection")
+        folder_layout = QFormLayout()
+        # Create folder selection row
         self.folderLineEdit = QLineEdit()
         self.browseButton = QPushButton("Browse")
         self.browseButton.clicked.connect(self.browseFolder)
@@ -24,16 +52,40 @@ class TabGenConfig(QTabWidget):
         hbox.addWidget(self.folderLineEdit)
         hbox.addWidget(self.browseButton)
         # Add that HBox to the layout
-        layout.addRow("Folder:", hbox)
+        folder_layout.addRow("Folder:", hbox)
+        folder_group.setLayout(folder_layout)
+        main_layout.addWidget(folder_group)
 
-        # Create a submit button
+        ### SECTION 2: FLOW CONTROL ###
+        flow_group = QGroupBox("Flow Control")
+        flow_layout = QFormLayout()
+        #Do Auto
+        self.doauto_checkbox = QCheckBox()
+        doauto_label = QLabel("Do Auto")
+        flow_layout.addRow(self.doauto_checkbox, doauto_label)
+        #Do Auto Wait
+        self.doautowait_checkbox = QCheckBox()
+        doautowait_label = QLabel("Do Auto Wait")
+        flow_layout.addRow(self.doautowait_checkbox, doautowait_label)
+
+        email_label = QLabel("Email:")
+        email_edit = QLineEdit()
+        flow_layout.addRow(email_label, email_edit)
+
+        phone_label = QLabel("Phone:")
+        phone_edit = QLineEdit()
+        flow_layout.addRow(phone_label, phone_edit)
+
+        flow_group.setLayout(flow_layout)
+        main_layout.addWidget(flow_group)
+
+        ## SUBMIT BUTTON ##
         self.submitButton = QPushButton("Submit")
         self.submitButton.clicked.connect(self.sendFormData)
         # Add that button to the layout
-        layout.addWidget(self.submitButton)
+        main_layout.addWidget(self.submitButton)
 
-        
-        self.setLayout(layout)
+        self.setLayout(main_layout)
     
     def browseFolder(self):
         """ Opens a dialog window for the user to select a folder in the file system. """
@@ -45,7 +97,13 @@ class TabGenConfig(QTabWidget):
     def sendFormData(self):
         """ Sends data from the form to the config file writer """
         # TODO: Once this form is done, call the config file writer
-        self.log_action("sendFormData", self.folderLineEdit.text())
+
+        config_dict = {}
+        config_dict["folder"] = self.folderLineEdit.text()
+        config_dict["do_auto"] = self.doauto_checkbox.isChecked()
+        config_dict["do_auto_wait"] = self.doautowait_checkbox.isChecked()
+
+        self.log_action("sendFormData", config_dict)
         return self.folderLineEdit.text()
 
     def log_action(self, action, result):
