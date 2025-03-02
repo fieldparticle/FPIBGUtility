@@ -36,7 +36,8 @@ class TCPIP:
     def Read(self):
         """Receive confirmation message from the server."""
         self.response = self.client_socket.recv(self.buffer_size)
-        print(f"Server Response: {self.response.decode()}")
+        print("Recieved.  {len(self.response)}  Bytes")
+        
 
     def Write(self, ColumnName):
         """Send the configuration file to the server."""
@@ -45,18 +46,21 @@ class TCPIP:
             return
         
     def RecieveCSVFile(self):
-        # Send the send command to the server
-        self.command = self.command.encode('utf-8')
-        sent = self.client_socket.sendall(self.command)
-        #Read the number of blocks
+        #Read the number of blocks, type of report file, and filename
         self.Read()
-        int_array = [byte for byte in self.response]
-        print(int_array)
-        outdir = self.savecvsdir + "/perfdataPQB/0000CollisionDataSetTESTXTEST.csv"
+        msg = self.response.decode();
+        msg = msg.split(",")
+        match msg[1]:
+            case "1":         
+                outdir = self.savecvsdir + "/perfdataPQB/" + msg[2]
+        blks = int(msg[0])
+        print(outdir)
         f = open(outdir, "w")
-        for i in range(int_array[0]):
+        for i in range(blks):
             self.response = self.client_socket.recv(self.buffer_size)
-            f.writelines(self.response.decode())
+            wline = self.response.decode();
+            modified_lines = [line.rstrip('\r\x00') for line in wline]
+            f.writelines(modified_lines)
 
     def RecieveImgFile(self):
         # Send the send command to the server
@@ -66,6 +70,7 @@ class TCPIP:
         self.Read()
         int_array = [byte for byte in self.response]
         outdir = self.saveimgdir + "/file001.png"
+        print(outdir)
         f = open(outdir, "wb")
         for i in range(int_array[0]):
             self.response = self.client_socket.recv(self.buffer_size)
@@ -79,17 +84,19 @@ class TCPIP:
         ret = 0
         while ret == 0:
             self.response = self.client_socket.recv(self.buffer_size)
+            numbytes = len(self.response)
+            #print(f"Recieved. {numbytes} Bytes")
             print(f"Server Response: {self.response.decode()}")
-            msg = self.response.decode();
+            msg = self.response.decode()
             msg = msg.split(",")
-            match msg[0]:
-                case "quit":
-                    ret = 1;
-                case "perfline":
-                    self.response = self.client_socket.recv(self.buffer_size)
-                    print(f"Server Response: {self.response.decode()}")
-                case "endline":
-                    ret = 1
+            if(len(msg) > 1):
+                match msg[4]:
+                    case "endline":
+                            print(f"Endline: {self.response.decode()}")    
+                            self.RecieveCSVFile()
+            if(msg[0] == "perfdone"):
+                ret = 1
+                      
             time.sleep(1.0)
 
     def CommandLoop(self):    
@@ -106,7 +113,9 @@ class TCPIP:
                         sent = self.client_socket.sendall(self.command)    
                         self.Close()
                         return
-                    case "sendcsv":     
+                    case "sendcsv":
+                        self.command = self.command.encode('utf-8')
+                        sent = self.client_socket.sendall(self.command)     
                         self.RecieveCSVFile()
                     case "sendimg":     
                         self.RecieveImgFile()
