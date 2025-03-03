@@ -1,0 +1,135 @@
+\doxysection{libconf.\+Token\+Stream Class Reference}
+\hypertarget{classlibconf_1_1_token_stream}{}\label{classlibconf_1_1_token_stream}\index{libconf.TokenStream@{libconf.TokenStream}}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classlibconf_1_1_token_stream_ab309c48f4a48ed6087faf14d3a2c96ea}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, \mbox{\hyperlink{classlibconf_1_1_token_stream_aa8f0f089ab854b36cfce8e2b86c6bf2b}{tokens}})
+\item 
+\mbox{\hyperlink{classlibconf_1_1_token_stream_af2a5c8a9f948b7a2544b45a421244721}{from\+\_\+file}} (cls, f, filename=None, includedir=\textquotesingle{}\textquotesingle{}, seenfiles=None)
+\item 
+\mbox{\hyperlink{classlibconf_1_1_token_stream_a72d36c9ec30f516b36db429d1602efe1}{peek}} (self)
+\item 
+\mbox{\hyperlink{classlibconf_1_1_token_stream_a4496f3572a9c5a441253ec0b65dca35a}{accept}} (self, \texorpdfstring{$\ast$}{*}args)
+\item 
+\mbox{\hyperlink{classlibconf_1_1_token_stream_a77703c5381eb801b459fac631ed71608}{expect}} (self, \texorpdfstring{$\ast$}{*}args)
+\item 
+\mbox{\hyperlink{classlibconf_1_1_token_stream_ac226c6be9fccf50d4a36d569cbb0f2be}{error}} (self, msg)
+\item 
+\mbox{\hyperlink{classlibconf_1_1_token_stream_a7132b7165abe3315e38c4f64e6794f5c}{finished}} (self)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{classlibconf_1_1_token_stream_a09e203648434625fbcc1f94cce9a3f83}{position}} = 0
+\item 
+\mbox{\hyperlink{classlibconf_1_1_token_stream_aa8f0f089ab854b36cfce8e2b86c6bf2b}{tokens}} = list(tokens)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Offer a parsing-oriented view on tokens
+
+Provide several methods that are useful to parsers, like ``accept()``,
+``expect()``, ...
+
+The ``from_file()`` method is the preferred way to read input files, as
+it handles include directives, which the ``Tokenizer`` class does not do.
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classlibconf_1_1_token_stream_ab309c48f4a48ed6087faf14d3a2c96ea}\index{libconf.TokenStream@{libconf.TokenStream}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!libconf.TokenStream@{libconf.TokenStream}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily \label{classlibconf_1_1_token_stream_ab309c48f4a48ed6087faf14d3a2c96ea} 
+libconf.\+Token\+Stream.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{tokens}{}\end{DoxyParamCaption})}
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classlibconf_1_1_token_stream_a4496f3572a9c5a441253ec0b65dca35a}\index{libconf.TokenStream@{libconf.TokenStream}!accept@{accept}}
+\index{accept@{accept}!libconf.TokenStream@{libconf.TokenStream}}
+\doxysubsubsection{\texorpdfstring{accept()}{accept()}}
+{\footnotesize\ttfamily \label{classlibconf_1_1_token_stream_a4496f3572a9c5a441253ec0b65dca35a} 
+libconf.\+Token\+Stream.\+accept (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{\texorpdfstring{$\ast$}{*}}]{args}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Consume and return the next token if it has the correct type
+
+Multiple token types (as strings, e.g. 'integer64') can be given
+as arguments. If the next token is one of them, consume and return it.
+
+If the token type doesn't match, return None.
+\end{DoxyVerb}
+ \Hypertarget{classlibconf_1_1_token_stream_ac226c6be9fccf50d4a36d569cbb0f2be}\index{libconf.TokenStream@{libconf.TokenStream}!error@{error}}
+\index{error@{error}!libconf.TokenStream@{libconf.TokenStream}}
+\doxysubsubsection{\texorpdfstring{error()}{error()}}
+{\footnotesize\ttfamily \label{classlibconf_1_1_token_stream_ac226c6be9fccf50d4a36d569cbb0f2be} 
+libconf.\+Token\+Stream.\+error (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{msg}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Raise a ConfigParseError at the current input position\end{DoxyVerb}
+ \Hypertarget{classlibconf_1_1_token_stream_a77703c5381eb801b459fac631ed71608}\index{libconf.TokenStream@{libconf.TokenStream}!expect@{expect}}
+\index{expect@{expect}!libconf.TokenStream@{libconf.TokenStream}}
+\doxysubsubsection{\texorpdfstring{expect()}{expect()}}
+{\footnotesize\ttfamily \label{classlibconf_1_1_token_stream_a77703c5381eb801b459fac631ed71608} 
+libconf.\+Token\+Stream.\+expect (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{\texorpdfstring{$\ast$}{*}}]{args}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Consume and return the next token if it has the correct type
+
+Multiple token types (as strings, e.g. 'integer64') can be given
+as arguments. If the next token is one of them, consume and return it.
+
+If the token type doesn't match, raise a ConfigParseError.
+\end{DoxyVerb}
+ \Hypertarget{classlibconf_1_1_token_stream_a7132b7165abe3315e38c4f64e6794f5c}\index{libconf.TokenStream@{libconf.TokenStream}!finished@{finished}}
+\index{finished@{finished}!libconf.TokenStream@{libconf.TokenStream}}
+\doxysubsubsection{\texorpdfstring{finished()}{finished()}}
+{\footnotesize\ttfamily \label{classlibconf_1_1_token_stream_a7132b7165abe3315e38c4f64e6794f5c} 
+libconf.\+Token\+Stream.\+finished (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Return ``True`` if the end of the token stream is reached.\end{DoxyVerb}
+ \Hypertarget{classlibconf_1_1_token_stream_af2a5c8a9f948b7a2544b45a421244721}\index{libconf.TokenStream@{libconf.TokenStream}!from\_file@{from\_file}}
+\index{from\_file@{from\_file}!libconf.TokenStream@{libconf.TokenStream}}
+\doxysubsubsection{\texorpdfstring{from\_file()}{from\_file()}}
+{\footnotesize\ttfamily \label{classlibconf_1_1_token_stream_af2a5c8a9f948b7a2544b45a421244721} 
+libconf.\+Token\+Stream.\+from\+\_\+file (\begin{DoxyParamCaption}\item[{}]{cls}{, }\item[{}]{f}{, }\item[{}]{filename}{ = {\ttfamily None}, }\item[{}]{includedir}{ = {\ttfamily \textquotesingle{}\textquotesingle{}}, }\item[{}]{seenfiles}{ = {\ttfamily None}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Create a token stream by reading an input file
+
+Read tokens from `f`. If an include directive ('@include "file.cfg"')
+is found, read its contents as well.
+
+The `filename` argument is used for error messages and to detect
+circular imports. ``includedir`` sets the lookup directory for included
+files.  ``seenfiles`` is used internally to detect circular includes,
+and should normally not be supplied by users of is function.
+\end{DoxyVerb}
+ \Hypertarget{classlibconf_1_1_token_stream_a72d36c9ec30f516b36db429d1602efe1}\index{libconf.TokenStream@{libconf.TokenStream}!peek@{peek}}
+\index{peek@{peek}!libconf.TokenStream@{libconf.TokenStream}}
+\doxysubsubsection{\texorpdfstring{peek()}{peek()}}
+{\footnotesize\ttfamily \label{classlibconf_1_1_token_stream_a72d36c9ec30f516b36db429d1602efe1} 
+libconf.\+Token\+Stream.\+peek (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Return (but do not consume) the next token
+
+At the end of input, ``None`` is returned.
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classlibconf_1_1_token_stream_a09e203648434625fbcc1f94cce9a3f83}\index{libconf.TokenStream@{libconf.TokenStream}!position@{position}}
+\index{position@{position}!libconf.TokenStream@{libconf.TokenStream}}
+\doxysubsubsection{\texorpdfstring{position}{position}}
+{\footnotesize\ttfamily \label{classlibconf_1_1_token_stream_a09e203648434625fbcc1f94cce9a3f83} 
+int libconf.\+Token\+Stream.\+position = 0}
+
+\Hypertarget{classlibconf_1_1_token_stream_aa8f0f089ab854b36cfce8e2b86c6bf2b}\index{libconf.TokenStream@{libconf.TokenStream}!tokens@{tokens}}
+\index{tokens@{tokens}!libconf.TokenStream@{libconf.TokenStream}}
+\doxysubsubsection{\texorpdfstring{tokens}{tokens}}
+{\footnotesize\ttfamily \label{classlibconf_1_1_token_stream_aa8f0f089ab854b36cfce8e2b86c6bf2b} 
+libconf.\+Token\+Stream.\+tokens = list(tokens)}
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+python/shared/\mbox{\hyperlink{libconf_8py}{libconf.\+py}}\end{DoxyCompactItemize}

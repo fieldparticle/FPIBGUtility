@@ -1,0 +1,45 @@
+<map id="io::error::with_file_name" name="io::error::with_file_name">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,431,166,457"/>
+<area shape="rect" id="Node000002" href="$structio_1_1error_1_1can__not__open__file.html" title=" " alt="" coords="236,5,356,48"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="86,415,95,346,116,255,132,206,153,158,179,112,212,70,229,56,249,46,252,51,232,61,216,74,184,115,158,160,137,208,121,257,100,347,92,416"/>
+<area shape="poly" id="edge2_Node000001_Node000002" title=" " alt="" coords="85,415,93,342,112,244,129,191,150,139,178,90,212,46,234,30,237,34,216,50,182,93,155,142,134,193,118,245,98,343,91,415"/>
+<area shape="rect" id="Node000003" href="$structio_1_1error_1_1duplicated__column__in__header.html" title=" " alt="" coords="229,72,362,115"/>
+<area shape="poly" id="edge3_Node000001_Node000003" title=" " alt="" coords="89,415,102,358,125,284,160,206,184,170,212,137,230,123,250,113,253,118,233,127,216,141,188,173,165,209,129,286,107,359,94,416"/>
+<area shape="poly" id="edge4_Node000001_Node000003" title=" " alt="" coords="87,415,98,353,120,273,137,230,157,188,182,148,212,113,227,101,231,105,216,117,186,151,162,190,142,232,126,274,103,354,92,415"/>
+<area shape="rect" id="Node000004" href="$structio_1_1error_1_1escaped__string__not__closed.html" title=" " alt="" coords="231,139,361,181"/>
+<area shape="poly" id="edge5_Node000001_Node000004" title=" " alt="" coords="94,415,110,369,134,313,168,255,212,203,231,190,252,179,255,184,234,194,215,207,172,258,139,316,115,371,99,417"/>
+<area shape="poly" id="edge6_Node000001_Node000004" title=" " alt="" coords="90,415,104,365,129,302,164,237,186,206,212,179,229,167,232,172,215,183,191,210,169,240,134,304,109,367,95,416"/>
+<area shape="rect" id="Node000005" href="$structio_1_1error_1_1extra__column__in__header.html" title=" " alt="" coords="220,205,372,248"/>
+<area shape="poly" id="edge7_Node000001_Node000005" title=" " alt="" coords="101,416,145,344,176,305,212,270,233,256,255,246,257,251,236,261,215,274,180,309,149,348,106,419"/>
+<area shape="poly" id="edge8_Node000001_Node000005" title=" " alt="" coords="94,416,111,378,138,333,171,286,212,246,218,241,221,246,215,250,175,290,142,335,116,380,98,418"/>
+<area shape="rect" id="Node000006" href="$structio_1_1error_1_1header__missing.html" title=" " alt="" coords="214,272,378,299"/>
+<area shape="poly" id="edge9_Node000001_Node000006" title=" " alt="" coords="110,417,154,368,182,343,212,320,242,307,270,297,272,302,244,311,215,325,185,347,158,372,114,421"/>
+<area shape="poly" id="edge10_Node000001_Node000006" title=" " alt="" coords="98,416,144,356,176,324,211,297,215,301,179,328,148,359,102,419"/>
+<area shape="rect" id="Node000007" href="$structio_1_1error_1_1integer__must__be__positive.html" title=" " alt="" coords="231,323,361,365"/>
+<area shape="poly" id="edge11_Node000001_Node000007" title=" " alt="" coords="143,421,213,387,264,363,267,368,215,392,146,426"/>
+<area shape="poly" id="edge12_Node000001_Node000007" title=" " alt="" coords="110,419,157,391,213,363,229,355,231,360,215,368,160,396,113,424"/>
+<area shape="rect" id="Node000008" href="$structio_1_1error_1_1integer__overflow.html" title=" " alt="" coords="240,389,352,432"/>
+<area shape="poly" id="edge13_Node000001_Node000008" title=" " alt="" coords="181,435,239,425,240,430,182,440"/>
+<area shape="poly" id="edge14_Node000001_Node000008" title=" " alt="" coords="142,424,239,409,239,414,143,430"/>
+<area shape="rect" id="Node000009" href="$structio_1_1error_1_1integer__underflow.html" title=" " alt="" coords="240,456,352,499"/>
+<area shape="poly" id="edge15_Node000001_Node000009" title=" " alt="" coords="143,458,239,474,239,479,142,464"/>
+<area shape="poly" id="edge16_Node000001_Node000009" title=" " alt="" coords="182,448,240,458,239,463,181,453"/>
+<area shape="rect" id="Node000010" href="$structio_1_1error_1_1invalid__single__character.html" title=" " alt="" coords="234,523,358,565"/>
+<area shape="poly" id="edge17_Node000001_Node000010" title=" " alt="" coords="113,464,160,492,215,520,235,529,233,534,213,525,157,497,110,469"/>
+<area shape="poly" id="edge18_Node000001_Node000010" title=" " alt="" coords="146,462,215,496,267,520,264,525,213,501,143,467"/>
+<area shape="rect" id="Node000011" href="$structio_1_1error_1_1line__length__limit__exceeded.html" title=" " alt="" coords="228,589,364,632"/>
+<area shape="poly" id="edge19_Node000001_Node000011" title=" " alt="" coords="103,469,149,528,181,560,215,587,229,595,226,600,212,592,177,564,145,532,99,473"/>
+<area shape="poly" id="edge20_Node000001_Node000011" title=" " alt="" coords="115,467,159,515,215,563,260,586,258,591,212,568,155,519,111,471"/>
+<area shape="rect" id="Node000012" href="$structio_1_1error_1_1missing__column__in__header.html" title=" " alt="" coords="229,656,362,699"/>
+<area shape="poly" id="edge21_Node000001_Node000012" title=" " alt="" coords="97,471,114,511,140,560,174,610,215,654,230,664,227,669,212,658,170,614,135,563,110,514,93,473"/>
+<area shape="poly" id="edge22_Node000001_Node000012" title=" " alt="" coords="104,470,147,548,178,592,215,630,235,643,256,653,254,658,232,648,212,634,174,595,142,551,99,473"/>
+<area shape="rect" id="Node000013" href="$structio_1_1error_1_1no__digit.html" title=" " alt="" coords="237,723,355,749"/>
+<area shape="poly" id="edge23_Node000001_Node000013" title=" " alt="" coords="94,472,107,526,130,593,166,662,189,693,215,721,238,734,235,738,212,725,185,697,161,665,125,595,101,527,89,473"/>
+<area shape="poly" id="edge24_Node000001_Node000013" title=" " alt="" coords="97,472,111,520,135,581,169,643,191,671,215,697,239,711,266,720,264,725,237,716,212,701,187,675,164,646,130,583,106,522,92,473"/>
+<area shape="rect" id="Node000014" href="$structio_1_1error_1_1too__few__columns.html" title=" " alt="" coords="236,773,356,816"/>
+<area shape="poly" id="edge25_Node000001_Node000014" title=" " alt="" coords="92,473,103,534,126,614,142,656,162,698,186,737,215,771,237,787,234,791,212,775,182,740,157,700,137,658,120,615,98,535,87,473"/>
+<area shape="poly" id="edge26_Node000001_Node000014" title=" " alt="" coords="94,472,107,529,129,602,165,679,188,715,216,747,233,761,253,770,250,775,230,765,212,751,184,718,160,682,125,604,102,530,89,473"/>
+<area shape="rect" id="Node000015" href="$structio_1_1error_1_1too__many__columns.html" title=" " alt="" coords="231,840,361,883"/>
+<area shape="poly" id="edge27_Node000001_Node000015" title=" " alt="" coords="91,473,98,545,118,643,134,695,155,746,182,795,216,838,232,851,229,855,212,842,178,798,150,749,129,697,112,644,93,546,85,473"/>
+<area shape="poly" id="edge28_Node000001_Node000015" title=" " alt="" coords="92,472,100,541,121,631,137,680,158,728,184,773,216,814,232,827,252,837,249,842,229,832,212,818,179,776,153,730,132,682,116,633,95,542,86,473"/>
+</map>

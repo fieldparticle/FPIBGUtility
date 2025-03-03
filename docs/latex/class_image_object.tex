@@ -1,0 +1,398 @@
+\doxysection{Image\+Object Class Reference}
+\hypertarget{class_image_object}{}\label{class_image_object}\index{ImageObject@{ImageObject}}
+
+
+{\ttfamily \#include $<$Image\+Object.\+hpp$>$}
+
+
+
+Inheritance diagram for Image\+Object\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=152pt]{class_image_object__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Image\+Object\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_image_object__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct_image_object_1_1_frame_buffer_attachment}{Frame\+Buffer\+Attachment}}
+\begin{DoxyCompactList}\small\item\em ==================== SUPPASSES ============ \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+Vk\+Image \mbox{\hyperlink{class_image_object_a0992d9fd9b7539c2d14dfe649fab6fec}{Get\+Image}} ()
+\item 
+Vk\+Device\+Memory \mbox{\hyperlink{class_image_object_a8ca248a6686e7cd4f9009fbc81c51811}{Get\+Image\+Memory}} ()
+\item 
+virtual void \mbox{\hyperlink{class_image_object_a5764d1c39e9b370c12ee6bd8af8a87b4}{Ask\+Object}} (uint32\+\_\+t Any\+Number)
+\item 
+Vk\+Image\+View \mbox{\hyperlink{class_image_object_aa141524b6cb876234d75d39574a11e55}{Get\+Image\+View}} ()
+\item 
+Vk\+Format \mbox{\hyperlink{class_image_object_a7d32550ed2fb3b028bb96a778bec180a}{Get\+Image\+Format}} ()
+\item 
+void \mbox{\hyperlink{class_image_object_a8b9a089f5df62f0f058380a9972b098e}{Create\+Attachment}} (Vk\+Format format, Vk\+Image\+Usage\+Flags \mbox{\hyperlink{call__glsl__validator_8cpp_a2ef30c42cbc289d899a8be5d2d8f77d0}{usage}}, Vk\+Image\+Aspect\+Flags aspect\+Mask)
+\item 
+void \mbox{\hyperlink{class_image_object_ab653df81c39cc66c4660ab7c41b90272}{Clear\+Attachment}} ()
+\item 
+\mbox{\hyperlink{class_image_object_a348925399c42253fc3f279a10ca4e2b4}{Image\+Object}} (\mbox{\hyperlink{class_vulkan_obj}{Vulkan\+Obj}} \texorpdfstring{$\ast$}{*}App, std\+::string Name)
+\item 
+void \mbox{\hyperlink{class_image_object_ae7f4e332ef2596fd7c3d5dcf8d022b6b}{create\+Image}} (uint32\+\_\+t width, uint32\+\_\+t height, Vk\+Format format, Vk\+Image\+Tiling tiling, Vk\+Image\+Usage\+Flags \mbox{\hyperlink{call__glsl__validator_8cpp_a2ef30c42cbc289d899a8be5d2d8f77d0}{usage}}, Vk\+Memory\+Property\+Flags properties, Vk\+Image \&image, Vk\+Device\+Memory \&image\+Memory)
+\item 
+Vk\+Format \mbox{\hyperlink{class_image_object_a70967d1b5fc2f5bb7eb2ef79cb617e9d}{find\+Supported\+Format}} (const std\+::vector$<$ Vk\+Format $>$ \&candidates, Vk\+Image\+Tiling tiling, Vk\+Format\+Feature\+Flags features)
+\item 
+void \mbox{\hyperlink{class_image_object_a4d34e4575b5fa6d5c17db33645033c16}{copy\+Buffer\+To\+Image}} (Vk\+Buffer buffer, Vk\+Image image, uint32\+\_\+t width, uint32\+\_\+t height)
+\item 
+void \mbox{\hyperlink{class_image_object_ad75b552e0a57230cc2f82c7cdd1feecd}{transition\+Image\+Layout}} (Vk\+Image image, Vk\+Format format, Vk\+Image\+Layout old\+Layout, Vk\+Image\+Layout new\+Layout)
+\item 
+Vk\+Format \mbox{\hyperlink{class_image_object_afcabee71f9613319e0f98ddfeb7466aa}{find\+Format}} ()
+\item 
+uint32\+\_\+t \mbox{\hyperlink{class_image_object_abbf9f02120349238f00ec1f972dd74fa}{find\+Memory\+Type}} (uint32\+\_\+t type\+Filter, Vk\+Memory\+Property\+Flags properties)
+\item 
+void \mbox{\hyperlink{class_image_object_adbe94edbf2339049c3daaa2043e2eb3f}{create\+Image\+View}} (Vk\+Image\+Aspect\+Flags aspect\+Flags)
+\item 
+std\+::vector$<$ Vk\+Vertex\+Input\+Attribute\+Description $>$ \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_image_object_ab69cb9785bb1161a7537794c00d90d68}{Get\+Attribute\+Descriptions}} ()
+\item 
+Vk\+Vertex\+Input\+Binding\+Description \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_image_object_a3859c85fe5872ed3b7dba4a469c8e2dc}{Get\+Binding\+Description}} ()
+\item 
+void \mbox{\hyperlink{class_image_object_a045b6cb64998d1675d245ea3675b396e}{Push\+Mem}} (uint32\+\_\+t current\+Buffer)
+\item 
+void \mbox{\hyperlink{class_image_object_a717ff0077aeb13a139c5e0bb9eef1099}{Pull\+Mem}} (uint32\+\_\+t current\+Buffer)
+\item 
+virtual void \mbox{\hyperlink{class_image_object_a3d4a9a5bcce213ac1534b650f1600125}{Cleanup}} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_resource}{Resource}}}
+\begin{DoxyCompactItemize}
+\item 
+std\+::vector$<$ Vk\+Descriptor\+Set\+Layout\+Binding $>$ \mbox{\hyperlink{class_resource_af8f89cef1a6b250140de7c848c758915}{Layout\+Binding}} ()
+\item 
+\mbox{\hyperlink{class_resource_a42aa29434566ebc6f41331d8d4ed007e}{Resource}} (\mbox{\hyperlink{class_vulkan_obj}{Vulkan\+Obj}} \texorpdfstring{$\ast$}{*}App, std\+::string Name, uint32\+\_\+t Type)
+\item 
+\mbox{\hyperlink{class_resource_a5a87b23dc0327bbf8d53c6f38f637f48}{Resource}} ()
+\item 
+void \mbox{\hyperlink{class_resource_accc8e2e77cc26cf3f5a484cbe8246205}{Check\+Bind\+Point}} (uint32\+\_\+t Bind\+Point)
+\item 
+std\+::vector$<$ Vk\+Write\+Descriptor\+Set $>$ \mbox{\hyperlink{class_resource_a75ea4d1db988f69a1bc27222b48e9d60}{Get\+Write\+Descriptor\+Set}} ()
+\item 
+Vk\+Descriptor\+Set\+Layout\+Binding \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_resource_a527c2fa9593aaa040b703b7537d6443a}{Get\+Layout\+Binding}} (uint32\+\_\+t Index)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_base_obj}{Base\+Obj}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_base_obj_a4b83af8a8e0e29a74b5d1780e2dd9172}{Base\+Obj}} ()
+\item 
+\mbox{\hyperlink{class_base_obj_a591e107302b3a81ff86ad91a93fd3c79}{Base\+Obj}} (std\+::string Name, uint32\+\_\+t Type, \mbox{\hyperlink{class_vulkan_obj}{Vulkan\+Obj}} \texorpdfstring{$\ast$}{*}App)
+\item 
+uint32\+\_\+t \mbox{\hyperlink{class_base_obj_a13d66a7db04f2f49f0b8a7505bd957bb}{Get\+Type}} ()
+\item 
+std\+::string \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_base_obj_a818217adc491531cf69dbe8960313d21}{get\+Name}} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+std\+::vector$<$ Vma\+Allocation $>$ \mbox{\hyperlink{class_image_object_a37eff21d5f86789a34550fbc36a29c7f}{m\+\_\+\+Allocation}} = \{\}
+\item 
+Vk\+Image \mbox{\hyperlink{class_image_object_ac25967f745c96577373ad7fe9afa2dbb}{m\+\_\+\+Image}} =\{\}
+\item 
+Vk\+Device\+Memory \mbox{\hyperlink{class_image_object_a3a591f4f4051173e7a43f8a8040387c2}{m\+\_\+\+Image\+Memory}} =\{\}
+\item 
+Vk\+Image\+View \mbox{\hyperlink{class_image_object_af59a379a9a68309f3ec541441aa8f94f}{m\+\_\+\+Image\+View}} =\{\}
+\item 
+Vk\+Format \mbox{\hyperlink{class_image_object_a0a5087ab22e429e71fc8ca2fa0d0bfa2}{m\+\_\+\+Format}} =\{\}
+\item 
+\mbox{\hyperlink{class_swap_chain_obj}{Swap\+Chain\+Obj}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_image_object_a09819627b7243d91b23f34daa74004a0}{m\+\_\+\+SCO}} =\{\}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes inherited from \mbox{\hyperlink{class_resource}{Resource}}}
+\begin{DoxyCompactItemize}
+\item 
+Vk\+Attachment\+Description \mbox{\hyperlink{class_resource_ac775c7073491d1c48e7d06ee4e7c7a5c}{m\+\_\+\+Color\+Attachment}} \{\}
+\item 
+Vk\+Attachment\+Reference \mbox{\hyperlink{class_resource_a5fa3e1ad1b7caefd97306bbda1ab0de7}{m\+\_\+\+Color\+Attachment\+Ref}} \{\}
+\item 
+Vk\+Attachment\+Description \mbox{\hyperlink{class_resource_a70496037797e1b02b31ffa8237fe3bf8}{m\+\_\+\+Depth\+Attachment}} \{\}
+\item 
+Vk\+Attachment\+Reference \mbox{\hyperlink{class_resource_aabad6a37637f9f71bfd52a3403ebd98b}{m\+\_\+\+Depth\+Attachment\+Ref}} \{\}
+\item 
+Vk\+Vertex\+Input\+Binding\+Description \mbox{\hyperlink{class_resource_ad4c28eb04159ce7bb64c0bf7a44646bc}{m\+\_\+\+Binding\+Description}} \{\}
+\item 
+std\+::vector$<$ Vk\+Vertex\+Input\+Attribute\+Description $>$ \mbox{\hyperlink{class_resource_a89c703ac9008a2edafe37b431f8356bb}{m\+\_\+\+Attribute\+Descriptions}} \{\}
+\item 
+uint32\+\_\+t \mbox{\hyperlink{class_resource_a3a281d3681e48fcd98925b666ee2cb81}{m\+\_\+\+Binding\+Count}} = 0
+\item 
+uint32\+\_\+t \mbox{\hyperlink{class_resource_a74a2ccf682e2cf61295590fe7968835c}{m\+\_\+\+Des\+Write\+Count}} = 0
+\item 
+uint32\+\_\+t \mbox{\hyperlink{class_resource_a73c0a1137e2edb1e4f3f0ccff6b1c4c7}{m\+\_\+\+Sub\+Pass\+Num}} = 0
+\item 
+uint32\+\_\+t \mbox{\hyperlink{class_resource_a7b1d7f61552b7e60bf4cb7ad4e7cc35c}{m\+\_\+\+Tot\+Sub\+Pass}} = 0
+\item 
+uint32\+\_\+t \mbox{\hyperlink{class_resource_ad30598d4a01080eabad97732ceb1c6a4}{m\+\_\+\+Max\+Sets}} = 0
+\item 
+\mbox{\hyperlink{class_command_obj}{Command\+Obj}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_resource_a8edf76072de32cf9d1f895883bf55b53}{m\+\_\+\+CPO}} = \{\}
+\item 
+\mbox{\hyperlink{class_command_pool_obj}{Command\+Pool\+Obj}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_resource_a4ade76e3d450d960845e68504fc5a32b}{m\+\_\+\+CPL}} = \{\}
+\item 
+bool \mbox{\hyperlink{class_resource_ae61f6f983b6f429967c99cde1a0d911e}{m\+\_\+\+Init\+Flag}} = false
+\item 
+std\+::vector$<$ Vk\+Subpass\+Description $>$ \mbox{\hyperlink{class_resource_af1a96424de7028462b37e26bd5a5c246}{m\+\_\+\+Subpass}} \{\}
+\item 
+\mbox{\hyperlink{class_swap_chain_obj}{Swap\+Chain\+Obj}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_resource_a886f85b4dae851a9522955dd5ab1390b}{m\+\_\+\+SCO}} = \{\}
+\item 
+std\+::vector$<$ \mbox{\hyperlink{class_image_object}{Image\+Object}} \texorpdfstring{$\ast$}{*} $>$ \mbox{\hyperlink{class_resource_aead6bd9ad1ac8e15824f7dd33c817647}{m\+\_\+\+IMO}} = \{\}
+\item 
+uint32\+\_\+t \mbox{\hyperlink{class_resource_aee58c13415573ba561591b5153fb309c}{m\+\_\+\+Bind\+Point}} = 0
+\item 
+std\+::vector$<$ void \texorpdfstring{$\ast$}{*} $>$ \mbox{\hyperlink{class_resource_a68afac75154c106351ce28bd04fd6472}{m\+\_\+\+Mapped\+Data}} = \{\}
+\item 
+std\+::vector$<$ Vk\+Buffer $>$ \mbox{\hyperlink{class_resource_a1d276c026a7bca4e6be49f6d1d4fc770}{m\+\_\+\+Buffers}} =\{\}
+\item 
+std\+::vector$<$ Vk\+Device\+Memory $>$ \mbox{\hyperlink{class_resource_aacaa84c6f7e3270ae90c641138bbd7cb}{m\+\_\+\+Buffers\+Memory}} =\{\}
+\item 
+Vk\+Buffer \mbox{\hyperlink{class_resource_aca9eaa021d5cb88e61d77910f4a577d1}{m\+\_\+\+Staging\+Buffer}} = nullptr
+\item 
+Vk\+Device\+Memory \mbox{\hyperlink{class_resource_aff06d8582449febbafc4690e1e751cdf}{m\+\_\+\+Staging\+Buffer\+Memory}} = nullptr
+\item 
+std\+::vector$<$ Vma\+Allocation\+Info $>$ \mbox{\hyperlink{class_resource_aa516e868a35bd1133cb48201ecf2261f}{m\+\_\+\+Allocation\+Info}} = \{\}
+\item 
+std\+::vector$<$ Vma\+Allocation $>$ \mbox{\hyperlink{class_resource_a65c9e2003b1c7f1220e5b6505ef33c8d}{m\+\_\+\+Allocation}} = \{\}
+\item 
+std\+::vector$<$ Vk\+Descriptor\+Set\+Layout\+Binding $>$ \mbox{\hyperlink{class_resource_a5a446284df671eb48f48fda02ef327cd}{m\+\_\+\+Layout\+Binding}} = \{\}
+\item 
+std\+::vector$<$ void \texorpdfstring{$\ast$}{*} $>$ \mbox{\hyperlink{class_resource_a47ecd17b2e90027d50cda87e2d929e68}{m\+\_\+\+Buffers\+Mapped}} =\{\}
+\item 
+uint32\+\_\+t \mbox{\hyperlink{class_resource_afb3d2d4c846c3ee9bf3949aa4cead980}{m\+\_\+\+Buf\+Size}} =0
+\item 
+void \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_resource_aedb56a3196ce594d82b835747ecf5bf5}{m\+\_\+data}} =nullptr
+\item 
+uint32\+\_\+t \mbox{\hyperlink{class_resource_a70500035b9342c605de8e3b4701472b7}{m\+\_\+\+Num\+Elements}} =0
+\item 
+Vk\+Descriptor\+Type \mbox{\hyperlink{class_resource_ac605e98c566a4583760d1b6e5c6dc984}{m\+\_\+\+Vk\+Type}} = \{\}
+\item 
+std\+::string \mbox{\hyperlink{class_resource_ab43db8847b8908adcc04104017556e7a}{m\+\_\+\+Pipline\+Name}} = \{\}
+\item 
+Vk\+Push\+Constant\+Range \mbox{\hyperlink{class_resource_a9222ef634870e3434f459423ec82846e}{m\+\_\+\+Push\+Constant}} \{\}
+\item 
+std\+::vector$<$ Vk\+Write\+Descriptor\+Set $>$ \mbox{\hyperlink{class_resource_acd025f0cd61e0ff31dccf3f8d18093ff}{m\+\_\+\+Descriptor\+Write}} = \{\}
+\item 
+std\+::vector$<$ Vk\+Descriptor\+Buffer\+Info $>$ \mbox{\hyperlink{class_resource_a64b52a05bc157e06eee97cc69c1da591}{m\+\_\+\+Buffer\+Info}} = \{\}
+\item 
+std\+::vector$<$ Vk\+Descriptor\+Image\+Info $>$ \mbox{\hyperlink{class_resource_a2d3d86cc1f474e6d832574c8b4f28b59}{m\+\_\+\+Image\+Infos}} \{\}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes inherited from \mbox{\hyperlink{class_base_obj}{Base\+Obj}}}
+\begin{DoxyCompactItemize}
+\item 
+std\+::string \mbox{\hyperlink{class_base_obj_a7a48a870862125c622302bd728a06c8f}{m\+\_\+\+Name}}
+\item 
+std\+::string \mbox{\hyperlink{class_base_obj_a0f4afc531f2ba36a0c4bf735e7d228b9}{m\+\_\+wkstr}}
+\item 
+uint32\+\_\+t \mbox{\hyperlink{class_base_obj_a911900fe67cd3edaf3ef52a7f57f398a}{m\+\_\+\+Type}} =0
+\item 
+\mbox{\hyperlink{class_vulkan_obj}{Vulkan\+Obj}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_base_obj_ab8f8d9c2f68f3bef1153d397d61646b0}{m\+\_\+\+App}} = \{\}
+\item 
+\mbox{\hyperlink{class_config_obj}{Config\+Obj}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_base_obj_aac207590eff5a5e099c4534d46e50f07}{m\+\_\+\+ACfg}} = \{\}
+\item 
+uint32\+\_\+t \mbox{\hyperlink{class_base_obj_a615d9ffc2cf237a1d45ac63721fae83c}{m\+\_\+this\+Frames\+Buffered}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_image_object_a348925399c42253fc3f279a10ca4e2b4}\index{ImageObject@{ImageObject}!ImageObject@{ImageObject}}
+\index{ImageObject@{ImageObject}!ImageObject@{ImageObject}}
+\doxysubsubsection{\texorpdfstring{ImageObject()}{ImageObject()}}
+{\footnotesize\ttfamily \label{class_image_object_a348925399c42253fc3f279a10ca4e2b4} 
+Image\+Object\+::\+Image\+Object (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_vulkan_obj}{Vulkan\+Obj}} \texorpdfstring{$\ast$}{*}}]{App}{, }\item[{std\+::string}]{Name}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_image_object_a5764d1c39e9b370c12ee6bd8af8a87b4}\index{ImageObject@{ImageObject}!AskObject@{AskObject}}
+\index{AskObject@{AskObject}!ImageObject@{ImageObject}}
+\doxysubsubsection{\texorpdfstring{AskObject()}{AskObject()}}
+{\footnotesize\ttfamily \label{class_image_object_a5764d1c39e9b370c12ee6bd8af8a87b4} 
+virtual void Image\+Object\+::\+Ask\+Object (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{Any\+Number}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_resource_aa5903bc7369edfaaaa6fa3f64215be28}{Resource}}.
+
+\Hypertarget{class_image_object_a3d4a9a5bcce213ac1534b650f1600125}\index{ImageObject@{ImageObject}!Cleanup@{Cleanup}}
+\index{Cleanup@{Cleanup}!ImageObject@{ImageObject}}
+\doxysubsubsection{\texorpdfstring{Cleanup()}{Cleanup()}}
+{\footnotesize\ttfamily \label{class_image_object_a3d4a9a5bcce213ac1534b650f1600125} 
+void Image\+Object\+::\+Cleanup (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Reimplemented from \mbox{\hyperlink{class_resource_af9de8f46b43ac53941d299c2ae98f1d1}{Resource}}.
+
+\Hypertarget{class_image_object_ab653df81c39cc66c4660ab7c41b90272}\index{ImageObject@{ImageObject}!ClearAttachment@{ClearAttachment}}
+\index{ClearAttachment@{ClearAttachment}!ImageObject@{ImageObject}}
+\doxysubsubsection{\texorpdfstring{ClearAttachment()}{ClearAttachment()}}
+{\footnotesize\ttfamily \label{class_image_object_ab653df81c39cc66c4660ab7c41b90272} 
+void Image\+Object\+::\+Clear\+Attachment (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+\Hypertarget{class_image_object_a4d34e4575b5fa6d5c17db33645033c16}\index{ImageObject@{ImageObject}!copyBufferToImage@{copyBufferToImage}}
+\index{copyBufferToImage@{copyBufferToImage}!ImageObject@{ImageObject}}
+\doxysubsubsection{\texorpdfstring{copyBufferToImage()}{copyBufferToImage()}}
+{\footnotesize\ttfamily \label{class_image_object_a4d34e4575b5fa6d5c17db33645033c16} 
+void Image\+Object\+::copy\+Buffer\+To\+Image (\begin{DoxyParamCaption}\item[{Vk\+Buffer}]{buffer}{, }\item[{Vk\+Image}]{image}{, }\item[{uint32\+\_\+t}]{width}{, }\item[{uint32\+\_\+t}]{height}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{class_image_object_a8b9a089f5df62f0f058380a9972b098e}\index{ImageObject@{ImageObject}!CreateAttachment@{CreateAttachment}}
+\index{CreateAttachment@{CreateAttachment}!ImageObject@{ImageObject}}
+\doxysubsubsection{\texorpdfstring{CreateAttachment()}{CreateAttachment()}}
+{\footnotesize\ttfamily \label{class_image_object_a8b9a089f5df62f0f058380a9972b098e} 
+void Image\+Object\+::\+Create\+Attachment (\begin{DoxyParamCaption}\item[{Vk\+Format}]{format}{, }\item[{Vk\+Image\+Usage\+Flags}]{usage}{, }\item[{Vk\+Image\+Aspect\+Flags}]{aspect\+Mask}{}\end{DoxyParamCaption})}
+
+\Hypertarget{class_image_object_ae7f4e332ef2596fd7c3d5dcf8d022b6b}\index{ImageObject@{ImageObject}!createImage@{createImage}}
+\index{createImage@{createImage}!ImageObject@{ImageObject}}
+\doxysubsubsection{\texorpdfstring{createImage()}{createImage()}}
+{\footnotesize\ttfamily \label{class_image_object_ae7f4e332ef2596fd7c3d5dcf8d022b6b} 
+void Image\+Object\+::create\+Image (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{width}{, }\item[{uint32\+\_\+t}]{height}{, }\item[{Vk\+Format}]{format}{, }\item[{Vk\+Image\+Tiling}]{tiling}{, }\item[{Vk\+Image\+Usage\+Flags}]{usage}{, }\item[{Vk\+Memory\+Property\+Flags}]{properties}{, }\item[{Vk\+Image \&}]{image}{, }\item[{Vk\+Device\+Memory \&}]{image\+Memory}{}\end{DoxyParamCaption})}
+
+\Hypertarget{class_image_object_adbe94edbf2339049c3daaa2043e2eb3f}\index{ImageObject@{ImageObject}!createImageView@{createImageView}}
+\index{createImageView@{createImageView}!ImageObject@{ImageObject}}
+\doxysubsubsection{\texorpdfstring{createImageView()}{createImageView()}}
+{\footnotesize\ttfamily \label{class_image_object_adbe94edbf2339049c3daaa2043e2eb3f} 
+void Image\+Object\+::create\+Image\+View (\begin{DoxyParamCaption}\item[{Vk\+Image\+Aspect\+Flags}]{aspect\+Flags}{}\end{DoxyParamCaption})}
+
+\Hypertarget{class_image_object_afcabee71f9613319e0f98ddfeb7466aa}\index{ImageObject@{ImageObject}!findFormat@{findFormat}}
+\index{findFormat@{findFormat}!ImageObject@{ImageObject}}
+\doxysubsubsection{\texorpdfstring{findFormat()}{findFormat()}}
+{\footnotesize\ttfamily \label{class_image_object_afcabee71f9613319e0f98ddfeb7466aa} 
+Vk\+Format Image\+Object\+::find\+Format (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+\Hypertarget{class_image_object_abbf9f02120349238f00ec1f972dd74fa}\index{ImageObject@{ImageObject}!findMemoryType@{findMemoryType}}
+\index{findMemoryType@{findMemoryType}!ImageObject@{ImageObject}}
+\doxysubsubsection{\texorpdfstring{findMemoryType()}{findMemoryType()}}
+{\footnotesize\ttfamily \label{class_image_object_abbf9f02120349238f00ec1f972dd74fa} 
+uint32\+\_\+t Image\+Object\+::find\+Memory\+Type (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{type\+Filter}{, }\item[{Vk\+Memory\+Property\+Flags}]{properties}{}\end{DoxyParamCaption})}
+
+\Hypertarget{class_image_object_a70967d1b5fc2f5bb7eb2ef79cb617e9d}\index{ImageObject@{ImageObject}!findSupportedFormat@{findSupportedFormat}}
+\index{findSupportedFormat@{findSupportedFormat}!ImageObject@{ImageObject}}
+\doxysubsubsection{\texorpdfstring{findSupportedFormat()}{findSupportedFormat()}}
+{\footnotesize\ttfamily \label{class_image_object_a70967d1b5fc2f5bb7eb2ef79cb617e9d} 
+Vk\+Format Image\+Object\+::find\+Supported\+Format (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ Vk\+Format $>$ \&}]{candidates}{, }\item[{Vk\+Image\+Tiling}]{tiling}{, }\item[{Vk\+Format\+Feature\+Flags}]{features}{}\end{DoxyParamCaption})}
+
+\Hypertarget{class_image_object_ab69cb9785bb1161a7537794c00d90d68}\index{ImageObject@{ImageObject}!GetAttributeDescriptions@{GetAttributeDescriptions}}
+\index{GetAttributeDescriptions@{GetAttributeDescriptions}!ImageObject@{ImageObject}}
+\doxysubsubsection{\texorpdfstring{GetAttributeDescriptions()}{GetAttributeDescriptions()}}
+{\footnotesize\ttfamily \label{class_image_object_ab69cb9785bb1161a7537794c00d90d68} 
+std\+::vector$<$ Vk\+Vertex\+Input\+Attribute\+Description $>$ \texorpdfstring{$\ast$}{*} Image\+Object\+::\+Get\+Attribute\+Descriptions (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_resource_ace3e169dc2a26ea6b0dd370c9ea2e199}{Resource}}.
+
+\Hypertarget{class_image_object_a3859c85fe5872ed3b7dba4a469c8e2dc}\index{ImageObject@{ImageObject}!GetBindingDescription@{GetBindingDescription}}
+\index{GetBindingDescription@{GetBindingDescription}!ImageObject@{ImageObject}}
+\doxysubsubsection{\texorpdfstring{GetBindingDescription()}{GetBindingDescription()}}
+{\footnotesize\ttfamily \label{class_image_object_a3859c85fe5872ed3b7dba4a469c8e2dc} 
+Vk\+Vertex\+Input\+Binding\+Description \texorpdfstring{$\ast$}{*} Image\+Object\+::\+Get\+Binding\+Description (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_resource_a7a2e68b5933115fbf8eabb6dfb4a03e2}{Resource}}.
+
+\Hypertarget{class_image_object_a0992d9fd9b7539c2d14dfe649fab6fec}\index{ImageObject@{ImageObject}!GetImage@{GetImage}}
+\index{GetImage@{GetImage}!ImageObject@{ImageObject}}
+\doxysubsubsection{\texorpdfstring{GetImage()}{GetImage()}}
+{\footnotesize\ttfamily \label{class_image_object_a0992d9fd9b7539c2d14dfe649fab6fec} 
+Vk\+Image Image\+Object\+::\+Get\+Image (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{class_image_object_a7d32550ed2fb3b028bb96a778bec180a}\index{ImageObject@{ImageObject}!GetImageFormat@{GetImageFormat}}
+\index{GetImageFormat@{GetImageFormat}!ImageObject@{ImageObject}}
+\doxysubsubsection{\texorpdfstring{GetImageFormat()}{GetImageFormat()}}
+{\footnotesize\ttfamily \label{class_image_object_a7d32550ed2fb3b028bb96a778bec180a} 
+Vk\+Format Image\+Object\+::\+Get\+Image\+Format (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{class_image_object_a8ca248a6686e7cd4f9009fbc81c51811}\index{ImageObject@{ImageObject}!GetImageMemory@{GetImageMemory}}
+\index{GetImageMemory@{GetImageMemory}!ImageObject@{ImageObject}}
+\doxysubsubsection{\texorpdfstring{GetImageMemory()}{GetImageMemory()}}
+{\footnotesize\ttfamily \label{class_image_object_a8ca248a6686e7cd4f9009fbc81c51811} 
+Vk\+Device\+Memory Image\+Object\+::\+Get\+Image\+Memory (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{class_image_object_aa141524b6cb876234d75d39574a11e55}\index{ImageObject@{ImageObject}!GetImageView@{GetImageView}}
+\index{GetImageView@{GetImageView}!ImageObject@{ImageObject}}
+\doxysubsubsection{\texorpdfstring{GetImageView()}{GetImageView()}}
+{\footnotesize\ttfamily \label{class_image_object_aa141524b6cb876234d75d39574a11e55} 
+Vk\+Image\+View Image\+Object\+::\+Get\+Image\+View (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{class_image_object_a717ff0077aeb13a139c5e0bb9eef1099}\index{ImageObject@{ImageObject}!PullMem@{PullMem}}
+\index{PullMem@{PullMem}!ImageObject@{ImageObject}}
+\doxysubsubsection{\texorpdfstring{PullMem()}{PullMem()}}
+{\footnotesize\ttfamily \label{class_image_object_a717ff0077aeb13a139c5e0bb9eef1099} 
+void Image\+Object\+::\+Pull\+Mem (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{current\+Buffer}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_resource_abee9feab650a0956dd9eec1c6574ba57}{Resource}}.
+
+\Hypertarget{class_image_object_a045b6cb64998d1675d245ea3675b396e}\index{ImageObject@{ImageObject}!PushMem@{PushMem}}
+\index{PushMem@{PushMem}!ImageObject@{ImageObject}}
+\doxysubsubsection{\texorpdfstring{PushMem()}{PushMem()}}
+{\footnotesize\ttfamily \label{class_image_object_a045b6cb64998d1675d245ea3675b396e} 
+void Image\+Object\+::\+Push\+Mem (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{current\+Buffer}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_resource_ac1ca6f5eb387846500c8763c7ec3250e}{Resource}}.
+
+\Hypertarget{class_image_object_ad75b552e0a57230cc2f82c7cdd1feecd}\index{ImageObject@{ImageObject}!transitionImageLayout@{transitionImageLayout}}
+\index{transitionImageLayout@{transitionImageLayout}!ImageObject@{ImageObject}}
+\doxysubsubsection{\texorpdfstring{transitionImageLayout()}{transitionImageLayout()}}
+{\footnotesize\ttfamily \label{class_image_object_ad75b552e0a57230cc2f82c7cdd1feecd} 
+void Image\+Object\+::transition\+Image\+Layout (\begin{DoxyParamCaption}\item[{Vk\+Image}]{image}{, }\item[{Vk\+Format}]{format}{, }\item[{Vk\+Image\+Layout}]{old\+Layout}{, }\item[{Vk\+Image\+Layout}]{new\+Layout}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{class_image_object_a37eff21d5f86789a34550fbc36a29c7f}\index{ImageObject@{ImageObject}!m\_Allocation@{m\_Allocation}}
+\index{m\_Allocation@{m\_Allocation}!ImageObject@{ImageObject}}
+\doxysubsubsection{\texorpdfstring{m\_Allocation}{m\_Allocation}}
+{\footnotesize\ttfamily \label{class_image_object_a37eff21d5f86789a34550fbc36a29c7f} 
+std\+::vector$<$ Vma\+Allocation$>$ Image\+Object\+::m\+\_\+\+Allocation = \{\}}
+
+\Hypertarget{class_image_object_a0a5087ab22e429e71fc8ca2fa0d0bfa2}\index{ImageObject@{ImageObject}!m\_Format@{m\_Format}}
+\index{m\_Format@{m\_Format}!ImageObject@{ImageObject}}
+\doxysubsubsection{\texorpdfstring{m\_Format}{m\_Format}}
+{\footnotesize\ttfamily \label{class_image_object_a0a5087ab22e429e71fc8ca2fa0d0bfa2} 
+Vk\+Format Image\+Object\+::m\+\_\+\+Format =\{\}}
+
+\Hypertarget{class_image_object_ac25967f745c96577373ad7fe9afa2dbb}\index{ImageObject@{ImageObject}!m\_Image@{m\_Image}}
+\index{m\_Image@{m\_Image}!ImageObject@{ImageObject}}
+\doxysubsubsection{\texorpdfstring{m\_Image}{m\_Image}}
+{\footnotesize\ttfamily \label{class_image_object_ac25967f745c96577373ad7fe9afa2dbb} 
+Vk\+Image Image\+Object\+::m\+\_\+\+Image =\{\}}
+
+\Hypertarget{class_image_object_a3a591f4f4051173e7a43f8a8040387c2}\index{ImageObject@{ImageObject}!m\_ImageMemory@{m\_ImageMemory}}
+\index{m\_ImageMemory@{m\_ImageMemory}!ImageObject@{ImageObject}}
+\doxysubsubsection{\texorpdfstring{m\_ImageMemory}{m\_ImageMemory}}
+{\footnotesize\ttfamily \label{class_image_object_a3a591f4f4051173e7a43f8a8040387c2} 
+Vk\+Device\+Memory Image\+Object\+::m\+\_\+\+Image\+Memory =\{\}}
+
+\Hypertarget{class_image_object_af59a379a9a68309f3ec541441aa8f94f}\index{ImageObject@{ImageObject}!m\_ImageView@{m\_ImageView}}
+\index{m\_ImageView@{m\_ImageView}!ImageObject@{ImageObject}}
+\doxysubsubsection{\texorpdfstring{m\_ImageView}{m\_ImageView}}
+{\footnotesize\ttfamily \label{class_image_object_af59a379a9a68309f3ec541441aa8f94f} 
+Vk\+Image\+View Image\+Object\+::m\+\_\+\+Image\+View =\{\}}
+
+\Hypertarget{class_image_object_a09819627b7243d91b23f34daa74004a0}\index{ImageObject@{ImageObject}!m\_SCO@{m\_SCO}}
+\index{m\_SCO@{m\_SCO}!ImageObject@{ImageObject}}
+\doxysubsubsection{\texorpdfstring{m\_SCO}{m\_SCO}}
+{\footnotesize\ttfamily \label{class_image_object_a09819627b7243d91b23f34daa74004a0} 
+\mbox{\hyperlink{class_swap_chain_obj}{Swap\+Chain\+Obj}}\texorpdfstring{$\ast$}{*} Image\+Object\+::m\+\_\+\+SCO =\{\}}
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+J\+:/\+FPIBG/vulkan/src/\+Vulkan\+Obj/\mbox{\hyperlink{_image_object_8hpp}{Image\+Object.\+hpp}}\item 
+J\+:/\+FPIBG/vulkan/src/\+Vulkan\+Obj/\mbox{\hyperlink{_image_object_8cpp}{Image\+Object.\+cpp}}\end{DoxyCompactItemize}

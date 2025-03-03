@@ -1,0 +1,235 @@
+\doxysection{mpsverifycfg Class Reference}
+\hypertarget{classmpsverifycfg}{}\label{classmpsverifycfg}\index{mpsverifycfg@{mpsverifycfg}}
+
+
+{\ttfamily \#include $<$mpsverify\+Cfg.\+hpp$>$}
+
+
+
+Inheritance diagram for mpsverifycfg\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=152pt]{classmpsverifycfg__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for mpsverifycfg\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classmpsverifycfg__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classmpsverifycfg_a66a28d80726c814068405b6f7c1b19eb}{mpsverifycfg}} ()
+\item 
+void \mbox{\hyperlink{classmpsverifycfg_a236588467a435113e3a88ab6628376ff}{Get\+Settings}} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_config_obj}{Config\+Obj}}}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{class_config_obj_af9b619a2899a32437f2b0190c43e8a92}{Get\+Int}} (std\+::string \mbox{\hyperlink{class_config_obj_a1d31f01e18c0d6705b8d69dd1772d0a4}{lookup}}, bool fail\+Flag)
+\item 
+uint32\+\_\+t \mbox{\hyperlink{class_config_obj_a980a698355f7ff8594a53e179bfec70b}{Get\+UInt}} (std\+::string \mbox{\hyperlink{class_config_obj_a1d31f01e18c0d6705b8d69dd1772d0a4}{lookup}}, bool fail\+Flag)
+\item 
+const char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_config_obj_abc910d40bb60f83ccb7fcb09d62cc9ec}{Get\+String}} (std\+::string \mbox{\hyperlink{class_config_obj_a1d31f01e18c0d6705b8d69dd1772d0a4}{lookup}}, bool fail\+Flag)
+\item 
+bool \mbox{\hyperlink{class_config_obj_a7a26b10c74f25c89f894326d6af2ea11}{Get\+Bool}} (std\+::string \mbox{\hyperlink{class_config_obj_a1d31f01e18c0d6705b8d69dd1772d0a4}{lookup}}, bool fail\+Flag)
+\item 
+float \mbox{\hyperlink{class_config_obj_a67136615aec754491744cc7d105b7e33}{Get\+Float}} (std\+::string \mbox{\hyperlink{class_config_obj_a1d31f01e18c0d6705b8d69dd1772d0a4}{lookup}}, bool fail\+Flag)
+\item 
+void \mbox{\hyperlink{class_config_obj_a6ddd5fff6e60bcbf354f3346e3b56137}{Read\+Config\+File}} (std\+::string File\+Name)
+\item 
+void \mbox{\hyperlink{class_config_obj_a51b210c1a4323ce55d82da4bc500af35}{Get\+Particle\+Settings}} ()
+\item 
+void \mbox{\hyperlink{class_config_obj_a379757fa084d873d3fec78748f367525}{Get\+Particle\+Settings\+V2}} (std\+::string Test\+Name)
+\item 
+std\+::vector$<$ const char \texorpdfstring{$\ast$}{*} $>$ \mbox{\hyperlink{class_config_obj_aa6e285f41796a0524b59c212ac429c0c}{Get\+Array}} (std\+::string Name)
+\item 
+\mbox{\hyperlink{structconfig__setting__t}{config\+\_\+setting\+\_\+t}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_config_obj_aa9f54d8d54337e521909cb0d2e38eeda}{Start\+Structure}} (std\+::string Name, int \&\mbox{\hyperlink{mpsverify_8cpp_aaeff91691078ce0a8df78ec1f91bd576}{Count}})
+\item 
+\mbox{\hyperlink{structconfig__setting__t}{config\+\_\+setting\+\_\+t}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_config_obj_a5155ceb13d882117dec9c8bb1eb660d5}{Get\+Sub\+Struct\+Address}} (\mbox{\hyperlink{structconfig__setting__t}{config\+\_\+setting\+\_\+t}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{class_config_obj_a745307de3b4a41623198ea7fa795b3d4}{setting}}, int index)
+\item 
+bool \mbox{\hyperlink{class_config_obj_a492be85ba2dea930b3a68d015ed9e9cd}{Get\+Next\+Sub\+Struct}} (\mbox{\hyperlink{structconfig__setting__t}{config\+\_\+setting\+\_\+t}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{class_config_obj_a745307de3b4a41623198ea7fa795b3d4}{setting}}, std\+::vector$<$ \mbox{\hyperlink{struct_config_obj_1_1pair}{pair}} $>$ \&pairs, int index)
+\item 
+const char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_config_obj_aec07426de2b1520d4d5c456f93b260a6}{Get\+Array\+Element\+String}} (\mbox{\hyperlink{structconfig__setting__t}{config\+\_\+setting\+\_\+t}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{class_config_obj_a745307de3b4a41623198ea7fa795b3d4}{setting}}, int index)
+\item 
+void \mbox{\hyperlink{class_config_obj_a4c91a6305098cafdf61aa717bdae3ca3}{Get\+Array\+Element\+Floats}} (\mbox{\hyperlink{structconfig__setting__t}{config\+\_\+setting\+\_\+t}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{class_config_obj_a745307de3b4a41623198ea7fa795b3d4}{setting}}, std\+::string Name, float \texorpdfstring{$\ast$}{*}Ary, uint32\+\_\+t Max, int index)
+\item 
+\mbox{\hyperlink{class_config_obj_a0e1105f89914c068d37f8a3a3a4643ae}{Config\+Obj}} ()
+\item 
+virtual void \mbox{\hyperlink{class_config_obj_ab510dfb4e1dbf35d4d541808e91a8f08}{Create}} (std\+::string cfg\+\_\+file)
+\item 
+void \mbox{\hyperlink{class_config_obj_a96c86f1768d597fe78cd5ff3f0c99245}{Set\+Vulkan\+Obj}} (\mbox{\hyperlink{class_vulkan_obj}{Vulkan\+Obj}} \texorpdfstring{$\ast$}{*}app)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+uint32\+\_\+t \mbox{\hyperlink{classmpsverifycfg_a9d697efc3bb52b269098fd0b72052c14}{m\+\_\+\+Study\+Flag}}
+\item 
+uint32\+\_\+t \mbox{\hyperlink{classmpsverifycfg_aa869555ca7746d3a5b36c1ff53c5ab4f}{m\+\_\+\+Sub\+Study\+Flag}}
+\item 
+uint32\+\_\+t \mbox{\hyperlink{classmpsverifycfg_a5537debf9527dd68d111e9cacf91d228}{m\+\_\+study\+Type}}
+\item 
+std\+::vector$<$ std\+::string $>$ \mbox{\hyperlink{classmpsverifycfg_acd1489457a103efa56c37b4e73956e7a}{m\+\_\+texture\+Names}}
+\item 
+uint32\+\_\+t \mbox{\hyperlink{classmpsverifycfg_a09de83b5f7af7faa049a480086d32a0d}{m\+\_\+num\+Textures}}
+\item 
+uint32\+\_\+t \mbox{\hyperlink{classmpsverifycfg_a671d989789f6e341fb6c00529194db93}{m\+\_\+\+Num\+Particles}}
+\item 
+uint32\+\_\+t \mbox{\hyperlink{classmpsverifycfg_a4fbbdbcc23e915712159d0c11b723072}{m\+\_\+src\+Particle}}
+\item 
+glm\+::vec2 \mbox{\hyperlink{classmpsverifycfg_a8bc27feb368500f6aab757f5be2d4c62}{m\+\_\+part\+\_\+pos}}
+\item 
+glm\+::vec2 \mbox{\hyperlink{classmpsverifycfg_ac219e0a364e01f2812d1f48152e0df59}{m\+\_\+part\+\_\+vel}}
+\item 
+std\+::vector$<$ \mbox{\hyperlink{struct_particle}{Particle}} $>$ \mbox{\hyperlink{classmpsverifycfg_a839566e396eaf3572415501c767a5438}{m\+\_\+particle\+Struct}} \{\}
+\item 
+std\+::vector$<$ \mbox{\hyperlink{struct_particle}{Particle}} $>$ \mbox{\hyperlink{classmpsverifycfg_a44a9c5ff67065d21ce9be8e06b7db591}{m\+\_\+boundry\+Struct}} \{\}
+\item 
+float \mbox{\hyperlink{classmpsverifycfg_a6e56557fde71916cb4f1b397ac80cc06}{m\+\_\+dt}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes inherited from \mbox{\hyperlink{class_config_obj}{Config\+Obj}}}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{class_config_obj_ace181cc26ef94c51acd2f64c6f263da0}{m\+\_\+\+NSight}} = false
+\item 
+bool \mbox{\hyperlink{class_config_obj_a292ea30f5927f92ccd307bb77e350939}{m\+\_\+\+No\+Compute}} = false
+\item 
+int \mbox{\hyperlink{class_config_obj_ab9ff0fbfecda0c63b16bbf59e3917fb8}{\+\_\+\+Struct\+Count}} = 0
+\item 
+uint32\+\_\+t \mbox{\hyperlink{class_config_obj_a1faf41bb7c15e562e14a9746d429a831}{m\+\_\+\+Struct\+Idx}} = 0
+\item 
+std\+::string \mbox{\hyperlink{class_config_obj_a5f1c3943a8aa658b20b47d40cc1f8967}{m\+\_\+cfg\+\_\+file}}
+\item 
+\mbox{\hyperlink{structconfig__t}{config\+\_\+t}} \mbox{\hyperlink{class_config_obj_aa2a64e43ec14dcbb6c1185fa84059b03}{m\+\_\+cfg}}
+\item 
+\mbox{\hyperlink{structconfig__setting__t}{config\+\_\+setting\+\_\+t}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_config_obj_a9b2550dd92f0434ecaf1535fd12f0b2f}{m\+\_\+setting}}
+\item 
+int \mbox{\hyperlink{class_config_obj_a3ed4d32226dde3eb58634972dc4582c4}{int\+\_\+temp}} = 0
+\item 
+const char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_config_obj_a52a5bd66517f6859e619de5b358f558c}{str\+\_\+temp}}
+\item 
+double \mbox{\hyperlink{class_config_obj_a7f716af01397986d40997a7300e76b22}{float\+\_\+temp}} = 0.\+0
+\item 
+std\+::string \mbox{\hyperlink{class_config_obj_a1d31f01e18c0d6705b8d69dd1772d0a4}{lookup}}
+\item 
+std\+::string \mbox{\hyperlink{class_config_obj_ada69141965ec32475825d79a036c970f}{util}}
+\item 
+\mbox{\hyperlink{structconfig__setting__t}{config\+\_\+setting\+\_\+t}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_config_obj_a745307de3b4a41623198ea7fa795b3d4}{setting}}
+\item 
+int \mbox{\hyperlink{class_config_obj_a77f998d816624036787105643f80caa9}{m\+\_\+\+Count}} =0
+\item 
+uint32\+\_\+t \mbox{\hyperlink{class_config_obj_a7439f192322b3a599430c8b732b2857d}{STRC\+\_\+\+STRING}} = 1
+\item 
+uint32\+\_\+t \mbox{\hyperlink{class_config_obj_aac984ba2b407febdbb88a2d4d6284add}{STRC\+\_\+\+INT}} = 2
+\item 
+uint32\+\_\+t \mbox{\hyperlink{class_config_obj_a614b9b07dfa54c3fd069c9688eccb3dc}{STRC\+\_\+\+UINT}} = 3
+\item 
+uint32\+\_\+t \mbox{\hyperlink{class_config_obj_a0e770ca5de8cc9e50d580385c3e8bfe9}{STRC\+\_\+\+FLOAT}} = 4
+\item 
+\mbox{\hyperlink{class_vulkan_obj}{Vulkan\+Obj}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_config_obj_a1f06495c3fd047d284787199acfaef05}{m\+\_\+\+App}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classmpsverifycfg_a66a28d80726c814068405b6f7c1b19eb}\index{mpsverifycfg@{mpsverifycfg}!mpsverifycfg@{mpsverifycfg}}
+\index{mpsverifycfg@{mpsverifycfg}!mpsverifycfg@{mpsverifycfg}}
+\doxysubsubsection{\texorpdfstring{mpsverifycfg()}{mpsverifycfg()}}
+{\footnotesize\ttfamily \label{classmpsverifycfg_a66a28d80726c814068405b6f7c1b19eb} 
+mpsverifycfg\+::mpsverifycfg (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classmpsverifycfg_a236588467a435113e3a88ab6628376ff}\index{mpsverifycfg@{mpsverifycfg}!GetSettings@{GetSettings}}
+\index{GetSettings@{GetSettings}!mpsverifycfg@{mpsverifycfg}}
+\doxysubsubsection{\texorpdfstring{GetSettings()}{GetSettings()}}
+{\footnotesize\ttfamily \label{classmpsverifycfg_a236588467a435113e3a88ab6628376ff} 
+void mpsverifycfg\+::\+Get\+Settings (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classmpsverifycfg_a44a9c5ff67065d21ce9be8e06b7db591}\index{mpsverifycfg@{mpsverifycfg}!m\_boundryStruct@{m\_boundryStruct}}
+\index{m\_boundryStruct@{m\_boundryStruct}!mpsverifycfg@{mpsverifycfg}}
+\doxysubsubsection{\texorpdfstring{m\_boundryStruct}{m\_boundryStruct}}
+{\footnotesize\ttfamily \label{classmpsverifycfg_a44a9c5ff67065d21ce9be8e06b7db591} 
+std\+::vector$<$\mbox{\hyperlink{struct_particle}{Particle}}$>$ mpsverifycfg\+::m\+\_\+boundry\+Struct \{\}}
+
+\Hypertarget{classmpsverifycfg_a6e56557fde71916cb4f1b397ac80cc06}\index{mpsverifycfg@{mpsverifycfg}!m\_dt@{m\_dt}}
+\index{m\_dt@{m\_dt}!mpsverifycfg@{mpsverifycfg}}
+\doxysubsubsection{\texorpdfstring{m\_dt}{m\_dt}}
+{\footnotesize\ttfamily \label{classmpsverifycfg_a6e56557fde71916cb4f1b397ac80cc06} 
+float mpsverifycfg\+::m\+\_\+dt}
+
+\Hypertarget{classmpsverifycfg_a671d989789f6e341fb6c00529194db93}\index{mpsverifycfg@{mpsverifycfg}!m\_NumParticles@{m\_NumParticles}}
+\index{m\_NumParticles@{m\_NumParticles}!mpsverifycfg@{mpsverifycfg}}
+\doxysubsubsection{\texorpdfstring{m\_NumParticles}{m\_NumParticles}}
+{\footnotesize\ttfamily \label{classmpsverifycfg_a671d989789f6e341fb6c00529194db93} 
+uint32\+\_\+t mpsverifycfg\+::m\+\_\+\+Num\+Particles}
+
+\Hypertarget{classmpsverifycfg_a09de83b5f7af7faa049a480086d32a0d}\index{mpsverifycfg@{mpsverifycfg}!m\_numTextures@{m\_numTextures}}
+\index{m\_numTextures@{m\_numTextures}!mpsverifycfg@{mpsverifycfg}}
+\doxysubsubsection{\texorpdfstring{m\_numTextures}{m\_numTextures}}
+{\footnotesize\ttfamily \label{classmpsverifycfg_a09de83b5f7af7faa049a480086d32a0d} 
+uint32\+\_\+t mpsverifycfg\+::m\+\_\+num\+Textures}
+
+\Hypertarget{classmpsverifycfg_a8bc27feb368500f6aab757f5be2d4c62}\index{mpsverifycfg@{mpsverifycfg}!m\_part\_pos@{m\_part\_pos}}
+\index{m\_part\_pos@{m\_part\_pos}!mpsverifycfg@{mpsverifycfg}}
+\doxysubsubsection{\texorpdfstring{m\_part\_pos}{m\_part\_pos}}
+{\footnotesize\ttfamily \label{classmpsverifycfg_a8bc27feb368500f6aab757f5be2d4c62} 
+glm\+::vec2 mpsverifycfg\+::m\+\_\+part\+\_\+pos}
+
+\Hypertarget{classmpsverifycfg_ac219e0a364e01f2812d1f48152e0df59}\index{mpsverifycfg@{mpsverifycfg}!m\_part\_vel@{m\_part\_vel}}
+\index{m\_part\_vel@{m\_part\_vel}!mpsverifycfg@{mpsverifycfg}}
+\doxysubsubsection{\texorpdfstring{m\_part\_vel}{m\_part\_vel}}
+{\footnotesize\ttfamily \label{classmpsverifycfg_ac219e0a364e01f2812d1f48152e0df59} 
+glm\+::vec2 mpsverifycfg\+::m\+\_\+part\+\_\+vel}
+
+\Hypertarget{classmpsverifycfg_a839566e396eaf3572415501c767a5438}\index{mpsverifycfg@{mpsverifycfg}!m\_particleStruct@{m\_particleStruct}}
+\index{m\_particleStruct@{m\_particleStruct}!mpsverifycfg@{mpsverifycfg}}
+\doxysubsubsection{\texorpdfstring{m\_particleStruct}{m\_particleStruct}}
+{\footnotesize\ttfamily \label{classmpsverifycfg_a839566e396eaf3572415501c767a5438} 
+std\+::vector$<$\mbox{\hyperlink{struct_particle}{Particle}}$>$ mpsverifycfg\+::m\+\_\+particle\+Struct \{\}}
+
+\Hypertarget{classmpsverifycfg_a4fbbdbcc23e915712159d0c11b723072}\index{mpsverifycfg@{mpsverifycfg}!m\_srcParticle@{m\_srcParticle}}
+\index{m\_srcParticle@{m\_srcParticle}!mpsverifycfg@{mpsverifycfg}}
+\doxysubsubsection{\texorpdfstring{m\_srcParticle}{m\_srcParticle}}
+{\footnotesize\ttfamily \label{classmpsverifycfg_a4fbbdbcc23e915712159d0c11b723072} 
+uint32\+\_\+t mpsverifycfg\+::m\+\_\+src\+Particle}
+
+\Hypertarget{classmpsverifycfg_a9d697efc3bb52b269098fd0b72052c14}\index{mpsverifycfg@{mpsverifycfg}!m\_StudyFlag@{m\_StudyFlag}}
+\index{m\_StudyFlag@{m\_StudyFlag}!mpsverifycfg@{mpsverifycfg}}
+\doxysubsubsection{\texorpdfstring{m\_StudyFlag}{m\_StudyFlag}}
+{\footnotesize\ttfamily \label{classmpsverifycfg_a9d697efc3bb52b269098fd0b72052c14} 
+uint32\+\_\+t mpsverifycfg\+::m\+\_\+\+Study\+Flag}
+
+\Hypertarget{classmpsverifycfg_a5537debf9527dd68d111e9cacf91d228}\index{mpsverifycfg@{mpsverifycfg}!m\_studyType@{m\_studyType}}
+\index{m\_studyType@{m\_studyType}!mpsverifycfg@{mpsverifycfg}}
+\doxysubsubsection{\texorpdfstring{m\_studyType}{m\_studyType}}
+{\footnotesize\ttfamily \label{classmpsverifycfg_a5537debf9527dd68d111e9cacf91d228} 
+uint32\+\_\+t mpsverifycfg\+::m\+\_\+study\+Type}
+
+\Hypertarget{classmpsverifycfg_aa869555ca7746d3a5b36c1ff53c5ab4f}\index{mpsverifycfg@{mpsverifycfg}!m\_SubStudyFlag@{m\_SubStudyFlag}}
+\index{m\_SubStudyFlag@{m\_SubStudyFlag}!mpsverifycfg@{mpsverifycfg}}
+\doxysubsubsection{\texorpdfstring{m\_SubStudyFlag}{m\_SubStudyFlag}}
+{\footnotesize\ttfamily \label{classmpsverifycfg_aa869555ca7746d3a5b36c1ff53c5ab4f} 
+uint32\+\_\+t mpsverifycfg\+::m\+\_\+\+Sub\+Study\+Flag}
+
+\Hypertarget{classmpsverifycfg_acd1489457a103efa56c37b4e73956e7a}\index{mpsverifycfg@{mpsverifycfg}!m\_textureNames@{m\_textureNames}}
+\index{m\_textureNames@{m\_textureNames}!mpsverifycfg@{mpsverifycfg}}
+\doxysubsubsection{\texorpdfstring{m\_textureNames}{m\_textureNames}}
+{\footnotesize\ttfamily \label{classmpsverifycfg_acd1489457a103efa56c37b4e73956e7a} 
+std\+::vector$<$std\+::string$>$ mpsverifycfg\+::m\+\_\+texture\+Names}
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+J\+:/\+FPIBG/vulkan/src\+\_\+app/vcubeverify/\mbox{\hyperlink{mpsverify_cfg_8hpp}{mpsverify\+Cfg.\+hpp}}\item 
+J\+:/\+FPIBG/vulkan/src\+\_\+app/vcubeverify/\mbox{\hyperlink{mpsverify_cfg_8cpp}{mpsverify\+Cfg.\+cpp}}\end{DoxyCompactItemize}

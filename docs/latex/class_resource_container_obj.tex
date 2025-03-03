@@ -1,0 +1,259 @@
+\doxysection{Resource\+Container\+Obj Class Reference}
+\hypertarget{class_resource_container_obj}{}\label{class_resource_container_obj}\index{ResourceContainerObj@{ResourceContainerObj}}
+
+
+{\ttfamily \#include $<$Container\+Obj.\+hpp$>$}
+
+
+
+Inheritance diagram for Resource\+Container\+Obj\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_resource_container_obj__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Resource\+Container\+Obj\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_resource_container_obj__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual void \mbox{\hyperlink{class_resource_container_obj_abada6c5b0a6a776d69af7a1966e3cc85}{Allocate\+Descriptor\+Sets}} ()
+\item 
+virtual void \mbox{\hyperlink{class_resource_container_obj_a97acfee9194655726d36c17130585281}{Create\+Set\+Layout\+Bindings}} ()
+\item 
+virtual void \mbox{\hyperlink{class_resource_container_obj_aaa9f5fe3543c47ee087e2b5a33cb887d}{Create\+Descriptor\+Pool}} ()
+\item 
+virtual void \mbox{\hyperlink{class_resource_container_obj_ae9f1e7a7006159a52c26ed5b4bda3aae}{Update\+Descriptor\+Sets}} ()
+\item 
+void \mbox{\hyperlink{class_resource_container_obj_a7974b9f8dfedf2079149840452b3b1c2}{Create}} (std\+::vector$<$ \mbox{\hyperlink{class_resource}{Resource}} \texorpdfstring{$\ast$}{*} $>$ DRList)
+\item 
+Vk\+Descriptor\+Set\+Layout \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_resource_container_obj_a0faf87fa54c4f5eea638c3256bf5a632}{Get\+Descriptor\+Set\+Layout}} ()
+\item 
+std\+::vector$<$ Vk\+Descriptor\+Set $>$ \mbox{\hyperlink{class_resource_container_obj_a1f52c8a321f4dcff50af452b2a57e119}{Get\+Resource\+Descriptor\+Sets}} ()
+\item 
+\mbox{\hyperlink{class_resource_container_obj_a53d6712960baed1f64295766bff906c4}{Resource\+Container\+Obj}} (\mbox{\hyperlink{class_vulkan_obj}{Vulkan\+Obj}} \texorpdfstring{$\ast$}{*}App, std\+::string Name, uint32\+\_\+t Type=\mbox{\hyperlink{_vulkan_defines_8hpp_a70e7f6b71d45cbefd3faecf02b9196d4a52e55b87da9f1ed8b3a038eae8f5cced}{VBW\+\_\+\+TYPE\+\_\+\+GRAPHPIPE}})
+\item 
+std\+::vector$<$ \mbox{\hyperlink{class_resource}{Resource}} \texorpdfstring{$\ast$}{*} $>$ \mbox{\hyperlink{class_resource_container_obj_adf6483ea7d1d5c392e8bae062f5c6af1}{Get\+Resource\+List}} ()
+\item 
+Vk\+Descriptor\+Set \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_resource_container_obj_accab9d443b029e122374ecab07cd7934}{Get\+Resource\+Sets}} (uint32\+\_\+t current\+Buffer)
+\item 
+\mbox{\hyperlink{class_resource}{Resource}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_resource_container_obj_a46986086fb14036875b8b531dbfcedfe}{Get\+Resource\+Name}} (std\+::string Name)
+\item 
+\mbox{\hyperlink{class_resource}{Resource}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_resource_container_obj_a37232cdfc21185d7a3d4efcc95557241}{Get\+Resource\+Type}} (uint32\+\_\+t m\+\_\+\+VTType)
+\item 
+void \mbox{\hyperlink{class_resource_container_obj_a7006e7118c9866e848797ddbc9393c13}{Cleanup}} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_base_obj}{Base\+Obj}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_base_obj_a4b83af8a8e0e29a74b5d1780e2dd9172}{Base\+Obj}} ()
+\item 
+\mbox{\hyperlink{class_base_obj_a591e107302b3a81ff86ad91a93fd3c79}{Base\+Obj}} (std\+::string Name, uint32\+\_\+t Type, \mbox{\hyperlink{class_vulkan_obj}{Vulkan\+Obj}} \texorpdfstring{$\ast$}{*}App)
+\item 
+uint32\+\_\+t \mbox{\hyperlink{class_base_obj_a13d66a7db04f2f49f0b8a7505bd957bb}{Get\+Type}} ()
+\item 
+std\+::string \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_base_obj_a818217adc491531cf69dbe8960313d21}{get\+Name}} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+uint32\+\_\+t \mbox{\hyperlink{class_resource_container_obj_acf0bb94ccca38c0ef8eaa04de19e8c26}{m\+\_\+\+UBOSet\+Count}} = 0
+\item 
+uint32\+\_\+t \mbox{\hyperlink{class_resource_container_obj_a5775db1c4ab011d675e006f6c049cb84}{m\+\_\+\+ATTSet\+Count}} = 0
+\item 
+std\+::vector$<$ Vk\+Descriptor\+Set\+Layout\+Binding $>$ \mbox{\hyperlink{class_resource_container_obj_ad1536a1a0b717e667e8c3de840c27066}{m\+\_\+\+Bindings}} =\{\}
+\item 
+Vk\+Descriptor\+Set\+Layout \mbox{\hyperlink{class_resource_container_obj_a082321e10543558b030d5894614bb909}{m\+\_\+\+Resource\+Set\+Layout}} = \{\}
+\item 
+std\+::vector$<$ Vk\+Descriptor\+Set $>$ \mbox{\hyperlink{class_resource_container_obj_a1e8c6929c1e5bb152cf1b61872119d0b}{m\+\_\+\+Resource\+Descriptor\+Sets}}
+\item 
+std\+::vector$<$ Vk\+Descriptor\+Pool\+Size $>$ \mbox{\hyperlink{class_resource_container_obj_aa67d95a625595384eed2a32c1296af14}{m\+\_\+\+Pool\+Sizes}} =\{\}
+\item 
+Vk\+Descriptor\+Pool\+Create\+Info \mbox{\hyperlink{class_resource_container_obj_a084743c015a46f2537cbb4a091f523fd}{m\+\_\+\+Pool\+Info}} =\{\}
+\item 
+Vk\+Descriptor\+Pool \mbox{\hyperlink{class_resource_container_obj_a9244977b6bcbd7fea044e0434bdb9b22}{m\+\_\+\+Resource\+Pool}} = \{\}
+\item 
+uint32\+\_\+t \mbox{\hyperlink{class_resource_container_obj_afd28a510939137464374716540062c2c}{m\+\_\+\+Descriptor\+Count}} =0
+\item 
+std\+::vector$<$ \mbox{\hyperlink{class_resource}{Resource}} \texorpdfstring{$\ast$}{*} $>$ \mbox{\hyperlink{class_resource_container_obj_a9376b4e85af28d8efef8d50b6a8892c4}{m\+\_\+\+DRList}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes inherited from \mbox{\hyperlink{class_base_obj}{Base\+Obj}}}
+\begin{DoxyCompactItemize}
+\item 
+std\+::string \mbox{\hyperlink{class_base_obj_a7a48a870862125c622302bd728a06c8f}{m\+\_\+\+Name}}
+\item 
+std\+::string \mbox{\hyperlink{class_base_obj_a0f4afc531f2ba36a0c4bf735e7d228b9}{m\+\_\+wkstr}}
+\item 
+uint32\+\_\+t \mbox{\hyperlink{class_base_obj_a911900fe67cd3edaf3ef52a7f57f398a}{m\+\_\+\+Type}} =0
+\item 
+\mbox{\hyperlink{class_vulkan_obj}{Vulkan\+Obj}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_base_obj_ab8f8d9c2f68f3bef1153d397d61646b0}{m\+\_\+\+App}} = \{\}
+\item 
+\mbox{\hyperlink{class_config_obj}{Config\+Obj}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_base_obj_aac207590eff5a5e099c4534d46e50f07}{m\+\_\+\+ACfg}} = \{\}
+\item 
+uint32\+\_\+t \mbox{\hyperlink{class_base_obj_a615d9ffc2cf237a1d45ac63721fae83c}{m\+\_\+this\+Frames\+Buffered}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_resource_container_obj_a53d6712960baed1f64295766bff906c4}\index{ResourceContainerObj@{ResourceContainerObj}!ResourceContainerObj@{ResourceContainerObj}}
+\index{ResourceContainerObj@{ResourceContainerObj}!ResourceContainerObj@{ResourceContainerObj}}
+\doxysubsubsection{\texorpdfstring{ResourceContainerObj()}{ResourceContainerObj()}}
+{\footnotesize\ttfamily \label{class_resource_container_obj_a53d6712960baed1f64295766bff906c4} 
+Resource\+Container\+Obj\+::\+Resource\+Container\+Obj (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_vulkan_obj}{Vulkan\+Obj}} \texorpdfstring{$\ast$}{*}}]{App}{, }\item[{std\+::string}]{Name}{, }\item[{uint32\+\_\+t}]{Type}{ = {\ttfamily \mbox{\hyperlink{_vulkan_defines_8hpp_a70e7f6b71d45cbefd3faecf02b9196d4a52e55b87da9f1ed8b3a038eae8f5cced}{VBW\+\_\+\+TYPE\+\_\+\+GRAPHPIPE}}}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_resource_container_obj_abada6c5b0a6a776d69af7a1966e3cc85}\index{ResourceContainerObj@{ResourceContainerObj}!AllocateDescriptorSets@{AllocateDescriptorSets}}
+\index{AllocateDescriptorSets@{AllocateDescriptorSets}!ResourceContainerObj@{ResourceContainerObj}}
+\doxysubsubsection{\texorpdfstring{AllocateDescriptorSets()}{AllocateDescriptorSets()}}
+{\footnotesize\ttfamily \label{class_resource_container_obj_abada6c5b0a6a776d69af7a1966e3cc85} 
+void Resource\+Container\+Obj\+::\+Allocate\+Descriptor\+Sets (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+\Hypertarget{class_resource_container_obj_a7006e7118c9866e848797ddbc9393c13}\index{ResourceContainerObj@{ResourceContainerObj}!Cleanup@{Cleanup}}
+\index{Cleanup@{Cleanup}!ResourceContainerObj@{ResourceContainerObj}}
+\doxysubsubsection{\texorpdfstring{Cleanup()}{Cleanup()}}
+{\footnotesize\ttfamily \label{class_resource_container_obj_a7006e7118c9866e848797ddbc9393c13} 
+void Resource\+Container\+Obj\+::\+Cleanup (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_base_obj_aec468ed8d8521d3d6edd10317c9a1ed9}{Base\+Obj}}.
+
+\Hypertarget{class_resource_container_obj_a7974b9f8dfedf2079149840452b3b1c2}\index{ResourceContainerObj@{ResourceContainerObj}!Create@{Create}}
+\index{Create@{Create}!ResourceContainerObj@{ResourceContainerObj}}
+\doxysubsubsection{\texorpdfstring{Create()}{Create()}}
+{\footnotesize\ttfamily \label{class_resource_container_obj_a7974b9f8dfedf2079149840452b3b1c2} 
+void Resource\+Container\+Obj\+::\+Create (\begin{DoxyParamCaption}\item[{std\+::vector$<$ \mbox{\hyperlink{class_resource}{Resource}} \texorpdfstring{$\ast$}{*} $>$}]{DRList}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{class_resource_container_obj_aaa9f5fe3543c47ee087e2b5a33cb887d}\index{ResourceContainerObj@{ResourceContainerObj}!CreateDescriptorPool@{CreateDescriptorPool}}
+\index{CreateDescriptorPool@{CreateDescriptorPool}!ResourceContainerObj@{ResourceContainerObj}}
+\doxysubsubsection{\texorpdfstring{CreateDescriptorPool()}{CreateDescriptorPool()}}
+{\footnotesize\ttfamily \label{class_resource_container_obj_aaa9f5fe3543c47ee087e2b5a33cb887d} 
+void Resource\+Container\+Obj\+::\+Create\+Descriptor\+Pool (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+\Hypertarget{class_resource_container_obj_a97acfee9194655726d36c17130585281}\index{ResourceContainerObj@{ResourceContainerObj}!CreateSetLayoutBindings@{CreateSetLayoutBindings}}
+\index{CreateSetLayoutBindings@{CreateSetLayoutBindings}!ResourceContainerObj@{ResourceContainerObj}}
+\doxysubsubsection{\texorpdfstring{CreateSetLayoutBindings()}{CreateSetLayoutBindings()}}
+{\footnotesize\ttfamily \label{class_resource_container_obj_a97acfee9194655726d36c17130585281} 
+void Resource\+Container\+Obj\+::\+Create\+Set\+Layout\+Bindings (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+\Hypertarget{class_resource_container_obj_a0faf87fa54c4f5eea638c3256bf5a632}\index{ResourceContainerObj@{ResourceContainerObj}!GetDescriptorSetLayout@{GetDescriptorSetLayout}}
+\index{GetDescriptorSetLayout@{GetDescriptorSetLayout}!ResourceContainerObj@{ResourceContainerObj}}
+\doxysubsubsection{\texorpdfstring{GetDescriptorSetLayout()}{GetDescriptorSetLayout()}}
+{\footnotesize\ttfamily \label{class_resource_container_obj_a0faf87fa54c4f5eea638c3256bf5a632} 
+Vk\+Descriptor\+Set\+Layout \texorpdfstring{$\ast$}{*} Resource\+Container\+Obj\+::\+Get\+Descriptor\+Set\+Layout (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{class_resource_container_obj_a1f52c8a321f4dcff50af452b2a57e119}\index{ResourceContainerObj@{ResourceContainerObj}!GetResourceDescriptorSets@{GetResourceDescriptorSets}}
+\index{GetResourceDescriptorSets@{GetResourceDescriptorSets}!ResourceContainerObj@{ResourceContainerObj}}
+\doxysubsubsection{\texorpdfstring{GetResourceDescriptorSets()}{GetResourceDescriptorSets()}}
+{\footnotesize\ttfamily \label{class_resource_container_obj_a1f52c8a321f4dcff50af452b2a57e119} 
+std\+::vector$<$ Vk\+Descriptor\+Set $>$ Resource\+Container\+Obj\+::\+Get\+Resource\+Descriptor\+Sets (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{class_resource_container_obj_adf6483ea7d1d5c392e8bae062f5c6af1}\index{ResourceContainerObj@{ResourceContainerObj}!GetResourceList@{GetResourceList}}
+\index{GetResourceList@{GetResourceList}!ResourceContainerObj@{ResourceContainerObj}}
+\doxysubsubsection{\texorpdfstring{GetResourceList()}{GetResourceList()}}
+{\footnotesize\ttfamily \label{class_resource_container_obj_adf6483ea7d1d5c392e8bae062f5c6af1} 
+std\+::vector$<$ \mbox{\hyperlink{class_resource}{Resource}} \texorpdfstring{$\ast$}{*} $>$ Resource\+Container\+Obj\+::\+Get\+Resource\+List (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{class_resource_container_obj_a46986086fb14036875b8b531dbfcedfe}\index{ResourceContainerObj@{ResourceContainerObj}!GetResourceName@{GetResourceName}}
+\index{GetResourceName@{GetResourceName}!ResourceContainerObj@{ResourceContainerObj}}
+\doxysubsubsection{\texorpdfstring{GetResourceName()}{GetResourceName()}}
+{\footnotesize\ttfamily \label{class_resource_container_obj_a46986086fb14036875b8b531dbfcedfe} 
+\mbox{\hyperlink{class_resource}{Resource}} \texorpdfstring{$\ast$}{*} Resource\+Container\+Obj\+::\+Get\+Resource\+Name (\begin{DoxyParamCaption}\item[{std\+::string}]{Name}{}\end{DoxyParamCaption})}
+
+\Hypertarget{class_resource_container_obj_accab9d443b029e122374ecab07cd7934}\index{ResourceContainerObj@{ResourceContainerObj}!GetResourceSets@{GetResourceSets}}
+\index{GetResourceSets@{GetResourceSets}!ResourceContainerObj@{ResourceContainerObj}}
+\doxysubsubsection{\texorpdfstring{GetResourceSets()}{GetResourceSets()}}
+{\footnotesize\ttfamily \label{class_resource_container_obj_accab9d443b029e122374ecab07cd7934} 
+Vk\+Descriptor\+Set \texorpdfstring{$\ast$}{*} Resource\+Container\+Obj\+::\+Get\+Resource\+Sets (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{current\+Buffer}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{class_resource_container_obj_a37232cdfc21185d7a3d4efcc95557241}\index{ResourceContainerObj@{ResourceContainerObj}!GetResourceType@{GetResourceType}}
+\index{GetResourceType@{GetResourceType}!ResourceContainerObj@{ResourceContainerObj}}
+\doxysubsubsection{\texorpdfstring{GetResourceType()}{GetResourceType()}}
+{\footnotesize\ttfamily \label{class_resource_container_obj_a37232cdfc21185d7a3d4efcc95557241} 
+\mbox{\hyperlink{class_resource}{Resource}} \texorpdfstring{$\ast$}{*} Resource\+Container\+Obj\+::\+Get\+Resource\+Type (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{m\+\_\+\+VTType}{}\end{DoxyParamCaption})}
+
+\Hypertarget{class_resource_container_obj_ae9f1e7a7006159a52c26ed5b4bda3aae}\index{ResourceContainerObj@{ResourceContainerObj}!UpdateDescriptorSets@{UpdateDescriptorSets}}
+\index{UpdateDescriptorSets@{UpdateDescriptorSets}!ResourceContainerObj@{ResourceContainerObj}}
+\doxysubsubsection{\texorpdfstring{UpdateDescriptorSets()}{UpdateDescriptorSets()}}
+{\footnotesize\ttfamily \label{class_resource_container_obj_ae9f1e7a7006159a52c26ed5b4bda3aae} 
+void Resource\+Container\+Obj\+::\+Update\+Descriptor\+Sets (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{class_resource_container_obj_a5775db1c4ab011d675e006f6c049cb84}\index{ResourceContainerObj@{ResourceContainerObj}!m\_ATTSetCount@{m\_ATTSetCount}}
+\index{m\_ATTSetCount@{m\_ATTSetCount}!ResourceContainerObj@{ResourceContainerObj}}
+\doxysubsubsection{\texorpdfstring{m\_ATTSetCount}{m\_ATTSetCount}}
+{\footnotesize\ttfamily \label{class_resource_container_obj_a5775db1c4ab011d675e006f6c049cb84} 
+uint32\+\_\+t Resource\+Container\+Obj\+::m\+\_\+\+ATTSet\+Count = 0}
+
+\Hypertarget{class_resource_container_obj_ad1536a1a0b717e667e8c3de840c27066}\index{ResourceContainerObj@{ResourceContainerObj}!m\_Bindings@{m\_Bindings}}
+\index{m\_Bindings@{m\_Bindings}!ResourceContainerObj@{ResourceContainerObj}}
+\doxysubsubsection{\texorpdfstring{m\_Bindings}{m\_Bindings}}
+{\footnotesize\ttfamily \label{class_resource_container_obj_ad1536a1a0b717e667e8c3de840c27066} 
+std\+::vector$<$Vk\+Descriptor\+Set\+Layout\+Binding$>$ Resource\+Container\+Obj\+::m\+\_\+\+Bindings =\{\}}
+
+\Hypertarget{class_resource_container_obj_afd28a510939137464374716540062c2c}\index{ResourceContainerObj@{ResourceContainerObj}!m\_DescriptorCount@{m\_DescriptorCount}}
+\index{m\_DescriptorCount@{m\_DescriptorCount}!ResourceContainerObj@{ResourceContainerObj}}
+\doxysubsubsection{\texorpdfstring{m\_DescriptorCount}{m\_DescriptorCount}}
+{\footnotesize\ttfamily \label{class_resource_container_obj_afd28a510939137464374716540062c2c} 
+uint32\+\_\+t Resource\+Container\+Obj\+::m\+\_\+\+Descriptor\+Count =0}
+
+\Hypertarget{class_resource_container_obj_a9376b4e85af28d8efef8d50b6a8892c4}\index{ResourceContainerObj@{ResourceContainerObj}!m\_DRList@{m\_DRList}}
+\index{m\_DRList@{m\_DRList}!ResourceContainerObj@{ResourceContainerObj}}
+\doxysubsubsection{\texorpdfstring{m\_DRList}{m\_DRList}}
+{\footnotesize\ttfamily \label{class_resource_container_obj_a9376b4e85af28d8efef8d50b6a8892c4} 
+std\+::vector$<$\mbox{\hyperlink{class_resource}{Resource}}\texorpdfstring{$\ast$}{*}$>$ Resource\+Container\+Obj\+::m\+\_\+\+DRList}
+
+\Hypertarget{class_resource_container_obj_a084743c015a46f2537cbb4a091f523fd}\index{ResourceContainerObj@{ResourceContainerObj}!m\_PoolInfo@{m\_PoolInfo}}
+\index{m\_PoolInfo@{m\_PoolInfo}!ResourceContainerObj@{ResourceContainerObj}}
+\doxysubsubsection{\texorpdfstring{m\_PoolInfo}{m\_PoolInfo}}
+{\footnotesize\ttfamily \label{class_resource_container_obj_a084743c015a46f2537cbb4a091f523fd} 
+Vk\+Descriptor\+Pool\+Create\+Info Resource\+Container\+Obj\+::m\+\_\+\+Pool\+Info =\{\}}
+
+\Hypertarget{class_resource_container_obj_aa67d95a625595384eed2a32c1296af14}\index{ResourceContainerObj@{ResourceContainerObj}!m\_PoolSizes@{m\_PoolSizes}}
+\index{m\_PoolSizes@{m\_PoolSizes}!ResourceContainerObj@{ResourceContainerObj}}
+\doxysubsubsection{\texorpdfstring{m\_PoolSizes}{m\_PoolSizes}}
+{\footnotesize\ttfamily \label{class_resource_container_obj_aa67d95a625595384eed2a32c1296af14} 
+std\+::vector$<$Vk\+Descriptor\+Pool\+Size$>$ Resource\+Container\+Obj\+::m\+\_\+\+Pool\+Sizes =\{\}}
+
+\Hypertarget{class_resource_container_obj_a1e8c6929c1e5bb152cf1b61872119d0b}\index{ResourceContainerObj@{ResourceContainerObj}!m\_ResourceDescriptorSets@{m\_ResourceDescriptorSets}}
+\index{m\_ResourceDescriptorSets@{m\_ResourceDescriptorSets}!ResourceContainerObj@{ResourceContainerObj}}
+\doxysubsubsection{\texorpdfstring{m\_ResourceDescriptorSets}{m\_ResourceDescriptorSets}}
+{\footnotesize\ttfamily \label{class_resource_container_obj_a1e8c6929c1e5bb152cf1b61872119d0b} 
+std\+::vector$<$Vk\+Descriptor\+Set$>$ Resource\+Container\+Obj\+::m\+\_\+\+Resource\+Descriptor\+Sets}
+
+\Hypertarget{class_resource_container_obj_a9244977b6bcbd7fea044e0434bdb9b22}\index{ResourceContainerObj@{ResourceContainerObj}!m\_ResourcePool@{m\_ResourcePool}}
+\index{m\_ResourcePool@{m\_ResourcePool}!ResourceContainerObj@{ResourceContainerObj}}
+\doxysubsubsection{\texorpdfstring{m\_ResourcePool}{m\_ResourcePool}}
+{\footnotesize\ttfamily \label{class_resource_container_obj_a9244977b6bcbd7fea044e0434bdb9b22} 
+Vk\+Descriptor\+Pool Resource\+Container\+Obj\+::m\+\_\+\+Resource\+Pool = \{\}}
+
+\Hypertarget{class_resource_container_obj_a082321e10543558b030d5894614bb909}\index{ResourceContainerObj@{ResourceContainerObj}!m\_ResourceSetLayout@{m\_ResourceSetLayout}}
+\index{m\_ResourceSetLayout@{m\_ResourceSetLayout}!ResourceContainerObj@{ResourceContainerObj}}
+\doxysubsubsection{\texorpdfstring{m\_ResourceSetLayout}{m\_ResourceSetLayout}}
+{\footnotesize\ttfamily \label{class_resource_container_obj_a082321e10543558b030d5894614bb909} 
+Vk\+Descriptor\+Set\+Layout Resource\+Container\+Obj\+::m\+\_\+\+Resource\+Set\+Layout = \{\}}
+
+\Hypertarget{class_resource_container_obj_acf0bb94ccca38c0ef8eaa04de19e8c26}\index{ResourceContainerObj@{ResourceContainerObj}!m\_UBOSetCount@{m\_UBOSetCount}}
+\index{m\_UBOSetCount@{m\_UBOSetCount}!ResourceContainerObj@{ResourceContainerObj}}
+\doxysubsubsection{\texorpdfstring{m\_UBOSetCount}{m\_UBOSetCount}}
+{\footnotesize\ttfamily \label{class_resource_container_obj_acf0bb94ccca38c0ef8eaa04de19e8c26} 
+uint32\+\_\+t Resource\+Container\+Obj\+::m\+\_\+\+UBOSet\+Count = 0}
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+J\+:/\+FPIBG/vulkan/src/\+Vulkan\+Obj/\mbox{\hyperlink{_container_obj_8hpp}{Container\+Obj.\+hpp}}\item 
+J\+:/\+FPIBG/vulkan/src/\+Vulkan\+Obj/\mbox{\hyperlink{_container_obj_8cpp}{Container\+Obj.\+cpp}}\end{DoxyCompactItemize}

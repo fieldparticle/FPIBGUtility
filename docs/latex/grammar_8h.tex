@@ -1,0 +1,416 @@
+\doxysection{J\+:/\+FPIBG/vulkan/src/libconfig/grammar.h File Reference}
+\hypertarget{grammar_8h}{}\label{grammar_8h}\index{J:/FPIBG/vulkan/src/libconfig/grammar.h@{J:/FPIBG/vulkan/src/libconfig/grammar.h}}
+This graph shows which files directly or indirectly include this file\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{grammar_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+union \mbox{\hyperlink{union_y_y_s_t_y_p_e}{YYSTYPE}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{grammar_8h_a853b3bfad6d2b2ff693dce81182e0c2e}{YYDEBUG}}~0
+\item 
+\#define \mbox{\hyperlink{grammar_8h_a69ca0fbcc6d7aa5e8f47b11fc0048208}{YYTOKENTYPE}}
+\item 
+\#define \mbox{\hyperlink{grammar_8h_ae59196b3765411a06cf234cf9bcae2e7}{YYEMPTY}}~-\/2
+\item 
+\#define \mbox{\hyperlink{grammar_8h_a3b1e3628411fabac03abe0a337322016}{YYEOF}}~0
+\item 
+\#define \mbox{\hyperlink{grammar_8h_a59c299a288bbee5e59ddf65c278c8720}{YYerror}}~256
+\item 
+\#define \mbox{\hyperlink{grammar_8h_a5c6ef6a69a7aec39aafa4786e8c13f1e}{YYUNDEF}}~257
+\item 
+\#define \mbox{\hyperlink{grammar_8h_a57e5660f647aa60e11ca9782e158949d}{TOK\+\_\+\+BOOLEAN}}~258
+\item 
+\#define \mbox{\hyperlink{grammar_8h_afe8234318c40d23aa0ef8d7c6c3bb613}{TOK\+\_\+\+INTEGER}}~259
+\item 
+\#define \mbox{\hyperlink{grammar_8h_abbb8340fa8257a75865a060cb4f492d5}{TOK\+\_\+\+HEX}}~260
+\item 
+\#define \mbox{\hyperlink{grammar_8h_a88bad54911209df594dc18cf5a862d77}{TOK\+\_\+\+INTEGER64}}~261
+\item 
+\#define \mbox{\hyperlink{grammar_8h_ad9c1282beda9a0fcb200efcaf95a2702}{TOK\+\_\+\+HEX64}}~262
+\item 
+\#define \mbox{\hyperlink{grammar_8h_a3867e462c2d373a53251ca0b835aada5}{TOK\+\_\+\+FLOAT}}~263
+\item 
+\#define \mbox{\hyperlink{grammar_8h_a438ebcf2bfac5fd8af5356f3c0305839}{TOK\+\_\+\+STRING}}~264
+\item 
+\#define \mbox{\hyperlink{grammar_8h_ad988fa86b948db0ed4e4093dea41c9d4}{TOK\+\_\+\+NAME}}~265
+\item 
+\#define \mbox{\hyperlink{grammar_8h_a2aee9f170594b125ed4275759d0f01f6}{TOK\+\_\+\+EQUALS}}~266
+\item 
+\#define \mbox{\hyperlink{grammar_8h_a6d75325443212b60baee084ea24ccc62}{TOK\+\_\+\+NEWLINE}}~267
+\item 
+\#define \mbox{\hyperlink{grammar_8h_a937ba1cd996133cb5532011c310d8bdc}{TOK\+\_\+\+ARRAY\+\_\+\+START}}~268
+\item 
+\#define \mbox{\hyperlink{grammar_8h_a2e7af18fe1642f5eb00831393339400b}{TOK\+\_\+\+ARRAY\+\_\+\+END}}~269
+\item 
+\#define \mbox{\hyperlink{grammar_8h_a59dead6373ce8a009c37c2acc6bb03de}{TOK\+\_\+\+LIST\+\_\+\+START}}~270
+\item 
+\#define \mbox{\hyperlink{grammar_8h_a8856a703899dd9d15e7e4eb179aa473f}{TOK\+\_\+\+LIST\+\_\+\+END}}~271
+\item 
+\#define \mbox{\hyperlink{grammar_8h_ae83b5d27d87a650e964b21698da02fda}{TOK\+\_\+\+COMMA}}~272
+\item 
+\#define \mbox{\hyperlink{grammar_8h_a063013921856046cbea18e57736dc1e6}{TOK\+\_\+\+GROUP\+\_\+\+START}}~273
+\item 
+\#define \mbox{\hyperlink{grammar_8h_a1a07150c25e16b69bc8b8f1a2dd4a068}{TOK\+\_\+\+GROUP\+\_\+\+END}}~274
+\item 
+\#define \mbox{\hyperlink{grammar_8h_aeed3603d6bcfa2873994098d2bffe4be}{TOK\+\_\+\+SEMICOLON}}~275
+\item 
+\#define \mbox{\hyperlink{grammar_8h_aecad1fed21ec8638deecc2c2679b65e1}{TOK\+\_\+\+GARBAGE}}~276
+\item 
+\#define \mbox{\hyperlink{grammar_8h_a5d0d20b374e87f59d2aa1df79daf060b}{TOK\+\_\+\+ERROR}}~277
+\item 
+\#define \mbox{\hyperlink{grammar_8h_a2e3dbf169c5ee24cf6af37c61cf3995d}{YYSTYPE\+\_\+\+IS\+\_\+\+TRIVIAL}}~1
+\item 
+\#define \mbox{\hyperlink{grammar_8h_af0232d21120b2cfc5e5f82f0fbadab3c}{YYSTYPE\+\_\+\+IS\+\_\+\+DECLARED}}~1
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{grammar_8h_a15c9f7bd2f0e9686df5d9df4f3314aa9}{yytokentype}} \{ \newline
+\mbox{\hyperlink{grammar_8h_a15c9f7bd2f0e9686df5d9df4f3314aa9a57461e8aaccf36b978588119b3b3f8a8}{YYEMPTY}} = -\/2
+, \mbox{\hyperlink{grammar_8h_a15c9f7bd2f0e9686df5d9df4f3314aa9a0f7ebf23689b7a8b9ddc4744ac536f8b}{YYEOF}} = 0
+, \mbox{\hyperlink{grammar_8h_a15c9f7bd2f0e9686df5d9df4f3314aa9a4e41d3d470b85118f9cf141761d7b05e}{YYerror}} = 256
+, \mbox{\hyperlink{grammar_8h_a15c9f7bd2f0e9686df5d9df4f3314aa9a903fe594d5954ab68a1e3eb37405f115}{YYUNDEF}} = 257
+, \newline
+\mbox{\hyperlink{grammar_8h_a15c9f7bd2f0e9686df5d9df4f3314aa9a86e6652aa292c8e978b68ace2b0f1300}{TOK\+\_\+\+BOOLEAN}} = 258
+, \mbox{\hyperlink{grammar_8h_a15c9f7bd2f0e9686df5d9df4f3314aa9a7a97eb6460bcde5f66faca2e51730a82}{TOK\+\_\+\+INTEGER}} = 259
+, \mbox{\hyperlink{grammar_8h_a15c9f7bd2f0e9686df5d9df4f3314aa9a1f511c1ba767bf05c44dacfa8eeefc2d}{TOK\+\_\+\+HEX}} = 260
+, \mbox{\hyperlink{grammar_8h_a15c9f7bd2f0e9686df5d9df4f3314aa9a4c4ffb217c20c46d7d35faeac7b2ada2}{TOK\+\_\+\+INTEGER64}} = 261
+, \newline
+\mbox{\hyperlink{grammar_8h_a15c9f7bd2f0e9686df5d9df4f3314aa9a446a605af769360d9c5b511e02be998c}{TOK\+\_\+\+HEX64}} = 262
+, \mbox{\hyperlink{grammar_8h_a15c9f7bd2f0e9686df5d9df4f3314aa9add470148bc49b9406cab8014f1a05e1a}{TOK\+\_\+\+FLOAT}} = 263
+, \mbox{\hyperlink{grammar_8h_a15c9f7bd2f0e9686df5d9df4f3314aa9a6aed8afdbbec5110277334eba1c8d1ef}{TOK\+\_\+\+STRING}} = 264
+, \mbox{\hyperlink{grammar_8h_a15c9f7bd2f0e9686df5d9df4f3314aa9a2521ed04c163bb1cbdd6af6a3674cb8f}{TOK\+\_\+\+NAME}} = 265
+, \newline
+\mbox{\hyperlink{grammar_8h_a15c9f7bd2f0e9686df5d9df4f3314aa9a738fab9f730a0fb766fa02328739b7c3}{TOK\+\_\+\+EQUALS}} = 266
+, \mbox{\hyperlink{grammar_8h_a15c9f7bd2f0e9686df5d9df4f3314aa9af95d944540ec4759be1efca8422b1db7}{TOK\+\_\+\+NEWLINE}} = 267
+, \mbox{\hyperlink{grammar_8h_a15c9f7bd2f0e9686df5d9df4f3314aa9a6b912e59d3b01ff97b3cdc99e34886e8}{TOK\+\_\+\+ARRAY\+\_\+\+START}} = 268
+, \mbox{\hyperlink{grammar_8h_a15c9f7bd2f0e9686df5d9df4f3314aa9a32d61fe2e7d849bcd1e50d909c26eb83}{TOK\+\_\+\+ARRAY\+\_\+\+END}} = 269
+, \newline
+\mbox{\hyperlink{grammar_8h_a15c9f7bd2f0e9686df5d9df4f3314aa9ac508a95b48de48b3afb83ffc60156165}{TOK\+\_\+\+LIST\+\_\+\+START}} = 270
+, \mbox{\hyperlink{grammar_8h_a15c9f7bd2f0e9686df5d9df4f3314aa9a10da87e4de3f19460926990feb2b8eea}{TOK\+\_\+\+LIST\+\_\+\+END}} = 271
+, \mbox{\hyperlink{grammar_8h_a15c9f7bd2f0e9686df5d9df4f3314aa9a62cdeef3d4613afb658caae912e99272}{TOK\+\_\+\+COMMA}} = 272
+, \mbox{\hyperlink{grammar_8h_a15c9f7bd2f0e9686df5d9df4f3314aa9a37a6f71fb6a5c296e1fb86c95216a317}{TOK\+\_\+\+GROUP\+\_\+\+START}} = 273
+, \newline
+\mbox{\hyperlink{grammar_8h_a15c9f7bd2f0e9686df5d9df4f3314aa9a125079fe82e20957e1cab0f5eb29e655}{TOK\+\_\+\+GROUP\+\_\+\+END}} = 274
+, \mbox{\hyperlink{grammar_8h_a15c9f7bd2f0e9686df5d9df4f3314aa9aea2ea79171e8d0363830add7169ff88f}{TOK\+\_\+\+SEMICOLON}} = 275
+, \mbox{\hyperlink{grammar_8h_a15c9f7bd2f0e9686df5d9df4f3314aa9a47ab3580bbebe6fe293dda08d328dec0}{TOK\+\_\+\+GARBAGE}} = 276
+, \mbox{\hyperlink{grammar_8h_a15c9f7bd2f0e9686df5d9df4f3314aa9a1e45d4c51261381ea32625e93e1c6ea0}{TOK\+\_\+\+ERROR}} = 277
+ \}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{grammar_8h_a63551e178b72419d266d6fc127b1b8f6}{libconfig\+\_\+yyerror}} (void \texorpdfstring{$\ast$}{*}scanner, struct \mbox{\hyperlink{structparse__context}{parse\+\_\+context}} \texorpdfstring{$\ast$}{*}ctx, struct \mbox{\hyperlink{structscan__context}{scan\+\_\+context}} \texorpdfstring{$\ast$}{*}scan\+\_\+ctx, const char \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{mout_8cpp_ae39de1412a36988b71784bb48f8dd7e9}{msg}})
+\item 
+int \mbox{\hyperlink{grammar_8h_a81efa41203bde288148b765bae6c34f8}{libconfig\+\_\+yylex}} (\mbox{\hyperlink{union_y_y_s_t_y_p_e}{YYSTYPE}} \texorpdfstring{$\ast$}{*}yylvalp, void \texorpdfstring{$\ast$}{*}scanner)
+\item 
+int \mbox{\hyperlink{grammar_8h_a8ea043923cee044f92acb84d6c94a92a}{libconfig\+\_\+yyparse}} (void \texorpdfstring{$\ast$}{*}scanner, struct \mbox{\hyperlink{structparse__context}{parse\+\_\+context}} \texorpdfstring{$\ast$}{*}ctx, struct \mbox{\hyperlink{structscan__context}{scan\+\_\+context}} \texorpdfstring{$\ast$}{*}scan\+\_\+ctx)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{grammar_8h_a2e7af18fe1642f5eb00831393339400b}\index{grammar.h@{grammar.h}!TOK\_ARRAY\_END@{TOK\_ARRAY\_END}}
+\index{TOK\_ARRAY\_END@{TOK\_ARRAY\_END}!grammar.h@{grammar.h}}
+\doxysubsubsection{\texorpdfstring{TOK\_ARRAY\_END}{TOK\_ARRAY\_END}}
+{\footnotesize\ttfamily \label{grammar_8h_a2e7af18fe1642f5eb00831393339400b} 
+\#define TOK\+\_\+\+ARRAY\+\_\+\+END~269}
+
+\Hypertarget{grammar_8h_a937ba1cd996133cb5532011c310d8bdc}\index{grammar.h@{grammar.h}!TOK\_ARRAY\_START@{TOK\_ARRAY\_START}}
+\index{TOK\_ARRAY\_START@{TOK\_ARRAY\_START}!grammar.h@{grammar.h}}
+\doxysubsubsection{\texorpdfstring{TOK\_ARRAY\_START}{TOK\_ARRAY\_START}}
+{\footnotesize\ttfamily \label{grammar_8h_a937ba1cd996133cb5532011c310d8bdc} 
+\#define TOK\+\_\+\+ARRAY\+\_\+\+START~268}
+
+\Hypertarget{grammar_8h_a57e5660f647aa60e11ca9782e158949d}\index{grammar.h@{grammar.h}!TOK\_BOOLEAN@{TOK\_BOOLEAN}}
+\index{TOK\_BOOLEAN@{TOK\_BOOLEAN}!grammar.h@{grammar.h}}
+\doxysubsubsection{\texorpdfstring{TOK\_BOOLEAN}{TOK\_BOOLEAN}}
+{\footnotesize\ttfamily \label{grammar_8h_a57e5660f647aa60e11ca9782e158949d} 
+\#define TOK\+\_\+\+BOOLEAN~258}
+
+\Hypertarget{grammar_8h_ae83b5d27d87a650e964b21698da02fda}\index{grammar.h@{grammar.h}!TOK\_COMMA@{TOK\_COMMA}}
+\index{TOK\_COMMA@{TOK\_COMMA}!grammar.h@{grammar.h}}
+\doxysubsubsection{\texorpdfstring{TOK\_COMMA}{TOK\_COMMA}}
+{\footnotesize\ttfamily \label{grammar_8h_ae83b5d27d87a650e964b21698da02fda} 
+\#define TOK\+\_\+\+COMMA~272}
+
+\Hypertarget{grammar_8h_a2aee9f170594b125ed4275759d0f01f6}\index{grammar.h@{grammar.h}!TOK\_EQUALS@{TOK\_EQUALS}}
+\index{TOK\_EQUALS@{TOK\_EQUALS}!grammar.h@{grammar.h}}
+\doxysubsubsection{\texorpdfstring{TOK\_EQUALS}{TOK\_EQUALS}}
+{\footnotesize\ttfamily \label{grammar_8h_a2aee9f170594b125ed4275759d0f01f6} 
+\#define TOK\+\_\+\+EQUALS~266}
+
+\Hypertarget{grammar_8h_a5d0d20b374e87f59d2aa1df79daf060b}\index{grammar.h@{grammar.h}!TOK\_ERROR@{TOK\_ERROR}}
+\index{TOK\_ERROR@{TOK\_ERROR}!grammar.h@{grammar.h}}
+\doxysubsubsection{\texorpdfstring{TOK\_ERROR}{TOK\_ERROR}}
+{\footnotesize\ttfamily \label{grammar_8h_a5d0d20b374e87f59d2aa1df79daf060b} 
+\#define TOK\+\_\+\+ERROR~277}
+
+\Hypertarget{grammar_8h_a3867e462c2d373a53251ca0b835aada5}\index{grammar.h@{grammar.h}!TOK\_FLOAT@{TOK\_FLOAT}}
+\index{TOK\_FLOAT@{TOK\_FLOAT}!grammar.h@{grammar.h}}
+\doxysubsubsection{\texorpdfstring{TOK\_FLOAT}{TOK\_FLOAT}}
+{\footnotesize\ttfamily \label{grammar_8h_a3867e462c2d373a53251ca0b835aada5} 
+\#define TOK\+\_\+\+FLOAT~263}
+
+\Hypertarget{grammar_8h_aecad1fed21ec8638deecc2c2679b65e1}\index{grammar.h@{grammar.h}!TOK\_GARBAGE@{TOK\_GARBAGE}}
+\index{TOK\_GARBAGE@{TOK\_GARBAGE}!grammar.h@{grammar.h}}
+\doxysubsubsection{\texorpdfstring{TOK\_GARBAGE}{TOK\_GARBAGE}}
+{\footnotesize\ttfamily \label{grammar_8h_aecad1fed21ec8638deecc2c2679b65e1} 
+\#define TOK\+\_\+\+GARBAGE~276}
+
+\Hypertarget{grammar_8h_a1a07150c25e16b69bc8b8f1a2dd4a068}\index{grammar.h@{grammar.h}!TOK\_GROUP\_END@{TOK\_GROUP\_END}}
+\index{TOK\_GROUP\_END@{TOK\_GROUP\_END}!grammar.h@{grammar.h}}
+\doxysubsubsection{\texorpdfstring{TOK\_GROUP\_END}{TOK\_GROUP\_END}}
+{\footnotesize\ttfamily \label{grammar_8h_a1a07150c25e16b69bc8b8f1a2dd4a068} 
+\#define TOK\+\_\+\+GROUP\+\_\+\+END~274}
+
+\Hypertarget{grammar_8h_a063013921856046cbea18e57736dc1e6}\index{grammar.h@{grammar.h}!TOK\_GROUP\_START@{TOK\_GROUP\_START}}
+\index{TOK\_GROUP\_START@{TOK\_GROUP\_START}!grammar.h@{grammar.h}}
+\doxysubsubsection{\texorpdfstring{TOK\_GROUP\_START}{TOK\_GROUP\_START}}
+{\footnotesize\ttfamily \label{grammar_8h_a063013921856046cbea18e57736dc1e6} 
+\#define TOK\+\_\+\+GROUP\+\_\+\+START~273}
+
+\Hypertarget{grammar_8h_abbb8340fa8257a75865a060cb4f492d5}\index{grammar.h@{grammar.h}!TOK\_HEX@{TOK\_HEX}}
+\index{TOK\_HEX@{TOK\_HEX}!grammar.h@{grammar.h}}
+\doxysubsubsection{\texorpdfstring{TOK\_HEX}{TOK\_HEX}}
+{\footnotesize\ttfamily \label{grammar_8h_abbb8340fa8257a75865a060cb4f492d5} 
+\#define TOK\+\_\+\+HEX~260}
+
+\Hypertarget{grammar_8h_ad9c1282beda9a0fcb200efcaf95a2702}\index{grammar.h@{grammar.h}!TOK\_HEX64@{TOK\_HEX64}}
+\index{TOK\_HEX64@{TOK\_HEX64}!grammar.h@{grammar.h}}
+\doxysubsubsection{\texorpdfstring{TOK\_HEX64}{TOK\_HEX64}}
+{\footnotesize\ttfamily \label{grammar_8h_ad9c1282beda9a0fcb200efcaf95a2702} 
+\#define TOK\+\_\+\+HEX64~262}
+
+\Hypertarget{grammar_8h_afe8234318c40d23aa0ef8d7c6c3bb613}\index{grammar.h@{grammar.h}!TOK\_INTEGER@{TOK\_INTEGER}}
+\index{TOK\_INTEGER@{TOK\_INTEGER}!grammar.h@{grammar.h}}
+\doxysubsubsection{\texorpdfstring{TOK\_INTEGER}{TOK\_INTEGER}}
+{\footnotesize\ttfamily \label{grammar_8h_afe8234318c40d23aa0ef8d7c6c3bb613} 
+\#define TOK\+\_\+\+INTEGER~259}
+
+\Hypertarget{grammar_8h_a88bad54911209df594dc18cf5a862d77}\index{grammar.h@{grammar.h}!TOK\_INTEGER64@{TOK\_INTEGER64}}
+\index{TOK\_INTEGER64@{TOK\_INTEGER64}!grammar.h@{grammar.h}}
+\doxysubsubsection{\texorpdfstring{TOK\_INTEGER64}{TOK\_INTEGER64}}
+{\footnotesize\ttfamily \label{grammar_8h_a88bad54911209df594dc18cf5a862d77} 
+\#define TOK\+\_\+\+INTEGER64~261}
+
+\Hypertarget{grammar_8h_a8856a703899dd9d15e7e4eb179aa473f}\index{grammar.h@{grammar.h}!TOK\_LIST\_END@{TOK\_LIST\_END}}
+\index{TOK\_LIST\_END@{TOK\_LIST\_END}!grammar.h@{grammar.h}}
+\doxysubsubsection{\texorpdfstring{TOK\_LIST\_END}{TOK\_LIST\_END}}
+{\footnotesize\ttfamily \label{grammar_8h_a8856a703899dd9d15e7e4eb179aa473f} 
+\#define TOK\+\_\+\+LIST\+\_\+\+END~271}
+
+\Hypertarget{grammar_8h_a59dead6373ce8a009c37c2acc6bb03de}\index{grammar.h@{grammar.h}!TOK\_LIST\_START@{TOK\_LIST\_START}}
+\index{TOK\_LIST\_START@{TOK\_LIST\_START}!grammar.h@{grammar.h}}
+\doxysubsubsection{\texorpdfstring{TOK\_LIST\_START}{TOK\_LIST\_START}}
+{\footnotesize\ttfamily \label{grammar_8h_a59dead6373ce8a009c37c2acc6bb03de} 
+\#define TOK\+\_\+\+LIST\+\_\+\+START~270}
+
+\Hypertarget{grammar_8h_ad988fa86b948db0ed4e4093dea41c9d4}\index{grammar.h@{grammar.h}!TOK\_NAME@{TOK\_NAME}}
+\index{TOK\_NAME@{TOK\_NAME}!grammar.h@{grammar.h}}
+\doxysubsubsection{\texorpdfstring{TOK\_NAME}{TOK\_NAME}}
+{\footnotesize\ttfamily \label{grammar_8h_ad988fa86b948db0ed4e4093dea41c9d4} 
+\#define TOK\+\_\+\+NAME~265}
+
+\Hypertarget{grammar_8h_a6d75325443212b60baee084ea24ccc62}\index{grammar.h@{grammar.h}!TOK\_NEWLINE@{TOK\_NEWLINE}}
+\index{TOK\_NEWLINE@{TOK\_NEWLINE}!grammar.h@{grammar.h}}
+\doxysubsubsection{\texorpdfstring{TOK\_NEWLINE}{TOK\_NEWLINE}}
+{\footnotesize\ttfamily \label{grammar_8h_a6d75325443212b60baee084ea24ccc62} 
+\#define TOK\+\_\+\+NEWLINE~267}
+
+\Hypertarget{grammar_8h_aeed3603d6bcfa2873994098d2bffe4be}\index{grammar.h@{grammar.h}!TOK\_SEMICOLON@{TOK\_SEMICOLON}}
+\index{TOK\_SEMICOLON@{TOK\_SEMICOLON}!grammar.h@{grammar.h}}
+\doxysubsubsection{\texorpdfstring{TOK\_SEMICOLON}{TOK\_SEMICOLON}}
+{\footnotesize\ttfamily \label{grammar_8h_aeed3603d6bcfa2873994098d2bffe4be} 
+\#define TOK\+\_\+\+SEMICOLON~275}
+
+\Hypertarget{grammar_8h_a438ebcf2bfac5fd8af5356f3c0305839}\index{grammar.h@{grammar.h}!TOK\_STRING@{TOK\_STRING}}
+\index{TOK\_STRING@{TOK\_STRING}!grammar.h@{grammar.h}}
+\doxysubsubsection{\texorpdfstring{TOK\_STRING}{TOK\_STRING}}
+{\footnotesize\ttfamily \label{grammar_8h_a438ebcf2bfac5fd8af5356f3c0305839} 
+\#define TOK\+\_\+\+STRING~264}
+
+\Hypertarget{grammar_8h_a853b3bfad6d2b2ff693dce81182e0c2e}\index{grammar.h@{grammar.h}!YYDEBUG@{YYDEBUG}}
+\index{YYDEBUG@{YYDEBUG}!grammar.h@{grammar.h}}
+\doxysubsubsection{\texorpdfstring{YYDEBUG}{YYDEBUG}}
+{\footnotesize\ttfamily \label{grammar_8h_a853b3bfad6d2b2ff693dce81182e0c2e} 
+\#define YYDEBUG~0}
+
+\Hypertarget{grammar_8h_ae59196b3765411a06cf234cf9bcae2e7}\index{grammar.h@{grammar.h}!YYEMPTY@{YYEMPTY}}
+\index{YYEMPTY@{YYEMPTY}!grammar.h@{grammar.h}}
+\doxysubsubsection{\texorpdfstring{YYEMPTY}{YYEMPTY}}
+{\footnotesize\ttfamily \label{grammar_8h_ae59196b3765411a06cf234cf9bcae2e7} 
+\#define YYEMPTY~-\/2}
+
+\Hypertarget{grammar_8h_a3b1e3628411fabac03abe0a337322016}\index{grammar.h@{grammar.h}!YYEOF@{YYEOF}}
+\index{YYEOF@{YYEOF}!grammar.h@{grammar.h}}
+\doxysubsubsection{\texorpdfstring{YYEOF}{YYEOF}}
+{\footnotesize\ttfamily \label{grammar_8h_a3b1e3628411fabac03abe0a337322016} 
+\#define YYEOF~0}
+
+\Hypertarget{grammar_8h_a59c299a288bbee5e59ddf65c278c8720}\index{grammar.h@{grammar.h}!YYerror@{YYerror}}
+\index{YYerror@{YYerror}!grammar.h@{grammar.h}}
+\doxysubsubsection{\texorpdfstring{YYerror}{YYerror}}
+{\footnotesize\ttfamily \label{grammar_8h_a59c299a288bbee5e59ddf65c278c8720} 
+\#define YYerror~256}
+
+\Hypertarget{grammar_8h_af0232d21120b2cfc5e5f82f0fbadab3c}\index{grammar.h@{grammar.h}!YYSTYPE\_IS\_DECLARED@{YYSTYPE\_IS\_DECLARED}}
+\index{YYSTYPE\_IS\_DECLARED@{YYSTYPE\_IS\_DECLARED}!grammar.h@{grammar.h}}
+\doxysubsubsection{\texorpdfstring{YYSTYPE\_IS\_DECLARED}{YYSTYPE\_IS\_DECLARED}}
+{\footnotesize\ttfamily \label{grammar_8h_af0232d21120b2cfc5e5f82f0fbadab3c} 
+\#define YYSTYPE\+\_\+\+IS\+\_\+\+DECLARED~1}
+
+\Hypertarget{grammar_8h_a2e3dbf169c5ee24cf6af37c61cf3995d}\index{grammar.h@{grammar.h}!YYSTYPE\_IS\_TRIVIAL@{YYSTYPE\_IS\_TRIVIAL}}
+\index{YYSTYPE\_IS\_TRIVIAL@{YYSTYPE\_IS\_TRIVIAL}!grammar.h@{grammar.h}}
+\doxysubsubsection{\texorpdfstring{YYSTYPE\_IS\_TRIVIAL}{YYSTYPE\_IS\_TRIVIAL}}
+{\footnotesize\ttfamily \label{grammar_8h_a2e3dbf169c5ee24cf6af37c61cf3995d} 
+\#define YYSTYPE\+\_\+\+IS\+\_\+\+TRIVIAL~1}
+
+\Hypertarget{grammar_8h_a69ca0fbcc6d7aa5e8f47b11fc0048208}\index{grammar.h@{grammar.h}!YYTOKENTYPE@{YYTOKENTYPE}}
+\index{YYTOKENTYPE@{YYTOKENTYPE}!grammar.h@{grammar.h}}
+\doxysubsubsection{\texorpdfstring{YYTOKENTYPE}{YYTOKENTYPE}}
+{\footnotesize\ttfamily \label{grammar_8h_a69ca0fbcc6d7aa5e8f47b11fc0048208} 
+\#define YYTOKENTYPE}
+
+\Hypertarget{grammar_8h_a5c6ef6a69a7aec39aafa4786e8c13f1e}\index{grammar.h@{grammar.h}!YYUNDEF@{YYUNDEF}}
+\index{YYUNDEF@{YYUNDEF}!grammar.h@{grammar.h}}
+\doxysubsubsection{\texorpdfstring{YYUNDEF}{YYUNDEF}}
+{\footnotesize\ttfamily \label{grammar_8h_a5c6ef6a69a7aec39aafa4786e8c13f1e} 
+\#define YYUNDEF~257}
+
+
+
+\doxysubsection{Enumeration Type Documentation}
+\Hypertarget{grammar_8h_a15c9f7bd2f0e9686df5d9df4f3314aa9}\index{grammar.h@{grammar.h}!yytokentype@{yytokentype}}
+\index{yytokentype@{yytokentype}!grammar.h@{grammar.h}}
+\doxysubsubsection{\texorpdfstring{yytokentype}{yytokentype}}
+{\footnotesize\ttfamily \label{grammar_8h_a15c9f7bd2f0e9686df5d9df4f3314aa9} 
+enum \mbox{\hyperlink{grammar_8c_a15c9f7bd2f0e9686df5d9df4f3314aa9}{yytokentype}}}
+
+\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{YYEMPTY@{YYEMPTY}!grammar.h@{grammar.h}}\index{grammar.h@{grammar.h}!YYEMPTY@{YYEMPTY}}}\Hypertarget{grammar_8h_a15c9f7bd2f0e9686df5d9df4f3314aa9a57461e8aaccf36b978588119b3b3f8a8}\label{grammar_8h_a15c9f7bd2f0e9686df5d9df4f3314aa9a57461e8aaccf36b978588119b3b3f8a8} 
+YYEMPTY&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{YYEOF@{YYEOF}!grammar.h@{grammar.h}}\index{grammar.h@{grammar.h}!YYEOF@{YYEOF}}}\Hypertarget{grammar_8h_a15c9f7bd2f0e9686df5d9df4f3314aa9a0f7ebf23689b7a8b9ddc4744ac536f8b}\label{grammar_8h_a15c9f7bd2f0e9686df5d9df4f3314aa9a0f7ebf23689b7a8b9ddc4744ac536f8b} 
+YYEOF&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{YYerror@{YYerror}!grammar.h@{grammar.h}}\index{grammar.h@{grammar.h}!YYerror@{YYerror}}}\Hypertarget{grammar_8h_a15c9f7bd2f0e9686df5d9df4f3314aa9a4e41d3d470b85118f9cf141761d7b05e}\label{grammar_8h_a15c9f7bd2f0e9686df5d9df4f3314aa9a4e41d3d470b85118f9cf141761d7b05e} 
+YYerror&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{YYUNDEF@{YYUNDEF}!grammar.h@{grammar.h}}\index{grammar.h@{grammar.h}!YYUNDEF@{YYUNDEF}}}\Hypertarget{grammar_8h_a15c9f7bd2f0e9686df5d9df4f3314aa9a903fe594d5954ab68a1e3eb37405f115}\label{grammar_8h_a15c9f7bd2f0e9686df5d9df4f3314aa9a903fe594d5954ab68a1e3eb37405f115} 
+YYUNDEF&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TOK\_BOOLEAN@{TOK\_BOOLEAN}!grammar.h@{grammar.h}}\index{grammar.h@{grammar.h}!TOK\_BOOLEAN@{TOK\_BOOLEAN}}}\Hypertarget{grammar_8h_a15c9f7bd2f0e9686df5d9df4f3314aa9a86e6652aa292c8e978b68ace2b0f1300}\label{grammar_8h_a15c9f7bd2f0e9686df5d9df4f3314aa9a86e6652aa292c8e978b68ace2b0f1300} 
+TOK\+\_\+\+BOOLEAN&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TOK\_INTEGER@{TOK\_INTEGER}!grammar.h@{grammar.h}}\index{grammar.h@{grammar.h}!TOK\_INTEGER@{TOK\_INTEGER}}}\Hypertarget{grammar_8h_a15c9f7bd2f0e9686df5d9df4f3314aa9a7a97eb6460bcde5f66faca2e51730a82}\label{grammar_8h_a15c9f7bd2f0e9686df5d9df4f3314aa9a7a97eb6460bcde5f66faca2e51730a82} 
+TOK\+\_\+\+INTEGER&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TOK\_HEX@{TOK\_HEX}!grammar.h@{grammar.h}}\index{grammar.h@{grammar.h}!TOK\_HEX@{TOK\_HEX}}}\Hypertarget{grammar_8h_a15c9f7bd2f0e9686df5d9df4f3314aa9a1f511c1ba767bf05c44dacfa8eeefc2d}\label{grammar_8h_a15c9f7bd2f0e9686df5d9df4f3314aa9a1f511c1ba767bf05c44dacfa8eeefc2d} 
+TOK\+\_\+\+HEX&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TOK\_INTEGER64@{TOK\_INTEGER64}!grammar.h@{grammar.h}}\index{grammar.h@{grammar.h}!TOK\_INTEGER64@{TOK\_INTEGER64}}}\Hypertarget{grammar_8h_a15c9f7bd2f0e9686df5d9df4f3314aa9a4c4ffb217c20c46d7d35faeac7b2ada2}\label{grammar_8h_a15c9f7bd2f0e9686df5d9df4f3314aa9a4c4ffb217c20c46d7d35faeac7b2ada2} 
+TOK\+\_\+\+INTEGER64&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TOK\_HEX64@{TOK\_HEX64}!grammar.h@{grammar.h}}\index{grammar.h@{grammar.h}!TOK\_HEX64@{TOK\_HEX64}}}\Hypertarget{grammar_8h_a15c9f7bd2f0e9686df5d9df4f3314aa9a446a605af769360d9c5b511e02be998c}\label{grammar_8h_a15c9f7bd2f0e9686df5d9df4f3314aa9a446a605af769360d9c5b511e02be998c} 
+TOK\+\_\+\+HEX64&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TOK\_FLOAT@{TOK\_FLOAT}!grammar.h@{grammar.h}}\index{grammar.h@{grammar.h}!TOK\_FLOAT@{TOK\_FLOAT}}}\Hypertarget{grammar_8h_a15c9f7bd2f0e9686df5d9df4f3314aa9add470148bc49b9406cab8014f1a05e1a}\label{grammar_8h_a15c9f7bd2f0e9686df5d9df4f3314aa9add470148bc49b9406cab8014f1a05e1a} 
+TOK\+\_\+\+FLOAT&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TOK\_STRING@{TOK\_STRING}!grammar.h@{grammar.h}}\index{grammar.h@{grammar.h}!TOK\_STRING@{TOK\_STRING}}}\Hypertarget{grammar_8h_a15c9f7bd2f0e9686df5d9df4f3314aa9a6aed8afdbbec5110277334eba1c8d1ef}\label{grammar_8h_a15c9f7bd2f0e9686df5d9df4f3314aa9a6aed8afdbbec5110277334eba1c8d1ef} 
+TOK\+\_\+\+STRING&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TOK\_NAME@{TOK\_NAME}!grammar.h@{grammar.h}}\index{grammar.h@{grammar.h}!TOK\_NAME@{TOK\_NAME}}}\Hypertarget{grammar_8h_a15c9f7bd2f0e9686df5d9df4f3314aa9a2521ed04c163bb1cbdd6af6a3674cb8f}\label{grammar_8h_a15c9f7bd2f0e9686df5d9df4f3314aa9a2521ed04c163bb1cbdd6af6a3674cb8f} 
+TOK\+\_\+\+NAME&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TOK\_EQUALS@{TOK\_EQUALS}!grammar.h@{grammar.h}}\index{grammar.h@{grammar.h}!TOK\_EQUALS@{TOK\_EQUALS}}}\Hypertarget{grammar_8h_a15c9f7bd2f0e9686df5d9df4f3314aa9a738fab9f730a0fb766fa02328739b7c3}\label{grammar_8h_a15c9f7bd2f0e9686df5d9df4f3314aa9a738fab9f730a0fb766fa02328739b7c3} 
+TOK\+\_\+\+EQUALS&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TOK\_NEWLINE@{TOK\_NEWLINE}!grammar.h@{grammar.h}}\index{grammar.h@{grammar.h}!TOK\_NEWLINE@{TOK\_NEWLINE}}}\Hypertarget{grammar_8h_a15c9f7bd2f0e9686df5d9df4f3314aa9af95d944540ec4759be1efca8422b1db7}\label{grammar_8h_a15c9f7bd2f0e9686df5d9df4f3314aa9af95d944540ec4759be1efca8422b1db7} 
+TOK\+\_\+\+NEWLINE&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TOK\_ARRAY\_START@{TOK\_ARRAY\_START}!grammar.h@{grammar.h}}\index{grammar.h@{grammar.h}!TOK\_ARRAY\_START@{TOK\_ARRAY\_START}}}\Hypertarget{grammar_8h_a15c9f7bd2f0e9686df5d9df4f3314aa9a6b912e59d3b01ff97b3cdc99e34886e8}\label{grammar_8h_a15c9f7bd2f0e9686df5d9df4f3314aa9a6b912e59d3b01ff97b3cdc99e34886e8} 
+TOK\+\_\+\+ARRAY\+\_\+\+START&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TOK\_ARRAY\_END@{TOK\_ARRAY\_END}!grammar.h@{grammar.h}}\index{grammar.h@{grammar.h}!TOK\_ARRAY\_END@{TOK\_ARRAY\_END}}}\Hypertarget{grammar_8h_a15c9f7bd2f0e9686df5d9df4f3314aa9a32d61fe2e7d849bcd1e50d909c26eb83}\label{grammar_8h_a15c9f7bd2f0e9686df5d9df4f3314aa9a32d61fe2e7d849bcd1e50d909c26eb83} 
+TOK\+\_\+\+ARRAY\+\_\+\+END&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TOK\_LIST\_START@{TOK\_LIST\_START}!grammar.h@{grammar.h}}\index{grammar.h@{grammar.h}!TOK\_LIST\_START@{TOK\_LIST\_START}}}\Hypertarget{grammar_8h_a15c9f7bd2f0e9686df5d9df4f3314aa9ac508a95b48de48b3afb83ffc60156165}\label{grammar_8h_a15c9f7bd2f0e9686df5d9df4f3314aa9ac508a95b48de48b3afb83ffc60156165} 
+TOK\+\_\+\+LIST\+\_\+\+START&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TOK\_LIST\_END@{TOK\_LIST\_END}!grammar.h@{grammar.h}}\index{grammar.h@{grammar.h}!TOK\_LIST\_END@{TOK\_LIST\_END}}}\Hypertarget{grammar_8h_a15c9f7bd2f0e9686df5d9df4f3314aa9a10da87e4de3f19460926990feb2b8eea}\label{grammar_8h_a15c9f7bd2f0e9686df5d9df4f3314aa9a10da87e4de3f19460926990feb2b8eea} 
+TOK\+\_\+\+LIST\+\_\+\+END&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TOK\_COMMA@{TOK\_COMMA}!grammar.h@{grammar.h}}\index{grammar.h@{grammar.h}!TOK\_COMMA@{TOK\_COMMA}}}\Hypertarget{grammar_8h_a15c9f7bd2f0e9686df5d9df4f3314aa9a62cdeef3d4613afb658caae912e99272}\label{grammar_8h_a15c9f7bd2f0e9686df5d9df4f3314aa9a62cdeef3d4613afb658caae912e99272} 
+TOK\+\_\+\+COMMA&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TOK\_GROUP\_START@{TOK\_GROUP\_START}!grammar.h@{grammar.h}}\index{grammar.h@{grammar.h}!TOK\_GROUP\_START@{TOK\_GROUP\_START}}}\Hypertarget{grammar_8h_a15c9f7bd2f0e9686df5d9df4f3314aa9a37a6f71fb6a5c296e1fb86c95216a317}\label{grammar_8h_a15c9f7bd2f0e9686df5d9df4f3314aa9a37a6f71fb6a5c296e1fb86c95216a317} 
+TOK\+\_\+\+GROUP\+\_\+\+START&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TOK\_GROUP\_END@{TOK\_GROUP\_END}!grammar.h@{grammar.h}}\index{grammar.h@{grammar.h}!TOK\_GROUP\_END@{TOK\_GROUP\_END}}}\Hypertarget{grammar_8h_a15c9f7bd2f0e9686df5d9df4f3314aa9a125079fe82e20957e1cab0f5eb29e655}\label{grammar_8h_a15c9f7bd2f0e9686df5d9df4f3314aa9a125079fe82e20957e1cab0f5eb29e655} 
+TOK\+\_\+\+GROUP\+\_\+\+END&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TOK\_SEMICOLON@{TOK\_SEMICOLON}!grammar.h@{grammar.h}}\index{grammar.h@{grammar.h}!TOK\_SEMICOLON@{TOK\_SEMICOLON}}}\Hypertarget{grammar_8h_a15c9f7bd2f0e9686df5d9df4f3314aa9aea2ea79171e8d0363830add7169ff88f}\label{grammar_8h_a15c9f7bd2f0e9686df5d9df4f3314aa9aea2ea79171e8d0363830add7169ff88f} 
+TOK\+\_\+\+SEMICOLON&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TOK\_GARBAGE@{TOK\_GARBAGE}!grammar.h@{grammar.h}}\index{grammar.h@{grammar.h}!TOK\_GARBAGE@{TOK\_GARBAGE}}}\Hypertarget{grammar_8h_a15c9f7bd2f0e9686df5d9df4f3314aa9a47ab3580bbebe6fe293dda08d328dec0}\label{grammar_8h_a15c9f7bd2f0e9686df5d9df4f3314aa9a47ab3580bbebe6fe293dda08d328dec0} 
+TOK\+\_\+\+GARBAGE&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TOK\_ERROR@{TOK\_ERROR}!grammar.h@{grammar.h}}\index{grammar.h@{grammar.h}!TOK\_ERROR@{TOK\_ERROR}}}\Hypertarget{grammar_8h_a15c9f7bd2f0e9686df5d9df4f3314aa9a1e45d4c51261381ea32625e93e1c6ea0}\label{grammar_8h_a15c9f7bd2f0e9686df5d9df4f3314aa9a1e45d4c51261381ea32625e93e1c6ea0} 
+TOK\+\_\+\+ERROR&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{grammar_8h_a63551e178b72419d266d6fc127b1b8f6}\index{grammar.h@{grammar.h}!libconfig\_yyerror@{libconfig\_yyerror}}
+\index{libconfig\_yyerror@{libconfig\_yyerror}!grammar.h@{grammar.h}}
+\doxysubsubsection{\texorpdfstring{libconfig\_yyerror()}{libconfig\_yyerror()}}
+{\footnotesize\ttfamily \label{grammar_8h_a63551e178b72419d266d6fc127b1b8f6} 
+void libconfig\+\_\+yyerror (\begin{DoxyParamCaption}\item[{void \texorpdfstring{$\ast$}{*}}]{scanner}{, }\item[{struct \mbox{\hyperlink{structparse__context}{parse\+\_\+context}} \texorpdfstring{$\ast$}{*}}]{ctx}{, }\item[{struct \mbox{\hyperlink{structscan__context}{scan\+\_\+context}} \texorpdfstring{$\ast$}{*}}]{scan\+\_\+ctx}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{msg}{}\end{DoxyParamCaption})}
+
+\Hypertarget{grammar_8h_a81efa41203bde288148b765bae6c34f8}\index{grammar.h@{grammar.h}!libconfig\_yylex@{libconfig\_yylex}}
+\index{libconfig\_yylex@{libconfig\_yylex}!grammar.h@{grammar.h}}
+\doxysubsubsection{\texorpdfstring{libconfig\_yylex()}{libconfig\_yylex()}}
+{\footnotesize\ttfamily \label{grammar_8h_a81efa41203bde288148b765bae6c34f8} 
+int libconfig\+\_\+yylex (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{union_y_y_s_t_y_p_e}{YYSTYPE}} \texorpdfstring{$\ast$}{*}}]{yylvalp}{, }\item[{void \texorpdfstring{$\ast$}{*}}]{scanner}{}\end{DoxyParamCaption})}
+
+\Hypertarget{grammar_8h_a8ea043923cee044f92acb84d6c94a92a}\index{grammar.h@{grammar.h}!libconfig\_yyparse@{libconfig\_yyparse}}
+\index{libconfig\_yyparse@{libconfig\_yyparse}!grammar.h@{grammar.h}}
+\doxysubsubsection{\texorpdfstring{libconfig\_yyparse()}{libconfig\_yyparse()}}
+{\footnotesize\ttfamily \label{grammar_8h_a8ea043923cee044f92acb84d6c94a92a} 
+int libconfig\+\_\+yyparse (\begin{DoxyParamCaption}\item[{void \texorpdfstring{$\ast$}{*}}]{scanner}{, }\item[{struct \mbox{\hyperlink{structparse__context}{parse\+\_\+context}} \texorpdfstring{$\ast$}{*}}]{ctx}{, }\item[{struct \mbox{\hyperlink{structscan__context}{scan\+\_\+context}} \texorpdfstring{$\ast$}{*}}]{scan\+\_\+ctx}{}\end{DoxyParamCaption})}
+

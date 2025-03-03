@@ -1,0 +1,112 @@
+\doxysection{Test\+FPIBGserver Namespace Reference}
+\hypertarget{namespace_test_f_p_i_b_gserver}{}\label{namespace_test_f_p_i_b_gserver}\index{TestFPIBGserver@{TestFPIBGserver}}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+str \mbox{\hyperlink{namespace_test_f_p_i_b_gserver_a4eaa00ec9c6c5ab0ea698380d858fb12}{HOST}} = "{}0.\+0.\+0.\+0"{}
+\item 
+int \mbox{\hyperlink{namespace_test_f_p_i_b_gserver_a04f8d6139d5b677e13b625668420ad11}{PORT}} = 5000
+\item 
+int \mbox{\hyperlink{namespace_test_f_p_i_b_gserver_a4578b687d522039c96fc5d077ff560ee}{BUFFER\+\_\+\+SIZE}} = 4096
+\item 
+\mbox{\hyperlink{namespace_test_f_p_i_b_gserver_ae412ecc694604ba5de3389db4b4726d1}{script\+\_\+dir}} = os.\+path.\+dirname(os.\+path.\+abspath(\+\_\+\+\_\+file\+\_\+\+\_\+))
+\item 
+\mbox{\hyperlink{namespace_test_f_p_i_b_gserver_aa9f301e4d12c0618fb6b72341e62d0e0}{CONFIG\+\_\+\+PATH}} = os.\+path.\+join(\mbox{\hyperlink{namespace_test_f_p_i_b_gserver_ae412ecc694604ba5de3389db4b4726d1}{script\+\_\+dir}}, \textquotesingle{}..\textquotesingle{}, \textquotesingle{}doc\textquotesingle{}, \textquotesingle{}Particle.\+cfg\textquotesingle{})
+\item 
+\mbox{\hyperlink{namespace_test_f_p_i_b_gserver_aa19423224bf8636825c7bf3a8951c777}{server\+\_\+socket}} = socket.\+socket(socket.\+AF\+\_\+\+INET, socket.\+SOCK\+\_\+\+STREAM)
+\item 
+\mbox{\hyperlink{namespace_test_f_p_i_b_gserver_a51020be62e5a6eed18449c70a71d7d50}{conn}}
+\item 
+\mbox{\hyperlink{namespace_test_f_p_i_b_gserver_ad95db5963c52c8363c9ac17cd03a6642}{addr}}
+\item 
+\mbox{\hyperlink{namespace_test_f_p_i_b_gserver_a2c04df1a5792da3241346da0a31d5425}{filename}} = conn.\+recv(1024).decode()
+\item 
+\mbox{\hyperlink{namespace_test_f_p_i_b_gserver_a546d538d3857e3c3360b5631e65639c2}{exist\+\_\+ok}}
+\item 
+\mbox{\hyperlink{namespace_test_f_p_i_b_gserver_a92eb29dd73efa3da9e21bae92f9d82a8}{data}} = conn.\+recv(\mbox{\hyperlink{namespace_test_f_p_i_b_gserver_a4578b687d522039c96fc5d077ff560ee}{BUFFER\+\_\+\+SIZE}})
+\item 
+str \mbox{\hyperlink{namespace_test_f_p_i_b_gserver_a2eeceb4550af6c18a59e076f77fecea8}{command}} = f"{}python3 \{os.\+path.\+join(\mbox{\hyperlink{namespace_test_f_p_i_b_gserver_ae412ecc694604ba5de3389db4b4726d1}{script\+\_\+dir}}, \textquotesingle{}..\textquotesingle{}, \textquotesingle{}shared\textquotesingle{}, \textquotesingle{}FPIBGConfig.\+py\textquotesingle{})\} -\/-\/config \{\mbox{\hyperlink{namespace_test_f_p_i_b_gserver_aa9f301e4d12c0618fb6b72341e62d0e0}{CONFIG\+\_\+\+PATH}}\}"{}
+\item 
+\mbox{\hyperlink{namespace_test_f_p_i_b_gserver_a58b337ebcdfc1df6197141a5ddc9666a}{shell}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{namespace_test_f_p_i_b_gserver_ad95db5963c52c8363c9ac17cd03a6642}\index{TestFPIBGserver@{TestFPIBGserver}!addr@{addr}}
+\index{addr@{addr}!TestFPIBGserver@{TestFPIBGserver}}
+\doxysubsubsection{\texorpdfstring{addr}{addr}}
+{\footnotesize\ttfamily \label{namespace_test_f_p_i_b_gserver_ad95db5963c52c8363c9ac17cd03a6642} 
+Test\+FPIBGserver.\+addr}
+
+\Hypertarget{namespace_test_f_p_i_b_gserver_a4578b687d522039c96fc5d077ff560ee}\index{TestFPIBGserver@{TestFPIBGserver}!BUFFER\_SIZE@{BUFFER\_SIZE}}
+\index{BUFFER\_SIZE@{BUFFER\_SIZE}!TestFPIBGserver@{TestFPIBGserver}}
+\doxysubsubsection{\texorpdfstring{BUFFER\_SIZE}{BUFFER\_SIZE}}
+{\footnotesize\ttfamily \label{namespace_test_f_p_i_b_gserver_a4578b687d522039c96fc5d077ff560ee} 
+int Test\+FPIBGserver.\+BUFFER\+\_\+\+SIZE = 4096}
+
+\Hypertarget{namespace_test_f_p_i_b_gserver_a2eeceb4550af6c18a59e076f77fecea8}\index{TestFPIBGserver@{TestFPIBGserver}!command@{command}}
+\index{command@{command}!TestFPIBGserver@{TestFPIBGserver}}
+\doxysubsubsection{\texorpdfstring{command}{command}}
+{\footnotesize\ttfamily \label{namespace_test_f_p_i_b_gserver_a2eeceb4550af6c18a59e076f77fecea8} 
+Test\+FPIBGserver.\+command = f"{}python3 \{os.\+path.\+join(\mbox{\hyperlink{namespace_test_f_p_i_b_gserver_ae412ecc694604ba5de3389db4b4726d1}{script\+\_\+dir}}, \textquotesingle{}..\textquotesingle{}, \textquotesingle{}shared\textquotesingle{}, \textquotesingle{}FPIBGConfig.\+py\textquotesingle{})\} -\/-\/config \{\mbox{\hyperlink{namespace_test_f_p_i_b_gserver_aa9f301e4d12c0618fb6b72341e62d0e0}{CONFIG\+\_\+\+PATH}}\}"{}}
+
+\Hypertarget{namespace_test_f_p_i_b_gserver_aa9f301e4d12c0618fb6b72341e62d0e0}\index{TestFPIBGserver@{TestFPIBGserver}!CONFIG\_PATH@{CONFIG\_PATH}}
+\index{CONFIG\_PATH@{CONFIG\_PATH}!TestFPIBGserver@{TestFPIBGserver}}
+\doxysubsubsection{\texorpdfstring{CONFIG\_PATH}{CONFIG\_PATH}}
+{\footnotesize\ttfamily \label{namespace_test_f_p_i_b_gserver_aa9f301e4d12c0618fb6b72341e62d0e0} 
+Test\+FPIBGserver.\+CONFIG\+\_\+\+PATH = os.\+path.\+join(\mbox{\hyperlink{namespace_test_f_p_i_b_gserver_ae412ecc694604ba5de3389db4b4726d1}{script\+\_\+dir}}, \textquotesingle{}..\textquotesingle{}, \textquotesingle{}doc\textquotesingle{}, \textquotesingle{}Particle.\+cfg\textquotesingle{})}
+
+\Hypertarget{namespace_test_f_p_i_b_gserver_a51020be62e5a6eed18449c70a71d7d50}\index{TestFPIBGserver@{TestFPIBGserver}!conn@{conn}}
+\index{conn@{conn}!TestFPIBGserver@{TestFPIBGserver}}
+\doxysubsubsection{\texorpdfstring{conn}{conn}}
+{\footnotesize\ttfamily \label{namespace_test_f_p_i_b_gserver_a51020be62e5a6eed18449c70a71d7d50} 
+Test\+FPIBGserver.\+conn}
+
+\Hypertarget{namespace_test_f_p_i_b_gserver_a92eb29dd73efa3da9e21bae92f9d82a8}\index{TestFPIBGserver@{TestFPIBGserver}!data@{data}}
+\index{data@{data}!TestFPIBGserver@{TestFPIBGserver}}
+\doxysubsubsection{\texorpdfstring{data}{data}}
+{\footnotesize\ttfamily \label{namespace_test_f_p_i_b_gserver_a92eb29dd73efa3da9e21bae92f9d82a8} 
+Test\+FPIBGserver.\+data = conn.\+recv(\mbox{\hyperlink{namespace_test_f_p_i_b_gserver_a4578b687d522039c96fc5d077ff560ee}{BUFFER\+\_\+\+SIZE}})}
+
+\Hypertarget{namespace_test_f_p_i_b_gserver_a546d538d3857e3c3360b5631e65639c2}\index{TestFPIBGserver@{TestFPIBGserver}!exist\_ok@{exist\_ok}}
+\index{exist\_ok@{exist\_ok}!TestFPIBGserver@{TestFPIBGserver}}
+\doxysubsubsection{\texorpdfstring{exist\_ok}{exist\_ok}}
+{\footnotesize\ttfamily \label{namespace_test_f_p_i_b_gserver_a546d538d3857e3c3360b5631e65639c2} 
+Test\+FPIBGserver.\+exist\+\_\+ok}
+
+\Hypertarget{namespace_test_f_p_i_b_gserver_a2c04df1a5792da3241346da0a31d5425}\index{TestFPIBGserver@{TestFPIBGserver}!filename@{filename}}
+\index{filename@{filename}!TestFPIBGserver@{TestFPIBGserver}}
+\doxysubsubsection{\texorpdfstring{filename}{filename}}
+{\footnotesize\ttfamily \label{namespace_test_f_p_i_b_gserver_a2c04df1a5792da3241346da0a31d5425} 
+Test\+FPIBGserver.\+filename = conn.\+recv(1024).decode()}
+
+\Hypertarget{namespace_test_f_p_i_b_gserver_a4eaa00ec9c6c5ab0ea698380d858fb12}\index{TestFPIBGserver@{TestFPIBGserver}!HOST@{HOST}}
+\index{HOST@{HOST}!TestFPIBGserver@{TestFPIBGserver}}
+\doxysubsubsection{\texorpdfstring{HOST}{HOST}}
+{\footnotesize\ttfamily \label{namespace_test_f_p_i_b_gserver_a4eaa00ec9c6c5ab0ea698380d858fb12} 
+str Test\+FPIBGserver.\+HOST = "{}0.\+0.\+0.\+0"{}}
+
+\Hypertarget{namespace_test_f_p_i_b_gserver_a04f8d6139d5b677e13b625668420ad11}\index{TestFPIBGserver@{TestFPIBGserver}!PORT@{PORT}}
+\index{PORT@{PORT}!TestFPIBGserver@{TestFPIBGserver}}
+\doxysubsubsection{\texorpdfstring{PORT}{PORT}}
+{\footnotesize\ttfamily \label{namespace_test_f_p_i_b_gserver_a04f8d6139d5b677e13b625668420ad11} 
+int Test\+FPIBGserver.\+PORT = 5000}
+
+\Hypertarget{namespace_test_f_p_i_b_gserver_ae412ecc694604ba5de3389db4b4726d1}\index{TestFPIBGserver@{TestFPIBGserver}!script\_dir@{script\_dir}}
+\index{script\_dir@{script\_dir}!TestFPIBGserver@{TestFPIBGserver}}
+\doxysubsubsection{\texorpdfstring{script\_dir}{script\_dir}}
+{\footnotesize\ttfamily \label{namespace_test_f_p_i_b_gserver_ae412ecc694604ba5de3389db4b4726d1} 
+Test\+FPIBGserver.\+script\+\_\+dir = os.\+path.\+dirname(os.\+path.\+abspath(\+\_\+\+\_\+file\+\_\+\+\_\+))}
+
+\Hypertarget{namespace_test_f_p_i_b_gserver_aa19423224bf8636825c7bf3a8951c777}\index{TestFPIBGserver@{TestFPIBGserver}!server\_socket@{server\_socket}}
+\index{server\_socket@{server\_socket}!TestFPIBGserver@{TestFPIBGserver}}
+\doxysubsubsection{\texorpdfstring{server\_socket}{server\_socket}}
+{\footnotesize\ttfamily \label{namespace_test_f_p_i_b_gserver_aa19423224bf8636825c7bf3a8951c777} 
+Test\+FPIBGserver.\+server\+\_\+socket = socket.\+socket(socket.\+AF\+\_\+\+INET, socket.\+SOCK\+\_\+\+STREAM)}
+
+\Hypertarget{namespace_test_f_p_i_b_gserver_a58b337ebcdfc1df6197141a5ddc9666a}\index{TestFPIBGserver@{TestFPIBGserver}!shell@{shell}}
+\index{shell@{shell}!TestFPIBGserver@{TestFPIBGserver}}
+\doxysubsubsection{\texorpdfstring{shell}{shell}}
+{\footnotesize\ttfamily \label{namespace_test_f_p_i_b_gserver_a58b337ebcdfc1df6197141a5ddc9666a} 
+Test\+FPIBGserver.\+shell}
+

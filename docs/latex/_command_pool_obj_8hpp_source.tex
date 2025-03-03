@@ -1,0 +1,94 @@
+\doxysection{Command\+Pool\+Obj.\+hpp}
+\hypertarget{_command_pool_obj_8hpp_source}{}\label{_command_pool_obj_8hpp_source}\index{J:/FPIBG/vulkan/src/VulkanObj/CommandPoolObj.hpp@{J:/FPIBG/vulkan/src/VulkanObj/CommandPoolObj.hpp}}
+\mbox{\hyperlink{_command_pool_obj_8hpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*******************************************************************}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\%***\ \ \ \ \ \ C\ PROPRIETARY\ SOURCE\ FILE\ IDENTIFICATION\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ***}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\%*******************************************************************}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\%\ \$Author:\ jb\ \$}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\%}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\%\ \$Date:\ 2023-\/06-\/12\ 16:17:58\ -\/0400\ (Mon,\ 12\ Jun\ 2023)\ \$}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\%\ \$HeadURL:\ https://jbworkstation/svn/svnrootr5/svnvulcan/src/vulkan/CommandObj.hpp\ \$}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\%\ \$Id:\ CommandObj.hpp\ 31\ 2023-\/06-\/12\ 20:17:58Z\ jb\ \$}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\%*******************************************************************}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\%***\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DESCRIPTION\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ***}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\%*******************************************************************}}
+\DoxyCodeLine{00012\ \textcolor{comment}{@doc}}
+\DoxyCodeLine{00013\ \textcolor{comment}{@module}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ @author:\ Jackie\ Michael\ Bell<nl>}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ COPYRIGHT\ <cp>\ Jackie\ Michael\ Bell<nl>}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ Property\ of\ Jackie\ Michael\ Bell<rtm>.\ All\ Rights\ Reserved.<nl>}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ This\ source\ code\ file\ contains\ proprietary<nl>}}
+\DoxyCodeLine{00018\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ and\ confidential\ information.<nl>}}
+\DoxyCodeLine{00019\ \textcolor{comment}{}}
+\DoxyCodeLine{00020\ \textcolor{comment}{}}
+\DoxyCodeLine{00021\ \textcolor{comment}{@head3\ \ \ \ \ \ Description.\ |}}
+\DoxyCodeLine{00022\ \textcolor{comment}{@normal}}
+\DoxyCodeLine{00023\ \textcolor{comment}{}}
+\DoxyCodeLine{00024\ \textcolor{comment}{}}
+\DoxyCodeLine{00025\ \textcolor{comment}{********************************************************************}}
+\DoxyCodeLine{00026\ \textcolor{comment}{\%***\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ SVN\ CHANGE\ RECORD\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ***}}
+\DoxyCodeLine{00027\ \textcolor{comment}{\%*******************************************************************}}
+\DoxyCodeLine{00028\ \textcolor{comment}{\%*\$Revision:\ 31\ \$}}
+\DoxyCodeLine{00029\ \textcolor{comment}{\%*}}
+\DoxyCodeLine{00030\ \textcolor{comment}{\%*}}
+\DoxyCodeLine{00031\ \textcolor{comment}{\%******************************************************************/}}
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#ifndef\ COMMANDPOOLOBJ\_HPP}}
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#define\ COMMANDPOOLOBJ\_HPP}}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_swap_chain_obj}{SwapChainObj}};}
+\DoxyCodeLine{00036\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_render_pass_obj}{RenderPassObj}};}
+\DoxyCodeLine{00037\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_frame_buffer_obj}{FrameBufferObj}};}
+\DoxyCodeLine{00038\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_pipeline_obj}{PipelineObj}};}
+\DoxyCodeLine{00039\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_command_pool_obj_a695a8647e42d164ef5a3846a1f79e58e}{CommandPoolObj}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_base_obj_a4b83af8a8e0e29a74b5d1780e2dd9172}{BaseObj}}\ \{}
+\DoxyCodeLine{00040\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \ \ \ \ \mbox{\hyperlink{class_phys_dev_obj}{PhysDevObj}}*\ \mbox{\hyperlink{class_command_pool_obj_a60917c24d0300e3d34512df3e0272aae}{m\_QA}};}
+\DoxyCodeLine{00043\ \ \ \ \ \mbox{\hyperlink{class_swap_chain_obj}{SwapChainObj}}*\ \mbox{\hyperlink{class_command_pool_obj_a75b7edadde11de3458a5642f92e96419}{m\_SCO}}\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00044\ \ \ \ \ \mbox{\hyperlink{class_render_pass_obj}{RenderPassObj}}*\ \mbox{\hyperlink{class_command_pool_obj_ac7d868979d64cff71c39b67593450432}{m\_RPO}}\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00045\ \ \ \ \ \mbox{\hyperlink{class_frame_buffer_obj}{FrameBufferObj}}*\ \mbox{\hyperlink{class_command_pool_obj_a6229aaa38b5467f029119f73eb187e52}{m\_FBO}}\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \ \ \ \ std::vector<CommandObj*>\ \mbox{\hyperlink{class_command_pool_obj_a370deeb33644fa2b04b7f41268b39c9f}{m\_CPO}};}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \ \ \ \ VkCommandPool\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_command_pool_obj_ad40e5305904b0820db9b8b89f9178194}{m\_CommandPool}}\ =\ \{\};}
+\DoxyCodeLine{00050\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_command_pool_obj_a1446b5e601948436b8cd8d5b2cea0da3}{SetCommandPool}}(VkCommandPool\ CommandPool)}
+\DoxyCodeLine{00051\ \ \ \ \ \{}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_command_pool_obj_ad40e5305904b0820db9b8b89f9178194}{m\_CommandPool}}\ =\ CommandPool;}
+\DoxyCodeLine{00053\ \ \ \ \ \};}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \ \ \ \ VkCommandPool\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_command_pool_obj_ac06864270c1d107a76ea8a2214e06e68}{m\_TransferCommandPool}}\ =\ \{\};}
+\DoxyCodeLine{00056\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_command_pool_obj_a3da5ab7a11443601c1ee9e7df7509e4d}{SetTransferCommandPool}}(VkCommandPool\ CommandPool)}
+\DoxyCodeLine{00057\ \ \ \ \ \{}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_command_pool_obj_ac06864270c1d107a76ea8a2214e06e68}{m\_TransferCommandPool}}\ =\ CommandPool;}
+\DoxyCodeLine{00059\ \ \ \ \ \};}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ \ \ \ \ \mbox{\hyperlink{class_command_pool_obj_a695a8647e42d164ef5a3846a1f79e58e}{CommandPoolObj}}(\mbox{\hyperlink{class_vulkan_obj}{VulkanObj}}*\ App,\ std::string\ Name,\ uint32\_t\ Type\ =\ 0)\ :}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_base_obj_a4b83af8a8e0e29a74b5d1780e2dd9172}{BaseObj}}(Name,\ Type,\ App)\ \{\};}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00066\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_command_pool_obj_a050fc5235ec3b4f6e74dd1649fff9278}{Create}}(\mbox{\hyperlink{class_phys_dev_obj}{PhysDevObj}}*\ QA,\ \mbox{\hyperlink{class_swap_chain_obj}{SwapChainObj}}*\ SCO,}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_render_pass_obj}{RenderPassObj}}*\ RPO,}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_frame_buffer_obj}{FrameBufferObj}}*\ FBO,}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ std::vector<CommandObj*>\ CPO);}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00071\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_command_pool_obj_a6c65d6bf706eebc3dfde9aa8f90a30d3}{CreateCommandPool}}();}
+\DoxyCodeLine{00072\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_command_pool_obj_a25197aaa462d8908419f1a9579bc559a}{CreateCommandBuffers}}(\ );}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_command_pool_obj_a85fb25b7186785708c71a57be3443247}{Cleanup}}();}
+\DoxyCodeLine{00075\ \ \ \ \ \mbox{\hyperlink{class_command_obj}{CommandObj}}*\ \mbox{\hyperlink{class_command_pool_obj_aaf750f61879ee38ee0a09b8f69ae2983}{GetCommandObjByName}}(std::string\ Name)}
+\DoxyCodeLine{00076\ \ \ \ \ \{}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (uint32\_t\ ii\ =\ 0;\ ii\ <\ \mbox{\hyperlink{class_command_pool_obj_a370deeb33644fa2b04b7f41268b39c9f}{m\_CPO}}.size();\ ii++)}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{class_command_pool_obj_a370deeb33644fa2b04b7f41268b39c9f}{m\_CPO}}[ii]-\/>\mbox{\hyperlink{class_base_obj_a7a48a870862125c622302bd728a06c8f}{m\_Name}}\ ==\ Name)}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_command_pool_obj_a370deeb33644fa2b04b7f41268b39c9f}{m\_CPO}}[ii];}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ std::string\ errtxt\ =\ \textcolor{stringliteral}{"{}ResourceContainer::GetResourceName\ getDescriptorResourceName\ Failed\ on\ :"{}}\ +\ Name;}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(errtxt.c\_str());}
+\DoxyCodeLine{00085\ \ \ \ \ \}}
+\DoxyCodeLine{00086\ \ \ \ \ }
+\DoxyCodeLine{00087\ \};}
+\DoxyCodeLine{00088\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

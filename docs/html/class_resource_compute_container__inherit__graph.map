@@ -1,0 +1,7 @@
+<map id="ResourceComputeContainer" name="ResourceComputeContainer">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,155,192,181"/>
+<area shape="rect" id="Node000002" href="$class_resource_container_obj.html" title=" " alt="" coords="22,80,175,107"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="101,122,101,154,96,154,96,122"/>
+<area shape="rect" id="Node000003" href="$class_base_obj.html" title=" " alt="" coords="63,5,134,32"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="101,48,101,80,96,80,96,48"/>
+</map>

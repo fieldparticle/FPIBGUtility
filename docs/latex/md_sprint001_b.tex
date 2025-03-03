@@ -1,0 +1,34 @@
+\chapter{User Stories}
+\hypertarget{md_sprint001_b}{}\label{md_sprint001_b}\index{User Stories@{User Stories}}
+\label{md_sprint001_b_autotoc_md11}%
+\Hypertarget{md_sprint001_b_autotoc_md11}%
+
+
+We have thus far created 3 user stories to guide our design of this software.\hypertarget{md_sprint001_b_autotoc_md12}{}\doxysection{\texorpdfstring{User Story \#1}{User Story \#1}}\label{md_sprint001_b_autotoc_md12}
+"{}\+A user should be able to open the application, set their desired configuration details, and run the simulation."{}
+
+Issues created from this story\+:
+\begin{DoxyItemize}
+\item {\bfseries{Python GUI}} -\/ Use Py\+QT to recreate the Mat\+Lab GUI we have within Python. This will serve as the frontend for our application.
+\item {\bfseries{Read Config from GUI}} -\/ Read what is entered into the application into a configuration file.
+\item {\bfseries{Send Config to Server}} -\/ Send the configuration file from the user application to the server so that it can call the FPIBG application
+\end{DoxyItemize}\hypertarget{md_sprint001_b_autotoc_md13}{}\doxysection{\texorpdfstring{User Story \#2}{User Story \#2}}\label{md_sprint001_b_autotoc_md13}
+"{}\+Once the configuration file has been sent off, the user should be able to switch to a secondary tab where they can view the visuals provided to summarize the simulation."{}
+
+Issues created from this story\+:
+\begin{DoxyItemize}
+\item {\bfseries{Plot Tab}} -\/ The GUI needs a tab where the user can views plots of the simulation data.
+\end{DoxyItemize}\hypertarget{md_sprint001_b_autotoc_md14}{}\doxysection{\texorpdfstring{User Story \#3}{User Story \#3}}\label{md_sprint001_b_autotoc_md14}
+"{}\+Once the application is installed, the user should be able to run a series of tests to see whether or not the system will work on their machine."{}
+
+Issues created from this story\+:
+\begin{DoxyItemize}
+\item {\bfseries{Verification Test \#1 -\/ Particle Quantity Benchmark}} -\/ Verify that the number of particles detected is the same as the number of particles loaded. ~\newline
+ Run n tests on a range between x and y particles.
+\item {\bfseries{Verification Test \#2 -\/ Particle Collision Density}} -\/ Verify that the number of collisions detected is the same as the number of collisions loaded.
+\item {\bfseries{Verification Test \#3 -\/ Cell Fraction Benchmark}} -\/ Verify that as you subdivide the space into boxes, the number of boxes created is what you would expect.
+\item {\bfseries{Verification Test \#4 -\/ Duplicates}} -\/ Particles can be on the boundary between cells, potentially causing those collisions to be counted twice. This test determines whether you get the number of collisions you would expect under this circumstance.
+\item {\bfseries{Performance Test \#1 -\/ Particle Quantity Benchmark}} -\/ Test how many particles you can have the machine run before its performance falls below an acceptable threshold.
+\item {\bfseries{Performance Test \#2 -\/ Particle Collision Density}} -\/ See how many collisions you can cause before the performance falls below an acceptable threshold.
+\item {\bfseries{Performance Test \#3 -\/ Cell Fraction Benchmark}} -\/ Test how the performance changers as you go from having one box with all the particles in it to many boxes with a few particles in each. 
+\end{DoxyItemize}

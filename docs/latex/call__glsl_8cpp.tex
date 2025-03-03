@@ -1,0 +1,95 @@
+\doxysection{J\+:/\+FPIBG/vulkan/src/glsl/call\+\_\+glsl.cpp File Reference}
+\hypertarget{call__glsl_8cpp}{}\label{call__glsl_8cpp}\index{J:/FPIBG/vulkan/src/glsl/call\_glsl.cpp@{J:/FPIBG/vulkan/src/glsl/call\_glsl.cpp}}
+{\ttfamily \#include $<$cassert$>$}\newline
+{\ttfamily \#include $<$cctype$>$}\newline
+{\ttfamily \#include $<$cstdint$>$}\newline
+{\ttfamily \#include $<$cstring$>$}\newline
+{\ttfamily \#include $<$iomanip$>$}\newline
+{\ttfamily \#include $<$iostream$>$}\newline
+{\ttfamily \#include $<$list$>$}\newline
+{\ttfamily \#include $<$sstream$>$}\newline
+{\ttfamily \#include $<$string$>$}\newline
+{\ttfamily \#include $<$tuple$>$}\newline
+{\ttfamily \#include $<$utility$>$}\newline
+{\ttfamily \#include "{}file.\+h"{}}\newline
+{\ttfamily \#include "{}file\+\_\+compiler.\+h"{}}\newline
+{\ttfamily \#include "{}libshaderc\+\_\+util/args.\+h"{}}\newline
+{\ttfamily \#include "{}libshaderc\+\_\+util/compiler.\+h"{}}\newline
+{\ttfamily \#include "{}libshaderc\+\_\+util/io\+\_\+shaderc.\+h"{}}\newline
+{\ttfamily \#include "{}libshaderc\+\_\+util/string\+\_\+piece.\+h"{}}\newline
+{\ttfamily \#include "{}resource\+\_\+parse.\+h"{}}\newline
+{\ttfamily \#include "{}shader\+\_\+stage.\+h"{}}\newline
+{\ttfamily \#include "{}shaderc/env.\+h"{}}\newline
+{\ttfamily \#include "{}shaderc/shaderc.\+h"{}}\newline
+{\ttfamily \#include "{}spirv-\/tools/libspirv.\+h"{}}\newline
+{\ttfamily \#include "{}libshaderc\+\_\+util/include/libshaderc\+\_\+util/resources.\+inc"{}}\newline
+Include dependency graph for call\+\_\+glsl.\+cpp\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{call__glsl_8cpp__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{call__glsl_8cpp_a90d287bd4d6766fc7cacb72c976545b4}{RESOURCE}}(NAME,  FIELD,  ENUM)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{call__glsl_8cpp_a216d30f368ca83e134371f6aa66dd9f1}{glsl}} (std\+::vector$<$ std\+::string $>$ \&Input\+Args, std\+::vector$<$ char $>$ \&Out\+Put\+SPV)
+\begin{DoxyCompactList}\small\item\em \#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\# \#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\# \#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\# \#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\# \#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\# \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+std\+::vector$<$ char $>$ \mbox{\hyperlink{call__glsl_8cpp_aa01fd597bbe231b6481cb47f10335002}{SPVBin\+Vector}}
+\item 
+std\+::string \mbox{\hyperlink{call__glsl_8cpp_a9b53aeb8a35e0e141991c54e139bf412}{SPVBin\+String}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{call__glsl_8cpp_a90d287bd4d6766fc7cacb72c976545b4}\index{call\_glsl.cpp@{call\_glsl.cpp}!RESOURCE@{RESOURCE}}
+\index{RESOURCE@{RESOURCE}!call\_glsl.cpp@{call\_glsl.cpp}}
+\doxysubsubsection{\texorpdfstring{RESOURCE}{RESOURCE}}
+{\footnotesize\ttfamily \label{call__glsl_8cpp_a90d287bd4d6766fc7cacb72c976545b4} 
+\#define RESOURCE(\begin{DoxyParamCaption}\item[{}]{NAME}{, }\item[{}]{FIELD}{, }\item[{}]{ENUM}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ std::cout\ <<\ \#NAME\ <<\ \textcolor{stringliteral}{"{}\ "{}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ <<\ default\_compiler.GetLimit(\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{static\_cast<}shaderc\_util::Compiler::Limit\textcolor{keyword}{>}(\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ shaderc\_limit\_\#\#ENUM))\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ <<\ std::endl;}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{call__glsl_8cpp_a216d30f368ca83e134371f6aa66dd9f1}\index{call\_glsl.cpp@{call\_glsl.cpp}!glsl@{glsl}}
+\index{glsl@{glsl}!call\_glsl.cpp@{call\_glsl.cpp}}
+\doxysubsubsection{\texorpdfstring{glsl()}{glsl()}}
+{\footnotesize\ttfamily \label{call__glsl_8cpp_a216d30f368ca83e134371f6aa66dd9f1} 
+int glsl (\begin{DoxyParamCaption}\item[{std\+::vector$<$ std\+::string $>$ \&}]{Input\+Args}{, }\item[{std\+::vector$<$ char $>$ \&}]{Out\+Put\+SPV}{}\end{DoxyParamCaption})}
+
+
+
+\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\# \#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\# \#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\# \#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\# \#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\# 
+
+
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{call__glsl_8cpp_a9b53aeb8a35e0e141991c54e139bf412}\index{call\_glsl.cpp@{call\_glsl.cpp}!SPVBinString@{SPVBinString}}
+\index{SPVBinString@{SPVBinString}!call\_glsl.cpp@{call\_glsl.cpp}}
+\doxysubsubsection{\texorpdfstring{SPVBinString}{SPVBinString}}
+{\footnotesize\ttfamily \label{call__glsl_8cpp_a9b53aeb8a35e0e141991c54e139bf412} 
+std\+::string SPVBin\+String}
+
+\Hypertarget{call__glsl_8cpp_aa01fd597bbe231b6481cb47f10335002}\index{call\_glsl.cpp@{call\_glsl.cpp}!SPVBinVector@{SPVBinVector}}
+\index{SPVBinVector@{SPVBinVector}!call\_glsl.cpp@{call\_glsl.cpp}}
+\doxysubsubsection{\texorpdfstring{SPVBinVector}{SPVBinVector}}
+{\footnotesize\ttfamily \label{call__glsl_8cpp_aa01fd597bbe231b6481cb47f10335002} 
+std\+::vector$<$char$>$ SPVBin\+Vector}
+
