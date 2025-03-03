@@ -85,9 +85,33 @@ class TabGenConfig(QTabWidget):
         dt_label = QLabel("dt")
         gpu_layout.addRow(dt_label, self.dt)
         # Compile Shaders (checkbox)
+        self.compile_shaders_checkbox = QCheckBox()
+        compile_shaders_label = QLabel("Compile Shaders")
+        gpu_layout.addRow(self.compile_shaders_checkbox, compile_shaders_label)
         # Fragment Kernel (browse file)
+        self.frag_kernel = QLineEdit()
+        self.frag_browseButton = QPushButton("Browse")
+        self.frag_browseButton.clicked.connect(self.browseFileFrag)
+        frag_hbox = QHBoxLayout()
+        frag_hbox.addWidget(self.frag_kernel)
+        frag_hbox.addWidget(self.frag_browseButton)
+        gpu_layout.addRow("Fragment Kernel:", frag_hbox)
         # Vertex Kernel (browse file)
+        self.vert_kernel = QLineEdit()
+        self.vert_browseButton = QPushButton("Browse")
+        self.vert_browseButton.clicked.connect(self.browseFileVert)
+        vert_hbox = QHBoxLayout()
+        vert_hbox.addWidget(self.vert_kernel)
+        vert_hbox.addWidget(self.vert_browseButton)
+        gpu_layout.addRow("Vertex Kernel:", vert_hbox)
         # Compute Kernel (browse file)
+        self.comp_kernel = QLineEdit()
+        self.comp_browseButton = QPushButton("Browse")
+        self.comp_browseButton.clicked.connect(self.browseFileComp)
+        comp_hbox = QHBoxLayout()
+        comp_hbox.addWidget(self.comp_kernel)
+        comp_hbox.addWidget(self.comp_browseButton)
+        gpu_layout.addRow("Compute Kernel:", comp_hbox)
 
         gpu_group.setLayout(gpu_layout)
         main_layout.addWidget(gpu_group)
@@ -113,6 +137,27 @@ class TabGenConfig(QTabWidget):
             self.folderLineEdit.setText(folder)
             self.log_action("browseFolder", folder)
     
+    def browseFileFrag(self):
+        """ Opens a dialog window for the user to select a file in the file system for the frag kernel. """
+        file = QFileDialog.getOpenFileName(self, "Select File")
+        if file:
+            self.frag_kernel.setText(file[0])
+            self.log_action("browseFile", file[0])
+    
+    def browseFileVert(self):
+        """ Opens a dialog window for the user to select a file in the file system for the vertex kernel. """
+        file = QFileDialog.getOpenFileName(self, "Select File")
+        if file:
+            self.vert_kernel.setText(file[0])
+            self.log_action("browseFile", file[0])
+    
+    def browseFileComp(self):
+        """ Opens a dialog window for the user to select a file in the file system for the compute kernel. """
+        file = QFileDialog.getOpenFileName(self, "Select File")
+        if file:
+            self.comp_kernel.setText(file[0])
+            self.log_action("browseFile", file[0])
+
     def sendFormData(self):
         """ Sends data from the form to the config file writer """
         # TODO: Once this form is done, call the config file writer
@@ -133,7 +178,10 @@ class TabGenConfig(QTabWidget):
         config_dict["frame_delay"] = self.frame_delay.value()
         config_dict["end_frame"] = self.end_frame.value()
         config_dict["dt"] = self.dt.value()
-
+        config_dict["compile_shaders"] = self.compile_shaders_checkbox.isChecked()
+        config_dict["frag_kernel"] = self.frag_kernel.text()
+        config_dict["vert_kernel"] = self.vert_kernel.text()
+        config_dict["comp_kernel"] = self.comp_kernel.text()
 
         self.log_action("sendFormData", config_dict)
         return self.folderLineEdit.text()
