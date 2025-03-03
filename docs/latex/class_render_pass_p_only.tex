@@ -1,0 +1,112 @@
+\doxysection{Render\+Pass\+POnly Class Reference}
+\hypertarget{class_render_pass_p_only}{}\label{class_render_pass_p_only}\index{RenderPassPOnly@{RenderPassPOnly}}
+
+
+{\ttfamily \#include $<$Render\+Pass\+Particle\+Only.\+hpp$>$}
+
+
+
+Inheritance diagram for Render\+Pass\+POnly\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=177pt]{class_render_pass_p_only__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Render\+Pass\+POnly\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_render_pass_p_only__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_render_pass_p_only_af3fc72ddea065d73b9531f8784b44691}{Render\+Pass\+POnly}} (\mbox{\hyperlink{class_vulkan_obj}{Vulkan\+Obj}} \texorpdfstring{$\ast$}{*}App, std\+::string Name)
+\item 
+void \mbox{\hyperlink{class_render_pass_p_only_a2b217c042a5d235b2bc2456d4f61d9ba}{create\+Render\+Pass}} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_render_pass_obj}{Render\+Pass\+Obj}}}
+\begin{DoxyCompactItemize}
+\item 
+Vk\+Render\+Pass \mbox{\hyperlink{class_render_pass_obj_a6cc86edcc7a37060dfb32646cd9c431a}{Get\+Render\+Pass}} ()
+\item 
+\mbox{\hyperlink{class_render_pass_obj_a0d53fb51d864863168180985218a683f}{Render\+Pass\+Obj}} (\mbox{\hyperlink{class_vulkan_obj}{Vulkan\+Obj}} \texorpdfstring{$\ast$}{*}App, std\+::string Name)
+\item 
+virtual void \mbox{\hyperlink{class_render_pass_obj_ab85341ef0e5d0285b4e99799a41fdb95}{Create}} (\mbox{\hyperlink{class_swap_chain_obj}{Swap\+Chain\+Obj}} \texorpdfstring{$\ast$}{*}SCO, std\+::vector$<$ \mbox{\hyperlink{class_image_object}{Image\+Object}} \texorpdfstring{$\ast$}{*} $>$ IMO, std\+::vector$<$ \mbox{\hyperlink{class_resource}{Resource}} \texorpdfstring{$\ast$}{*} $>$ Sub\+Pass\+Item)
+\item 
+virtual void \mbox{\hyperlink{class_render_pass_obj_ad7c3f855530c894abff02b6956ffe844}{Create}} (\mbox{\hyperlink{class_swap_chain_obj}{Swap\+Chain\+Obj}} \texorpdfstring{$\ast$}{*}SCO)
+\item 
+void \mbox{\hyperlink{class_render_pass_obj_a67cbf6b8470e1d921f5f3e7d018023f5}{Cleanup}} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_base_obj}{Base\+Obj}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_base_obj_a4b83af8a8e0e29a74b5d1780e2dd9172}{Base\+Obj}} ()
+\item 
+\mbox{\hyperlink{class_base_obj_a591e107302b3a81ff86ad91a93fd3c79}{Base\+Obj}} (std\+::string Name, uint32\+\_\+t Type, \mbox{\hyperlink{class_vulkan_obj}{Vulkan\+Obj}} \texorpdfstring{$\ast$}{*}App)
+\item 
+uint32\+\_\+t \mbox{\hyperlink{class_base_obj_a13d66a7db04f2f49f0b8a7505bd957bb}{Get\+Type}} ()
+\item 
+std\+::string \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_base_obj_a818217adc491531cf69dbe8960313d21}{get\+Name}} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Public Attributes inherited from \mbox{\hyperlink{class_render_pass_obj}{Render\+Pass\+Obj}}}
+\begin{DoxyCompactItemize}
+\item 
+std\+::vector$<$ \mbox{\hyperlink{class_resource}{Resource}} \texorpdfstring{$\ast$}{*} $>$ \mbox{\hyperlink{class_render_pass_obj_a0f5d214c55f6b3607e0077f9f0a4abee}{m\+\_\+\+Sub\+Pass\+List}}
+\item 
+std\+::vector$<$ Vk\+Descriptor\+Image\+Info $>$ \mbox{\hyperlink{class_render_pass_obj_abeca24f899e156d7ea063fe969b51052}{m\+\_\+\+Descriptor\+Image\+Info}} \{\}
+\item 
+\mbox{\hyperlink{class_swap_chain_obj}{Swap\+Chain\+Obj}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_render_pass_obj_a0a0169cf0b14bca0e0c2229be95194d6}{m\+\_\+\+SCO}} =\{\}
+\item 
+Vk\+Render\+Pass \mbox{\hyperlink{class_render_pass_obj_aad28a2be26f4e7971ded3bb70c0dab36}{m\+\_\+\+Render\+Pass}} =\{\}
+\item 
+std\+::vector$<$ \mbox{\hyperlink{class_image_object}{Image\+Object}} \texorpdfstring{$\ast$}{*} $>$ \mbox{\hyperlink{class_render_pass_obj_a5bc96d6ee19a7ecc3c96c8c6292e3ef2}{m\+\_\+\+IMO}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes inherited from \mbox{\hyperlink{class_base_obj}{Base\+Obj}}}
+\begin{DoxyCompactItemize}
+\item 
+std\+::string \mbox{\hyperlink{class_base_obj_a7a48a870862125c622302bd728a06c8f}{m\+\_\+\+Name}}
+\item 
+std\+::string \mbox{\hyperlink{class_base_obj_a0f4afc531f2ba36a0c4bf735e7d228b9}{m\+\_\+wkstr}}
+\item 
+uint32\+\_\+t \mbox{\hyperlink{class_base_obj_a911900fe67cd3edaf3ef52a7f57f398a}{m\+\_\+\+Type}} =0
+\item 
+\mbox{\hyperlink{class_vulkan_obj}{Vulkan\+Obj}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_base_obj_ab8f8d9c2f68f3bef1153d397d61646b0}{m\+\_\+\+App}} = \{\}
+\item 
+\mbox{\hyperlink{class_config_obj}{Config\+Obj}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_base_obj_aac207590eff5a5e099c4534d46e50f07}{m\+\_\+\+ACfg}} = \{\}
+\item 
+uint32\+\_\+t \mbox{\hyperlink{class_base_obj_a615d9ffc2cf237a1d45ac63721fae83c}{m\+\_\+this\+Frames\+Buffered}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_render_pass_p_only_af3fc72ddea065d73b9531f8784b44691}\index{RenderPassPOnly@{RenderPassPOnly}!RenderPassPOnly@{RenderPassPOnly}}
+\index{RenderPassPOnly@{RenderPassPOnly}!RenderPassPOnly@{RenderPassPOnly}}
+\doxysubsubsection{\texorpdfstring{RenderPassPOnly()}{RenderPassPOnly()}}
+{\footnotesize\ttfamily \label{class_render_pass_p_only_af3fc72ddea065d73b9531f8784b44691} 
+Render\+Pass\+POnly\+::\+Render\+Pass\+POnly (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_vulkan_obj}{Vulkan\+Obj}} \texorpdfstring{$\ast$}{*}}]{App}{, }\item[{std\+::string}]{Name}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_render_pass_p_only_a2b217c042a5d235b2bc2456d4f61d9ba}\index{RenderPassPOnly@{RenderPassPOnly}!createRenderPass@{createRenderPass}}
+\index{createRenderPass@{createRenderPass}!RenderPassPOnly@{RenderPassPOnly}}
+\doxysubsubsection{\texorpdfstring{createRenderPass()}{createRenderPass()}}
+{\footnotesize\ttfamily \label{class_render_pass_p_only_a2b217c042a5d235b2bc2456d4f61d9ba} 
+void Render\+Pass\+POnly\+::create\+Render\+Pass (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_render_pass_obj_a581b5044c9d71b045aa9366e183a23dc}{Render\+Pass\+Obj}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+J\+:/\+FPIBG/vulkan/src\+\_\+app/particle\+Only/\mbox{\hyperlink{_render_pass_particle_only_8hpp}{Render\+Pass\+Particle\+Only.\+hpp}}\item 
+J\+:/\+FPIBG/vulkan/src\+\_\+app/particle\+Only/\mbox{\hyperlink{_render_pass_particle_only_8cpp}{Render\+Pass\+Particle\+Only.\+cpp}}\end{DoxyCompactItemize}

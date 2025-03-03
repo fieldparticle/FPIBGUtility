@@ -1,0 +1,48 @@
+\doxysection{strbuf.\+h}
+\hypertarget{strbuf_8h_source}{}\label{strbuf_8h_source}\index{J:/FPIBG/vulkan/src/libconfig/strbuf.h@{J:/FPIBG/vulkan/src/libconfig/strbuf.h}}
+\mbox{\hyperlink{strbuf_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ \ \ libconfig\ -\/\ A\ library\ for\ processing\ structured\ configuration\ files}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ \ \ Copyright\ (C)\ 2005-\/2023\ \ Mark\ A\ Lindner}}
+\DoxyCodeLine{00004\ \textcolor{comment}{}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ \ \ This\ file\ is\ part\ of\ libconfig.}}
+\DoxyCodeLine{00006\ \textcolor{comment}{}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ \ \ This\ library\ is\ free\ software;\ you\ can\ redistribute\ it\ and/or}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ \ \ modify\ it\ under\ the\ terms\ of\ the\ GNU\ Lesser\ General\ Public\ License}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ \ \ as\ published\ by\ the\ Free\ Software\ Foundation;\ either\ version\ 2.1\ of}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ \ \ the\ License,\ or\ (at\ your\ option)\ any\ later\ version.}}
+\DoxyCodeLine{00011\ \textcolor{comment}{}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ \ \ This\ library\ is\ distributed\ in\ the\ hope\ that\ it\ will\ be\ useful,\ but}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ \ \ WITHOUT\ ANY\ WARRANTY;\ without\ even\ the\ implied\ warranty\ of}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ \ \ MERCHANTABILITY\ or\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE.\ \ See\ the\ GNU}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ \ \ Lesser\ General\ Public\ License\ for\ more\ details.}}
+\DoxyCodeLine{00016\ \textcolor{comment}{}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ \ \ You\ should\ have\ received\ a\ copy\ of\ the\ GNU\ Library\ General\ Public}}
+\DoxyCodeLine{00018\ \textcolor{comment}{\ \ \ License\ along\ with\ this\ library;\ if\ not,\ see}}
+\DoxyCodeLine{00019\ \textcolor{comment}{\ \ \ <http://www.gnu.org/licenses/>.}}
+\DoxyCodeLine{00020\ \textcolor{comment}{\ \ \ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00021\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#ifndef\ \_\_libconfig\_strbuf\_h}}
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#define\ \_\_libconfig\_strbuf\_h}}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#include\ <string.h>}}
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#include\ <sys/types.h>}}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct}}
+\DoxyCodeLine{00030\ \{}
+\DoxyCodeLine{00031\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structstrbuf__t_ac33d87e4a1e65b81c34728c08c58e225}{string}};}
+\DoxyCodeLine{00032\ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{structstrbuf__t_ae6fc3758286e761d9c7873b489786a89}{length}};}
+\DoxyCodeLine{00033\ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{structstrbuf__t_af532e798544a7dab19767406c6504649}{capacity}};}
+\DoxyCodeLine{00034\ \}\ \mbox{\hyperlink{structstrbuf__t}{strbuf\_t}};}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{strbuf_8h_a1f6b5f169d59016cf593e87ba43849b8}{libconfig\_strbuf\_append\_string}}(\mbox{\hyperlink{structstrbuf__t}{strbuf\_t}}\ *buf,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *s);}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{strbuf_8h_abee638bd6c5460fa83d23d641fe42a3b}{libconfig\_strbuf\_append\_char}}(\mbox{\hyperlink{structstrbuf__t}{strbuf\_t}}\ *buf,\ \textcolor{keywordtype}{char}\ c);}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{strbuf_8h_abb0299045997c9fd3965b0ff7d37d478}{libconfig\_strbuf\_release}}(\mbox{\hyperlink{structstrbuf__t}{strbuf\_t}}\ *buf);}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ \_\_libconfig\_strbuf\_h\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

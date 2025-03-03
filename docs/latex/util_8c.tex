@@ -1,0 +1,93 @@
+\doxysection{J\+:/\+FPIBG/vulkan/src/libconfig/util.c File Reference}
+\hypertarget{util_8c}{}\label{util_8c}\index{J:/FPIBG/vulkan/src/libconfig/util.c@{J:/FPIBG/vulkan/src/libconfig/util.c}}
+{\ttfamily \#include "{}util.\+h"{}}\newline
+{\ttfamily \#include "{}wincompat.\+h"{}}\newline
+{\ttfamily \#include $<$errno.\+h$>$}\newline
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+Include dependency graph for util.\+c\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{util_8c__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{util_8c_a5c659e8ad3a42acea954d5e494b50255}{libconfig\+\_\+fatal\+\_\+error\+\_\+handler}} (const char \texorpdfstring{$\ast$}{*}message)
+\item 
+void \mbox{\hyperlink{util_8c_a4f9d2de93c17eb7aef20511c012df966}{libconfig\+\_\+set\+\_\+fatal\+\_\+error\+\_\+func}} (void(\texorpdfstring{$\ast$}{*}func)(const char \texorpdfstring{$\ast$}{*}))
+\item 
+void \mbox{\hyperlink{util_8c_a662dc5bc289d98218d7d1ababbc88f2b}{libconfig\+\_\+fatal\+\_\+error}} (const char \texorpdfstring{$\ast$}{*}message)
+\item 
+void \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{util_8c_ae8aeed3e70b5578821b924805d78c36a}{libconfig\+\_\+malloc}} (size\+\_\+t size)
+\item 
+void \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{util_8c_a6cb419bf4ce984c09ef055811c8df757}{libconfig\+\_\+calloc}} (size\+\_\+t nmemb, size\+\_\+t size)
+\item 
+void \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{util_8c_a0251cbb64981b66740b732c58987aa09}{libconfig\+\_\+realloc}} (void \texorpdfstring{$\ast$}{*}ptr, size\+\_\+t size)
+\item 
+long long \mbox{\hyperlink{util_8c_a3a63fac2f1a9f8b721f86a7a851182ca}{libconfig\+\_\+parse\+\_\+integer}} (const char \texorpdfstring{$\ast$}{*}s, int \texorpdfstring{$\ast$}{*}ok)
+\item 
+unsigned long long \mbox{\hyperlink{util_8c_a64c4209b1772dc200f461ebe8bcd9897}{libconfig\+\_\+parse\+\_\+hex64}} (const char \texorpdfstring{$\ast$}{*}s)
+\item 
+void \mbox{\hyperlink{util_8c_ad7c6779a81fc4872b13e30f256c59e8e}{libconfig\+\_\+format\+\_\+double}} (double val, int precision, int sci\+\_\+ok, char \texorpdfstring{$\ast$}{*}buf, size\+\_\+t buflen)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{util_8c_a6cb419bf4ce984c09ef055811c8df757}\index{util.c@{util.c}!libconfig\_calloc@{libconfig\_calloc}}
+\index{libconfig\_calloc@{libconfig\_calloc}!util.c@{util.c}}
+\doxysubsubsection{\texorpdfstring{libconfig\_calloc()}{libconfig\_calloc()}}
+{\footnotesize\ttfamily \label{util_8c_a6cb419bf4ce984c09ef055811c8df757} 
+void \texorpdfstring{$\ast$}{*} libconfig\+\_\+calloc (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{nmemb}{, }\item[{size\+\_\+t}]{size}{}\end{DoxyParamCaption})}
+
+\Hypertarget{util_8c_a662dc5bc289d98218d7d1ababbc88f2b}\index{util.c@{util.c}!libconfig\_fatal\_error@{libconfig\_fatal\_error}}
+\index{libconfig\_fatal\_error@{libconfig\_fatal\_error}!util.c@{util.c}}
+\doxysubsubsection{\texorpdfstring{libconfig\_fatal\_error()}{libconfig\_fatal\_error()}}
+{\footnotesize\ttfamily \label{util_8c_a662dc5bc289d98218d7d1ababbc88f2b} 
+void libconfig\+\_\+fatal\+\_\+error (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{message}{}\end{DoxyParamCaption})}
+
+\Hypertarget{util_8c_a5c659e8ad3a42acea954d5e494b50255}\index{util.c@{util.c}!libconfig\_fatal\_error\_handler@{libconfig\_fatal\_error\_handler}}
+\index{libconfig\_fatal\_error\_handler@{libconfig\_fatal\_error\_handler}!util.c@{util.c}}
+\doxysubsubsection{\texorpdfstring{libconfig\_fatal\_error\_handler()}{libconfig\_fatal\_error\_handler()}}
+{\footnotesize\ttfamily \label{util_8c_a5c659e8ad3a42acea954d5e494b50255} 
+void libconfig\+\_\+fatal\+\_\+error\+\_\+handler (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{message}{}\end{DoxyParamCaption})}
+
+\Hypertarget{util_8c_ad7c6779a81fc4872b13e30f256c59e8e}\index{util.c@{util.c}!libconfig\_format\_double@{libconfig\_format\_double}}
+\index{libconfig\_format\_double@{libconfig\_format\_double}!util.c@{util.c}}
+\doxysubsubsection{\texorpdfstring{libconfig\_format\_double()}{libconfig\_format\_double()}}
+{\footnotesize\ttfamily \label{util_8c_ad7c6779a81fc4872b13e30f256c59e8e} 
+void libconfig\+\_\+format\+\_\+double (\begin{DoxyParamCaption}\item[{double}]{val}{, }\item[{int}]{precision}{, }\item[{int}]{sci\+\_\+ok}{, }\item[{char \texorpdfstring{$\ast$}{*}}]{buf}{, }\item[{size\+\_\+t}]{buflen}{}\end{DoxyParamCaption})}
+
+\Hypertarget{util_8c_ae8aeed3e70b5578821b924805d78c36a}\index{util.c@{util.c}!libconfig\_malloc@{libconfig\_malloc}}
+\index{libconfig\_malloc@{libconfig\_malloc}!util.c@{util.c}}
+\doxysubsubsection{\texorpdfstring{libconfig\_malloc()}{libconfig\_malloc()}}
+{\footnotesize\ttfamily \label{util_8c_ae8aeed3e70b5578821b924805d78c36a} 
+void \texorpdfstring{$\ast$}{*} libconfig\+\_\+malloc (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{size}{}\end{DoxyParamCaption})}
+
+\Hypertarget{util_8c_a64c4209b1772dc200f461ebe8bcd9897}\index{util.c@{util.c}!libconfig\_parse\_hex64@{libconfig\_parse\_hex64}}
+\index{libconfig\_parse\_hex64@{libconfig\_parse\_hex64}!util.c@{util.c}}
+\doxysubsubsection{\texorpdfstring{libconfig\_parse\_hex64()}{libconfig\_parse\_hex64()}}
+{\footnotesize\ttfamily \label{util_8c_a64c4209b1772dc200f461ebe8bcd9897} 
+unsigned long long libconfig\+\_\+parse\+\_\+hex64 (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{s}{}\end{DoxyParamCaption})}
+
+\Hypertarget{util_8c_a3a63fac2f1a9f8b721f86a7a851182ca}\index{util.c@{util.c}!libconfig\_parse\_integer@{libconfig\_parse\_integer}}
+\index{libconfig\_parse\_integer@{libconfig\_parse\_integer}!util.c@{util.c}}
+\doxysubsubsection{\texorpdfstring{libconfig\_parse\_integer()}{libconfig\_parse\_integer()}}
+{\footnotesize\ttfamily \label{util_8c_a3a63fac2f1a9f8b721f86a7a851182ca} 
+long long libconfig\+\_\+parse\+\_\+integer (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{s}{, }\item[{int \texorpdfstring{$\ast$}{*}}]{ok}{}\end{DoxyParamCaption})}
+
+\Hypertarget{util_8c_a0251cbb64981b66740b732c58987aa09}\index{util.c@{util.c}!libconfig\_realloc@{libconfig\_realloc}}
+\index{libconfig\_realloc@{libconfig\_realloc}!util.c@{util.c}}
+\doxysubsubsection{\texorpdfstring{libconfig\_realloc()}{libconfig\_realloc()}}
+{\footnotesize\ttfamily \label{util_8c_a0251cbb64981b66740b732c58987aa09} 
+void \texorpdfstring{$\ast$}{*} libconfig\+\_\+realloc (\begin{DoxyParamCaption}\item[{void \texorpdfstring{$\ast$}{*}}]{ptr}{, }\item[{size\+\_\+t}]{size}{}\end{DoxyParamCaption})}
+
+\Hypertarget{util_8c_a4f9d2de93c17eb7aef20511c012df966}\index{util.c@{util.c}!libconfig\_set\_fatal\_error\_func@{libconfig\_set\_fatal\_error\_func}}
+\index{libconfig\_set\_fatal\_error\_func@{libconfig\_set\_fatal\_error\_func}!util.c@{util.c}}
+\doxysubsubsection{\texorpdfstring{libconfig\_set\_fatal\_error\_func()}{libconfig\_set\_fatal\_error\_func()}}
+{\footnotesize\ttfamily \label{util_8c_a4f9d2de93c17eb7aef20511c012df966} 
+void libconfig\+\_\+set\+\_\+fatal\+\_\+error\+\_\+func (\begin{DoxyParamCaption}\item[{void(\texorpdfstring{$\ast$}{*}}]{func~}{)(const char \texorpdfstring{$\ast$}{*})}\end{DoxyParamCaption})}
+

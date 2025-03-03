@@ -1,0 +1,75 @@
+\doxysection{mpsverify.\+hpp}
+\hypertarget{mpsverify_8hpp_source}{}\label{mpsverify_8hpp_source}\index{J:/FPIBG/vulkan/src\_app/vcubeverify/mpsverify.hpp@{J:/FPIBG/vulkan/src\_app/vcubeverify/mpsverify.hpp}}
+\mbox{\hyperlink{mpsverify_8hpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*******************************************************************}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\%***\ \ \ \ \ \ C\ PROPRIETARY\ SOURCE\ FILE\ IDENTIFICATION\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ***}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\%*******************************************************************}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\%\ \$Author:\ jb\ \$}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\%}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\%\ \$Date:\ 2023-\/05-\/03\ 15:30:42\ -\/0400\ (Wed,\ 03\ May\ 2023)\ \$}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\%\ \$HeadURL:\ https://jbworkstation/svn/svnrootr5/svnvulcan/src/vulkan/DescriptorSSBO.cpp\ \$}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\%\ \$Id:\ DescriptorSSBO.cpp\ 28\ 2023-\/05-\/03\ 19:30:42Z\ jb\ \$}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\%*******************************************************************}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\%***\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DESCRIPTION\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ***}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\%*******************************************************************}}
+\DoxyCodeLine{00012\ \textcolor{comment}{@doc}}
+\DoxyCodeLine{00013\ \textcolor{comment}{@module}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ @author:\ Jackie\ Michael\ Bell<nl>}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ COPYRIGHT\ <cp>\ Jackie\ Michael\ Bell<nl>}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ Property\ of\ Jackie\ Michael\ Bell<rtm>.\ All\ Rights\ Reserved.<nl>}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ This\ source\ code\ file\ contains\ proprietary<nl>}}
+\DoxyCodeLine{00018\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ and\ confidential\ information.<nl>}}
+\DoxyCodeLine{00019\ \textcolor{comment}{}}
+\DoxyCodeLine{00020\ \textcolor{comment}{}}
+\DoxyCodeLine{00021\ \textcolor{comment}{@head3\ \ \ \ \ \ Description.\ |}}
+\DoxyCodeLine{00022\ \textcolor{comment}{@normal}}
+\DoxyCodeLine{00023\ \textcolor{comment}{}}
+\DoxyCodeLine{00024\ \textcolor{comment}{}}
+\DoxyCodeLine{00025\ \textcolor{comment}{********************************************************************}}
+\DoxyCodeLine{00026\ \textcolor{comment}{\%***\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ SVN\ CHANGE\ RECORD\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ***}}
+\DoxyCodeLine{00027\ \textcolor{comment}{\%*******************************************************************}}
+\DoxyCodeLine{00028\ \textcolor{comment}{\%*\$Revision:\ 28\ \$}}
+\DoxyCodeLine{00029\ \textcolor{comment}{\%*}}
+\DoxyCodeLine{00030\ \textcolor{comment}{\%*}}
+\DoxyCodeLine{00031\ \textcolor{comment}{\%******************************************************************/}}
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#ifndef\ MPSVERIFY\_HPP}}
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#define\ MPSVERIFY\_HPP}}
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#define\ GLM\_FORCE\_RADIANS}}
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\#define\ GLM\_FORCE\_DEPTH\_ZERO\_TO\_ONE}}
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\#include\ <glm/vec4.hpp>}}
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\#include\ <glm/mat4x4.hpp>}}
+\DoxyCodeLine{00038\ \textcolor{preprocessor}{\#include\ <glm/glm.hpp>}}
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\#include\ <glm/gtc/matrix\_transform.hpp>}}
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\#include\ <stdexcept>}}
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#include\ <algorithm>}}
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#include\ <optional>}}
+\DoxyCodeLine{00043\ \textcolor{preprocessor}{\#include\ <cstdlib>}}
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#include\ <cstring>}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#include\ <cstdint>}}
+\DoxyCodeLine{00046\ \textcolor{preprocessor}{\#include\ <sstream\ >}}
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#include\ <strstream>}}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#include\ <set>}}
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#include\ <limits>}}
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#include\ <fstream>}}
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00054\ \textcolor{preprocessor}{\#include\ <array>}}
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\#include\ <chrono>}}
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\#include\ <windows.h>}}
+\DoxyCodeLine{00057\ \textcolor{preprocessor}{\#include\ <filesystem>}}
+\DoxyCodeLine{00058\ \textcolor{preprocessor}{\#include\ <queue>}}
+\DoxyCodeLine{00059\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{mout_8hpp}{mout2\_0/mout.hpp}}"{}}}
+\DoxyCodeLine{00060\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{libconfig_8h}{libconfig.h}}"{}}}
+\DoxyCodeLine{00061\ \textcolor{keyword}{extern}\ \mbox{\hyperlink{class_msg_stream}{MsgStream}}\ \mbox{\hyperlink{mout_8hpp_ab5ed6aee500f93a9e6acd6cc5e966eac}{mout}};}
+\DoxyCodeLine{00062\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_verify_config_obj_8hpp}{VerifyConfigObj.hpp}}"{}}}
+\DoxyCodeLine{00063\ \textcolor{keyword}{extern}\ \mbox{\hyperlink{class_verify_config_obj}{VerifyConfigObj}}*\ \mbox{\hyperlink{mpsverify_8cpp_a4c4c48d57582d0e2c11256dae349dd25}{cfg}};}
+\DoxyCodeLine{00064\ uint32\_t\ \mbox{\hyperlink{mpsverify_8hpp_ae50a945f6b5ce2d23889a1ebe15e27eb}{ArrayToIndex}}(uint32\_t\ x,\ uint32\_t\ y,\ uint32\_t\ z,\ uint32\_t\ len);}
+\DoxyCodeLine{00065\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{mpsverify_8hpp_afb49276c392f9bbd6303a076313fecc1}{IndexToArray}}(uint32\_t\ index,\ uint32\_t\ len,\ uint32\_t*\ ary);}
+\DoxyCodeLine{00066\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{mpsverify_8hpp_ac2422669b5d3a040359077b3df437224}{VerifyArrayIndexing}}();}
+\DoxyCodeLine{00067\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{mpsverify_8hpp_a64d44babc2ecb3c09714786997b59066}{VerifyArrayIndexingV2}}();}
+\DoxyCodeLine{00068\ uint32\_t\ \mbox{\hyperlink{vcubeverify_2mps_count_collisions_8cpp_a545748d00af2aff41645f9bfb8276eec}{CountCollisions}}(\textcolor{keywordtype}{bool});}
+\DoxyCodeLine{00069\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

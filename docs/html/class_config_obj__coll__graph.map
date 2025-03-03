@@ -1,0 +1,30 @@
+<map id="ConfigObj" name="ConfigObj">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,203,85,229"/>
+<area shape="rect" id="Node000007" href="$class_phys_dev_obj.html" title=" " alt="" coords="187,309,282,336"/>
+<area shape="poly" id="edge15_Node000007_Node000001" title=" " alt="" coords="70,238,98,261,131,283,188,306,185,311,128,288,95,266,67,242"/>
+<area shape="rect" id="Node000008" href="$class_base_obj.html" title=" " alt="" coords="199,491,270,517"/>
+<area shape="poly" id="edge14_Node000008_Node000001" title=" " alt="" coords="51,244,60,285,76,332,102,374,131,409,163,441,219,488,216,492,160,445,127,413,97,378,71,334,54,286,46,245"/>
+<area shape="rect" id="Node000002" href="$structconfig__t.html" title=" " alt="" coords="209,5,276,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="221,44,59,204,55,201,218,41"/>
+<area shape="poly" id="edge8_Node000002_Node000002" title=" " alt="" coords="293,9,303,19,294,28,276,30,276,24,292,23,297,19,290,14"/>
+<area shape="rect" id="Node000003" href="$structconfig__setting__t.html" title=" " alt="" coords="255,96,368,123"/>
+<area shape="poly" id="edge7_Node000003_Node000002" title=" " alt="" coords="237,47,237,60,240,71,252,84,268,93,265,98,249,88,236,73,231,61,231,47"/>
+<area shape="poly" id="edge9_Node000001_Node000003" title=" " alt="" coords="286,135,250,159,209,181,178,192,154,196,98,205,86,208,85,203,96,200,153,191,177,186,207,176,248,154,283,130"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="297,84,280,58,257,35,261,31,284,54,302,81"/>
+<area shape="poly" id="edge6_Node000003_Node000003" title=" " alt="" coords="386,101,395,109,387,117,369,120,369,115,385,113,390,109,382,105"/>
+<area shape="rect" id="Node000005" href="$structconfig__list__t.html" title=" " alt="" coords="555,203,647,229"/>
+<area shape="poly" id="edge5_Node000005_Node000003" title=" " alt="" coords="384,112,449,123,515,144,559,172,591,200,588,204,556,176,513,149,448,128,383,118"/>
+<area shape="rect" id="Node000004" href="$unionconfig__value__t.html" title=" " alt="" coords="548,309,654,336"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="574,301,522,255,458,205,390,160,333,125,335,121,393,155,461,201,525,251,578,297"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="604,245,604,309,598,309,598,245"/>
+<area shape="rect" id="Node000006" href="$class_vulkan_obj.html" title=" " alt="" coords="194,400,274,427"/>
+<area shape="poly" id="edge10_Node000001_Node000006" title=" " alt="" coords="199,394,138,349,107,320,79,287,48,231,53,229,83,284,111,316,142,345,202,389"/>
+<area shape="poly" id="edge13_Node000008_Node000006" title=" " alt="" coords="237,442,237,490,232,490,232,442"/>
+<area shape="poly" id="edge11_Node000006_Node000007" title=" " alt="" coords="237,352,237,399,232,399,232,352"/>
+<area shape="poly" id="edge12_Node000007_Node000008" title=" " alt="" coords="271,479,283,465,289,449,289,435,284,400,284,379,279,361,269,349,256,339,259,335,272,345,283,359,289,379,289,400,294,434,294,450,287,468,275,483"/>
+<area shape="rect" id="Node000009" href="$struct_swap_chain_support_details.html" title=" " alt="" coords="108,203,283,229"/>
+<area shape="poly" id="edge16_Node000007_Node000009" title=" " alt="" coords="185,244,180,265,184,284,194,297,207,307,204,311,190,301,179,286,175,264,180,243"/>
+<area shape="rect" id="Node000010" href="$struct_queue_family_indices.html" title=" " alt="" coords="307,203,447,229"/>
+<area shape="poly" id="edge18_Node000006_Node000010" title=" " alt="" coords="416,237,427,252,433,270,427,287,418,298,407,303,383,312,253,402,250,397,381,307,405,298,415,293,423,284,427,269,423,255,412,241"/>
+<area shape="poly" id="edge17_Node000007_Node000010" title=" " alt="" coords="357,243,313,287,269,311,267,306,310,283,353,239"/>
+</map>

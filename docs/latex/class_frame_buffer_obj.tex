@@ -1,0 +1,150 @@
+\doxysection{Frame\+Buffer\+Obj Class Reference}
+\hypertarget{class_frame_buffer_obj}{}\label{class_frame_buffer_obj}\index{FrameBufferObj@{FrameBufferObj}}
+
+
+{\ttfamily \#include $<$Frame\+Buffer\+Obj.\+hpp$>$}
+
+
+
+Inheritance diagram for Frame\+Buffer\+Obj\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=164pt]{class_frame_buffer_obj__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Frame\+Buffer\+Obj\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_frame_buffer_obj__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_frame_buffer_obj_a1ddb15e75649d9e1fc5f3c688fcf9bc8}{Frame\+Buffer\+Obj}} (\mbox{\hyperlink{class_vulkan_obj}{Vulkan\+Obj}} \texorpdfstring{$\ast$}{*}App, std\+::string Name)
+\item 
+void \mbox{\hyperlink{class_frame_buffer_obj_ae1274397e4d0f0996f339159e6db9035}{Create}} (\mbox{\hyperlink{class_render_pass_obj}{Render\+Pass\+Obj}} \texorpdfstring{$\ast$}{*}RPO, \mbox{\hyperlink{class_swap_chain_obj}{Swap\+Chain\+Obj}} \texorpdfstring{$\ast$}{*}SCO)
+\item 
+void \mbox{\hyperlink{class_frame_buffer_obj_ac0892581376c910a08306730b63664c2}{Cleanup}} ()
+\item 
+virtual void \mbox{\hyperlink{class_frame_buffer_obj_af8dd60112e947fa654ffe3e6cbd3788e}{create\+Framebuffers}} ()=0
+\item 
+\mbox{\hyperlink{class_frame_buffer_obj_a5568a0cf56c957474549b16d05a2b76d}{Frame\+Buffer\+Obj}} ()=default
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_base_obj}{Base\+Obj}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_base_obj_a4b83af8a8e0e29a74b5d1780e2dd9172}{Base\+Obj}} ()
+\item 
+\mbox{\hyperlink{class_base_obj_a591e107302b3a81ff86ad91a93fd3c79}{Base\+Obj}} (std\+::string Name, uint32\+\_\+t Type, \mbox{\hyperlink{class_vulkan_obj}{Vulkan\+Obj}} \texorpdfstring{$\ast$}{*}App)
+\item 
+uint32\+\_\+t \mbox{\hyperlink{class_base_obj_a13d66a7db04f2f49f0b8a7505bd957bb}{Get\+Type}} ()
+\item 
+std\+::string \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_base_obj_a818217adc491531cf69dbe8960313d21}{get\+Name}} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+std\+::vector$<$ Vk\+Framebuffer $>$ \mbox{\hyperlink{class_frame_buffer_obj_a193a9c78b3f18cd08aa1f5fbc86a7ae9}{m\+\_\+\+Swap\+Chain\+Framebuffers}}
+\item 
+\mbox{\hyperlink{class_render_pass_obj}{Render\+Pass\+Obj}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_frame_buffer_obj_ac7ea40dc4e7614ebe003444664de741b}{m\+\_\+\+RPO}}
+\item 
+\mbox{\hyperlink{class_swap_chain_obj}{Swap\+Chain\+Obj}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_frame_buffer_obj_a83cd92f47d5dfd480dec54931815ee74}{m\+\_\+\+SCO}}
+\item 
+\mbox{\hyperlink{class_image_object}{Image\+Object}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_frame_buffer_obj_a4aa7aac755c456149f4d38db0c2194c8}{m\+\_\+\+IMO}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes inherited from \mbox{\hyperlink{class_base_obj}{Base\+Obj}}}
+\begin{DoxyCompactItemize}
+\item 
+std\+::string \mbox{\hyperlink{class_base_obj_a7a48a870862125c622302bd728a06c8f}{m\+\_\+\+Name}}
+\item 
+std\+::string \mbox{\hyperlink{class_base_obj_a0f4afc531f2ba36a0c4bf735e7d228b9}{m\+\_\+wkstr}}
+\item 
+uint32\+\_\+t \mbox{\hyperlink{class_base_obj_a911900fe67cd3edaf3ef52a7f57f398a}{m\+\_\+\+Type}} =0
+\item 
+\mbox{\hyperlink{class_vulkan_obj}{Vulkan\+Obj}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_base_obj_ab8f8d9c2f68f3bef1153d397d61646b0}{m\+\_\+\+App}} = \{\}
+\item 
+\mbox{\hyperlink{class_config_obj}{Config\+Obj}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_base_obj_aac207590eff5a5e099c4534d46e50f07}{m\+\_\+\+ACfg}} = \{\}
+\item 
+uint32\+\_\+t \mbox{\hyperlink{class_base_obj_a615d9ffc2cf237a1d45ac63721fae83c}{m\+\_\+this\+Frames\+Buffered}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_frame_buffer_obj_a1ddb15e75649d9e1fc5f3c688fcf9bc8}\index{FrameBufferObj@{FrameBufferObj}!FrameBufferObj@{FrameBufferObj}}
+\index{FrameBufferObj@{FrameBufferObj}!FrameBufferObj@{FrameBufferObj}}
+\doxysubsubsection{\texorpdfstring{FrameBufferObj()}{FrameBufferObj()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{class_frame_buffer_obj_a1ddb15e75649d9e1fc5f3c688fcf9bc8} 
+Frame\+Buffer\+Obj\+::\+Frame\+Buffer\+Obj (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_vulkan_obj}{Vulkan\+Obj}} \texorpdfstring{$\ast$}{*}}]{App}{, }\item[{std\+::string}]{Name}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{class_frame_buffer_obj_a5568a0cf56c957474549b16d05a2b76d}\index{FrameBufferObj@{FrameBufferObj}!FrameBufferObj@{FrameBufferObj}}
+\index{FrameBufferObj@{FrameBufferObj}!FrameBufferObj@{FrameBufferObj}}
+\doxysubsubsection{\texorpdfstring{FrameBufferObj()}{FrameBufferObj()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{class_frame_buffer_obj_a5568a0cf56c957474549b16d05a2b76d} 
+Frame\+Buffer\+Obj\+::\+Frame\+Buffer\+Obj (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_frame_buffer_obj_ac0892581376c910a08306730b63664c2}\index{FrameBufferObj@{FrameBufferObj}!Cleanup@{Cleanup}}
+\index{Cleanup@{Cleanup}!FrameBufferObj@{FrameBufferObj}}
+\doxysubsubsection{\texorpdfstring{Cleanup()}{Cleanup()}}
+{\footnotesize\ttfamily \label{class_frame_buffer_obj_ac0892581376c910a08306730b63664c2} 
+void Frame\+Buffer\+Obj\+::\+Cleanup (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_base_obj_aec468ed8d8521d3d6edd10317c9a1ed9}{Base\+Obj}}.
+
+\Hypertarget{class_frame_buffer_obj_ae1274397e4d0f0996f339159e6db9035}\index{FrameBufferObj@{FrameBufferObj}!Create@{Create}}
+\index{Create@{Create}!FrameBufferObj@{FrameBufferObj}}
+\doxysubsubsection{\texorpdfstring{Create()}{Create()}}
+{\footnotesize\ttfamily \label{class_frame_buffer_obj_ae1274397e4d0f0996f339159e6db9035} 
+void Frame\+Buffer\+Obj\+::\+Create (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_render_pass_obj}{Render\+Pass\+Obj}} \texorpdfstring{$\ast$}{*}}]{RPO}{, }\item[{\mbox{\hyperlink{class_swap_chain_obj}{Swap\+Chain\+Obj}} \texorpdfstring{$\ast$}{*}}]{SCO}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{class_frame_buffer_obj_af8dd60112e947fa654ffe3e6cbd3788e}\index{FrameBufferObj@{FrameBufferObj}!createFramebuffers@{createFramebuffers}}
+\index{createFramebuffers@{createFramebuffers}!FrameBufferObj@{FrameBufferObj}}
+\doxysubsubsection{\texorpdfstring{createFramebuffers()}{createFramebuffers()}}
+{\footnotesize\ttfamily \label{class_frame_buffer_obj_af8dd60112e947fa654ffe3e6cbd3788e} 
+virtual void Frame\+Buffer\+Obj\+::create\+Framebuffers (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Implemented in \mbox{\hyperlink{class_frame_buffer_a1069bc477771c3e91cfd1e646f1a8cb3}{Frame\+Buffer}}.
+
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{class_frame_buffer_obj_a4aa7aac755c456149f4d38db0c2194c8}\index{FrameBufferObj@{FrameBufferObj}!m\_IMO@{m\_IMO}}
+\index{m\_IMO@{m\_IMO}!FrameBufferObj@{FrameBufferObj}}
+\doxysubsubsection{\texorpdfstring{m\_IMO}{m\_IMO}}
+{\footnotesize\ttfamily \label{class_frame_buffer_obj_a4aa7aac755c456149f4d38db0c2194c8} 
+\mbox{\hyperlink{class_image_object}{Image\+Object}}\texorpdfstring{$\ast$}{*} Frame\+Buffer\+Obj\+::m\+\_\+\+IMO}
+
+\Hypertarget{class_frame_buffer_obj_ac7ea40dc4e7614ebe003444664de741b}\index{FrameBufferObj@{FrameBufferObj}!m\_RPO@{m\_RPO}}
+\index{m\_RPO@{m\_RPO}!FrameBufferObj@{FrameBufferObj}}
+\doxysubsubsection{\texorpdfstring{m\_RPO}{m\_RPO}}
+{\footnotesize\ttfamily \label{class_frame_buffer_obj_ac7ea40dc4e7614ebe003444664de741b} 
+\mbox{\hyperlink{class_render_pass_obj}{Render\+Pass\+Obj}}\texorpdfstring{$\ast$}{*} Frame\+Buffer\+Obj\+::m\+\_\+\+RPO}
+
+\Hypertarget{class_frame_buffer_obj_a83cd92f47d5dfd480dec54931815ee74}\index{FrameBufferObj@{FrameBufferObj}!m\_SCO@{m\_SCO}}
+\index{m\_SCO@{m\_SCO}!FrameBufferObj@{FrameBufferObj}}
+\doxysubsubsection{\texorpdfstring{m\_SCO}{m\_SCO}}
+{\footnotesize\ttfamily \label{class_frame_buffer_obj_a83cd92f47d5dfd480dec54931815ee74} 
+\mbox{\hyperlink{class_swap_chain_obj}{Swap\+Chain\+Obj}}\texorpdfstring{$\ast$}{*} Frame\+Buffer\+Obj\+::m\+\_\+\+SCO}
+
+\Hypertarget{class_frame_buffer_obj_a193a9c78b3f18cd08aa1f5fbc86a7ae9}\index{FrameBufferObj@{FrameBufferObj}!m\_SwapChainFramebuffers@{m\_SwapChainFramebuffers}}
+\index{m\_SwapChainFramebuffers@{m\_SwapChainFramebuffers}!FrameBufferObj@{FrameBufferObj}}
+\doxysubsubsection{\texorpdfstring{m\_SwapChainFramebuffers}{m\_SwapChainFramebuffers}}
+{\footnotesize\ttfamily \label{class_frame_buffer_obj_a193a9c78b3f18cd08aa1f5fbc86a7ae9} 
+std\+::vector$<$Vk\+Framebuffer$>$ Frame\+Buffer\+Obj\+::m\+\_\+\+Swap\+Chain\+Framebuffers}
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+J\+:/\+FPIBG/vulkan/src/\+Vulkan\+Obj/\mbox{\hyperlink{_frame_buffer_obj_8hpp}{Frame\+Buffer\+Obj.\+hpp}}\end{DoxyCompactItemize}

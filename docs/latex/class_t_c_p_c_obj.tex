@@ -1,0 +1,168 @@
+\doxysection{TCPCObj Class Reference}
+\hypertarget{class_t_c_p_c_obj}{}\label{class_t_c_p_c_obj}\index{TCPCObj@{TCPCObj}}
+
+
+{\ttfamily \#include $<$TCPCObj.\+hpp$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_t_c_p_c_obj_a200911aa1c75036b0249242f4d493166}{Set\+Server\+IP}} (std\+::string IPAddress)
+\item 
+void \mbox{\hyperlink{class_t_c_p_c_obj_a5330c4a101d8b6fee446a10e161dff64}{Set\+Server\+Port}} (std\+::string Port\+Address)
+\item 
+void \mbox{\hyperlink{class_t_c_p_c_obj_a9750645c5dd286d57e0d826e18a97843}{Set\+Buf\+Size}} (uint32\+\_\+t Buf\+Size)
+\item 
+int \mbox{\hyperlink{class_t_c_p_c_obj_a221cf3628b13929d722d4380ad31cdaf}{Create}} ()
+\item 
+int \mbox{\hyperlink{class_t_c_p_c_obj_a214570399b3dfdf44ee2000601a395f1}{Read\+Port}} ()
+\item 
+int \mbox{\hyperlink{class_t_c_p_c_obj_a8fe7f0143c14a36ae0cd072f31e1f146}{Write\+Port}} (std\+::string Command)
+\item 
+int \mbox{\hyperlink{class_t_c_p_c_obj_aa2b067ff36382c81a7ea5fa1facb4302}{Close}} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+WSADATA \mbox{\hyperlink{class_t_c_p_c_obj_a735cb46c72920e7fbabbe1d435219425}{wsa\+Data}}
+\item 
+SOCKET \mbox{\hyperlink{class_t_c_p_c_obj_a326d692146f22c700559f83a3e48ee79}{Connect\+Socket}} = INVALID\+\_\+\+SOCKET
+\item 
+struct addrinfo \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_t_c_p_c_obj_a5cc045e7667a91eb6c4ac1bb35c3498d}{result}} = NULL
+\item 
+struct addrinfo \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_t_c_p_c_obj_a4d48a54d4b57b5d54e0409df95265d0b}{ptr}} = NULL
+\item 
+struct addrinfo \mbox{\hyperlink{class_t_c_p_c_obj_a6d7462cfc17e8d46badc4f93d73bde07}{hints}}
+\item 
+const char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_t_c_p_c_obj_acac1f35f94f52c90e8ef67c780dcf58d}{sendbuf}} = "{}quit"{}
+\item 
+char \mbox{\hyperlink{class_t_c_p_c_obj_a8494492e3953f7b943b8f4c34bd76122}{recvbuf}} \mbox{[}\mbox{\hyperlink{_t_c_p_c_obj_8hpp_a5261516a174b035b084a9ae06dc85730}{DEFAULT\+\_\+\+BUFLEN}}\mbox{]}
+\item 
+int \mbox{\hyperlink{class_t_c_p_c_obj_aeda8737ca6371aeb381de7362216f166}{i\+Result}}
+\item 
+int \mbox{\hyperlink{class_t_c_p_c_obj_a6a7bddd904191ba4e6991c009cb4c4de}{recvbuflen}} = \mbox{\hyperlink{_t_c_p_c_obj_8hpp_a5261516a174b035b084a9ae06dc85730}{DEFAULT\+\_\+\+BUFLEN}}
+\item 
+std\+::string \mbox{\hyperlink{class_t_c_p_c_obj_ad5e6d843fbebe65e9d3f93278895f04e}{m\+\_\+\+Server}} = "{}127.\+0.\+0.\+1"{}
+\item 
+std\+::string \mbox{\hyperlink{class_t_c_p_c_obj_ad6ee384d4bf86d412af7a7b537ccb2c5}{m\+\_\+\+Port\+Address}} = "{}50004"{}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_t_c_p_c_obj_aa2b067ff36382c81a7ea5fa1facb4302}\index{TCPCObj@{TCPCObj}!Close@{Close}}
+\index{Close@{Close}!TCPCObj@{TCPCObj}}
+\doxysubsubsection{\texorpdfstring{Close()}{Close()}}
+{\footnotesize\ttfamily \label{class_t_c_p_c_obj_aa2b067ff36382c81a7ea5fa1facb4302} 
+int TCPCObj\+::\+Close (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+\Hypertarget{class_t_c_p_c_obj_a221cf3628b13929d722d4380ad31cdaf}\index{TCPCObj@{TCPCObj}!Create@{Create}}
+\index{Create@{Create}!TCPCObj@{TCPCObj}}
+\doxysubsubsection{\texorpdfstring{Create()}{Create()}}
+{\footnotesize\ttfamily \label{class_t_c_p_c_obj_a221cf3628b13929d722d4380ad31cdaf} 
+int TCPCObj\+::\+Create (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+\Hypertarget{class_t_c_p_c_obj_a214570399b3dfdf44ee2000601a395f1}\index{TCPCObj@{TCPCObj}!ReadPort@{ReadPort}}
+\index{ReadPort@{ReadPort}!TCPCObj@{TCPCObj}}
+\doxysubsubsection{\texorpdfstring{ReadPort()}{ReadPort()}}
+{\footnotesize\ttfamily \label{class_t_c_p_c_obj_a214570399b3dfdf44ee2000601a395f1} 
+int TCPCObj\+::\+Read\+Port (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+\Hypertarget{class_t_c_p_c_obj_a9750645c5dd286d57e0d826e18a97843}\index{TCPCObj@{TCPCObj}!SetBufSize@{SetBufSize}}
+\index{SetBufSize@{SetBufSize}!TCPCObj@{TCPCObj}}
+\doxysubsubsection{\texorpdfstring{SetBufSize()}{SetBufSize()}}
+{\footnotesize\ttfamily \label{class_t_c_p_c_obj_a9750645c5dd286d57e0d826e18a97843} 
+void TCPCObj\+::\+Set\+Buf\+Size (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{Buf\+Size}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{class_t_c_p_c_obj_a200911aa1c75036b0249242f4d493166}\index{TCPCObj@{TCPCObj}!SetServerIP@{SetServerIP}}
+\index{SetServerIP@{SetServerIP}!TCPCObj@{TCPCObj}}
+\doxysubsubsection{\texorpdfstring{SetServerIP()}{SetServerIP()}}
+{\footnotesize\ttfamily \label{class_t_c_p_c_obj_a200911aa1c75036b0249242f4d493166} 
+void TCPCObj\+::\+Set\+Server\+IP (\begin{DoxyParamCaption}\item[{std\+::string}]{IPAddress}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{class_t_c_p_c_obj_a5330c4a101d8b6fee446a10e161dff64}\index{TCPCObj@{TCPCObj}!SetServerPort@{SetServerPort}}
+\index{SetServerPort@{SetServerPort}!TCPCObj@{TCPCObj}}
+\doxysubsubsection{\texorpdfstring{SetServerPort()}{SetServerPort()}}
+{\footnotesize\ttfamily \label{class_t_c_p_c_obj_a5330c4a101d8b6fee446a10e161dff64} 
+void TCPCObj\+::\+Set\+Server\+Port (\begin{DoxyParamCaption}\item[{std\+::string}]{Port\+Address}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{class_t_c_p_c_obj_a8fe7f0143c14a36ae0cd072f31e1f146}\index{TCPCObj@{TCPCObj}!WritePort@{WritePort}}
+\index{WritePort@{WritePort}!TCPCObj@{TCPCObj}}
+\doxysubsubsection{\texorpdfstring{WritePort()}{WritePort()}}
+{\footnotesize\ttfamily \label{class_t_c_p_c_obj_a8fe7f0143c14a36ae0cd072f31e1f146} 
+int TCPCObj\+::\+Write\+Port (\begin{DoxyParamCaption}\item[{std\+::string}]{Command}{}\end{DoxyParamCaption})}
+
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{class_t_c_p_c_obj_a326d692146f22c700559f83a3e48ee79}\index{TCPCObj@{TCPCObj}!ConnectSocket@{ConnectSocket}}
+\index{ConnectSocket@{ConnectSocket}!TCPCObj@{TCPCObj}}
+\doxysubsubsection{\texorpdfstring{ConnectSocket}{ConnectSocket}}
+{\footnotesize\ttfamily \label{class_t_c_p_c_obj_a326d692146f22c700559f83a3e48ee79} 
+SOCKET TCPCObj\+::\+Connect\+Socket = INVALID\+\_\+\+SOCKET}
+
+\Hypertarget{class_t_c_p_c_obj_a6d7462cfc17e8d46badc4f93d73bde07}\index{TCPCObj@{TCPCObj}!hints@{hints}}
+\index{hints@{hints}!TCPCObj@{TCPCObj}}
+\doxysubsubsection{\texorpdfstring{hints}{hints}}
+{\footnotesize\ttfamily \label{class_t_c_p_c_obj_a6d7462cfc17e8d46badc4f93d73bde07} 
+struct addrinfo TCPCObj\+::hints}
+
+\Hypertarget{class_t_c_p_c_obj_aeda8737ca6371aeb381de7362216f166}\index{TCPCObj@{TCPCObj}!iResult@{iResult}}
+\index{iResult@{iResult}!TCPCObj@{TCPCObj}}
+\doxysubsubsection{\texorpdfstring{iResult}{iResult}}
+{\footnotesize\ttfamily \label{class_t_c_p_c_obj_aeda8737ca6371aeb381de7362216f166} 
+int TCPCObj\+::i\+Result}
+
+\Hypertarget{class_t_c_p_c_obj_ad6ee384d4bf86d412af7a7b537ccb2c5}\index{TCPCObj@{TCPCObj}!m\_PortAddress@{m\_PortAddress}}
+\index{m\_PortAddress@{m\_PortAddress}!TCPCObj@{TCPCObj}}
+\doxysubsubsection{\texorpdfstring{m\_PortAddress}{m\_PortAddress}}
+{\footnotesize\ttfamily \label{class_t_c_p_c_obj_ad6ee384d4bf86d412af7a7b537ccb2c5} 
+std\+::string TCPCObj\+::m\+\_\+\+Port\+Address = "{}50004"{}}
+
+\Hypertarget{class_t_c_p_c_obj_ad5e6d843fbebe65e9d3f93278895f04e}\index{TCPCObj@{TCPCObj}!m\_Server@{m\_Server}}
+\index{m\_Server@{m\_Server}!TCPCObj@{TCPCObj}}
+\doxysubsubsection{\texorpdfstring{m\_Server}{m\_Server}}
+{\footnotesize\ttfamily \label{class_t_c_p_c_obj_ad5e6d843fbebe65e9d3f93278895f04e} 
+std\+::string TCPCObj\+::m\+\_\+\+Server = "{}127.\+0.\+0.\+1"{}}
+
+\Hypertarget{class_t_c_p_c_obj_a4d48a54d4b57b5d54e0409df95265d0b}\index{TCPCObj@{TCPCObj}!ptr@{ptr}}
+\index{ptr@{ptr}!TCPCObj@{TCPCObj}}
+\doxysubsubsection{\texorpdfstring{ptr}{ptr}}
+{\footnotesize\ttfamily \label{class_t_c_p_c_obj_a4d48a54d4b57b5d54e0409df95265d0b} 
+struct addrinfo \texorpdfstring{$\ast$}{*} TCPCObj\+::ptr = NULL}
+
+\Hypertarget{class_t_c_p_c_obj_a8494492e3953f7b943b8f4c34bd76122}\index{TCPCObj@{TCPCObj}!recvbuf@{recvbuf}}
+\index{recvbuf@{recvbuf}!TCPCObj@{TCPCObj}}
+\doxysubsubsection{\texorpdfstring{recvbuf}{recvbuf}}
+{\footnotesize\ttfamily \label{class_t_c_p_c_obj_a8494492e3953f7b943b8f4c34bd76122} 
+char TCPCObj\+::recvbuf\mbox{[}\mbox{\hyperlink{_t_c_p_c_obj_8hpp_a5261516a174b035b084a9ae06dc85730}{DEFAULT\+\_\+\+BUFLEN}}\mbox{]}}
+
+\Hypertarget{class_t_c_p_c_obj_a6a7bddd904191ba4e6991c009cb4c4de}\index{TCPCObj@{TCPCObj}!recvbuflen@{recvbuflen}}
+\index{recvbuflen@{recvbuflen}!TCPCObj@{TCPCObj}}
+\doxysubsubsection{\texorpdfstring{recvbuflen}{recvbuflen}}
+{\footnotesize\ttfamily \label{class_t_c_p_c_obj_a6a7bddd904191ba4e6991c009cb4c4de} 
+int TCPCObj\+::recvbuflen = \mbox{\hyperlink{_t_c_p_c_obj_8hpp_a5261516a174b035b084a9ae06dc85730}{DEFAULT\+\_\+\+BUFLEN}}}
+
+\Hypertarget{class_t_c_p_c_obj_a5cc045e7667a91eb6c4ac1bb35c3498d}\index{TCPCObj@{TCPCObj}!result@{result}}
+\index{result@{result}!TCPCObj@{TCPCObj}}
+\doxysubsubsection{\texorpdfstring{result}{result}}
+{\footnotesize\ttfamily \label{class_t_c_p_c_obj_a5cc045e7667a91eb6c4ac1bb35c3498d} 
+struct addrinfo\texorpdfstring{$\ast$}{*} TCPCObj\+::result = NULL}
+
+\Hypertarget{class_t_c_p_c_obj_acac1f35f94f52c90e8ef67c780dcf58d}\index{TCPCObj@{TCPCObj}!sendbuf@{sendbuf}}
+\index{sendbuf@{sendbuf}!TCPCObj@{TCPCObj}}
+\doxysubsubsection{\texorpdfstring{sendbuf}{sendbuf}}
+{\footnotesize\ttfamily \label{class_t_c_p_c_obj_acac1f35f94f52c90e8ef67c780dcf58d} 
+const char\texorpdfstring{$\ast$}{*} TCPCObj\+::sendbuf = "{}quit"{}}
+
+\Hypertarget{class_t_c_p_c_obj_a735cb46c72920e7fbabbe1d435219425}\index{TCPCObj@{TCPCObj}!wsaData@{wsaData}}
+\index{wsaData@{wsaData}!TCPCObj@{TCPCObj}}
+\doxysubsubsection{\texorpdfstring{wsaData}{wsaData}}
+{\footnotesize\ttfamily \label{class_t_c_p_c_obj_a735cb46c72920e7fbabbe1d435219425} 
+WSADATA TCPCObj\+::wsa\+Data}
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+J\+:/\+FPIBG/vulkan/src/tcpip/\mbox{\hyperlink{_t_c_p_c_obj_8hpp}{TCPCObj.\+hpp}}\item 
+J\+:/\+FPIBG/vulkan/src/tcpip/\mbox{\hyperlink{_t_c_p_c_obj_8cpp}{TCPCObj.\+cpp}}\end{DoxyCompactItemize}

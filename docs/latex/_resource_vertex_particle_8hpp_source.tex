@@ -1,0 +1,78 @@
+\doxysection{Resource\+Vertex\+Particle.\+hpp}
+\hypertarget{_resource_vertex_particle_8hpp_source}{}\label{_resource_vertex_particle_8hpp_source}\index{J:/FPIBG/vulkan/src\_app/particleOnly/ResourceVertexParticle.hpp@{J:/FPIBG/vulkan/src\_app/particleOnly/ResourceVertexParticle.hpp}}
+\mbox{\hyperlink{_resource_vertex_particle_8hpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*******************************************************************}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\%***\ \ \ \ \ \ C\ PROPRIETARY\ SOURCE\ FILE\ IDENTIFICATION\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ***}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\%*******************************************************************}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\%\ \$Author:\ jb\ \$}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\%}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\%\ \$Date:\ 2023-\/05-\/03\ 15:30:42\ -\/0400\ (Wed,\ 03\ May\ 2023)\ \$}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\%\ \$HeadURL:\ https://jbworkstation/svn/svnrootr5/svnvulcan/src/vulkan/ResourceVertex.hpp\ \$}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\%\ \$Id:\ ResourceVertex.hpp\ 28\ 2023-\/05-\/03\ 19:30:42Z\ jb\ \$}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\%*******************************************************************}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\%***\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DESCRIPTION\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ***}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\%*******************************************************************}}
+\DoxyCodeLine{00012\ \textcolor{comment}{@doc}}
+\DoxyCodeLine{00013\ \textcolor{comment}{@module}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ @author:\ Jackie\ Michael\ Bell<nl>}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ COPYRIGHT\ <cp>\ Jackie\ Michael\ Bell<nl>}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ Property\ of\ Jackie\ Michael\ Bell<rtm>.\ All\ Rights\ Reserved.<nl>}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ This\ source\ code\ file\ contains\ proprietary<nl>}}
+\DoxyCodeLine{00018\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ and\ confidential\ information.<nl>}}
+\DoxyCodeLine{00019\ \textcolor{comment}{}}
+\DoxyCodeLine{00020\ \textcolor{comment}{}}
+\DoxyCodeLine{00021\ \textcolor{comment}{@head3\ \ \ \ \ \ Description.\ |}}
+\DoxyCodeLine{00022\ \textcolor{comment}{@normal}}
+\DoxyCodeLine{00023\ \textcolor{comment}{}}
+\DoxyCodeLine{00024\ \textcolor{comment}{}}
+\DoxyCodeLine{00025\ \textcolor{comment}{********************************************************************}}
+\DoxyCodeLine{00026\ \textcolor{comment}{\%***\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ SVN\ CHANGE\ RECORD\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ***}}
+\DoxyCodeLine{00027\ \textcolor{comment}{\%*******************************************************************}}
+\DoxyCodeLine{00028\ \textcolor{comment}{\%*\$Revision:\ 28\ \$}}
+\DoxyCodeLine{00029\ \textcolor{comment}{\%*}}
+\DoxyCodeLine{00030\ \textcolor{comment}{\%*}}
+\DoxyCodeLine{00031\ \textcolor{comment}{\%******************************************************************/}}
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#ifndef\ RESOURCEVERTEXPARTICLE\_HPP}}
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#define\ RESOURCEVERTEXPARTICLE\_HPP}}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_resource_vertex_particle_a37cd4624ed89b78738ec1f7936e37076}{ResourceVertexParticle}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_resource_vertex_obj_a6f40fa59a1d45359de59c17bebec7c98}{ResourceVertexObj}}}
+\DoxyCodeLine{00036\ \{}
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ uint32\_t\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_resource_vertex_particle_aab13613dfde667661e620f82ed8800ef}{m\_MaxColls}}\ =\ 0;}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_resource_vertex_particle_af01339c7867371f05abd59c2515ff411}{m\_SideLength}}\ =\ 0;}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_resource_vertex_particle_a9923f9fb2afab9bdd44147fdcd0e961c}{m\_Radius}}\ =\ 0.2f;}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ uint32\_t\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_resource_vertex_particle_ab595fea5322d97e278bf83b338b4a398}{BoundaryParticleLimit}}\ =\ 0;}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ std::vector<Particle>\ \ \ \mbox{\hyperlink{class_resource_vertex_particle_aafd8d0f2aa4a408914846145b6237f3a}{m\_Particles}};}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ uint32\_t\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_resource_vertex_particle_ae8561be5780d2c92ab2b5ffd8497b4f4}{m\_NumParticles}}\ =\ 0;}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_resource_vertex_particle_a37cd4624ed89b78738ec1f7936e37076}{ResourceVertexParticle}}(\mbox{\hyperlink{class_vulkan_obj}{VulkanObj}}\ *App,\ std::string\ Name):}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_resource_vertex_obj_a6f40fa59a1d45359de59c17bebec7c98}{ResourceVertexObj}}(App,\ Name)}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_resource_ac605e98c566a4583760d1b6e5c6dc984}{m\_VkType}}\ =\ VK\_DESCRIPTOR\_TYPE\_STORAGE\_BUFFER;}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_resource_vertex_particle_a6f2890cc86c5b5cfdfa6043f25b225f9}{AskObject}}(uint32\_t\ AnyNumber)\ \{\};}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{class_resource_vertex_particle_ad430154d03bea9ed471fba3e06159937}{CalcSpeedLimit}}(\textcolor{keywordtype}{float}\ max\_vel,\ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{mps_mem_count_collisions_8cpp_a5050a760c11da521cd4aee6336f6529f}{radius}});}
+\DoxyCodeLine{00052\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_resource_vertex_particle_a16b0aafdec60a87ab56edbfb8efea2c6}{Create}}(uint32\_t\ BindPoint);}
+\DoxyCodeLine{00053\ \ \ \ \ uint32\_t\ \mbox{\hyperlink{class_resource_vertex_particle_a95f2050c8d6f3d5cf869174e1b7d5434}{CalcSideLength}}(\textcolor{keywordtype}{size\_t}\ PartPerCell);}
+\DoxyCodeLine{00054\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_resource_vertex_particle_ad475dae1613467155273a70d6a949b25}{CreateLayout}}();}
+\DoxyCodeLine{00055\ \ \ \ \ }
+\DoxyCodeLine{00056\ \ \ \ \ \textcolor{comment}{//============================================================}}
+\DoxyCodeLine{00057\ \ \ \ \ std::vector<VkVertexInputAttributeDescription>*\ \mbox{\hyperlink{class_resource_vertex_particle_aa1e78e894e8d81305de9c2f68fdd3308}{GetAttributeDescriptions}}();}
+\DoxyCodeLine{00058\ \ \ \ \ VkVertexInputBindingDescription*\ \mbox{\hyperlink{class_resource_vertex_particle_af1f2ccecfe35551c0c7c6f3fd0e9677b}{GetBindingDescription}}();}
+\DoxyCodeLine{00059\ \ \ \ \ }
+\DoxyCodeLine{00060\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_resource_vertex_particle_a893a949ba962be262d21b48462289d0f}{PullMem}}(uint32\_t\ currentBuffer)\ \{\};}
+\DoxyCodeLine{00061\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_resource_vertex_particle_ab3c93c1e561b531c63bb866728bfaf2f}{PushMem}}(uint32\_t\ currentBuffer)\{\};}
+\DoxyCodeLine{00062\ \ \ \ \ }
+\DoxyCodeLine{00063\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_resource_vertex_particle_ab85227dea0d630e90d1d0e25d1daafe2}{Cleanup}}()}
+\DoxyCodeLine{00064\ \ \ \ \ \{}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ ii\ =\ 0;\ ii\ <\ \mbox{\hyperlink{class_resource_a65c9e2003b1c7f1220e5b6505ef33c8d}{m\_Allocation}}.size();\ ii++)}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \ \ \ \ vmaDestroyBuffer(\mbox{\hyperlink{class_base_obj_ab8f8d9c2f68f3bef1153d397d61646b0}{m\_App}}-\/>m\_vmaAllocator,\ \mbox{\hyperlink{class_resource_a1d276c026a7bca4e6be49f6d1d4fc770}{m\_Buffers}}[ii],\ \mbox{\hyperlink{class_resource_a65c9e2003b1c7f1220e5b6505ef33c8d}{m\_Allocation}}[ii]);}
+\DoxyCodeLine{00068\ \ \ \ \ \}}
+\DoxyCodeLine{00069\ \ \ \ \ }
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00071\ \};}
+\DoxyCodeLine{00072\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

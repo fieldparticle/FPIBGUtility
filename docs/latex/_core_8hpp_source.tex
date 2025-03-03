@@ -1,0 +1,91 @@
+\doxysection{Core.\+hpp}
+\hypertarget{_core_8hpp_source}{}\label{_core_8hpp_source}\index{J:/FPIBG/vulkan/src/VulkanObj/Core.hpp@{J:/FPIBG/vulkan/src/VulkanObj/Core.hpp}}
+\mbox{\hyperlink{_core_8hpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*******************************************************************}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\%***\ \ \ \ \ \ C\ PROPRIETARY\ SOURCE\ FILE\ IDENTIFICATION\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ***}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\%*******************************************************************}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\%\ \$Author:\ jb\ \$}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\%}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\%\ \$Date:\ 2023-\/06-\/12\ 16:17:58\ -\/0400\ (Mon,\ 12\ Jun\ 2023)\ \$}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\%\ \$HeadURL:\ https://jbworkstation/svn/svnrootr5/svnvulcan/src/vulkan/VABufferMemory.cpp\ \$}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\%\ \$Id:\ VABufferMemory.cpp\ 31\ 2023-\/06-\/12\ 20:17:58Z\ jb\ \$}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\%*******************************************************************}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\%***\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DESCRIPTION\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ***}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\%*******************************************************************}}
+\DoxyCodeLine{00012\ \textcolor{comment}{@doc}}
+\DoxyCodeLine{00013\ \textcolor{comment}{@module}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ @author:\ Jackie\ Michael\ Bell<nl>}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ COPYRIGHT\ <cp>\ Jackie\ Michael\ Bell<nl>}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ Property\ of\ Jackie\ Michael\ Bell<rtm>.\ All\ Rights\ Reserved.<nl>}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ This\ source\ code\ file\ contains\ proprietary<nl>}}
+\DoxyCodeLine{00018\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ and\ confidential\ information.<nl>}}
+\DoxyCodeLine{00019\ \textcolor{comment}{}}
+\DoxyCodeLine{00020\ \textcolor{comment}{}}
+\DoxyCodeLine{00021\ \textcolor{comment}{@head3\ \ \ \ \ \ Description.\ |}}
+\DoxyCodeLine{00022\ \textcolor{comment}{@normal}}
+\DoxyCodeLine{00023\ \textcolor{comment}{}}
+\DoxyCodeLine{00024\ \textcolor{comment}{}}
+\DoxyCodeLine{00025\ \textcolor{comment}{********************************************************************}}
+\DoxyCodeLine{00026\ \textcolor{comment}{\%***\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ SVN\ CHANGE\ RECORD\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ***}}
+\DoxyCodeLine{00027\ \textcolor{comment}{\%*******************************************************************}}
+\DoxyCodeLine{00028\ \textcolor{comment}{\%*\$Revision:\ 31\ \$}}
+\DoxyCodeLine{00029\ \textcolor{comment}{\%*}}
+\DoxyCodeLine{00030\ \textcolor{comment}{\%*}}
+\DoxyCodeLine{00031\ \textcolor{comment}{\%******************************************************************/}}
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#ifndef\ CORE\_HPP}}
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#define\ CORE\_HPP}}
+\DoxyCodeLine{00034\ \textcolor{comment}{//\#define\ GLFW\_INCLUDE\_VULKAN}}
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\#define\ GLFW\_EXPOSE\_NATIVE\_WIN32}}
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\#define\ VK\_USE\_PLATFORM\_WIN32\_KHR\ }}
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\#include\ <GLFW/glfw3.h>}}
+\DoxyCodeLine{00038\ \textcolor{preprocessor}{\#include\ <GLFW/glfw3native.h>}}
+\DoxyCodeLine{00039\ \textcolor{comment}{//\#include\ "{}stb\_image.h"{}}}
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\#define\ GLM\_FORCE\_RADIANS}}
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#define\ GLM\_FORCE\_DEPTH\_ZERO\_TO\_ONE}}
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#include\ <glm/vec4.hpp>}}
+\DoxyCodeLine{00043\ \textcolor{preprocessor}{\#include\ <glm/mat4x4.hpp>}}
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#include\ <glm/glm.hpp>}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#include\ <glm/gtc/matrix\_transform.hpp>}}
+\DoxyCodeLine{00046\ \textcolor{preprocessor}{\#include\ <stdexcept>}}
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#include\ <algorithm>}}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#include\ <optional>}}
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#include\ <cstdlib>}}
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#include\ <cstring>}}
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#include\ <cstdint>}}
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#include\ <sstream\ >}}
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#include\ <strstream>}}
+\DoxyCodeLine{00054\ \textcolor{preprocessor}{\#include\ <set>}}
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\#include\ <limits>}}
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{00057\ \textcolor{preprocessor}{\#include\ <fstream>}}
+\DoxyCodeLine{00058\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00059\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00060\ \textcolor{preprocessor}{\#include\ <array>}}
+\DoxyCodeLine{00061\ \textcolor{preprocessor}{\#include\ <chrono>}}
+\DoxyCodeLine{00062\ \textcolor{preprocessor}{\#include\ <ws2tcpip.h>}}
+\DoxyCodeLine{00063\ \textcolor{preprocessor}{\#include\ <windows.h>}}
+\DoxyCodeLine{00064\ \textcolor{preprocessor}{\#include\ <filesystem>}}
+\DoxyCodeLine{00065\ \textcolor{preprocessor}{\#include\ <queue>}}
+\DoxyCodeLine{00066\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{mout_8hpp}{mout2\_0/mout.hpp}}"{}}}
+\DoxyCodeLine{00067\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{libconfig_8h}{libconfig.h}}"{}}}
+\DoxyCodeLine{00068\ \textcolor{preprocessor}{\#include\ "{}vk\_mem\_alloc.h"{}}}
+\DoxyCodeLine{00069\ \textcolor{preprocessor}{\#include\ <stack>}}
+\DoxyCodeLine{00070\ \textcolor{keyword}{extern}\ \mbox{\hyperlink{class_msg_stream}{MsgStream}}\ \mbox{\hyperlink{mout_8hpp_ab5ed6aee500f93a9e6acd6cc5e966eac}{mout}};}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \textcolor{preprocessor}{\#define\ ASSERT\_VK(res)\ if\ (vk\_res\ !=\ VK\_SUCCESS)\{return\ EXIT\_FAILURE;\}}}
+\DoxyCodeLine{00075\ \textcolor{preprocessor}{\#define\ ASSERT(res)\ if\ (result\ !=\ EXIT\_SUCCESS)\{\ return\ EXIT\_FAILURE;\}}}
+\DoxyCodeLine{00076\ \textcolor{keyword}{static}\ VkResult\ vk\_res\ =\ VK\_SUCCESS;}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00078\ \textcolor{preprocessor}{\#define\ APP\_NAME\ "{}Vulkan\ Cube"{};}}
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00080\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_h_w_n_d___i_n_f_o}{HWND\_INFO}}}
+\DoxyCodeLine{00081\ \{}
+\DoxyCodeLine{00082\ \ \ \ \ HINSTANCE\ \mbox{\hyperlink{struct_h_w_n_d___i_n_f_o_a86f109920797a500015a069fbaace420}{hInstance}};}
+\DoxyCodeLine{00083\ \ \ \ \ HWND\ \mbox{\hyperlink{struct_h_w_n_d___i_n_f_o_ac39578de9582b16bc86b872f4e4e7fb5}{hWnd}};}
+\DoxyCodeLine{00084\ \};}
+\DoxyCodeLine{00085\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

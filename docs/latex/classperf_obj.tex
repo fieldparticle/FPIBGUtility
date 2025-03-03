@@ -1,0 +1,228 @@
+\doxysection{perf\+Obj Class Reference}
+\hypertarget{classperf_obj}{}\label{classperf_obj}\index{perfObj@{perfObj}}
+
+
+{\ttfamily \#include $<$perf\+Obj.\+hpp$>$}
+
+
+
+Collaboration diagram for perf\+Obj\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classperf_obj__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classperf_obj_a7a994ce785f80658710116cb9b4cafe7}{Process\+MMRR}} ()
+\item 
+void \mbox{\hyperlink{classperf_obj_a970e7dec3dea96f328508d6586ebbb05}{Set\+Test}} (uint32\+\_\+t RDType, uint32\+\_\+t sub\+Type)
+\item 
+void \mbox{\hyperlink{classperf_obj_a2afea56624e1102b2d80141a3750b6ba}{Open\+Perf\+Data}} ()
+\item 
+void \mbox{\hyperlink{classperf_obj_a2a2aa83a59c42fd43802c1a1e2c00ab6}{Performance\+Report}} (size\+\_\+t ploc)
+\item 
+void \mbox{\hyperlink{classperf_obj_aaf339e3be4c23f2478909bdcff154f10}{Process\+File\+List}} ()
+\item 
+void \mbox{\hyperlink{classperf_obj_a874f9fd453d096ebe5d07fce9305ccc7}{Process\+Results\+Data}} ()
+\item 
+void \mbox{\hyperlink{classperf_obj_a16b5707c382fd16bed4be781ad07e868}{Get\+Results\+Data}} (size\+\_\+t it\+Num)
+\item 
+void \mbox{\hyperlink{classperf_obj_a2b5a459b15e17f6fb0be9a1327b5dde0}{Check\+Write\+Data}} (size\+\_\+t it\+Num)
+\item 
+void \mbox{\hyperlink{classperf_obj_a0186615574a2cf21302bb32f37bcbcdc}{Perform\+Debug\+Tests}} (size\+\_\+t ploc)
+\item 
+virtual void \mbox{\hyperlink{classperf_obj_ac98cc1ffb8c198bec3eaee2bb0e0130f}{Ask\+Object}} (uint32\+\_\+t Any\+Number)
+\item 
+\mbox{\hyperlink{classperf_obj_a90934ffd9adbfb8b0c2e2c7ef02ffb19}{perf\+Obj}} (\mbox{\hyperlink{class_config_obj}{Config\+Obj}} \texorpdfstring{$\ast$}{*}CFGObj)
+\item 
+void \mbox{\hyperlink{classperf_obj_ab32c6375eea83878e608add5bd03368d}{Create\+Layout}} ()
+\item 
+void \mbox{\hyperlink{classperf_obj_a35ba185779dd27f0f0b063975a1f5f78}{Cleanup}} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+std\+::vector$<$ \mbox{\hyperlink{structtest_pair}{test\+Pair}} $>$ \mbox{\hyperlink{classperf_obj_aac5e25deb3174af25e60e4b1557cb1be}{m\+\_\+\+Test\+Pair}}
+\item 
+std\+::vector$<$ \mbox{\hyperlink{structtest_pair}{test\+Pair}} $>$ \mbox{\hyperlink{classperf_obj_a41f275df64cd0fcf4b2c214d4d59b062}{m\+\_\+\+MMRRTest\+Pair}}
+\item 
+std\+::string \mbox{\hyperlink{classperf_obj_a6e20d94401ab9860116c17ca68331473}{m\+\_\+test\+Name}}
+\item 
+\mbox{\hyperlink{class_config_obj}{Config\+Obj}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{classperf_obj_a50dd68bcbd05c9d0f281a7ca895a3d89}{m\+\_\+co}}
+\item 
+uint32\+\_\+t \mbox{\hyperlink{classperf_obj_a950f0f20c18d1f7353ec55af69edf043}{m\+\_\+test\+Type}}
+\item 
+uint32\+\_\+t \mbox{\hyperlink{classperf_obj_a637dff6465c4a1193772145874b1ad6e}{m\+\_\+test}}
+\item 
+std\+::ofstream \mbox{\hyperlink{classperf_obj_abd286198a3bd43e97b39180f97abd995}{data\+File}}
+\item 
+float \mbox{\hyperlink{classperf_obj_a91dfdb0fb376ac772df2bdb09ea0ea65}{maxmmrr}}
+\item 
+float \mbox{\hyperlink{classperf_obj_a347585b2bf58b15af08f4db5802d5665}{minmmrr}}
+\item 
+float \mbox{\hyperlink{classperf_obj_a1f1a9f062d839196645a76156fde6705}{avgmmrr}}
+\item 
+\mbox{\hyperlink{class_config_obj}{Config\+Obj}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{classperf_obj_a8ec00c1eb52b939c147c305c12c8c73f}{cfg}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classperf_obj_a90934ffd9adbfb8b0c2e2c7ef02ffb19}\index{perfObj@{perfObj}!perfObj@{perfObj}}
+\index{perfObj@{perfObj}!perfObj@{perfObj}}
+\doxysubsubsection{\texorpdfstring{perfObj()}{perfObj()}}
+{\footnotesize\ttfamily \label{classperf_obj_a90934ffd9adbfb8b0c2e2c7ef02ffb19} 
+perf\+Obj\+::perf\+Obj (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_config_obj}{Config\+Obj}} \texorpdfstring{$\ast$}{*}}]{CFGObj}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classperf_obj_ac98cc1ffb8c198bec3eaee2bb0e0130f}\index{perfObj@{perfObj}!AskObject@{AskObject}}
+\index{AskObject@{AskObject}!perfObj@{perfObj}}
+\doxysubsubsection{\texorpdfstring{AskObject()}{AskObject()}}
+{\footnotesize\ttfamily \label{classperf_obj_ac98cc1ffb8c198bec3eaee2bb0e0130f} 
+virtual void perf\+Obj\+::\+Ask\+Object (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{Any\+Number}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+\Hypertarget{classperf_obj_a2b5a459b15e17f6fb0be9a1327b5dde0}\index{perfObj@{perfObj}!CheckWriteData@{CheckWriteData}}
+\index{CheckWriteData@{CheckWriteData}!perfObj@{perfObj}}
+\doxysubsubsection{\texorpdfstring{CheckWriteData()}{CheckWriteData()}}
+{\footnotesize\ttfamily \label{classperf_obj_a2b5a459b15e17f6fb0be9a1327b5dde0} 
+void perf\+Obj\+::\+Check\+Write\+Data (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{it\+Num}{}\end{DoxyParamCaption})}
+
+\Hypertarget{classperf_obj_a35ba185779dd27f0f0b063975a1f5f78}\index{perfObj@{perfObj}!Cleanup@{Cleanup}}
+\index{Cleanup@{Cleanup}!perfObj@{perfObj}}
+\doxysubsubsection{\texorpdfstring{Cleanup()}{Cleanup()}}
+{\footnotesize\ttfamily \label{classperf_obj_a35ba185779dd27f0f0b063975a1f5f78} 
+void perf\+Obj\+::\+Cleanup (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{classperf_obj_ab32c6375eea83878e608add5bd03368d}\index{perfObj@{perfObj}!CreateLayout@{CreateLayout}}
+\index{CreateLayout@{CreateLayout}!perfObj@{perfObj}}
+\doxysubsubsection{\texorpdfstring{CreateLayout()}{CreateLayout()}}
+{\footnotesize\ttfamily \label{classperf_obj_ab32c6375eea83878e608add5bd03368d} 
+void perf\+Obj\+::\+Create\+Layout (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{classperf_obj_a16b5707c382fd16bed4be781ad07e868}\index{perfObj@{perfObj}!GetResultsData@{GetResultsData}}
+\index{GetResultsData@{GetResultsData}!perfObj@{perfObj}}
+\doxysubsubsection{\texorpdfstring{GetResultsData()}{GetResultsData()}}
+{\footnotesize\ttfamily \label{classperf_obj_a16b5707c382fd16bed4be781ad07e868} 
+void perf\+Obj\+::\+Get\+Results\+Data (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{it\+Num}{}\end{DoxyParamCaption})}
+
+\Hypertarget{classperf_obj_a2afea56624e1102b2d80141a3750b6ba}\index{perfObj@{perfObj}!OpenPerfData@{OpenPerfData}}
+\index{OpenPerfData@{OpenPerfData}!perfObj@{perfObj}}
+\doxysubsubsection{\texorpdfstring{OpenPerfData()}{OpenPerfData()}}
+{\footnotesize\ttfamily \label{classperf_obj_a2afea56624e1102b2d80141a3750b6ba} 
+void perf\+Obj\+::\+Open\+Perf\+Data (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+\Hypertarget{classperf_obj_a2a2aa83a59c42fd43802c1a1e2c00ab6}\index{perfObj@{perfObj}!PerformanceReport@{PerformanceReport}}
+\index{PerformanceReport@{PerformanceReport}!perfObj@{perfObj}}
+\doxysubsubsection{\texorpdfstring{PerformanceReport()}{PerformanceReport()}}
+{\footnotesize\ttfamily \label{classperf_obj_a2a2aa83a59c42fd43802c1a1e2c00ab6} 
+void perf\+Obj\+::\+Performance\+Report (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{ploc}{}\end{DoxyParamCaption})}
+
+\Hypertarget{classperf_obj_a0186615574a2cf21302bb32f37bcbcdc}\index{perfObj@{perfObj}!PerformDebugTests@{PerformDebugTests}}
+\index{PerformDebugTests@{PerformDebugTests}!perfObj@{perfObj}}
+\doxysubsubsection{\texorpdfstring{PerformDebugTests()}{PerformDebugTests()}}
+{\footnotesize\ttfamily \label{classperf_obj_a0186615574a2cf21302bb32f37bcbcdc} 
+void perf\+Obj\+::\+Perform\+Debug\+Tests (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{ploc}{}\end{DoxyParamCaption})}
+
+\Hypertarget{classperf_obj_aaf339e3be4c23f2478909bdcff154f10}\index{perfObj@{perfObj}!ProcessFileList@{ProcessFileList}}
+\index{ProcessFileList@{ProcessFileList}!perfObj@{perfObj}}
+\doxysubsubsection{\texorpdfstring{ProcessFileList()}{ProcessFileList()}}
+{\footnotesize\ttfamily \label{classperf_obj_aaf339e3be4c23f2478909bdcff154f10} 
+void perf\+Obj\+::\+Process\+File\+List (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+\Hypertarget{classperf_obj_a7a994ce785f80658710116cb9b4cafe7}\index{perfObj@{perfObj}!ProcessMMRR@{ProcessMMRR}}
+\index{ProcessMMRR@{ProcessMMRR}!perfObj@{perfObj}}
+\doxysubsubsection{\texorpdfstring{ProcessMMRR()}{ProcessMMRR()}}
+{\footnotesize\ttfamily \label{classperf_obj_a7a994ce785f80658710116cb9b4cafe7} 
+void perf\+Obj\+::\+Process\+MMRR (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+\Hypertarget{classperf_obj_a874f9fd453d096ebe5d07fce9305ccc7}\index{perfObj@{perfObj}!ProcessResultsData@{ProcessResultsData}}
+\index{ProcessResultsData@{ProcessResultsData}!perfObj@{perfObj}}
+\doxysubsubsection{\texorpdfstring{ProcessResultsData()}{ProcessResultsData()}}
+{\footnotesize\ttfamily \label{classperf_obj_a874f9fd453d096ebe5d07fce9305ccc7} 
+void perf\+Obj\+::\+Process\+Results\+Data (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+\Hypertarget{classperf_obj_a970e7dec3dea96f328508d6586ebbb05}\index{perfObj@{perfObj}!SetTest@{SetTest}}
+\index{SetTest@{SetTest}!perfObj@{perfObj}}
+\doxysubsubsection{\texorpdfstring{SetTest()}{SetTest()}}
+{\footnotesize\ttfamily \label{classperf_obj_a970e7dec3dea96f328508d6586ebbb05} 
+void perf\+Obj\+::\+Set\+Test (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{RDType}{, }\item[{uint32\+\_\+t}]{sub\+Type}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classperf_obj_a1f1a9f062d839196645a76156fde6705}\index{perfObj@{perfObj}!avgmmrr@{avgmmrr}}
+\index{avgmmrr@{avgmmrr}!perfObj@{perfObj}}
+\doxysubsubsection{\texorpdfstring{avgmmrr}{avgmmrr}}
+{\footnotesize\ttfamily \label{classperf_obj_a1f1a9f062d839196645a76156fde6705} 
+float perf\+Obj\+::avgmmrr}
+
+\Hypertarget{classperf_obj_a8ec00c1eb52b939c147c305c12c8c73f}\index{perfObj@{perfObj}!cfg@{cfg}}
+\index{cfg@{cfg}!perfObj@{perfObj}}
+\doxysubsubsection{\texorpdfstring{cfg}{cfg}}
+{\footnotesize\ttfamily \label{classperf_obj_a8ec00c1eb52b939c147c305c12c8c73f} 
+\mbox{\hyperlink{class_config_obj}{Config\+Obj}}\texorpdfstring{$\ast$}{*} perf\+Obj\+::cfg}
+
+\Hypertarget{classperf_obj_abd286198a3bd43e97b39180f97abd995}\index{perfObj@{perfObj}!dataFile@{dataFile}}
+\index{dataFile@{dataFile}!perfObj@{perfObj}}
+\doxysubsubsection{\texorpdfstring{dataFile}{dataFile}}
+{\footnotesize\ttfamily \label{classperf_obj_abd286198a3bd43e97b39180f97abd995} 
+std\+::ofstream perf\+Obj\+::data\+File}
+
+\Hypertarget{classperf_obj_a50dd68bcbd05c9d0f281a7ca895a3d89}\index{perfObj@{perfObj}!m\_co@{m\_co}}
+\index{m\_co@{m\_co}!perfObj@{perfObj}}
+\doxysubsubsection{\texorpdfstring{m\_co}{m\_co}}
+{\footnotesize\ttfamily \label{classperf_obj_a50dd68bcbd05c9d0f281a7ca895a3d89} 
+\mbox{\hyperlink{class_config_obj}{Config\+Obj}}\texorpdfstring{$\ast$}{*} perf\+Obj\+::m\+\_\+co}
+
+\Hypertarget{classperf_obj_a41f275df64cd0fcf4b2c214d4d59b062}\index{perfObj@{perfObj}!m\_MMRRTestPair@{m\_MMRRTestPair}}
+\index{m\_MMRRTestPair@{m\_MMRRTestPair}!perfObj@{perfObj}}
+\doxysubsubsection{\texorpdfstring{m\_MMRRTestPair}{m\_MMRRTestPair}}
+{\footnotesize\ttfamily \label{classperf_obj_a41f275df64cd0fcf4b2c214d4d59b062} 
+std\+::vector$<$\mbox{\hyperlink{structtest_pair}{test\+Pair}}$>$ perf\+Obj\+::m\+\_\+\+MMRRTest\+Pair}
+
+\Hypertarget{classperf_obj_a637dff6465c4a1193772145874b1ad6e}\index{perfObj@{perfObj}!m\_test@{m\_test}}
+\index{m\_test@{m\_test}!perfObj@{perfObj}}
+\doxysubsubsection{\texorpdfstring{m\_test}{m\_test}}
+{\footnotesize\ttfamily \label{classperf_obj_a637dff6465c4a1193772145874b1ad6e} 
+uint32\+\_\+t perf\+Obj\+::m\+\_\+test}
+
+\Hypertarget{classperf_obj_a6e20d94401ab9860116c17ca68331473}\index{perfObj@{perfObj}!m\_testName@{m\_testName}}
+\index{m\_testName@{m\_testName}!perfObj@{perfObj}}
+\doxysubsubsection{\texorpdfstring{m\_testName}{m\_testName}}
+{\footnotesize\ttfamily \label{classperf_obj_a6e20d94401ab9860116c17ca68331473} 
+std\+::string perf\+Obj\+::m\+\_\+test\+Name}
+
+\Hypertarget{classperf_obj_aac5e25deb3174af25e60e4b1557cb1be}\index{perfObj@{perfObj}!m\_TestPair@{m\_TestPair}}
+\index{m\_TestPair@{m\_TestPair}!perfObj@{perfObj}}
+\doxysubsubsection{\texorpdfstring{m\_TestPair}{m\_TestPair}}
+{\footnotesize\ttfamily \label{classperf_obj_aac5e25deb3174af25e60e4b1557cb1be} 
+std\+::vector$<$\mbox{\hyperlink{structtest_pair}{test\+Pair}}$>$ perf\+Obj\+::m\+\_\+\+Test\+Pair}
+
+\Hypertarget{classperf_obj_a950f0f20c18d1f7353ec55af69edf043}\index{perfObj@{perfObj}!m\_testType@{m\_testType}}
+\index{m\_testType@{m\_testType}!perfObj@{perfObj}}
+\doxysubsubsection{\texorpdfstring{m\_testType}{m\_testType}}
+{\footnotesize\ttfamily \label{classperf_obj_a950f0f20c18d1f7353ec55af69edf043} 
+uint32\+\_\+t perf\+Obj\+::m\+\_\+test\+Type}
+
+\Hypertarget{classperf_obj_a91dfdb0fb376ac772df2bdb09ea0ea65}\index{perfObj@{perfObj}!maxmmrr@{maxmmrr}}
+\index{maxmmrr@{maxmmrr}!perfObj@{perfObj}}
+\doxysubsubsection{\texorpdfstring{maxmmrr}{maxmmrr}}
+{\footnotesize\ttfamily \label{classperf_obj_a91dfdb0fb376ac772df2bdb09ea0ea65} 
+float perf\+Obj\+::maxmmrr}
+
+\Hypertarget{classperf_obj_a347585b2bf58b15af08f4db5802d5665}\index{perfObj@{perfObj}!minmmrr@{minmmrr}}
+\index{minmmrr@{minmmrr}!perfObj@{perfObj}}
+\doxysubsubsection{\texorpdfstring{minmmrr}{minmmrr}}
+{\footnotesize\ttfamily \label{classperf_obj_a347585b2bf58b15af08f4db5802d5665} 
+float perf\+Obj\+::minmmrr}
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+J\+:/\+FPIBG/vulkan/src\+\_\+app/\+Perf\+Report/\mbox{\hyperlink{app_2_perf_report_2_perf_obj_8hpp}{perf\+Obj.\+hpp}}\item 
+J\+:/\+FPIBG/vulkan/src\+\_\+app/\+Perf\+Report/\mbox{\hyperlink{perf_report_8cpp}{perf\+Report.\+cpp}}\end{DoxyCompactItemize}

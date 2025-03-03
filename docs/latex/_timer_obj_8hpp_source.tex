@@ -1,0 +1,31 @@
+\doxysection{Timer\+Obj.\+hpp}
+\hypertarget{_timer_obj_8hpp_source}{}\label{_timer_obj_8hpp_source}\index{J:/FPIBG/vulkan/src/VulkanObj/TimerObj.hpp@{J:/FPIBG/vulkan/src/VulkanObj/TimerObj.hpp}}
+\mbox{\hyperlink{_timer_obj_8hpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <chrono>}\ \textcolor{comment}{//\ for\ std::chrono\ functions}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_timer_obj_a7bc427ae153baa1a3c3710179731ebdc}{TimerObj}}}
+\DoxyCodeLine{00006\ \{}
+\DoxyCodeLine{00007\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00008\ \ \ \ \ \textcolor{comment}{//\ Type\ aliases\ to\ make\ accessing\ nested\ type\ easier}}
+\DoxyCodeLine{00009\ \ \ \ \ \textcolor{keyword}{using\ }Clock\ =\ std::chrono::steady\_clock;}
+\DoxyCodeLine{00010\ \ \ \ \ \textcolor{keyword}{using\ }Second\ =\ std::chrono::duration<double,\ std::ratio<1>\ >;}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \ \ \ \ std::chrono::time\_point<Clock>\ m\_beg\ \{\ Clock::now()\ \};}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00015\ \ \ \ \ \mbox{\hyperlink{class_timer_obj_a7bc427ae153baa1a3c3710179731ebdc}{TimerObj}}()\ \{\};}
+\DoxyCodeLine{00016\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_timer_obj_a233ae90bdfb4bd70bd4268ff820aaba5}{reset}}()}
+\DoxyCodeLine{00017\ \ \ \ \ \{}
+\DoxyCodeLine{00018\ \ \ \ \ \ \ \ \ m\_beg\ =\ Clock::now();}
+\DoxyCodeLine{00019\ \ \ \ \ \}}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{class_timer_obj_adbe3b0a23a8f105b70ac9d7252cad5d5}{elapsed}}()\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00022\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::chrono::duration\_cast<Second>(Clock::now()\ -\/\ m\_beg).count();}
+\DoxyCodeLine{00024\ \ \ \ \ \}}
+\DoxyCodeLine{00025\ \};}
+
+\end{DoxyCode}

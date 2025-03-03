@@ -1,0 +1,168 @@
+\doxysection{FPIBGLog.\+FPIBGLog Class Reference}
+\hypertarget{class_f_p_i_b_g_log_1_1_f_p_i_b_g_log}{}\label{class_f_p_i_b_g_log_1_1_f_p_i_b_g_log}\index{FPIBGLog.FPIBGLog@{FPIBGLog.FPIBGLog}}
+
+
+\doxylink{class_f_p_i_b_g_log_1_1_f_p_i_b_g_log}{FPIBGLog} class perfomrs formmated logging for all other classes.  
+
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_f_p_i_b_g_log_1_1_f_p_i_b_g_log_add0957a7d4d4c0a0ae9126dce15e28b6}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, Application\+Name)
+\begin{DoxyCompactList}\small\item\em \doxylink{class_f_p_i_b_g_log_1_1_f_p_i_b_g_log}{FPIBGLog} Constructor. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_f_p_i_b_g_log_1_1_f_p_i_b_g_log_aaa2953f85f9e528d5dc6c67fcdb8737c}{Create}} (self, Log\+Name)
+\begin{DoxyCompactList}\small\item\em Standard create for the log class object. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_f_p_i_b_g_log_1_1_f_p_i_b_g_log_ab29c03f5b5cc0bff461ad1a3fa76ae9a}{file\+Obj}} (self)
+\item 
+\mbox{\hyperlink{class_f_p_i_b_g_log_1_1_f_p_i_b_g_log_a477debda785d2795feb9b726d4d25a1e}{Open}} (self)
+\begin{DoxyCompactList}\small\item\em This function opens the log file and writes the title header to the log file. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_f_p_i_b_g_log_1_1_f_p_i_b_g_log_ae8798c598276c52ee868a722be7e9acc}{log}} (self, Line\+Number, Class\+Name, Function, Obj\+Name, Err\+Code, Err\+String)
+\begin{DoxyCompactList}\small\item\em Write the log item to the log file. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_f_p_i_b_g_log_1_1_f_p_i_b_g_log_a002b452d53848680f452314a29d75212}{Close}} (self)
+\begin{DoxyCompactList}\small\item\em Standard close. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_f_p_i_b_g_log_1_1_f_p_i_b_g_log_a7f9fb007106d28b6592b75e81f445b63}{app\+Name}} = Application\+Name
+\item 
+\mbox{\hyperlink{class_f_p_i_b_g_log_1_1_f_p_i_b_g_log_aaafaf68303170d34e7ff24d46765b7e2}{log\+Name}} = Log\+Name
+\item 
+\mbox{\hyperlink{class_f_p_i_b_g_log_1_1_f_p_i_b_g_log_a32bda1341ad9a4dc03d0f638db34f21a}{file\+Obj}} = open(self.\+log\+Name,"{}w+"{})
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{class_f_p_i_b_g_log_1_1_f_p_i_b_g_log_a00de31b3c18a5797a1cf9f6923cb7aa6}{verose\+Level}} = 1
+\item 
+int \mbox{\hyperlink{class_f_p_i_b_g_log_1_1_f_p_i_b_g_log_acb9ac08eb9e74745d82f798ed6cbf17e}{debug\+Level}} = 1
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\doxylink{class_f_p_i_b_g_log_1_1_f_p_i_b_g_log}{FPIBGLog} class perfomrs formmated logging for all other classes. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_f_p_i_b_g_log_1_1_f_p_i_b_g_log_add0957a7d4d4c0a0ae9126dce15e28b6}\index{FPIBGLog.FPIBGLog@{FPIBGLog.FPIBGLog}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!FPIBGLog.FPIBGLog@{FPIBGLog.FPIBGLog}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily \label{class_f_p_i_b_g_log_1_1_f_p_i_b_g_log_add0957a7d4d4c0a0ae9126dce15e28b6} 
+FPIBGLog.\+FPIBGLog.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{Application\+Name}{}\end{DoxyParamCaption})}
+
+
+
+\doxylink{class_f_p_i_b_g_log_1_1_f_p_i_b_g_log}{FPIBGLog} Constructor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em Application\+Name} & -- (string) Passes the name of the calling application. \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_f_p_i_b_g_log_1_1_f_p_i_b_g_log_a002b452d53848680f452314a29d75212}\index{FPIBGLog.FPIBGLog@{FPIBGLog.FPIBGLog}!Close@{Close}}
+\index{Close@{Close}!FPIBGLog.FPIBGLog@{FPIBGLog.FPIBGLog}}
+\doxysubsubsection{\texorpdfstring{Close()}{Close()}}
+{\footnotesize\ttfamily \label{class_f_p_i_b_g_log_1_1_f_p_i_b_g_log_a002b452d53848680f452314a29d75212} 
+FPIBGLog.\+FPIBGLog.\+Close (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+
+
+Standard close. 
+
+Closes the log file. \Hypertarget{class_f_p_i_b_g_log_1_1_f_p_i_b_g_log_aaa2953f85f9e528d5dc6c67fcdb8737c}\index{FPIBGLog.FPIBGLog@{FPIBGLog.FPIBGLog}!Create@{Create}}
+\index{Create@{Create}!FPIBGLog.FPIBGLog@{FPIBGLog.FPIBGLog}}
+\doxysubsubsection{\texorpdfstring{Create()}{Create()}}
+{\footnotesize\ttfamily \label{class_f_p_i_b_g_log_1_1_f_p_i_b_g_log_aaa2953f85f9e528d5dc6c67fcdb8737c} 
+FPIBGLog.\+FPIBGLog.\+Create (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{Log\+Name}{}\end{DoxyParamCaption})}
+
+
+
+Standard create for the log class object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em Log\+Name} & -- (string) the name of the log file which will be written to. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_f_p_i_b_g_log_1_1_f_p_i_b_g_log_ab29c03f5b5cc0bff461ad1a3fa76ae9a}\index{FPIBGLog.FPIBGLog@{FPIBGLog.FPIBGLog}!fileObj@{fileObj}}
+\index{fileObj@{fileObj}!FPIBGLog.FPIBGLog@{FPIBGLog.FPIBGLog}}
+\doxysubsubsection{\texorpdfstring{fileObj()}{fileObj()}}
+{\footnotesize\ttfamily \label{class_f_p_i_b_g_log_1_1_f_p_i_b_g_log_ab29c03f5b5cc0bff461ad1a3fa76ae9a} 
+FPIBGLog.\+FPIBGLog.\+file\+Obj (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+\Hypertarget{class_f_p_i_b_g_log_1_1_f_p_i_b_g_log_ae8798c598276c52ee868a722be7e9acc}\index{FPIBGLog.FPIBGLog@{FPIBGLog.FPIBGLog}!log@{log}}
+\index{log@{log}!FPIBGLog.FPIBGLog@{FPIBGLog.FPIBGLog}}
+\doxysubsubsection{\texorpdfstring{log()}{log()}}
+{\footnotesize\ttfamily \label{class_f_p_i_b_g_log_1_1_f_p_i_b_g_log_ae8798c598276c52ee868a722be7e9acc} 
+FPIBGLog.\+FPIBGLog.\+log (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{Line\+Number}{, }\item[{}]{Class\+Name}{, }\item[{}]{Function}{, }\item[{}]{Obj\+Name}{, }\item[{}]{Err\+Code}{, }\item[{}]{Err\+String}{}\end{DoxyParamCaption})}
+
+
+
+Write the log item to the log file. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em Line} & number from import inspect.\+currentframe().f\+\_\+lineno \\
+\hline
+{\em Class\+Name} & from the "{}\+\_\+\+\_\+file\+\_\+\+\_\+"{} reserved python keyword. \\
+\hline
+{\em Object} & name from the inspect.\+currentframe().f\+\_\+code.\+co\+\_\+name \\
+\hline
+{\em The} & function name enterred as a string. \\
+\hline
+{\em The} & Object Name from self.\+Obj\+Name. \\
+\hline
+{\em The} & error code from list to be determined later. Just pass 0 for success and 1 for failure. \\
+\hline
+{\em The} & error text. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_f_p_i_b_g_log_1_1_f_p_i_b_g_log_a477debda785d2795feb9b726d4d25a1e}\index{FPIBGLog.FPIBGLog@{FPIBGLog.FPIBGLog}!Open@{Open}}
+\index{Open@{Open}!FPIBGLog.FPIBGLog@{FPIBGLog.FPIBGLog}}
+\doxysubsubsection{\texorpdfstring{Open()}{Open()}}
+{\footnotesize\ttfamily \label{class_f_p_i_b_g_log_1_1_f_p_i_b_g_log_a477debda785d2795feb9b726d4d25a1e} 
+FPIBGLog.\+FPIBGLog.\+Open (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+
+
+This function opens the log file and writes the title header to the log file. 
+
+The format is\+: yy,mm,dd,hr,min,application,class,function,object,line number,error code, and error string. 
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{class_f_p_i_b_g_log_1_1_f_p_i_b_g_log_a7f9fb007106d28b6592b75e81f445b63}\index{FPIBGLog.FPIBGLog@{FPIBGLog.FPIBGLog}!appName@{appName}}
+\index{appName@{appName}!FPIBGLog.FPIBGLog@{FPIBGLog.FPIBGLog}}
+\doxysubsubsection{\texorpdfstring{appName}{appName}}
+{\footnotesize\ttfamily \label{class_f_p_i_b_g_log_1_1_f_p_i_b_g_log_a7f9fb007106d28b6592b75e81f445b63} 
+FPIBGLog.\+FPIBGLog.\+app\+Name = Application\+Name}
+
+\Hypertarget{class_f_p_i_b_g_log_1_1_f_p_i_b_g_log_acb9ac08eb9e74745d82f798ed6cbf17e}\index{FPIBGLog.FPIBGLog@{FPIBGLog.FPIBGLog}!debugLevel@{debugLevel}}
+\index{debugLevel@{debugLevel}!FPIBGLog.FPIBGLog@{FPIBGLog.FPIBGLog}}
+\doxysubsubsection{\texorpdfstring{debugLevel}{debugLevel}}
+{\footnotesize\ttfamily \label{class_f_p_i_b_g_log_1_1_f_p_i_b_g_log_acb9ac08eb9e74745d82f798ed6cbf17e} 
+int FPIBGLog.\+FPIBGLog.\+debug\+Level = 1\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{class_f_p_i_b_g_log_1_1_f_p_i_b_g_log_a32bda1341ad9a4dc03d0f638db34f21a}\index{FPIBGLog.FPIBGLog@{FPIBGLog.FPIBGLog}!fileObj@{fileObj}}
+\index{fileObj@{fileObj}!FPIBGLog.FPIBGLog@{FPIBGLog.FPIBGLog}}
+\doxysubsubsection{\texorpdfstring{fileObj}{fileObj}}
+{\footnotesize\ttfamily \label{class_f_p_i_b_g_log_1_1_f_p_i_b_g_log_a32bda1341ad9a4dc03d0f638db34f21a} 
+FPIBGLog.\+FPIBGLog.\+file\+Obj = open(self.\+log\+Name,"{}w+"{})}
+
+\Hypertarget{class_f_p_i_b_g_log_1_1_f_p_i_b_g_log_aaafaf68303170d34e7ff24d46765b7e2}\index{FPIBGLog.FPIBGLog@{FPIBGLog.FPIBGLog}!logName@{logName}}
+\index{logName@{logName}!FPIBGLog.FPIBGLog@{FPIBGLog.FPIBGLog}}
+\doxysubsubsection{\texorpdfstring{logName}{logName}}
+{\footnotesize\ttfamily \label{class_f_p_i_b_g_log_1_1_f_p_i_b_g_log_aaafaf68303170d34e7ff24d46765b7e2} 
+FPIBGLog.\+FPIBGLog.\+log\+Name = Log\+Name}
+
+\Hypertarget{class_f_p_i_b_g_log_1_1_f_p_i_b_g_log_a00de31b3c18a5797a1cf9f6923cb7aa6}\index{FPIBGLog.FPIBGLog@{FPIBGLog.FPIBGLog}!veroseLevel@{veroseLevel}}
+\index{veroseLevel@{veroseLevel}!FPIBGLog.FPIBGLog@{FPIBGLog.FPIBGLog}}
+\doxysubsubsection{\texorpdfstring{veroseLevel}{veroseLevel}}
+{\footnotesize\ttfamily \label{class_f_p_i_b_g_log_1_1_f_p_i_b_g_log_a00de31b3c18a5797a1cf9f6923cb7aa6} 
+int FPIBGLog.\+FPIBGLog.\+verose\+Level = 1\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+python/shared/\mbox{\hyperlink{_f_p_i_b_g_log_8py}{FPIBGLog.\+py}}\end{DoxyCompactItemize}
