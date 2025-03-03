@@ -66,7 +66,7 @@ class TabGenConfig(QTabWidget):
         main_layout.addWidget(flow_group)
 
         ### SECTION 3: GPU ###
-        gpu_group = QGroupBox("Flow Control")
+        gpu_group = QGroupBox("GPU")
         gpu_layout = QFormLayout()
         # GPU Model (string)
         self.gpu_model = QLineEdit()
@@ -117,10 +117,25 @@ class TabGenConfig(QTabWidget):
         main_layout.addWidget(gpu_group)
 
         ### SECTION 4: LAUNCH ###
+        launch_group = QGroupBox("Launch")
+        launch_layout = QFormLayout()
         # Report Extensions (checkbox)
+        self.rep_ext_checkbox = QCheckBox()
+        rep_ext_label = QLabel("Report Extensions")
+        launch_layout.addRow(self.rep_ext_checkbox, rep_ext_label)
         # Report Device Limits (checkbox)
+        self.rep_lim_checkbox = QCheckBox()
+        rep_lim_label = QLabel("Report Device Limitations")
+        launch_layout.addRow(self.rep_lim_checkbox, rep_lim_label)
         # Enable Validation Layers (checkbox)
+        self.val_layers_checkbox = QCheckBox()
+        val_layers_label = QLabel("Enable Validation Layers")
+        launch_layout.addRow(self.val_layers_checkbox, val_layers_label)
         # TODO: Device Extensions, Instance Extensions, Validation Layers: These are lists of strings that you can add to and remove from, and should be displayed
+
+        launch_group.setLayout(launch_layout)
+        main_layout.addWidget(launch_group)
+
 
         ## SUBMIT BUTTON ##
         self.submitButton = QPushButton("Submit")
@@ -182,6 +197,10 @@ class TabGenConfig(QTabWidget):
         config_dict["frag_kernel"] = self.frag_kernel.text()
         config_dict["vert_kernel"] = self.vert_kernel.text()
         config_dict["comp_kernel"] = self.comp_kernel.text()
+        # Add section 4 details
+        config_dict["rep_ext"] = self.rep_ext_checkbox.isChecked()
+        config_dict["rep_lim"] = self.rep_lim_checkbox.isChecked()
+        config_dict["val_layers"] = self.val_layers_checkbox.isChecked()
 
         self.log_action("sendFormData", config_dict)
         return self.folderLineEdit.text()
