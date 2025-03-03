@@ -1,0 +1,187 @@
+\doxysection{Shader\+Obj Class Reference}
+\hypertarget{class_shader_obj}{}\label{class_shader_obj}\index{ShaderObj@{ShaderObj}}
+
+
+{\ttfamily \#include $<$Shader\+Obj.\+hpp$>$}
+
+
+
+Inheritance diagram for Shader\+Obj\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=142pt]{class_shader_obj__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Shader\+Obj\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_shader_obj__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_shader_obj_a4825be218fba600cd6fc17c76291aab5}{Shader\+Obj}} (\mbox{\hyperlink{class_vulkan_obj}{Vulkan\+Obj}} \texorpdfstring{$\ast$}{*}App, std\+::string Name)
+\item 
+void \mbox{\hyperlink{class_shader_obj_a4a3a23308c77c9acea218daae57630ea}{Gen\+Work\+Groups}} ()
+\item 
+void \mbox{\hyperlink{class_shader_obj_aab5de4baa0c649e01cab79d763a1f884}{Write\+Shader\+Header}} ()
+\item 
+int \mbox{\hyperlink{class_shader_obj_acadc2d387884ca3ce2a9ac85881e05d0}{Write\+Binary\+File}} (std\+::string file\+Name, std\+::vector$<$ char $>$ buffer)
+\item 
+int \mbox{\hyperlink{class_shader_obj_a7287831680ac0fe755f7019678b05c6b}{Compile\+Shader}} (std\+::string Shader\+Name, std\+::string Shader\+File\+Name, std\+::vector$<$ char $>$ \&SPVBuffer, uint32\+\_\+t type)
+\item 
+void \mbox{\hyperlink{class_shader_obj_a76b9dbab5e64122758284bd545da5741}{Create}} (\mbox{\hyperlink{class_resource_vertex_particle}{Resource\+Vertex\+Particle}} \texorpdfstring{$\ast$}{*}VPO, \mbox{\hyperlink{class_resource_coll_matrix}{Resource\+Coll\+Matrix}} \texorpdfstring{$\ast$}{*}CMO, \mbox{\hyperlink{class_resource_lock_matrix}{Resource\+Lock\+Matrix}} \texorpdfstring{$\ast$}{*}LMO, \mbox{\hyperlink{class_swap_chain}{Swap\+Chain}} \texorpdfstring{$\ast$}{*}SCO)
+\item 
+void \mbox{\hyperlink{class_shader_obj_af6348d700236fb4c415cd9b9a5205022}{Cleanup}} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_base_obj}{Base\+Obj}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_base_obj_a4b83af8a8e0e29a74b5d1780e2dd9172}{Base\+Obj}} ()
+\item 
+\mbox{\hyperlink{class_base_obj_a591e107302b3a81ff86ad91a93fd3c79}{Base\+Obj}} (std\+::string Name, uint32\+\_\+t Type, \mbox{\hyperlink{class_vulkan_obj}{Vulkan\+Obj}} \texorpdfstring{$\ast$}{*}App)
+\item 
+uint32\+\_\+t \mbox{\hyperlink{class_base_obj_a13d66a7db04f2f49f0b8a7505bd957bb}{Get\+Type}} ()
+\item 
+std\+::string \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_base_obj_a818217adc491531cf69dbe8960313d21}{get\+Name}} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_resource_vertex_particle}{Resource\+Vertex\+Particle}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_shader_obj_aa6f402c3dbdbe557c886e4178b4852d1}{m\+\_\+\+VPO}} = \{\}
+\item 
+\mbox{\hyperlink{class_resource_coll_matrix}{Resource\+Coll\+Matrix}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_shader_obj_ab3b2ef98b331a20f000543ab42f12ea5}{m\+\_\+\+CMO}} = \{\}
+\item 
+\mbox{\hyperlink{class_swap_chain}{Swap\+Chain}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_shader_obj_a826d28b78017a20bd84c82190eca1fbe}{m\+\_\+\+SCO}} = \{\}
+\item 
+\mbox{\hyperlink{class_resource_lock_matrix}{Resource\+Lock\+Matrix}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_shader_obj_a35a3a8ce6e399deeb67e910f3f05529f}{m\+\_\+\+LMO}}
+\item 
+uint32\+\_\+t \mbox{\hyperlink{class_shader_obj_ab000df4994aac80883a76079d917d4c3}{SH\+\_\+\+VERT}} = 1
+\item 
+uint32\+\_\+t \mbox{\hyperlink{class_shader_obj_a588c20d5768eb83662071f17bd813813}{SH\+\_\+\+FRAG}} = 2
+\item 
+uint32\+\_\+t \mbox{\hyperlink{class_shader_obj_afb44c0e87d787e9f9751b3fa9a8fe62a}{SH\+\_\+\+COMP}} = 3
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes inherited from \mbox{\hyperlink{class_base_obj}{Base\+Obj}}}
+\begin{DoxyCompactItemize}
+\item 
+std\+::string \mbox{\hyperlink{class_base_obj_a7a48a870862125c622302bd728a06c8f}{m\+\_\+\+Name}}
+\item 
+std\+::string \mbox{\hyperlink{class_base_obj_a0f4afc531f2ba36a0c4bf735e7d228b9}{m\+\_\+wkstr}}
+\item 
+uint32\+\_\+t \mbox{\hyperlink{class_base_obj_a911900fe67cd3edaf3ef52a7f57f398a}{m\+\_\+\+Type}} =0
+\item 
+\mbox{\hyperlink{class_vulkan_obj}{Vulkan\+Obj}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_base_obj_ab8f8d9c2f68f3bef1153d397d61646b0}{m\+\_\+\+App}} = \{\}
+\item 
+\mbox{\hyperlink{class_config_obj}{Config\+Obj}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_base_obj_aac207590eff5a5e099c4534d46e50f07}{m\+\_\+\+ACfg}} = \{\}
+\item 
+uint32\+\_\+t \mbox{\hyperlink{class_base_obj_a615d9ffc2cf237a1d45ac63721fae83c}{m\+\_\+this\+Frames\+Buffered}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_shader_obj_a4825be218fba600cd6fc17c76291aab5}\index{ShaderObj@{ShaderObj}!ShaderObj@{ShaderObj}}
+\index{ShaderObj@{ShaderObj}!ShaderObj@{ShaderObj}}
+\doxysubsubsection{\texorpdfstring{ShaderObj()}{ShaderObj()}}
+{\footnotesize\ttfamily \label{class_shader_obj_a4825be218fba600cd6fc17c76291aab5} 
+Shader\+Obj\+::\+Shader\+Obj (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_vulkan_obj}{Vulkan\+Obj}} \texorpdfstring{$\ast$}{*}}]{App}{, }\item[{std\+::string}]{Name}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_shader_obj_af6348d700236fb4c415cd9b9a5205022}\index{ShaderObj@{ShaderObj}!Cleanup@{Cleanup}}
+\index{Cleanup@{Cleanup}!ShaderObj@{ShaderObj}}
+\doxysubsubsection{\texorpdfstring{Cleanup()}{Cleanup()}}
+{\footnotesize\ttfamily \label{class_shader_obj_af6348d700236fb4c415cd9b9a5205022} 
+void Shader\+Obj\+::\+Cleanup (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_base_obj_aec468ed8d8521d3d6edd10317c9a1ed9}{Base\+Obj}}.
+
+\Hypertarget{class_shader_obj_a7287831680ac0fe755f7019678b05c6b}\index{ShaderObj@{ShaderObj}!CompileShader@{CompileShader}}
+\index{CompileShader@{CompileShader}!ShaderObj@{ShaderObj}}
+\doxysubsubsection{\texorpdfstring{CompileShader()}{CompileShader()}}
+{\footnotesize\ttfamily \label{class_shader_obj_a7287831680ac0fe755f7019678b05c6b} 
+int Shader\+Obj\+::\+Compile\+Shader (\begin{DoxyParamCaption}\item[{std\+::string}]{Shader\+Name}{, }\item[{std\+::string}]{Shader\+File\+Name}{, }\item[{std\+::vector$<$ char $>$ \&}]{SPVBuffer}{, }\item[{uint32\+\_\+t}]{type}{}\end{DoxyParamCaption})}
+
+\Hypertarget{class_shader_obj_a76b9dbab5e64122758284bd545da5741}\index{ShaderObj@{ShaderObj}!Create@{Create}}
+\index{Create@{Create}!ShaderObj@{ShaderObj}}
+\doxysubsubsection{\texorpdfstring{Create()}{Create()}}
+{\footnotesize\ttfamily \label{class_shader_obj_a76b9dbab5e64122758284bd545da5741} 
+void Shader\+Obj\+::\+Create (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_resource_vertex_particle}{Resource\+Vertex\+Particle}} \texorpdfstring{$\ast$}{*}}]{VPO}{, }\item[{\mbox{\hyperlink{class_resource_coll_matrix}{Resource\+Coll\+Matrix}} \texorpdfstring{$\ast$}{*}}]{CMO}{, }\item[{\mbox{\hyperlink{class_resource_lock_matrix}{Resource\+Lock\+Matrix}} \texorpdfstring{$\ast$}{*}}]{LMO}{, }\item[{\mbox{\hyperlink{class_swap_chain}{Swap\+Chain}} \texorpdfstring{$\ast$}{*}}]{SCO}{}\end{DoxyParamCaption})}
+
+\Hypertarget{class_shader_obj_a4a3a23308c77c9acea218daae57630ea}\index{ShaderObj@{ShaderObj}!GenWorkGroups@{GenWorkGroups}}
+\index{GenWorkGroups@{GenWorkGroups}!ShaderObj@{ShaderObj}}
+\doxysubsubsection{\texorpdfstring{GenWorkGroups()}{GenWorkGroups()}}
+{\footnotesize\ttfamily \label{class_shader_obj_a4a3a23308c77c9acea218daae57630ea} 
+void Shader\+Obj\+::\+Gen\+Work\+Groups (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+\Hypertarget{class_shader_obj_acadc2d387884ca3ce2a9ac85881e05d0}\index{ShaderObj@{ShaderObj}!WriteBinaryFile@{WriteBinaryFile}}
+\index{WriteBinaryFile@{WriteBinaryFile}!ShaderObj@{ShaderObj}}
+\doxysubsubsection{\texorpdfstring{WriteBinaryFile()}{WriteBinaryFile()}}
+{\footnotesize\ttfamily \label{class_shader_obj_acadc2d387884ca3ce2a9ac85881e05d0} 
+int Shader\+Obj\+::\+Write\+Binary\+File (\begin{DoxyParamCaption}\item[{std\+::string}]{file\+Name}{, }\item[{std\+::vector$<$ char $>$}]{buffer}{}\end{DoxyParamCaption})}
+
+\Hypertarget{class_shader_obj_aab5de4baa0c649e01cab79d763a1f884}\index{ShaderObj@{ShaderObj}!WriteShaderHeader@{WriteShaderHeader}}
+\index{WriteShaderHeader@{WriteShaderHeader}!ShaderObj@{ShaderObj}}
+\doxysubsubsection{\texorpdfstring{WriteShaderHeader()}{WriteShaderHeader()}}
+{\footnotesize\ttfamily \label{class_shader_obj_aab5de4baa0c649e01cab79d763a1f884} 
+void Shader\+Obj\+::\+Write\+Shader\+Header (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{class_shader_obj_ab3b2ef98b331a20f000543ab42f12ea5}\index{ShaderObj@{ShaderObj}!m\_CMO@{m\_CMO}}
+\index{m\_CMO@{m\_CMO}!ShaderObj@{ShaderObj}}
+\doxysubsubsection{\texorpdfstring{m\_CMO}{m\_CMO}}
+{\footnotesize\ttfamily \label{class_shader_obj_ab3b2ef98b331a20f000543ab42f12ea5} 
+\mbox{\hyperlink{class_resource_coll_matrix}{Resource\+Coll\+Matrix}}\texorpdfstring{$\ast$}{*} Shader\+Obj\+::m\+\_\+\+CMO = \{\}}
+
+\Hypertarget{class_shader_obj_a35a3a8ce6e399deeb67e910f3f05529f}\index{ShaderObj@{ShaderObj}!m\_LMO@{m\_LMO}}
+\index{m\_LMO@{m\_LMO}!ShaderObj@{ShaderObj}}
+\doxysubsubsection{\texorpdfstring{m\_LMO}{m\_LMO}}
+{\footnotesize\ttfamily \label{class_shader_obj_a35a3a8ce6e399deeb67e910f3f05529f} 
+\mbox{\hyperlink{class_resource_lock_matrix}{Resource\+Lock\+Matrix}}\texorpdfstring{$\ast$}{*} Shader\+Obj\+::m\+\_\+\+LMO}
+
+\Hypertarget{class_shader_obj_a826d28b78017a20bd84c82190eca1fbe}\index{ShaderObj@{ShaderObj}!m\_SCO@{m\_SCO}}
+\index{m\_SCO@{m\_SCO}!ShaderObj@{ShaderObj}}
+\doxysubsubsection{\texorpdfstring{m\_SCO}{m\_SCO}}
+{\footnotesize\ttfamily \label{class_shader_obj_a826d28b78017a20bd84c82190eca1fbe} 
+\mbox{\hyperlink{class_swap_chain}{Swap\+Chain}}\texorpdfstring{$\ast$}{*} Shader\+Obj\+::m\+\_\+\+SCO = \{\}}
+
+\Hypertarget{class_shader_obj_aa6f402c3dbdbe557c886e4178b4852d1}\index{ShaderObj@{ShaderObj}!m\_VPO@{m\_VPO}}
+\index{m\_VPO@{m\_VPO}!ShaderObj@{ShaderObj}}
+\doxysubsubsection{\texorpdfstring{m\_VPO}{m\_VPO}}
+{\footnotesize\ttfamily \label{class_shader_obj_aa6f402c3dbdbe557c886e4178b4852d1} 
+\mbox{\hyperlink{class_resource_vertex_particle}{Resource\+Vertex\+Particle}}\texorpdfstring{$\ast$}{*} Shader\+Obj\+::m\+\_\+\+VPO = \{\}}
+
+\Hypertarget{class_shader_obj_afb44c0e87d787e9f9751b3fa9a8fe62a}\index{ShaderObj@{ShaderObj}!SH\_COMP@{SH\_COMP}}
+\index{SH\_COMP@{SH\_COMP}!ShaderObj@{ShaderObj}}
+\doxysubsubsection{\texorpdfstring{SH\_COMP}{SH\_COMP}}
+{\footnotesize\ttfamily \label{class_shader_obj_afb44c0e87d787e9f9751b3fa9a8fe62a} 
+uint32\+\_\+t Shader\+Obj\+::\+SH\+\_\+\+COMP = 3}
+
+\Hypertarget{class_shader_obj_a588c20d5768eb83662071f17bd813813}\index{ShaderObj@{ShaderObj}!SH\_FRAG@{SH\_FRAG}}
+\index{SH\_FRAG@{SH\_FRAG}!ShaderObj@{ShaderObj}}
+\doxysubsubsection{\texorpdfstring{SH\_FRAG}{SH\_FRAG}}
+{\footnotesize\ttfamily \label{class_shader_obj_a588c20d5768eb83662071f17bd813813} 
+uint32\+\_\+t Shader\+Obj\+::\+SH\+\_\+\+FRAG = 2}
+
+\Hypertarget{class_shader_obj_ab000df4994aac80883a76079d917d4c3}\index{ShaderObj@{ShaderObj}!SH\_VERT@{SH\_VERT}}
+\index{SH\_VERT@{SH\_VERT}!ShaderObj@{ShaderObj}}
+\doxysubsubsection{\texorpdfstring{SH\_VERT}{SH\_VERT}}
+{\footnotesize\ttfamily \label{class_shader_obj_ab000df4994aac80883a76079d917d4c3} 
+uint32\+\_\+t Shader\+Obj\+::\+SH\+\_\+\+VERT = 1}
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+J\+:/\+FPIBG/vulkan/src/\+Vulkan\+Obj/\mbox{\hyperlink{_shader_obj_8hpp}{Shader\+Obj.\+hpp}}\item 
+J\+:/\+FPIBG/vulkan/src/\+Vulkan\+Obj/\mbox{\hyperlink{_shader_obj_8cpp}{Shader\+Obj.\+cpp}}\end{DoxyCompactItemize}

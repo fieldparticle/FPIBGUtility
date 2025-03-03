@@ -1,0 +1,73 @@
+\doxysection{Pipeline\+Obj.\+hpp}
+\hypertarget{_pipeline_obj_8hpp_source}{}\label{_pipeline_obj_8hpp_source}\index{J:/FPIBG/vulkan/src/VulkanObj/PipelineObj.hpp@{J:/FPIBG/vulkan/src/VulkanObj/PipelineObj.hpp}}
+\mbox{\hyperlink{_pipeline_obj_8hpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*******************************************************************}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\%***\ \ \ \ \ \ C\ PROPRIETARY\ SOURCE\ FILE\ IDENTIFICATION\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ***}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\%*******************************************************************}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\%\ \$Author:\ jb\ \$}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\%}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\%\ \$Date:\ 2023-\/05-\/03\ 15:30:42\ -\/0400\ (Wed,\ 03\ May\ 2023)\ \$}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\%\ \$HeadURL:\ https://jbworkstation/svn/svnrootr5/svnvulcan/src/vulkan/GraphicsPipelineObj.hpp\ \$}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\%\ \$Id:\ GraphicsPipelineObj.hpp\ 28\ 2023-\/05-\/03\ 19:30:42Z\ jb\ \$}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\%*******************************************************************}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\%***\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DESCRIPTION\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ***}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\%*******************************************************************}}
+\DoxyCodeLine{00012\ \textcolor{comment}{@doc}}
+\DoxyCodeLine{00013\ \textcolor{comment}{@module}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ @author:\ Jackie\ Michael\ Bell<nl>}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ COPYRIGHT\ <cp>\ Jackie\ Michael\ Bell<nl>}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ Property\ of\ Jackie\ Michael\ Bell<rtm>.\ All\ Rights\ Reserved.<nl>}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ This\ source\ code\ file\ contains\ proprietary<nl>}}
+\DoxyCodeLine{00018\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ and\ confidential\ information.<nl>}}
+\DoxyCodeLine{00019\ \textcolor{comment}{}}
+\DoxyCodeLine{00020\ \textcolor{comment}{}}
+\DoxyCodeLine{00021\ \textcolor{comment}{@head3\ \ \ \ \ \ Description.\ |}}
+\DoxyCodeLine{00022\ \textcolor{comment}{@normal}}
+\DoxyCodeLine{00023\ \textcolor{comment}{}}
+\DoxyCodeLine{00024\ \textcolor{comment}{}}
+\DoxyCodeLine{00025\ \textcolor{comment}{********************************************************************}}
+\DoxyCodeLine{00026\ \textcolor{comment}{\%***\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ SVN\ CHANGE\ RECORD\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ***}}
+\DoxyCodeLine{00027\ \textcolor{comment}{\%*******************************************************************}}
+\DoxyCodeLine{00028\ \textcolor{comment}{\%*\$Revision:\ 28\ \$}}
+\DoxyCodeLine{00029\ \textcolor{comment}{\%*}}
+\DoxyCodeLine{00030\ \textcolor{comment}{\%*}}
+\DoxyCodeLine{00031\ \textcolor{comment}{\%******************************************************************/}}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#ifndef\ PIPELINEOBJ\_HPP}}
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\#define\ PIPELINEOBJ\_HPP}}
+\DoxyCodeLine{00036\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_shader_obj}{ShaderObj}};}
+\DoxyCodeLine{00037\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_pipeline_obj_a32a621c509da3387b8945696fbed8fab}{PipelineObj}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_base_obj_a4b83af8a8e0e29a74b5d1780e2dd9172}{BaseObj}}}
+\DoxyCodeLine{00038\ \{}
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00040\ \ \ \ \ }
+\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{class_pipeline_obj_a2d0e37d0cdbd80919e16998a5c56a1d3}{m\_NumPipes}}\ =\ 0;}
+\DoxyCodeLine{00042\ \ \ \ \ VkPipelineLayout\ \ \ \ \ \ \ \ \mbox{\hyperlink{class_pipeline_obj_a9fc4e35c2eb32db3d86cb0529290e292}{m\_PipelineLayout}}=\{\};}
+\DoxyCodeLine{00043\ \ \ \ \ VkPipeline\ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_pipeline_obj_abd50bd0b68368aa85ffd067d802e2b4b}{m\_Pipeline}}=\{\};}
+\DoxyCodeLine{00044\ \ \ \ \ \mbox{\hyperlink{class_render_pass_obj}{RenderPassObj}}*\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_pipeline_obj_a4d8d222541950d810657797ee3d35e12}{m\_RPO}}=\{\};}
+\DoxyCodeLine{00045\ \ \ \ \ \mbox{\hyperlink{class_resource_container_obj}{ResourceContainerObj}}*\ \ \ \mbox{\hyperlink{class_pipeline_obj_a6a0b6f1b903f5f11818be834cd3736f7}{m\_RCO}}=\{\};}
+\DoxyCodeLine{00046\ \ \ \ \ \mbox{\hyperlink{class_swap_chain_obj}{SwapChainObj}}*\ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_pipeline_obj_a3f69bf3b311cc85831a7f0981551db67}{m\_SCO}}=\{\};}
+\DoxyCodeLine{00047\ \ \ \ \ \mbox{\hyperlink{class_shader_obj}{ShaderObj}}*\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_pipeline_obj_ac6540945321400472a5767e197a6af31}{m\_SHO}}\ =\ \{\};}
+\DoxyCodeLine{00048\ \ \ \ \ std::string\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_pipeline_obj_a6ce731664f80a384912efe5693988ff7}{m\_RenderPassName}}\ =\ \{\};}
+\DoxyCodeLine{00049\ \ \ \ \ }
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_pipeline_obj_a97df8a977c7d8593be831fd5d88d030b}{Create}}(\mbox{\hyperlink{class_shader_obj}{ShaderObj}}*\ SHO,\ \mbox{\hyperlink{class_swap_chain_obj}{SwapChainObj}}*\ SCO,\ \mbox{\hyperlink{class_resource_container_obj}{ResourceContainerObj}}*\ RCO,\ \mbox{\hyperlink{class_render_pass_obj}{RenderPassObj}}*\ RPO);}
+\DoxyCodeLine{00052\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_pipeline_obj_a97df8a977c7d8593be831fd5d88d030b}{Create}}(\mbox{\hyperlink{class_shader_obj}{ShaderObj}}*\ SHO,\mbox{\hyperlink{class_resource_container_obj}{ResourceContainerObj}}*\ RCO);}
+\DoxyCodeLine{00053\ \ \ \ \ \mbox{\hyperlink{class_pipeline_obj_a32a621c509da3387b8945696fbed8fab}{PipelineObj}}(\mbox{\hyperlink{class_vulkan_obj}{VulkanObj}}\ *App,\ std::string\ Name,\ uint32\_t\ Type)\ :\ \mbox{\hyperlink{class_base_obj_a4b83af8a8e0e29a74b5d1780e2dd9172}{BaseObj}}(Name,\ Type,App)\ \{\};}
+\DoxyCodeLine{00054\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_pipeline_obj_ad22e83695d21defff1dab77f9d198e5a}{CreatePipeline}}()=0;}
+\DoxyCodeLine{00055\ \ \ \ \ VkShaderModule\ \mbox{\hyperlink{class_pipeline_obj_a690722612459ea539a7e3376d97458d4}{createShaderModule}}(\textcolor{keyword}{const}\ std::vector<char>\&\ code,std::string\ Name);}
+\DoxyCodeLine{00056\ \ \ \ \ \textcolor{comment}{//virtual\ void\ Create(SwapChainObj*\ SCO,\ ResourceContainerObj*\ RCO,\ RenderPassObj*\ RPO)\ \{\};}}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \ \ \ \ std::vector<char>\ \mbox{\hyperlink{class_pipeline_obj_a500db880a899d7b5a13ceb1c4e40eb16}{ReadFile}}(\textcolor{keyword}{const}\ std::string\&\ filename)\ ;}
+\DoxyCodeLine{00059\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_pipeline_obj_aee5be6589aad9cb2f477fda664791454}{Cleanup}}()}
+\DoxyCodeLine{00060\ \ \ \ \ \{}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ vkDestroyPipeline(\mbox{\hyperlink{class_base_obj_ab8f8d9c2f68f3bef1153d397d61646b0}{m\_App}}-\/>GetLogicalDevice(),\ \mbox{\hyperlink{class_pipeline_obj_abd50bd0b68368aa85ffd067d802e2b4b}{m\_Pipeline}},\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ vkDestroyPipelineLayout(\mbox{\hyperlink{class_base_obj_ab8f8d9c2f68f3bef1153d397d61646b0}{m\_App}}-\/>GetLogicalDevice(),\ \mbox{\hyperlink{class_pipeline_obj_a9fc4e35c2eb32db3d86cb0529290e292}{m\_PipelineLayout}},\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00065\ \ \ \ \ \};}
+\DoxyCodeLine{00066\ \};}
+\DoxyCodeLine{00067\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

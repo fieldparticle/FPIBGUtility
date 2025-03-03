@@ -1,0 +1,82 @@
+\doxysection{J\+:/\+FPIBG/vulkan/src/libconfig/parsectx.h File Reference}
+\hypertarget{parsectx_8h}{}\label{parsectx_8h}\index{J:/FPIBG/vulkan/src/libconfig/parsectx.h@{J:/FPIBG/vulkan/src/libconfig/parsectx.h}}
+{\ttfamily \#include "{}libconfig.\+h"{}}\newline
+{\ttfamily \#include "{}strbuf.\+h"{}}\newline
+{\ttfamily \#include "{}util.\+h"{}}\newline
+Include dependency graph for parsectx.\+h\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=280pt]{parsectx_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{parsectx_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structparse__context}{parse\+\_\+context}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{parsectx_8h_ac4b771e8540c15dde5a99abe655e4bcd}{libconfig\+\_\+parsectx\+\_\+init}}(C)
+\item 
+\#define \mbox{\hyperlink{parsectx_8h_a1c77256233e7fec8c3c7e69c83736b6f}{libconfig\+\_\+parsectx\+\_\+cleanup}}(C)
+\item 
+\#define \mbox{\hyperlink{parsectx_8h_a83e60b1a87d60f93083f214bf97fdf32}{libconfig\+\_\+parsectx\+\_\+append\+\_\+string}}(C,  S)
+\item 
+\#define \mbox{\hyperlink{parsectx_8h_ad29c4a6f1082f951be122998a03bdb8b}{libconfig\+\_\+parsectx\+\_\+take\+\_\+string}}(C)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{parsectx_8h_a83e60b1a87d60f93083f214bf97fdf32}\index{parsectx.h@{parsectx.h}!libconfig\_parsectx\_append\_string@{libconfig\_parsectx\_append\_string}}
+\index{libconfig\_parsectx\_append\_string@{libconfig\_parsectx\_append\_string}!parsectx.h@{parsectx.h}}
+\doxysubsubsection{\texorpdfstring{libconfig\_parsectx\_append\_string}{libconfig\_parsectx\_append\_string}}
+{\footnotesize\ttfamily \label{parsectx_8h_a83e60b1a87d60f93083f214bf97fdf32} 
+\#define libconfig\+\_\+parsectx\+\_\+append\+\_\+string(\begin{DoxyParamCaption}\item[{}]{C}{, }\item[{}]{S}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{strbuf_8c_a1f6b5f169d59016cf593e87ba43849b8}{libconfig\_strbuf\_append\_string}}(\&((C)-\/>\textcolor{keywordtype}{string}),\ (S))}
+
+\end{DoxyCode}
+\Hypertarget{parsectx_8h_a1c77256233e7fec8c3c7e69c83736b6f}\index{parsectx.h@{parsectx.h}!libconfig\_parsectx\_cleanup@{libconfig\_parsectx\_cleanup}}
+\index{libconfig\_parsectx\_cleanup@{libconfig\_parsectx\_cleanup}!parsectx.h@{parsectx.h}}
+\doxysubsubsection{\texorpdfstring{libconfig\_parsectx\_cleanup}{libconfig\_parsectx\_cleanup}}
+{\footnotesize\ttfamily \label{parsectx_8h_a1c77256233e7fec8c3c7e69c83736b6f} 
+\#define libconfig\+\_\+parsectx\+\_\+cleanup(\begin{DoxyParamCaption}\item[{}]{C}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{util_8h_adf15638335969550ecd19d3b0982cea3}{\_\_delete}}(\mbox{\hyperlink{strbuf_8c_abb0299045997c9fd3965b0ff7d37d478}{libconfig\_strbuf\_release}}(\&((C)-\/>\textcolor{keywordtype}{string})))}
+
+\end{DoxyCode}
+\Hypertarget{parsectx_8h_ac4b771e8540c15dde5a99abe655e4bcd}\index{parsectx.h@{parsectx.h}!libconfig\_parsectx\_init@{libconfig\_parsectx\_init}}
+\index{libconfig\_parsectx\_init@{libconfig\_parsectx\_init}!parsectx.h@{parsectx.h}}
+\doxysubsubsection{\texorpdfstring{libconfig\_parsectx\_init}{libconfig\_parsectx\_init}}
+{\footnotesize\ttfamily \label{parsectx_8h_ac4b771e8540c15dde5a99abe655e4bcd} 
+\#define libconfig\+\_\+parsectx\+\_\+init(\begin{DoxyParamCaption}\item[{}]{C}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{util_8h_a3c0844f71774b7b2a7ec9f7938879ae7}{\_\_zero}}(C)}
+
+\end{DoxyCode}
+\Hypertarget{parsectx_8h_ad29c4a6f1082f951be122998a03bdb8b}\index{parsectx.h@{parsectx.h}!libconfig\_parsectx\_take\_string@{libconfig\_parsectx\_take\_string}}
+\index{libconfig\_parsectx\_take\_string@{libconfig\_parsectx\_take\_string}!parsectx.h@{parsectx.h}}
+\doxysubsubsection{\texorpdfstring{libconfig\_parsectx\_take\_string}{libconfig\_parsectx\_take\_string}}
+{\footnotesize\ttfamily \label{parsectx_8h_ad29c4a6f1082f951be122998a03bdb8b} 
+\#define libconfig\+\_\+parsectx\+\_\+take\+\_\+string(\begin{DoxyParamCaption}\item[{}]{C}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{strbuf_8c_abb0299045997c9fd3965b0ff7d37d478}{libconfig\_strbuf\_release}}(\&((C)-\/>\textcolor{keywordtype}{string}))}
+
+\end{DoxyCode}

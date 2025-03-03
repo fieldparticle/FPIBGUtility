@@ -1,0 +1,239 @@
+\doxysection{J\+:/\+FPIBG/vulkan/src/\+Vulkan\+Obj/\+Input.cpp File Reference}
+\hypertarget{_input_8cpp}{}\label{_input_8cpp}\index{J:/FPIBG/vulkan/src/VulkanObj/Input.cpp@{J:/FPIBG/vulkan/src/VulkanObj/Input.cpp}}
+{\ttfamily \#include "{}Vulkan\+Obj/\+Vulkan\+App.\+hpp"{}}\newline
+{\ttfamily \#include "{}Input.\+hpp"{}}\newline
+Include dependency graph for Input.\+cpp\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_input_8cpp__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{_input_8cpp_aee4941b952a7672ff047fdda4df0e999}{GLFWError}} (int err, const char \texorpdfstring{$\ast$}{*}err\+\_\+str)
+\item 
+void \mbox{\hyperlink{_input_8cpp_a5b67fa139787fc6de2e368f546406299}{Set\+Call\+Backs}} (\mbox{\hyperlink{class_vulkan_obj}{Vulkan\+Obj}} \texorpdfstring{$\ast$}{*}VO)
+\item 
+void \mbox{\hyperlink{_input_8cpp_ab5db7e789b65412e894e09ff560318f9}{on\+Mouse\+Button}} (GLFWwindow \texorpdfstring{$\ast$}{*}window, int button, int action, int mods)
+\item 
+void \mbox{\hyperlink{_input_8cpp_a286930f4e8ede059b83ff6eafa2ff718}{key\+\_\+callback}} (GLFWwindow \texorpdfstring{$\ast$}{*}window, int key, int scancode, int action, int mods)
+\item 
+void \mbox{\hyperlink{_input_8cpp_abe5e592e8704afa9003593b539e436df}{mouse\+\_\+callback}} (GLFWwindow \texorpdfstring{$\ast$}{*}window, double xpos\+In, double ypos\+In)
+\item 
+void \mbox{\hyperlink{_input_8cpp_a06ad2502008f16fbcf01dfaa7f7bc9ea}{scroll\+\_\+callback}} (GLFWwindow \texorpdfstring{$\ast$}{*}window, double xoffset, double yoffset)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{_input_8cpp_a2047e60c022dc89c9fb7b2e4c4323489}{Quit\+Event}} =false
+\item 
+float \mbox{\hyperlink{_input_8cpp_a866dd91968c461688b7eb4c333b59b84}{ZoomX}} = 1.\+0
+\item 
+float \mbox{\hyperlink{_input_8cpp_aa35dcb6d3531f0edd5b58de71b2fa398}{ZoomY}} = 1.\+0
+\item 
+float \mbox{\hyperlink{_input_8cpp_aecda261abe91e324edd67823a2c24e9c}{ZoomZ}} = 1.\+0
+\item 
+float \mbox{\hyperlink{_input_8cpp_aab1f8551a7d5f25460d628349506a26a}{Color\+Map}} = 0.\+0
+\item 
+bool \mbox{\hyperlink{_input_8cpp_a92fe73319ea86bf66e1a6bd2c9e18e1a}{G\+\_\+\+Boundary}} = true
+\item 
+float \mbox{\hyperlink{_input_8cpp_a1eb4f3e9d0799b0c3f2df8d1d631b45e}{G\+\_\+\+Ortho\+Min}} =-\/80.\+0f
+\item 
+float \mbox{\hyperlink{_input_8cpp_a683641526773836a3bf52f6cf14ab160}{G\+\_\+\+Ortho\+Max}} = 250.\+0f
+\item 
+float \mbox{\hyperlink{_input_8cpp_ad913f4aab203e02480aa87a1cd2c3729}{TranslateX}} =0.\+0
+\item 
+float \mbox{\hyperlink{_input_8cpp_ae5f40e88a8033edfcf35fe56d4cd7865}{TranslateY}} =0.\+0
+\item 
+float \mbox{\hyperlink{_input_8cpp_a1952e00f45e26476b371c083fd4bcdb3}{TranslateZ}} =0.\+0
+\item 
+bool \mbox{\hyperlink{_input_8cpp_ab2ecb50146a16c69f70fa348cf0f1207}{G\+\_\+\+Stop}} = true
+\item 
+float \mbox{\hyperlink{_input_8cpp_a39611af8c5085948a377af85f2b8ef4d}{RotateX}} =0.\+0
+\item 
+float \mbox{\hyperlink{_input_8cpp_aaa1baa43a1d1294ce8f64a6426d5a3bc}{RotateY}} =0.\+0
+\item 
+float \mbox{\hyperlink{_input_8cpp_af3438a3d4183a5b3ae61fa751404f761}{RotateZ}} =0.\+0
+\item 
+float \mbox{\hyperlink{_input_8cpp_a66ec7440f9c1c7f92dade120beaf0fda}{r\+RotX}}
+\item 
+float \mbox{\hyperlink{_input_8cpp_a248f9de338bff34e155240a20888a782}{r\+RotY}} = 90.\+0
+\item 
+float \mbox{\hyperlink{_input_8cpp_ac7478a2c9dc9199c0ecb0effe99258a7}{r\+RotZ}}
+\item 
+float \mbox{\hyperlink{_input_8cpp_ab9355e95cf7b931e4ac76a90c7b163c6}{ox}} = -\/1
+\item 
+float \mbox{\hyperlink{_input_8cpp_a751717b9e3018eb4938a31fba5e636af}{oy}} = -\/1
+\item 
+bool \mbox{\hyperlink{_input_8cpp_a6bb25bc91ffca66507ddf3204b649c0f}{right\+Mouse}} = false
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{_input_8cpp_aee4941b952a7672ff047fdda4df0e999}\index{Input.cpp@{Input.cpp}!GLFWError@{GLFWError}}
+\index{GLFWError@{GLFWError}!Input.cpp@{Input.cpp}}
+\doxysubsubsection{\texorpdfstring{GLFWError()}{GLFWError()}}
+{\footnotesize\ttfamily \label{_input_8cpp_aee4941b952a7672ff047fdda4df0e999} 
+void GLFWError (\begin{DoxyParamCaption}\item[{int}]{err}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{err\+\_\+str}{}\end{DoxyParamCaption})}
+
+\Hypertarget{_input_8cpp_a286930f4e8ede059b83ff6eafa2ff718}\index{Input.cpp@{Input.cpp}!key\_callback@{key\_callback}}
+\index{key\_callback@{key\_callback}!Input.cpp@{Input.cpp}}
+\doxysubsubsection{\texorpdfstring{key\_callback()}{key\_callback()}}
+{\footnotesize\ttfamily \label{_input_8cpp_a286930f4e8ede059b83ff6eafa2ff718} 
+void key\+\_\+callback (\begin{DoxyParamCaption}\item[{GLFWwindow \texorpdfstring{$\ast$}{*}}]{window}{, }\item[{int}]{key}{, }\item[{int}]{scancode}{, }\item[{int}]{action}{, }\item[{int}]{mods}{}\end{DoxyParamCaption})}
+
+\Hypertarget{_input_8cpp_abe5e592e8704afa9003593b539e436df}\index{Input.cpp@{Input.cpp}!mouse\_callback@{mouse\_callback}}
+\index{mouse\_callback@{mouse\_callback}!Input.cpp@{Input.cpp}}
+\doxysubsubsection{\texorpdfstring{mouse\_callback()}{mouse\_callback()}}
+{\footnotesize\ttfamily \label{_input_8cpp_abe5e592e8704afa9003593b539e436df} 
+void mouse\+\_\+callback (\begin{DoxyParamCaption}\item[{GLFWwindow \texorpdfstring{$\ast$}{*}}]{window}{, }\item[{double}]{xpos\+In}{, }\item[{double}]{ypos\+In}{}\end{DoxyParamCaption})}
+
+\Hypertarget{_input_8cpp_ab5db7e789b65412e894e09ff560318f9}\index{Input.cpp@{Input.cpp}!onMouseButton@{onMouseButton}}
+\index{onMouseButton@{onMouseButton}!Input.cpp@{Input.cpp}}
+\doxysubsubsection{\texorpdfstring{onMouseButton()}{onMouseButton()}}
+{\footnotesize\ttfamily \label{_input_8cpp_ab5db7e789b65412e894e09ff560318f9} 
+void on\+Mouse\+Button (\begin{DoxyParamCaption}\item[{GLFWwindow \texorpdfstring{$\ast$}{*}}]{window}{, }\item[{int}]{button}{, }\item[{int}]{action}{, }\item[{int}]{mods}{}\end{DoxyParamCaption})}
+
+\Hypertarget{_input_8cpp_a06ad2502008f16fbcf01dfaa7f7bc9ea}\index{Input.cpp@{Input.cpp}!scroll\_callback@{scroll\_callback}}
+\index{scroll\_callback@{scroll\_callback}!Input.cpp@{Input.cpp}}
+\doxysubsubsection{\texorpdfstring{scroll\_callback()}{scroll\_callback()}}
+{\footnotesize\ttfamily \label{_input_8cpp_a06ad2502008f16fbcf01dfaa7f7bc9ea} 
+void scroll\+\_\+callback (\begin{DoxyParamCaption}\item[{GLFWwindow \texorpdfstring{$\ast$}{*}}]{window}{, }\item[{double}]{xoffset}{, }\item[{double}]{yoffset}{}\end{DoxyParamCaption})}
+
+\Hypertarget{_input_8cpp_a5b67fa139787fc6de2e368f546406299}\index{Input.cpp@{Input.cpp}!SetCallBacks@{SetCallBacks}}
+\index{SetCallBacks@{SetCallBacks}!Input.cpp@{Input.cpp}}
+\doxysubsubsection{\texorpdfstring{SetCallBacks()}{SetCallBacks()}}
+{\footnotesize\ttfamily \label{_input_8cpp_a5b67fa139787fc6de2e368f546406299} 
+void Set\+Call\+Backs (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_vulkan_obj}{Vulkan\+Obj}} \texorpdfstring{$\ast$}{*}}]{VO}{}\end{DoxyParamCaption})}
+
+
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{_input_8cpp_aab1f8551a7d5f25460d628349506a26a}\index{Input.cpp@{Input.cpp}!ColorMap@{ColorMap}}
+\index{ColorMap@{ColorMap}!Input.cpp@{Input.cpp}}
+\doxysubsubsection{\texorpdfstring{ColorMap}{ColorMap}}
+{\footnotesize\ttfamily \label{_input_8cpp_aab1f8551a7d5f25460d628349506a26a} 
+float Color\+Map = 0.\+0}
+
+\Hypertarget{_input_8cpp_a92fe73319ea86bf66e1a6bd2c9e18e1a}\index{Input.cpp@{Input.cpp}!G\_Boundary@{G\_Boundary}}
+\index{G\_Boundary@{G\_Boundary}!Input.cpp@{Input.cpp}}
+\doxysubsubsection{\texorpdfstring{G\_Boundary}{G\_Boundary}}
+{\footnotesize\ttfamily \label{_input_8cpp_a92fe73319ea86bf66e1a6bd2c9e18e1a} 
+bool G\+\_\+\+Boundary = true}
+
+\Hypertarget{_input_8cpp_a683641526773836a3bf52f6cf14ab160}\index{Input.cpp@{Input.cpp}!G\_OrthoMax@{G\_OrthoMax}}
+\index{G\_OrthoMax@{G\_OrthoMax}!Input.cpp@{Input.cpp}}
+\doxysubsubsection{\texorpdfstring{G\_OrthoMax}{G\_OrthoMax}}
+{\footnotesize\ttfamily \label{_input_8cpp_a683641526773836a3bf52f6cf14ab160} 
+float G\+\_\+\+Ortho\+Max = 250.\+0f}
+
+\Hypertarget{_input_8cpp_a1eb4f3e9d0799b0c3f2df8d1d631b45e}\index{Input.cpp@{Input.cpp}!G\_OrthoMin@{G\_OrthoMin}}
+\index{G\_OrthoMin@{G\_OrthoMin}!Input.cpp@{Input.cpp}}
+\doxysubsubsection{\texorpdfstring{G\_OrthoMin}{G\_OrthoMin}}
+{\footnotesize\ttfamily \label{_input_8cpp_a1eb4f3e9d0799b0c3f2df8d1d631b45e} 
+float G\+\_\+\+Ortho\+Min =-\/80.\+0f}
+
+\Hypertarget{_input_8cpp_ab2ecb50146a16c69f70fa348cf0f1207}\index{Input.cpp@{Input.cpp}!G\_Stop@{G\_Stop}}
+\index{G\_Stop@{G\_Stop}!Input.cpp@{Input.cpp}}
+\doxysubsubsection{\texorpdfstring{G\_Stop}{G\_Stop}}
+{\footnotesize\ttfamily \label{_input_8cpp_ab2ecb50146a16c69f70fa348cf0f1207} 
+bool G\+\_\+\+Stop = true}
+
+\Hypertarget{_input_8cpp_ab9355e95cf7b931e4ac76a90c7b163c6}\index{Input.cpp@{Input.cpp}!ox@{ox}}
+\index{ox@{ox}!Input.cpp@{Input.cpp}}
+\doxysubsubsection{\texorpdfstring{ox}{ox}}
+{\footnotesize\ttfamily \label{_input_8cpp_ab9355e95cf7b931e4ac76a90c7b163c6} 
+float ox = -\/1}
+
+\Hypertarget{_input_8cpp_a751717b9e3018eb4938a31fba5e636af}\index{Input.cpp@{Input.cpp}!oy@{oy}}
+\index{oy@{oy}!Input.cpp@{Input.cpp}}
+\doxysubsubsection{\texorpdfstring{oy}{oy}}
+{\footnotesize\ttfamily \label{_input_8cpp_a751717b9e3018eb4938a31fba5e636af} 
+float oy = -\/1}
+
+\Hypertarget{_input_8cpp_a2047e60c022dc89c9fb7b2e4c4323489}\index{Input.cpp@{Input.cpp}!QuitEvent@{QuitEvent}}
+\index{QuitEvent@{QuitEvent}!Input.cpp@{Input.cpp}}
+\doxysubsubsection{\texorpdfstring{QuitEvent}{QuitEvent}}
+{\footnotesize\ttfamily \label{_input_8cpp_a2047e60c022dc89c9fb7b2e4c4323489} 
+bool Quit\+Event =false}
+
+\Hypertarget{_input_8cpp_a6bb25bc91ffca66507ddf3204b649c0f}\index{Input.cpp@{Input.cpp}!rightMouse@{rightMouse}}
+\index{rightMouse@{rightMouse}!Input.cpp@{Input.cpp}}
+\doxysubsubsection{\texorpdfstring{rightMouse}{rightMouse}}
+{\footnotesize\ttfamily \label{_input_8cpp_a6bb25bc91ffca66507ddf3204b649c0f} 
+bool right\+Mouse = false}
+
+\Hypertarget{_input_8cpp_a39611af8c5085948a377af85f2b8ef4d}\index{Input.cpp@{Input.cpp}!RotateX@{RotateX}}
+\index{RotateX@{RotateX}!Input.cpp@{Input.cpp}}
+\doxysubsubsection{\texorpdfstring{RotateX}{RotateX}}
+{\footnotesize\ttfamily \label{_input_8cpp_a39611af8c5085948a377af85f2b8ef4d} 
+float RotateX =0.\+0}
+
+\Hypertarget{_input_8cpp_aaa1baa43a1d1294ce8f64a6426d5a3bc}\index{Input.cpp@{Input.cpp}!RotateY@{RotateY}}
+\index{RotateY@{RotateY}!Input.cpp@{Input.cpp}}
+\doxysubsubsection{\texorpdfstring{RotateY}{RotateY}}
+{\footnotesize\ttfamily \label{_input_8cpp_aaa1baa43a1d1294ce8f64a6426d5a3bc} 
+float RotateY =0.\+0}
+
+\Hypertarget{_input_8cpp_af3438a3d4183a5b3ae61fa751404f761}\index{Input.cpp@{Input.cpp}!RotateZ@{RotateZ}}
+\index{RotateZ@{RotateZ}!Input.cpp@{Input.cpp}}
+\doxysubsubsection{\texorpdfstring{RotateZ}{RotateZ}}
+{\footnotesize\ttfamily \label{_input_8cpp_af3438a3d4183a5b3ae61fa751404f761} 
+float RotateZ =0.\+0}
+
+\Hypertarget{_input_8cpp_a66ec7440f9c1c7f92dade120beaf0fda}\index{Input.cpp@{Input.cpp}!rRotX@{rRotX}}
+\index{rRotX@{rRotX}!Input.cpp@{Input.cpp}}
+\doxysubsubsection{\texorpdfstring{rRotX}{rRotX}}
+{\footnotesize\ttfamily \label{_input_8cpp_a66ec7440f9c1c7f92dade120beaf0fda} 
+float r\+RotX}
+
+\Hypertarget{_input_8cpp_a248f9de338bff34e155240a20888a782}\index{Input.cpp@{Input.cpp}!rRotY@{rRotY}}
+\index{rRotY@{rRotY}!Input.cpp@{Input.cpp}}
+\doxysubsubsection{\texorpdfstring{rRotY}{rRotY}}
+{\footnotesize\ttfamily \label{_input_8cpp_a248f9de338bff34e155240a20888a782} 
+float r\+RotY = 90.\+0}
+
+\Hypertarget{_input_8cpp_ac7478a2c9dc9199c0ecb0effe99258a7}\index{Input.cpp@{Input.cpp}!rRotZ@{rRotZ}}
+\index{rRotZ@{rRotZ}!Input.cpp@{Input.cpp}}
+\doxysubsubsection{\texorpdfstring{rRotZ}{rRotZ}}
+{\footnotesize\ttfamily \label{_input_8cpp_ac7478a2c9dc9199c0ecb0effe99258a7} 
+float r\+RotZ}
+
+\Hypertarget{_input_8cpp_ad913f4aab203e02480aa87a1cd2c3729}\index{Input.cpp@{Input.cpp}!TranslateX@{TranslateX}}
+\index{TranslateX@{TranslateX}!Input.cpp@{Input.cpp}}
+\doxysubsubsection{\texorpdfstring{TranslateX}{TranslateX}}
+{\footnotesize\ttfamily \label{_input_8cpp_ad913f4aab203e02480aa87a1cd2c3729} 
+float TranslateX =0.\+0}
+
+\Hypertarget{_input_8cpp_ae5f40e88a8033edfcf35fe56d4cd7865}\index{Input.cpp@{Input.cpp}!TranslateY@{TranslateY}}
+\index{TranslateY@{TranslateY}!Input.cpp@{Input.cpp}}
+\doxysubsubsection{\texorpdfstring{TranslateY}{TranslateY}}
+{\footnotesize\ttfamily \label{_input_8cpp_ae5f40e88a8033edfcf35fe56d4cd7865} 
+float TranslateY =0.\+0}
+
+\Hypertarget{_input_8cpp_a1952e00f45e26476b371c083fd4bcdb3}\index{Input.cpp@{Input.cpp}!TranslateZ@{TranslateZ}}
+\index{TranslateZ@{TranslateZ}!Input.cpp@{Input.cpp}}
+\doxysubsubsection{\texorpdfstring{TranslateZ}{TranslateZ}}
+{\footnotesize\ttfamily \label{_input_8cpp_a1952e00f45e26476b371c083fd4bcdb3} 
+float TranslateZ =0.\+0}
+
+\Hypertarget{_input_8cpp_a866dd91968c461688b7eb4c333b59b84}\index{Input.cpp@{Input.cpp}!ZoomX@{ZoomX}}
+\index{ZoomX@{ZoomX}!Input.cpp@{Input.cpp}}
+\doxysubsubsection{\texorpdfstring{ZoomX}{ZoomX}}
+{\footnotesize\ttfamily \label{_input_8cpp_a866dd91968c461688b7eb4c333b59b84} 
+float ZoomX = 1.\+0}
+
+\Hypertarget{_input_8cpp_aa35dcb6d3531f0edd5b58de71b2fa398}\index{Input.cpp@{Input.cpp}!ZoomY@{ZoomY}}
+\index{ZoomY@{ZoomY}!Input.cpp@{Input.cpp}}
+\doxysubsubsection{\texorpdfstring{ZoomY}{ZoomY}}
+{\footnotesize\ttfamily \label{_input_8cpp_aa35dcb6d3531f0edd5b58de71b2fa398} 
+float ZoomY = 1.\+0}
+
+\Hypertarget{_input_8cpp_aecda261abe91e324edd67823a2c24e9c}\index{Input.cpp@{Input.cpp}!ZoomZ@{ZoomZ}}
+\index{ZoomZ@{ZoomZ}!Input.cpp@{Input.cpp}}
+\doxysubsubsection{\texorpdfstring{ZoomZ}{ZoomZ}}
+{\footnotesize\ttfamily \label{_input_8cpp_aecda261abe91e324edd67823a2c24e9c} 
+float ZoomZ = 1.\+0}
+

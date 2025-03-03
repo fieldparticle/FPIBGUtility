@@ -1,0 +1,119 @@
+\doxysection{J\+:/\+FPIBG/vulkan/src/libconfig/wincompat.h File Reference}
+\hypertarget{wincompat_8h}{}\label{wincompat_8h}\index{J:/FPIBG/vulkan/src/libconfig/wincompat.h@{J:/FPIBG/vulkan/src/libconfig/wincompat.h}}
+{\ttfamily \#include $<$limits.\+h$>$}\newline
+{\ttfamily \#include $<$unistd.\+h$>$}\newline
+Include dependency graph for wincompat.\+h\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=196pt]{wincompat_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{wincompat_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{wincompat_8h_a57e353d6ce48ab7d414d094961d5e474}{INT64\+\_\+\+FMT}}~"{}\%lld"{}
+\item 
+\#define \mbox{\hyperlink{wincompat_8h_a21ef7c3a4e9f99f62cf64329f965d2ed}{UINT64\+\_\+\+FMT}}~"{}\%llu"{}
+\item 
+\#define \mbox{\hyperlink{wincompat_8h_a87486ae107978bf61a694b6b8ac345ed}{INT64\+\_\+\+HEX\+\_\+\+FMT}}~"{}\%ll\+X"{}
+\item 
+\#define \mbox{\hyperlink{wincompat_8h_a2ff80281d1896ad6e969b11d60c6c19d}{FILE\+\_\+\+SEPARATOR}}~"{}/"{}
+\item 
+\#define \mbox{\hyperlink{wincompat_8h_a29f52368cd471893637f529f889ef229}{posix\+\_\+fileno}}~fileno
+\item 
+\#define \mbox{\hyperlink{wincompat_8h_a4d9051985c9e1bf219a5ff2ef658ac3d}{posix\+\_\+fsync}}~fsync
+\item 
+\#define \mbox{\hyperlink{wincompat_8h_a2975fec0213aab86a7312160ab56fe32}{posix\+\_\+write}}~write
+\item 
+\#define \mbox{\hyperlink{wincompat_8h_acbdb3b9706ee520058919b5da54fb615}{INT64\+\_\+\+CONST}}(I)
+\item 
+\#define \mbox{\hyperlink{wincompat_8h_a73e4fbc110692d0c605120beacf3d511}{UINT64\+\_\+\+CONST}}(I)
+\item 
+\#define \mbox{\hyperlink{wincompat_8h_a34b39172c9bc121e58c6b5e7cf376108}{IS\+\_\+\+RELATIVE\+\_\+\+PATH}}(P)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{wincompat_8h_a2ff80281d1896ad6e969b11d60c6c19d}\index{wincompat.h@{wincompat.h}!FILE\_SEPARATOR@{FILE\_SEPARATOR}}
+\index{FILE\_SEPARATOR@{FILE\_SEPARATOR}!wincompat.h@{wincompat.h}}
+\doxysubsubsection{\texorpdfstring{FILE\_SEPARATOR}{FILE\_SEPARATOR}}
+{\footnotesize\ttfamily \label{wincompat_8h_a2ff80281d1896ad6e969b11d60c6c19d} 
+\#define FILE\+\_\+\+SEPARATOR~"{}/"{}}
+
+\Hypertarget{wincompat_8h_acbdb3b9706ee520058919b5da54fb615}\index{wincompat.h@{wincompat.h}!INT64\_CONST@{INT64\_CONST}}
+\index{INT64\_CONST@{INT64\_CONST}!wincompat.h@{wincompat.h}}
+\doxysubsubsection{\texorpdfstring{INT64\_CONST}{INT64\_CONST}}
+{\footnotesize\ttfamily \label{wincompat_8h_acbdb3b9706ee520058919b5da54fb615} 
+\#define INT64\+\_\+\+CONST(\begin{DoxyParamCaption}\item[{}]{I}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(I\ \#\#\ LL)}
+
+\end{DoxyCode}
+\Hypertarget{wincompat_8h_a57e353d6ce48ab7d414d094961d5e474}\index{wincompat.h@{wincompat.h}!INT64\_FMT@{INT64\_FMT}}
+\index{INT64\_FMT@{INT64\_FMT}!wincompat.h@{wincompat.h}}
+\doxysubsubsection{\texorpdfstring{INT64\_FMT}{INT64\_FMT}}
+{\footnotesize\ttfamily \label{wincompat_8h_a57e353d6ce48ab7d414d094961d5e474} 
+\#define INT64\+\_\+\+FMT~"{}\%lld"{}}
+
+\Hypertarget{wincompat_8h_a87486ae107978bf61a694b6b8ac345ed}\index{wincompat.h@{wincompat.h}!INT64\_HEX\_FMT@{INT64\_HEX\_FMT}}
+\index{INT64\_HEX\_FMT@{INT64\_HEX\_FMT}!wincompat.h@{wincompat.h}}
+\doxysubsubsection{\texorpdfstring{INT64\_HEX\_FMT}{INT64\_HEX\_FMT}}
+{\footnotesize\ttfamily \label{wincompat_8h_a87486ae107978bf61a694b6b8ac345ed} 
+\#define INT64\+\_\+\+HEX\+\_\+\+FMT~"{}\%ll\+X"{}}
+
+\Hypertarget{wincompat_8h_a34b39172c9bc121e58c6b5e7cf376108}\index{wincompat.h@{wincompat.h}!IS\_RELATIVE\_PATH@{IS\_RELATIVE\_PATH}}
+\index{IS\_RELATIVE\_PATH@{IS\_RELATIVE\_PATH}!wincompat.h@{wincompat.h}}
+\doxysubsubsection{\texorpdfstring{IS\_RELATIVE\_PATH}{IS\_RELATIVE\_PATH}}
+{\footnotesize\ttfamily \label{wincompat_8h_a34b39172c9bc121e58c6b5e7cf376108} 
+\#define IS\+\_\+\+RELATIVE\+\_\+\+PATH(\begin{DoxyParamCaption}\item[{}]{P}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ ((P)[0]\ !=\ \textcolor{charliteral}{'/'})}
+
+\end{DoxyCode}
+\Hypertarget{wincompat_8h_a29f52368cd471893637f529f889ef229}\index{wincompat.h@{wincompat.h}!posix\_fileno@{posix\_fileno}}
+\index{posix\_fileno@{posix\_fileno}!wincompat.h@{wincompat.h}}
+\doxysubsubsection{\texorpdfstring{posix\_fileno}{posix\_fileno}}
+{\footnotesize\ttfamily \label{wincompat_8h_a29f52368cd471893637f529f889ef229} 
+\#define posix\+\_\+fileno~fileno}
+
+\Hypertarget{wincompat_8h_a4d9051985c9e1bf219a5ff2ef658ac3d}\index{wincompat.h@{wincompat.h}!posix\_fsync@{posix\_fsync}}
+\index{posix\_fsync@{posix\_fsync}!wincompat.h@{wincompat.h}}
+\doxysubsubsection{\texorpdfstring{posix\_fsync}{posix\_fsync}}
+{\footnotesize\ttfamily \label{wincompat_8h_a4d9051985c9e1bf219a5ff2ef658ac3d} 
+\#define posix\+\_\+fsync~fsync}
+
+\Hypertarget{wincompat_8h_a2975fec0213aab86a7312160ab56fe32}\index{wincompat.h@{wincompat.h}!posix\_write@{posix\_write}}
+\index{posix\_write@{posix\_write}!wincompat.h@{wincompat.h}}
+\doxysubsubsection{\texorpdfstring{posix\_write}{posix\_write}}
+{\footnotesize\ttfamily \label{wincompat_8h_a2975fec0213aab86a7312160ab56fe32} 
+\#define posix\+\_\+write~write}
+
+\Hypertarget{wincompat_8h_a73e4fbc110692d0c605120beacf3d511}\index{wincompat.h@{wincompat.h}!UINT64\_CONST@{UINT64\_CONST}}
+\index{UINT64\_CONST@{UINT64\_CONST}!wincompat.h@{wincompat.h}}
+\doxysubsubsection{\texorpdfstring{UINT64\_CONST}{UINT64\_CONST}}
+{\footnotesize\ttfamily \label{wincompat_8h_a73e4fbc110692d0c605120beacf3d511} 
+\#define UINT64\+\_\+\+CONST(\begin{DoxyParamCaption}\item[{}]{I}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(I\ \#\#\ ULL)}
+
+\end{DoxyCode}
+\Hypertarget{wincompat_8h_a21ef7c3a4e9f99f62cf64329f965d2ed}\index{wincompat.h@{wincompat.h}!UINT64\_FMT@{UINT64\_FMT}}
+\index{UINT64\_FMT@{UINT64\_FMT}!wincompat.h@{wincompat.h}}
+\doxysubsubsection{\texorpdfstring{UINT64\_FMT}{UINT64\_FMT}}
+{\footnotesize\ttfamily \label{wincompat_8h_a21ef7c3a4e9f99f62cf64329f965d2ed} 
+\#define UINT64\+\_\+\+FMT~"{}\%llu"{}}
+

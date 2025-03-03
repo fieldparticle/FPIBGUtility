@@ -1,0 +1,34 @@
+<map id="SyncObjPO" name="SyncObjPO">
+<area shape="rect" id="Node000001" title=" " alt="" coords="396,203,486,229"/>
+<area shape="rect" id="Node000002" href="$class_sync_obj.html" title=" " alt="" coords="396,112,467,139"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="437,154,442,202,437,202,432,155"/>
+<area shape="rect" id="Node000003" href="$class_base_obj.html" title=" " alt="" coords="442,5,514,32"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="469,47,439,113,434,111,464,45"/>
+<area shape="rect" id="Node000005" href="$class_phys_dev_obj.html" title=" " alt="" coords="788,112,883,139"/>
+<area shape="poly" id="edge5_Node000005_Node000003" title=" " alt="" coords="528,35,685,85,788,111,787,116,684,91,527,40"/>
+<area shape="rect" id="Node000004" href="$class_vulkan_obj.html" title=" " alt="" coords="539,203,620,229"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="564,191,482,33,487,31,569,188"/>
+<area shape="rect" id="Node000006" href="$class_config_obj.html" title=" " alt="" coords="318,309,398,336"/>
+<area shape="poly" id="edge16_Node000006_Node000004" title=" " alt="" coords="540,239,386,311,384,306,538,234"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="786,147,617,205,615,200,784,142"/>
+<area shape="poly" id="edge20_Node000003_Node000006" title=" " alt="" coords="353,294,352,256,355,209,364,159,381,111,397,86,417,63,457,31,460,35,421,67,401,89,386,113,369,160,360,210,358,256,358,294"/>
+<area shape="poly" id="edge6_Node000005_Node000006" title=" " alt="" coords="412,312,479,301,551,283,617,260,668,240,716,214,775,177,822,137,825,141,778,181,719,219,670,245,619,265,552,288,480,306,413,318"/>
+<area shape="rect" id="Node000007" href="$structconfig__t.html" title=" " alt="" coords="135,112,202,139"/>
+<area shape="poly" id="edge7_Node000006_Node000007" title=" " alt="" coords="193,148,245,201,348,307,344,311,241,205,190,152"/>
+<area shape="poly" id="edge14_Node000007_Node000007" title=" " alt="" coords="219,116,229,125,220,134,203,136,202,131,218,130,224,125,216,120"/>
+<area shape="rect" id="Node000008" href="$structconfig__setting__t.html" title=" " alt="" coords="55,203,168,229"/>
+<area shape="poly" id="edge13_Node000008_Node000007" title=" " alt="" coords="158,154,142,180,124,204,120,201,137,177,153,151"/>
+<area shape="poly" id="edge15_Node000006_Node000008" title=" " alt="" coords="149,235,172,251,187,268,202,283,231,296,261,306,318,316,317,321,260,311,229,301,200,288,183,272,168,255,146,240"/>
+<area shape="poly" id="edge8_Node000007_Node000008" title=" " alt="" coords="105,187,111,161,123,147,137,137,140,141,126,151,116,164,110,188"/>
+<area shape="poly" id="edge12_Node000008_Node000008" title=" " alt="" coords="185,208,195,216,186,224,169,227,168,222,184,219,189,216,182,212"/>
+<area shape="rect" id="Node000010" href="$structconfig__list__t.html" title=" " alt="" coords="96,309,188,336"/>
+<area shape="poly" id="edge11_Node000010_Node000008" title=" " alt="" coords="111,245,111,265,115,284,131,308,127,311,111,286,106,265,105,245"/>
+<area shape="rect" id="Node000009" href="$unionconfig__value__t.html" title=" " alt="" coords="5,400,111,427"/>
+<area shape="poly" id="edge9_Node000008_Node000009" title=" " alt="" coords="48,385,43,349,47,309,57,285,70,262,97,228,101,231,75,265,62,287,52,310,48,349,53,385"/>
+<area shape="poly" id="edge10_Node000009_Node000010" title=" " alt="" coords="121,350,72,401,68,398,117,346"/>
+<area shape="rect" id="Node000011" href="$struct_swap_chain_support_details.html" title=" " alt="" coords="748,5,922,32"/>
+<area shape="poly" id="edge17_Node000005_Node000011" title=" " alt="" coords="838,47,838,112,833,112,833,47"/>
+<area shape="rect" id="Node000012" href="$struct_queue_family_indices.html" title=" " alt="" coords="561,5,702,32"/>
+<area shape="poly" id="edge19_Node000004_Node000012" title=" " alt="" coords="627,48,585,203,580,202,622,46"/>
+<area shape="poly" id="edge18_Node000005_Node000012" title=" " alt="" coords="665,38,749,86,803,109,801,114,747,90,662,43"/>
+</map>

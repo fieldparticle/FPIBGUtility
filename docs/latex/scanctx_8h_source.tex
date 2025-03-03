@@ -1,0 +1,115 @@
+\doxysection{scanctx.\+h}
+\hypertarget{scanctx_8h_source}{}\label{scanctx_8h_source}\index{J:/FPIBG/vulkan/src/libconfig/scanctx.h@{J:/FPIBG/vulkan/src/libconfig/scanctx.h}}
+\mbox{\hyperlink{scanctx_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ \ \ libconfig\ -\/\ A\ library\ for\ processing\ structured\ configuration\ files}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ \ \ Copyright\ (C)\ 2005-\/2023\ \ Mark\ A\ Lindner}}
+\DoxyCodeLine{00004\ \textcolor{comment}{}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ \ \ This\ file\ is\ part\ of\ libconfig.}}
+\DoxyCodeLine{00006\ \textcolor{comment}{}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ \ \ This\ library\ is\ free\ software;\ you\ can\ redistribute\ it\ and/or}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ \ \ modify\ it\ under\ the\ terms\ of\ the\ GNU\ Lesser\ General\ Public\ License}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ \ \ as\ published\ by\ the\ Free\ Software\ Foundation;\ either\ version\ 2.1\ of}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ \ \ the\ License,\ or\ (at\ your\ option)\ any\ later\ version.}}
+\DoxyCodeLine{00011\ \textcolor{comment}{}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ \ \ This\ library\ is\ distributed\ in\ the\ hope\ that\ it\ will\ be\ useful,\ but}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ \ \ WITHOUT\ ANY\ WARRANTY;\ without\ even\ the\ implied\ warranty\ of}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ \ \ MERCHANTABILITY\ or\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE.\ \ See\ the\ GNU}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ \ \ Lesser\ General\ Public\ License\ for\ more\ details.}}
+\DoxyCodeLine{00016\ \textcolor{comment}{}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ \ \ You\ should\ have\ received\ a\ copy\ of\ the\ GNU\ Library\ General\ Public}}
+\DoxyCodeLine{00018\ \textcolor{comment}{\ \ \ License\ along\ with\ this\ library;\ if\ not,\ see}}
+\DoxyCodeLine{00019\ \textcolor{comment}{\ \ \ <http://www.gnu.org/licenses/>.}}
+\DoxyCodeLine{00020\ \textcolor{comment}{\ \ \ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00021\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#ifndef\ \_\_libconfig\_scanctx\_h}}
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#define\ \_\_libconfig\_scanctx\_h}}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#include\ <stdio.h>}}
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#include\ <string.h>}}
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#include\ <sys/types.h>}}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{libconfig_8h}{libconfig.h}}"{}}}
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{strbuf_8h}{strbuf.h}}"{}}}
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{strvec_8h}{strvec.h}}"{}}}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#define\ MAX\_INCLUDE\_DEPTH\ 10}}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structinclude__stack__frame}{include\_stack\_frame}}}
+\DoxyCodeLine{00037\ \{}
+\DoxyCodeLine{00038\ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{00039\ \textcolor{comment}{\ \ \ *\ Member\ strings\ are\ not\ owned;\ they\ are\ pointers\ into\ scan\_context's}}
+\DoxyCodeLine{00040\ \textcolor{comment}{\ \ \ *\ filenames\ vector.}}
+\DoxyCodeLine{00041\ \textcolor{comment}{\ \ \ */}}
+\DoxyCodeLine{00042\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ **\mbox{\hyperlink{structinclude__stack__frame_a662b357400b82665953a2adcfb632d53}{files}};}
+\DoxyCodeLine{00043\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ **\mbox{\hyperlink{structinclude__stack__frame_a8946c0fc403efd23f11be36590b8969f}{current\_file}};}
+\DoxyCodeLine{00044\ \ \ FILE\ *\mbox{\hyperlink{structinclude__stack__frame_a8ca01917dbf6e07a8599ff0cfc5ba2c3}{current\_stream}};}
+\DoxyCodeLine{00045\ \ \ \textcolor{keywordtype}{void}\ *\mbox{\hyperlink{structinclude__stack__frame_add78f19a0df113d9930606c7010ddba9}{parent\_buffer}};}
+\DoxyCodeLine{00046\ \};}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structscan__context}{scan\_context}}}
+\DoxyCodeLine{00049\ \{}
+\DoxyCodeLine{00050\ \ \ \mbox{\hyperlink{structconfig__t}{config\_t}}\ *\mbox{\hyperlink{structscan__context_a535f3ae7e1140baf91f736e833192147}{config}};}
+\DoxyCodeLine{00051\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structscan__context_ae3db7eaa46cd30631e3f154bdc514feb}{top\_filename}};}
+\DoxyCodeLine{00052\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structinclude__stack__frame}{include\_stack\_frame}}\ \mbox{\hyperlink{structscan__context_af6b556bcabff6c4f7cb83c25006bd399}{include\_stack}}[\mbox{\hyperlink{scanctx_8h_a641f7209d924c2c4cb24420dcd631f37}{MAX\_INCLUDE\_DEPTH}}];}
+\DoxyCodeLine{00053\ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structscan__context_a6dd568e739fcc4d4b1bbbffe4f281681}{stack\_depth}};}
+\DoxyCodeLine{00054\ \ \ \mbox{\hyperlink{structstrbuf__t}{strbuf\_t}}\ \mbox{\hyperlink{structscan__context_aa23d5c633b40966b509c91068b72fc47}{string}};}
+\DoxyCodeLine{00055\ \ \ \mbox{\hyperlink{structstrvec__t}{strvec\_t}}\ \mbox{\hyperlink{structscan__context_a56cd0a4f38ba58fc4735a00f6c8872b0}{filenames}};}
+\DoxyCodeLine{00056\ \};}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{scanctx_8h_a0f6b39d49bd2e3300e3a0ae5f83e9132}{libconfig\_scanctx\_init}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structscan__context}{scan\_context}}\ *ctx,}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *top\_filename);}
+\DoxyCodeLine{00060\ \textcolor{keyword}{extern}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ **\mbox{\hyperlink{scanctx_8h_a6e900544ac8d4e5ef77683c0a628e6c4}{libconfig\_scanctx\_cleanup}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structscan__context}{scan\_context}}\ *ctx);}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00063\ \textcolor{comment}{\ *\ Pushes\ a\ new\ frame\ onto\ the\ include\ stack,\ and\ returns\ an\ open\ stream\ to\ the}}
+\DoxyCodeLine{00064\ \textcolor{comment}{\ *\ first\ file\ in\ the\ include\ list,\ if\ any.}}
+\DoxyCodeLine{00065\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00066\ \textcolor{comment}{\ *\ ctx\ -\/\ The\ scan\ context}}
+\DoxyCodeLine{00067\ \textcolor{comment}{\ *\ prev\_buffer\ -\/\ The\ current\ input\ buffer,\ to\ be\ restored\ when\ this\ frame\ is}}
+\DoxyCodeLine{00068\ \textcolor{comment}{\ *\ popped}}
+\DoxyCodeLine{00069\ \textcolor{comment}{\ *\ path\ -\/\ The\ string\ argument\ to\ the\ @include\ directive,\ to\ be\ expanded\ into\ a}}
+\DoxyCodeLine{00070\ \textcolor{comment}{\ *\ list\ of\ zero\ or\ more\ filenames\ using\ the\ function\ ctx-\/>config-\/>include\_fn}}
+\DoxyCodeLine{00071\ \textcolor{comment}{\ *\ error\ -\/\ A\ pointer\ at\ which\ to\ store\ a\ static\ error\ message,\ if\ any.}}
+\DoxyCodeLine{00072\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00073\ \textcolor{comment}{\ *\ On\ success,\ the\ new\ frame\ will\ be\ pushed\ and\ the\ stream\ to\ the\ first\ file}}
+\DoxyCodeLine{00074\ \textcolor{comment}{\ *\ will\ be\ returned.}}
+\DoxyCodeLine{00075\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00076\ \textcolor{comment}{\ *\ On\ failure,\ the\ frame\ will\ not\ be\ pushed\ and\ NULL\ will\ be\ returned.\ If}}
+\DoxyCodeLine{00077\ \textcolor{comment}{\ *\ *error\ is\ NULL,\ it\ means\ there\ are\ no\ files\ in\ the\ list.\ Otherwise,\ it}}
+\DoxyCodeLine{00078\ \textcolor{comment}{\ *\ points\ to\ an\ error\ and\ parsing\ should\ be\ aborted.}}
+\DoxyCodeLine{00079\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00080\ \textcolor{keyword}{extern}\ FILE\ *\mbox{\hyperlink{scanctx_8h_a08855e7318b69239bda77e49dbf6f5e9}{libconfig\_scanctx\_push\_include}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structscan__context}{scan\_context}}\ *ctx,}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ *prev\_buffer,}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *path,}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ **error);}
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00085\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00086\ \textcolor{comment}{\ *\ Returns\ the\ next\ include\ file\ in\ the\ current\ include\ stack\ frame.}}
+\DoxyCodeLine{00087\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00088\ \textcolor{comment}{\ *\ Returns\ NULL\ on\ failure\ or\ if\ there\ are\ no\ more\ files\ left\ in\ the\ current}}
+\DoxyCodeLine{00089\ \textcolor{comment}{\ *\ frame.\ If\ there\ was\ an\ error,\ sets\ *error.}}
+\DoxyCodeLine{00090\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00091\ \textcolor{keyword}{extern}\ FILE\ *\mbox{\hyperlink{scanctx_8h_a328eccc98535014c6b831d78729f1be7}{libconfig\_scanctx\_next\_include\_file}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structscan__context}{scan\_context}}\ *ctx,}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ **error);}
+\DoxyCodeLine{00093\ }
+\DoxyCodeLine{00094\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00095\ \textcolor{comment}{\ *\ Pops\ a\ frame\ off\ the\ include\ stack.}}
+\DoxyCodeLine{00096\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00097\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{void}\ *\mbox{\hyperlink{scanctx_8h_a46f13eb6debcfa0ec6d0e5e6d7842619}{libconfig\_scanctx\_pop\_include}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structscan__context}{scan\_context}}\ *ctx);}
+\DoxyCodeLine{00098\ }
+\DoxyCodeLine{00099\ \textcolor{preprocessor}{\#define\ libconfig\_scanctx\_append\_string(C,\ S)\ \(\backslash\)}}
+\DoxyCodeLine{00100\ \textcolor{preprocessor}{\ \ libconfig\_strbuf\_append\_string(\&((C)-\/>string),\ (S))}}
+\DoxyCodeLine{00101\ }
+\DoxyCodeLine{00102\ \textcolor{preprocessor}{\#define\ libconfig\_scanctx\_append\_char(C,\ X)\ \(\backslash\)}}
+\DoxyCodeLine{00103\ \textcolor{preprocessor}{\ \ libconfig\_strbuf\_append\_char(\&((C)-\/>string),\ (X))}}
+\DoxyCodeLine{00104\ }
+\DoxyCodeLine{00105\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{scanctx_8h_a54f8110c20046d6a459ac29d183cb11d}{libconfig\_scanctx\_take\_string}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structscan__context}{scan\_context}}\ *ctx);}
+\DoxyCodeLine{00106\ }
+\DoxyCodeLine{00107\ \textcolor{keyword}{extern}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{scanctx_8h_a28e7780cbd429e7a3ef8c98643bc1c93}{libconfig\_scanctx\_current\_filename}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structscan__context}{scan\_context}}\ *ctx);}
+\DoxyCodeLine{00108\ }
+\DoxyCodeLine{00109\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ \_\_libconfig\_scanctx\_h\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

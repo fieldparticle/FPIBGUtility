@@ -1,0 +1,98 @@
+\doxysection{Sync\+Obj.\+hpp}
+\hypertarget{_sync_obj_8hpp_source}{}\label{_sync_obj_8hpp_source}\index{J:/FPIBG/vulkan/src/VulkanObj/SyncObj.hpp@{J:/FPIBG/vulkan/src/VulkanObj/SyncObj.hpp}}
+\mbox{\hyperlink{_sync_obj_8hpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*******************************************************************}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\%***\ \ \ \ \ \ C\ PROPRIETARY\ SOURCE\ FILE\ IDENTIFICATION\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ***}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\%*******************************************************************}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\%\ \$Author:\ jb\ \$}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\%}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\%\ \$Date:\ 2023-\/06-\/12\ 16:17:58\ -\/0400\ (Mon,\ 12\ Jun\ 2023)\ \$}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\%\ \$HeadURL:\ https://jbworkstation/svn/svnrootr5/svnvulcan/src/vulkan/SyncObj.hpp\ \$}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\%\ \$Id:\ SyncObj.hpp\ 31\ 2023-\/06-\/12\ 20:17:58Z\ jb\ \$}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\%*******************************************************************}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\%***\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DESCRIPTION\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ***}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\%*******************************************************************}}
+\DoxyCodeLine{00012\ \textcolor{comment}{@doc}}
+\DoxyCodeLine{00013\ \textcolor{comment}{@module}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ @author:\ Jackie\ Michael\ Bell<nl>}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ COPYRIGHT\ <cp>\ Jackie\ Michael\ Bell<nl>}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ Property\ of\ Jackie\ Michael\ Bell<rtm>.\ All\ Rights\ Reserved.<nl>}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ This\ source\ code\ file\ contains\ proprietary<nl>}}
+\DoxyCodeLine{00018\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ and\ confidential\ information.<nl>}}
+\DoxyCodeLine{00019\ \textcolor{comment}{}}
+\DoxyCodeLine{00020\ \textcolor{comment}{}}
+\DoxyCodeLine{00021\ \textcolor{comment}{@head3\ \ \ \ \ \ Description.\ |}}
+\DoxyCodeLine{00022\ \textcolor{comment}{@normal}}
+\DoxyCodeLine{00023\ \textcolor{comment}{}}
+\DoxyCodeLine{00024\ \textcolor{comment}{}}
+\DoxyCodeLine{00025\ \textcolor{comment}{********************************************************************}}
+\DoxyCodeLine{00026\ \textcolor{comment}{\%***\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ SVN\ CHANGE\ RECORD\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ***}}
+\DoxyCodeLine{00027\ \textcolor{comment}{\%*******************************************************************}}
+\DoxyCodeLine{00028\ \textcolor{comment}{\%*\$Revision:\ 31\ \$}}
+\DoxyCodeLine{00029\ \textcolor{comment}{\%*}}
+\DoxyCodeLine{00030\ \textcolor{comment}{\%*}}
+\DoxyCodeLine{00031\ \textcolor{comment}{\%******************************************************************/}}
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#ifndef\ SYNCOBJ\_HPP}}
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#define\ SYNCOBJ\_HPP}}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_semdef}{Semdef}}\ }
+\DoxyCodeLine{00037\ \{}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ std::string\ \mbox{\hyperlink{struct_semdef_ad87cbbf69a7d8643f4f5059c84675909}{name}};}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ std::vector<VkSemaphore>\ \mbox{\hyperlink{struct_semdef_a208f60d868bd0e9c61791e0912e2f99b}{semvec}};\ \ }
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ std::vector<VkPipelineStageFlags>\ \mbox{\hyperlink{struct_semdef_aa23827a6ccbb73e83daa68c761f06c5e}{pipeStage}};}
+\DoxyCodeLine{00041\ \}\ \mbox{\hyperlink{_sync_obj_8hpp_a2c0806badbcbd598988049f630c915a2}{semdef}};\ }
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_fencedef}{Fencedef}}\ }
+\DoxyCodeLine{00044\ \{}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ std::string\ \mbox{\hyperlink{struct_fencedef_a1b16a81fc0dca6c30385b6f644c3b0b2}{name}};}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ std::vector<VkFence>\ \mbox{\hyperlink{struct_fencedef_ad8f50fd2c14e75bb5c1f85edd62f9e73}{fencevec}};}
+\DoxyCodeLine{00047\ \ \ \ \ }
+\DoxyCodeLine{00048\ \}\mbox{\hyperlink{_sync_obj_8hpp_a4853f4e578abb4eb4487cfddf0a97c3b}{fencedef}};\ \ }
+\DoxyCodeLine{00049\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_swap_chain_obj}{SwapChainObj}};}
+\DoxyCodeLine{00050\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_sync_obj_a367217397f5135fe4df6175c2c5e5686}{SyncObj}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_base_obj_a4b83af8a8e0e29a74b5d1780e2dd9172}{BaseObj}}}
+\DoxyCodeLine{00051\ \{}
+\DoxyCodeLine{00052\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00053\ \ \ \ \ std::vector<semdef>\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_sync_obj_adcb1528bab2dc27e757a17370d1241f6}{m\_WaitSemaphores}};}
+\DoxyCodeLine{00054\ \ \ \ \ std::vector<semdef>\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_sync_obj_a5c08a5baaef917b43e26b3a5dda1df67}{m\_SigSemaphores}};}
+\DoxyCodeLine{00055\ \ \ \ \ std::vector<fencedef>\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_sync_obj_a080d4fa72a8a4596251b5030e660c58e}{m\_Fences}};}
+\DoxyCodeLine{00056\ \ \ \ \ }
+\DoxyCodeLine{00057\ \ \ \ \ std::vector<VkSemaphore>\ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_sync_obj_aa16feb3d2234338c4b978dbae6354aab}{m\_ary\_waitSem}};}
+\DoxyCodeLine{00058\ \ \ \ \ std::vector<VkPipelineStageFlags>\ \ \ \mbox{\hyperlink{class_sync_obj_a3f87822b2e15bbeef9fdcd280ca54045}{m\_ary\_waitPSF}};}
+\DoxyCodeLine{00059\ \ \ \ \ std::vector<VkSemaphore>\ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_sync_obj_ac303585d5e8dc03b1d4a90fdf25e51a5}{m\_ary\_signalSem}};}
+\DoxyCodeLine{00060\ \ \ \ \ std::vector<VkFence>\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_sync_obj_a4291eab79edcdc8b1dc512a2f6d42248}{m\_ary\_fences}};}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \ \ \ \ }
+\DoxyCodeLine{00063\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_sync_obj_ad34b89b6e07824f17427aef81aafbdc2}{AddSignalSemaphore}}(std::string\ Name);}
+\DoxyCodeLine{00064\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_sync_obj_ad0dadbddee3edea5ad734392beff83e6}{AddWaitSemaphore}}(std::string\ Name,\ VkPipelineStageFlags\ PipeStage);}
+\DoxyCodeLine{00065\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_sync_obj_ac509953ac684464f5219515d5d0a6557}{AddFence}}(std::string\ Name);}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00067\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_sync_obj_a76fb37fe362aae7f72c9fce76fce956c}{Create}}(uint32\_t\ BindPoint)\ \{\}}
+\DoxyCodeLine{00068\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_sync_obj_a037e0de3ae02b289dd7c120dc7da8664}{Create}}()}
+\DoxyCodeLine{00069\ \ \ \ \ \{}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_base_obj_a615d9ffc2cf237a1d45ac63721fae83c}{m\_thisFramesBuffered}}\ =\ \mbox{\hyperlink{class_base_obj_ab8f8d9c2f68f3bef1153d397d61646b0}{m\_App}}-\/>m\_FramesBuffered;}
+\DoxyCodeLine{00071\ \ \ \ \ \};}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \ \ \ \ std::vector\ <VkSemaphore>\ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_sync_obj_a3c0b3d8e67a5ec6f31d045761b7429ec}{GetWaitSemaphores}}(uint32\_t\ FrameNum);}
+\DoxyCodeLine{00075\ \ \ \ \ std::vector\ <VkPipelineStageFlags>\ \ \mbox{\hyperlink{class_sync_obj_a8ad8649a9a845d133958272f56fff1c2}{GetWaitPipeStages}}(uint32\_t\ FrameNum);}
+\DoxyCodeLine{00076\ \ \ \ \ std::vector\ <VkSemaphore>\ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_sync_obj_aa0ae12d982cd0f3056aad67411b2ff63}{GetSignalSemaphores}}(uint32\_t\ FrameNum);}
+\DoxyCodeLine{00077\ \ \ \ \ std::vector\ <VkFence>\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_sync_obj_a07d346b21273ca577702fd2276d5e4f9}{GetFences}}(uint32\_t\ FrameNum);}
+\DoxyCodeLine{00078\ \ \ \ \ VkFence*\ \mbox{\hyperlink{class_sync_obj_abfb06cd63b80e09120fc6b2a8681554a}{gf}}(uint32\_t\ Num,\ uint32\_t\ FrameNum);}
+\DoxyCodeLine{00079\ \ \ \ \ VkSemaphore*\ \mbox{\hyperlink{class_sync_obj_a07d8d27c7c6ac7b376364e4970150384}{gws}}(uint32\_t\ Num,\ uint32\_t\ FrameNum);}
+\DoxyCodeLine{00080\ \ \ \ \ VkSemaphore*\ \mbox{\hyperlink{class_sync_obj_afc62e593f1ca625c9afb17f7cf4ac906}{gsn}}(uint32\_t\ Num,\ uint32\_t\ FrameNum);}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00082\ \ \ \ \ VkSemaphore*\ \mbox{\hyperlink{class_sync_obj_a960ef473ef208aa1d4532e29d288ea34}{GetWaitSemaphore}}(std::string\ Name,\ uint32\_t\ FrameNum);}
+\DoxyCodeLine{00083\ \ \ \ \ VkFence*\ \mbox{\hyperlink{class_sync_obj_a8f083849c4cb607c466eaea699f77dac}{GetFence}}(std::string\ Name,\ uint32\_t\ FrameNum);}
+\DoxyCodeLine{00084\ \ \ \ \ VkSemaphore*\ \mbox{\hyperlink{class_sync_obj_a5e95528b446d2d0934b16898092ebdf3}{GetSignalSemaphore}}(std::string\ Name,\ uint32\_t\ FrameNum);}
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00086\ \ \ \ \ \mbox{\hyperlink{class_sync_obj_a367217397f5135fe4df6175c2c5e5686}{SyncObj}}(\mbox{\hyperlink{class_vulkan_obj}{VulkanObj}}*\ App,\ std::string\ Name)\ :\ \mbox{\hyperlink{class_base_obj_a4b83af8a8e0e29a74b5d1780e2dd9172}{BaseObj}}(Name,0,App)\{\};}
+\DoxyCodeLine{00087\ \ \ \ \ }
+\DoxyCodeLine{00088\ \ \ \ \ }
+\DoxyCodeLine{00089\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_sync_obj_ad09ed8956415f64266ff9cf7ddd511bd}{Cleanup}}();}
+\DoxyCodeLine{00090\ \ \ \ \ }
+\DoxyCodeLine{00091\ \};}
+\DoxyCodeLine{00092\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

@@ -1,0 +1,371 @@
+\doxysection{libconfig.\+h}
+\hypertarget{libconfig_8h_source}{}\label{libconfig_8h_source}\index{J:/FPIBG/vulkan/src/libconfig/libconfig.h@{J:/FPIBG/vulkan/src/libconfig/libconfig.h}}
+\mbox{\hyperlink{libconfig_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ \ \ libconfig\ -\/\ A\ library\ for\ processing\ structured\ configuration\ files}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ \ \ Copyright\ (C)\ 2005-\/2023\ \ Mark\ A\ Lindner}}
+\DoxyCodeLine{00004\ \textcolor{comment}{}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ \ \ This\ file\ is\ part\ of\ libconfig.}}
+\DoxyCodeLine{00006\ \textcolor{comment}{}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ \ \ This\ library\ is\ free\ software;\ you\ can\ redistribute\ it\ and/or}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ \ \ modify\ it\ under\ the\ terms\ of\ the\ GNU\ Lesser\ General\ Public\ License}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ \ \ as\ published\ by\ the\ Free\ Software\ Foundation;\ either\ version\ 2.1\ of}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ \ \ the\ License,\ or\ (at\ your\ option)\ any\ later\ version.}}
+\DoxyCodeLine{00011\ \textcolor{comment}{}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ \ \ This\ library\ is\ distributed\ in\ the\ hope\ that\ it\ will\ be\ useful,\ but}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ \ \ WITHOUT\ ANY\ WARRANTY;\ without\ even\ the\ implied\ warranty\ of}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ \ \ MERCHANTABILITY\ or\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE.\ \ See\ the\ GNU}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ \ \ Lesser\ General\ Public\ License\ for\ more\ details.}}
+\DoxyCodeLine{00016\ \textcolor{comment}{}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ \ \ You\ should\ have\ received\ a\ copy\ of\ the\ GNU\ Library\ General\ Public}}
+\DoxyCodeLine{00018\ \textcolor{comment}{\ \ \ License\ along\ with\ this\ library;\ if\ not,\ see}}
+\DoxyCodeLine{00019\ \textcolor{comment}{\ \ \ <http://www.gnu.org/licenses/>.}}
+\DoxyCodeLine{00020\ \textcolor{comment}{\ \ \ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00021\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#ifndef\ \_\_libconfig\_h}}
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#define\ \_\_libconfig\_h}}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00027\ \textcolor{keyword}{extern}\ \textcolor{stringliteral}{"{}C"{}}\ \{}
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ \_\_cplusplus\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#if\ defined(\_WIN32)\ ||\ defined(\_\_WIN32\_\_)\ ||\ defined(WIN32)}}
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#if\ defined(LIBCONFIG\_STATIC)}}
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#define\ LIBCONFIG\_API}}
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#elif\ defined(LIBCONFIG\_EXPORTS)}}
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#define\ LIBCONFIG\_API\ \_\_declspec(dllexport)}}
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\#else\ }\textcolor{comment}{/*\ !\ LIBCONFIG\_EXPORTS\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\#define\ LIBCONFIG\_API\ \_\_declspec(dllimport)}}
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ LIBCONFIG\_STATIC\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00038\ \textcolor{preprocessor}{\#else\ }\textcolor{comment}{/*\ !\ WIN32\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\#define\ LIBCONFIG\_API}}
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ WIN32\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#define\ LIBCONFIG\_VER\_MAJOR\ \ \ \ 1}}
+\DoxyCodeLine{00043\ \textcolor{preprocessor}{\#define\ LIBCONFIG\_VER\_MINOR\ \ \ \ 7}}
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#define\ LIBCONFIG\_VER\_REVISION\ 4}}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ \textcolor{preprocessor}{\#include\ <stdio.h>}}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#define\ CONFIG\_TYPE\_NONE\ \ \ \ 0}}
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#define\ CONFIG\_TYPE\_GROUP\ \ \ 1}}
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#define\ CONFIG\_TYPE\_INT\ \ \ \ \ 2}}
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#define\ CONFIG\_TYPE\_INT64\ \ \ 3}}
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#define\ CONFIG\_TYPE\_FLOAT\ \ \ 4}}
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#define\ CONFIG\_TYPE\_STRING\ \ 5}}
+\DoxyCodeLine{00054\ \textcolor{preprocessor}{\#define\ CONFIG\_TYPE\_BOOL\ \ \ \ 6}}
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\#define\ CONFIG\_TYPE\_ARRAY\ \ \ 7}}
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\#define\ CONFIG\_TYPE\_LIST\ \ \ \ 8}}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \textcolor{preprocessor}{\#define\ CONFIG\_FORMAT\_DEFAULT\ \ 0}}
+\DoxyCodeLine{00059\ \textcolor{preprocessor}{\#define\ CONFIG\_FORMAT\_HEX\ \ \ \ \ \ 1}}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ \textcolor{preprocessor}{\#define\ CONFIG\_OPTION\_AUTOCONVERT\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0x01}}
+\DoxyCodeLine{00062\ \textcolor{preprocessor}{\#define\ CONFIG\_OPTION\_SEMICOLON\_SEPARATORS\ \ \ \ \ \ \ \ \ \ \ \ 0x02}}
+\DoxyCodeLine{00063\ \textcolor{preprocessor}{\#define\ CONFIG\_OPTION\_COLON\_ASSIGNMENT\_FOR\_GROUPS\ \ \ \ \ 0x04}}
+\DoxyCodeLine{00064\ \textcolor{preprocessor}{\#define\ CONFIG\_OPTION\_COLON\_ASSIGNMENT\_FOR\_NON\_GROUPS\ 0x08}}
+\DoxyCodeLine{00065\ \textcolor{preprocessor}{\#define\ CONFIG\_OPTION\_OPEN\_BRACE\_ON\_SEPARATE\_LINE\ \ \ \ \ 0x10}}
+\DoxyCodeLine{00066\ \textcolor{preprocessor}{\#define\ CONFIG\_OPTION\_ALLOW\_SCIENTIFIC\_NOTATION\ \ \ \ \ \ \ 0x20}}
+\DoxyCodeLine{00067\ \textcolor{preprocessor}{\#define\ CONFIG\_OPTION\_FSYNC\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0x40}}
+\DoxyCodeLine{00068\ \textcolor{preprocessor}{\#define\ CONFIG\_OPTION\_ALLOW\_OVERRIDES\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0x80}}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \textcolor{preprocessor}{\#define\ CONFIG\_TRUE\ \ (1)}}
+\DoxyCodeLine{00071\ \textcolor{preprocessor}{\#define\ CONFIG\_FALSE\ (0)}}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00073\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{union\ }\mbox{\hyperlink{unionconfig__value__t}{config\_value\_t}}}
+\DoxyCodeLine{00074\ \{}
+\DoxyCodeLine{00075\ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{unionconfig__value__t_aa58090ef8528c7e35eb38c6ad23551e0}{ival}};}
+\DoxyCodeLine{00076\ \ \ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ \mbox{\hyperlink{unionconfig__value__t_ac375626c7fff331cf0d1e866b033f20a}{llval}};}
+\DoxyCodeLine{00077\ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{unionconfig__value__t_a609c841d56ec29422ed61d12a90e7dfc}{fval}};}
+\DoxyCodeLine{00078\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{unionconfig__value__t_a376d09b3da99952fcb1373b3574266ce}{sval}};}
+\DoxyCodeLine{00079\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structconfig__list__t}{config\_list\_t}}\ *\mbox{\hyperlink{unionconfig__value__t_a59f370b82f6ac0663825f8c90e12d63d}{list}};}
+\DoxyCodeLine{00080\ \}\ \mbox{\hyperlink{unionconfig__value__t}{config\_value\_t}};}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00082\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structconfig__setting__t}{config\_setting\_t}}}
+\DoxyCodeLine{00083\ \{}
+\DoxyCodeLine{00084\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structconfig__setting__t_a2228af4451498a4961b72dd4dcfe57cb}{name}};}
+\DoxyCodeLine{00085\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{short}\ \mbox{\hyperlink{structconfig__setting__t_a61dcaa38f095876d2807df6f524e76f9}{type}};}
+\DoxyCodeLine{00086\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{short}\ \mbox{\hyperlink{structconfig__setting__t_a728b0e37665963c3d9b3140b65a8d21f}{format}};}
+\DoxyCodeLine{00087\ \ \ \mbox{\hyperlink{unionconfig__value__t}{config\_value\_t}}\ \mbox{\hyperlink{structconfig__setting__t_a2d217386c7e30456e484151b61ce597f}{value}};}
+\DoxyCodeLine{00088\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structconfig__setting__t}{config\_setting\_t}}\ *\mbox{\hyperlink{structconfig__setting__t_a70368ebbbb3c902adbbcd96606547d7d}{parent}};}
+\DoxyCodeLine{00089\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structconfig__t}{config\_t}}\ *\mbox{\hyperlink{structconfig__setting__t_a8d6d8450cc6e3485d9f2da3302c231f4}{config}};}
+\DoxyCodeLine{00090\ \ \ \textcolor{keywordtype}{void}\ *\mbox{\hyperlink{structconfig__setting__t_aa8238d7d2cc16b51eac47e82867494a5}{hook}};}
+\DoxyCodeLine{00091\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structconfig__setting__t_a11fc7f855c8200ea53458451d0ef0e9c}{line}};}
+\DoxyCodeLine{00092\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structconfig__setting__t_af28d89c366212409e49f5dd52c9b7240}{file}};}
+\DoxyCodeLine{00093\ \}\ \mbox{\hyperlink{structconfig__setting__t}{config\_setting\_t}};}
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00095\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}}
+\DoxyCodeLine{00096\ \{}
+\DoxyCodeLine{00097\ \ \ \mbox{\hyperlink{libconfig_8h_aa2ee0cc0ed9667955b6c3e93b8577339ae124b071c8ae075b2c263331ab6b1ac1}{CONFIG\_ERR\_NONE}}\ =\ 0,}
+\DoxyCodeLine{00098\ \ \ \mbox{\hyperlink{libconfig_8h_aa2ee0cc0ed9667955b6c3e93b8577339afa8304bf3565a6d1b679bee268fcecc9}{CONFIG\_ERR\_FILE\_IO}}\ =\ 1,}
+\DoxyCodeLine{00099\ \ \ \mbox{\hyperlink{libconfig_8h_aa2ee0cc0ed9667955b6c3e93b8577339ac8a59a1b7b56a4eb1bbd961c96d3a31c}{CONFIG\_ERR\_PARSE}}\ =\ 2}
+\DoxyCodeLine{00100\ \}\ \mbox{\hyperlink{libconfig_8h_aa2ee0cc0ed9667955b6c3e93b8577339}{config\_error\_t}};}
+\DoxyCodeLine{00101\ }
+\DoxyCodeLine{00102\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structconfig__list__t}{config\_list\_t}}}
+\DoxyCodeLine{00103\ \{}
+\DoxyCodeLine{00104\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structconfig__list__t_a713729415280421d146ce4f590e33356}{length}};}
+\DoxyCodeLine{00105\ \ \ \mbox{\hyperlink{structconfig__setting__t}{config\_setting\_t}}\ **\mbox{\hyperlink{structconfig__list__t_a8a0f0c428590f6630367748c0170c1ea}{elements}};}
+\DoxyCodeLine{00106\ \}\ \mbox{\hyperlink{structconfig__list__t}{config\_list\_t}};}
+\DoxyCodeLine{00107\ }
+\DoxyCodeLine{00108\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ **\ (*config\_include\_fn\_t)(\textcolor{keyword}{struct\ }\mbox{\hyperlink{structconfig__t}{config\_t}}\ *,}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *,}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *,}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ **);}
+\DoxyCodeLine{00112\ }
+\DoxyCodeLine{00113\ \textcolor{keyword}{typedef}\ void\ (*\mbox{\hyperlink{libconfig_8h_ac27f5e7f8cd18d661fab292b0a2123b3}{config\_fatal\_error\_fn\_t}})(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *);}
+\DoxyCodeLine{00114\ }
+\DoxyCodeLine{00115\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structconfig__t}{config\_t}}}
+\DoxyCodeLine{00116\ \{}
+\DoxyCodeLine{00117\ \ \ \mbox{\hyperlink{structconfig__setting__t}{config\_setting\_t}}\ *\mbox{\hyperlink{structconfig__t_a32f9518ccc7f8a65b5f794fc9d38a565}{root}};}
+\DoxyCodeLine{00118\ \ \ void\ (*\mbox{\hyperlink{structconfig__t_af3111ff830a1541a55f41c1a396e767b}{destructor}})(\textcolor{keywordtype}{void}\ *);}
+\DoxyCodeLine{00119\ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structconfig__t_a6a7948047b05783a02d4a6fcc35a7324}{options}};}
+\DoxyCodeLine{00120\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{short}\ \mbox{\hyperlink{structconfig__t_aaa1a237aeadf1111eaac6946b252c227}{tab\_width}};}
+\DoxyCodeLine{00121\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{short}\ \mbox{\hyperlink{structconfig__t_aeee5c5469679b622795df324574f24af}{float\_precision}};}
+\DoxyCodeLine{00122\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{short}\ \mbox{\hyperlink{structconfig__t_af325d99c71bb7df26e309914eb776b74}{default\_format}};}
+\DoxyCodeLine{00123\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structconfig__t_a4cfbc200fe5186e02b39a81d6d9171fc}{include\_dir}};}
+\DoxyCodeLine{00124\ \ \ \mbox{\hyperlink{libconfig_8h_a64a4cb48aca4d78e6f09618d1e17e7db}{config\_include\_fn\_t}}\ \mbox{\hyperlink{structconfig__t_a2e78200ed6497f30d9601162dea40677}{include\_fn}};}
+\DoxyCodeLine{00125\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structconfig__t_ab1af593275e4d341c8cc455a9e84588d}{error\_text}};}
+\DoxyCodeLine{00126\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structconfig__t_a244b41324f8458377c6aff4c5caa966f}{error\_file}};}
+\DoxyCodeLine{00127\ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structconfig__t_a4c437bd0d5063aaf27f68cb84bba8616}{error\_line}};}
+\DoxyCodeLine{00128\ \ \ \mbox{\hyperlink{libconfig_8h_aa2ee0cc0ed9667955b6c3e93b8577339}{config\_error\_t}}\ \mbox{\hyperlink{structconfig__t_a4619b7a4a2d2259e90137426a4263dbe}{error\_type}};}
+\DoxyCodeLine{00129\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ **\mbox{\hyperlink{structconfig__t_a208403fa69f842cb29b8055a0ccb8317}{filenames}};}
+\DoxyCodeLine{00130\ \ \ \textcolor{keywordtype}{void}\ *\mbox{\hyperlink{structconfig__t_a2c6abddd3306280eb4b7abe56e201363}{hook}};}
+\DoxyCodeLine{00131\ \}\ \mbox{\hyperlink{structconfig__t}{config\_t}};}
+\DoxyCodeLine{00132\ }
+\DoxyCodeLine{00133\ \textcolor{keyword}{extern}\ \mbox{\hyperlink{libconfig_8h_ad2e07161dd0740870adf00784e3e9875}{LIBCONFIG\_API}}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{libconfig_8h_ade3e90a918cb62daf3f71ebdc785a9d5}{config\_read}}(\mbox{\hyperlink{structconfig__t}{config\_t}}\ *config,\ FILE\ *stream);}
+\DoxyCodeLine{00134\ \textcolor{keyword}{extern}\ \mbox{\hyperlink{libconfig_8h_ad2e07161dd0740870adf00784e3e9875}{LIBCONFIG\_API}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{libconfig_8h_ae2cd4cf2be3a421419777d009e6df993}{config\_write}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structconfig__t}{config\_t}}\ *config,\ FILE\ *stream);}
+\DoxyCodeLine{00135\ }
+\DoxyCodeLine{00136\ \textcolor{keyword}{extern}\ \mbox{\hyperlink{libconfig_8h_ad2e07161dd0740870adf00784e3e9875}{LIBCONFIG\_API}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{libconfig_8h_a6e8fbcf9a16a5c912db5d92dd2689be1}{config\_set\_default\_format}}(\mbox{\hyperlink{structconfig__t}{config\_t}}\ *config,}
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{short}\ format);}
+\DoxyCodeLine{00138\ }
+\DoxyCodeLine{00139\ \textcolor{keyword}{extern}\ \mbox{\hyperlink{libconfig_8h_ad2e07161dd0740870adf00784e3e9875}{LIBCONFIG\_API}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{libconfig_8h_a59ba04729a47f6e4b1a382437f43cfe8}{config\_set\_options}}(\mbox{\hyperlink{structconfig__t}{config\_t}}\ *config,\ \textcolor{keywordtype}{int}\ options);}
+\DoxyCodeLine{00140\ \textcolor{keyword}{extern}\ \mbox{\hyperlink{libconfig_8h_ad2e07161dd0740870adf00784e3e9875}{LIBCONFIG\_API}}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{libconfig_8h_a8eb21bb143fa85270c48ec95ad9ebfc1}{config\_get\_options}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structconfig__t}{config\_t}}\ *config);}
+\DoxyCodeLine{00141\ }
+\DoxyCodeLine{00142\ \textcolor{keyword}{extern}\ \mbox{\hyperlink{libconfig_8h_ad2e07161dd0740870adf00784e3e9875}{LIBCONFIG\_API}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{libconfig_8h_aa9b3794bd46334e0c74bc01154f048a1}{config\_set\_option}}(\mbox{\hyperlink{structconfig__t}{config\_t}}\ *config,\ \textcolor{keywordtype}{int}\ option,}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{mout_8hpp_aa3ded6957ef50c09491fe0953241c37a}{flag}});}
+\DoxyCodeLine{00144\ \textcolor{keyword}{extern}\ \mbox{\hyperlink{libconfig_8h_ad2e07161dd0740870adf00784e3e9875}{LIBCONFIG\_API}}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{libconfig_8h_ac4a36e312731ce8c878e826ddf45abe3}{config\_get\_option}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structconfig__t}{config\_t}}\ *config,\ \textcolor{keywordtype}{int}\ option);}
+\DoxyCodeLine{00145\ }
+\DoxyCodeLine{00146\ \textcolor{keyword}{extern}\ \mbox{\hyperlink{libconfig_8h_ad2e07161dd0740870adf00784e3e9875}{LIBCONFIG\_API}}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{libconfig_8h_af949fcd25cd9adca27c78a49f62c2ebd}{config\_read\_string}}(\mbox{\hyperlink{structconfig__t}{config\_t}}\ *config,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *str);}
+\DoxyCodeLine{00147\ }
+\DoxyCodeLine{00148\ \textcolor{keyword}{extern}\ \mbox{\hyperlink{libconfig_8h_ad2e07161dd0740870adf00784e3e9875}{LIBCONFIG\_API}}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{libconfig_8h_a07dc4858f102ee91fafc17ed5932215e}{config\_read\_file}}(\mbox{\hyperlink{structconfig__t}{config\_t}}\ *config,}
+\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *filename);}
+\DoxyCodeLine{00150\ \textcolor{keyword}{extern}\ \mbox{\hyperlink{libconfig_8h_ad2e07161dd0740870adf00784e3e9875}{LIBCONFIG\_API}}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{libconfig_8h_ab5eadf52f3a1c04973041a13087d630c}{config\_write\_file}}(\mbox{\hyperlink{structconfig__t}{config\_t}}\ *config,}
+\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *filename);}
+\DoxyCodeLine{00152\ }
+\DoxyCodeLine{00153\ \textcolor{keyword}{extern}\ \mbox{\hyperlink{libconfig_8h_ad2e07161dd0740870adf00784e3e9875}{LIBCONFIG\_API}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{libconfig_8h_aea112866b5e13dfc4c9503bff7153ad9}{config\_set\_destructor}}(\mbox{\hyperlink{structconfig__t}{config\_t}}\ *config,}
+\DoxyCodeLine{00154\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ (*destructor)(\textcolor{keywordtype}{void}\ *));}
+\DoxyCodeLine{00155\ \textcolor{keyword}{extern}\ \mbox{\hyperlink{libconfig_8h_ad2e07161dd0740870adf00784e3e9875}{LIBCONFIG\_API}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{libconfig_8h_a18f5ea1eedb37861bc0ebcab07a20156}{config\_set\_include\_dir}}(\mbox{\hyperlink{structconfig__t}{config\_t}}\ *config,}
+\DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *include\_dir);}
+\DoxyCodeLine{00157\ \textcolor{keyword}{extern}\ \mbox{\hyperlink{libconfig_8h_ad2e07161dd0740870adf00784e3e9875}{LIBCONFIG\_API}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{libconfig_8h_a4da2359beeda5169a0ef76bbea759c5d}{config\_set\_include\_func}}(\mbox{\hyperlink{structconfig__t}{config\_t}}\ *config,}
+\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{libconfig_8h_a64a4cb48aca4d78e6f09618d1e17e7db}{config\_include\_fn\_t}}\ func);}
+\DoxyCodeLine{00159\ }
+\DoxyCodeLine{00160\ \textcolor{keyword}{extern}\ \mbox{\hyperlink{libconfig_8h_ad2e07161dd0740870adf00784e3e9875}{LIBCONFIG\_API}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{libconfig_8h_a080816e3278a9bafa207f939ca1688e1}{config\_set\_float\_precision}}(\mbox{\hyperlink{structconfig__t}{config\_t}}\ *config,}
+\DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{short}\ digits);}
+\DoxyCodeLine{00162\ \textcolor{keyword}{extern}\ \mbox{\hyperlink{libconfig_8h_ad2e07161dd0740870adf00784e3e9875}{LIBCONFIG\_API}}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{short}\ \mbox{\hyperlink{libconfig_8h_a727f9947f933af313180464e3cb16042}{config\_get\_float\_precision}}(}
+\DoxyCodeLine{00163\ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structconfig__t}{config\_t}}\ *config);}
+\DoxyCodeLine{00164\ }
+\DoxyCodeLine{00165\ \textcolor{keyword}{extern}\ \mbox{\hyperlink{libconfig_8h_ad2e07161dd0740870adf00784e3e9875}{LIBCONFIG\_API}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{libconfig_8h_a516182162feab61d5fea5d84ae1e53f3}{config\_set\_tab\_width}}(\mbox{\hyperlink{structconfig__t}{config\_t}}\ *config,}
+\DoxyCodeLine{00166\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{short}\ width);}
+\DoxyCodeLine{00167\ \textcolor{keyword}{extern}\ \mbox{\hyperlink{libconfig_8h_ad2e07161dd0740870adf00784e3e9875}{LIBCONFIG\_API}}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{short}\ \mbox{\hyperlink{libconfig_8h_a1c505029cf70d2c4a040694b2e6195ad}{config\_get\_tab\_width}}(}
+\DoxyCodeLine{00168\ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structconfig__t}{config\_t}}\ *config);}
+\DoxyCodeLine{00169\ }
+\DoxyCodeLine{00170\ \textcolor{keyword}{extern}\ \mbox{\hyperlink{libconfig_8h_ad2e07161dd0740870adf00784e3e9875}{LIBCONFIG\_API}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{libconfig_8h_a947b6037d284b8a92f20d5846b06ed0d}{config\_set\_hook}}(\mbox{\hyperlink{structconfig__t}{config\_t}}\ *config,\ \textcolor{keywordtype}{void}\ *hook);}
+\DoxyCodeLine{00171\ }
+\DoxyCodeLine{00172\ \textcolor{preprocessor}{\#define\ config\_get\_hook(C)\ ((C)-\/>hook)}}
+\DoxyCodeLine{00173\ }
+\DoxyCodeLine{00174\ \textcolor{keyword}{extern}\ \mbox{\hyperlink{libconfig_8h_ad2e07161dd0740870adf00784e3e9875}{LIBCONFIG\_API}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{libconfig_8h_a82167de44e3529cf4558aa0d2cd4ce64}{config\_init}}(\mbox{\hyperlink{structconfig__t}{config\_t}}\ *config);}
+\DoxyCodeLine{00175\ \textcolor{keyword}{extern}\ \mbox{\hyperlink{libconfig_8h_ad2e07161dd0740870adf00784e3e9875}{LIBCONFIG\_API}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{libconfig_8h_a6c7e766968945321babc7387cd42421b}{config\_destroy}}(\mbox{\hyperlink{structconfig__t}{config\_t}}\ *config);}
+\DoxyCodeLine{00176\ \textcolor{keyword}{extern}\ \mbox{\hyperlink{libconfig_8h_ad2e07161dd0740870adf00784e3e9875}{LIBCONFIG\_API}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{libconfig_8h_adb5c7ca141f198d1752ba04bd20c56f1}{config\_clear}}(\mbox{\hyperlink{structconfig__t}{config\_t}}\ *config);}
+\DoxyCodeLine{00177\ }
+\DoxyCodeLine{00178\ \textcolor{keyword}{extern}\ \mbox{\hyperlink{libconfig_8h_ad2e07161dd0740870adf00784e3e9875}{LIBCONFIG\_API}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{libconfig_8h_a4b791b3f2639eb517f02cd672b95126c}{config\_set\_fatal\_error\_func}}(}
+\DoxyCodeLine{00179\ \ \ \mbox{\hyperlink{libconfig_8h_ac27f5e7f8cd18d661fab292b0a2123b3}{config\_fatal\_error\_fn\_t}}\ func);}
+\DoxyCodeLine{00180\ }
+\DoxyCodeLine{00181\ \textcolor{keyword}{extern}\ \mbox{\hyperlink{libconfig_8h_ad2e07161dd0740870adf00784e3e9875}{LIBCONFIG\_API}}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{libconfig_8h_a9953ab54eddea9ff3a0da8e31b0e65ba}{config\_setting\_get\_int}}(}
+\DoxyCodeLine{00182\ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structconfig__setting__t}{config\_setting\_t}}\ *setting);}
+\DoxyCodeLine{00183\ \textcolor{keyword}{extern}\ \mbox{\hyperlink{libconfig_8h_ad2e07161dd0740870adf00784e3e9875}{LIBCONFIG\_API}}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ \mbox{\hyperlink{libconfig_8h_afa7b804f3b7e43456f131ba3939d0628}{config\_setting\_get\_int64}}(}
+\DoxyCodeLine{00184\ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structconfig__setting__t}{config\_setting\_t}}\ *setting);}
+\DoxyCodeLine{00185\ \textcolor{keyword}{extern}\ \mbox{\hyperlink{libconfig_8h_ad2e07161dd0740870adf00784e3e9875}{LIBCONFIG\_API}}\ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{libconfig_8h_a4e90532d057c33bf959f5f182ed9bf00}{config\_setting\_get\_float}}(}
+\DoxyCodeLine{00186\ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structconfig__setting__t}{config\_setting\_t}}\ *setting);}
+\DoxyCodeLine{00187\ \textcolor{keyword}{extern}\ \mbox{\hyperlink{libconfig_8h_ad2e07161dd0740870adf00784e3e9875}{LIBCONFIG\_API}}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{libconfig_8h_a06ee80cf229ee84e24636f18ca448811}{config\_setting\_get\_bool}}(}
+\DoxyCodeLine{00188\ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structconfig__setting__t}{config\_setting\_t}}\ *setting);}
+\DoxyCodeLine{00189\ \textcolor{keyword}{extern}\ \mbox{\hyperlink{libconfig_8h_ad2e07161dd0740870adf00784e3e9875}{LIBCONFIG\_API}}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{libconfig_8h_a2ec73d48e464df6c5eb607cd05453d0f}{config\_setting\_get\_string}}(}
+\DoxyCodeLine{00190\ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structconfig__setting__t}{config\_setting\_t}}\ *setting);}
+\DoxyCodeLine{00191\ }
+\DoxyCodeLine{00192\ \textcolor{keyword}{extern}\ \mbox{\hyperlink{libconfig_8h_ad2e07161dd0740870adf00784e3e9875}{LIBCONFIG\_API}}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{libconfig_8h_a28b764be25c6619b04371f2f678d6415}{config\_setting\_lookup\_int}}(}
+\DoxyCodeLine{00193\ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structconfig__setting__t}{config\_setting\_t}}\ *setting,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *name,\ \textcolor{keywordtype}{int}\ *value);}
+\DoxyCodeLine{00194\ \textcolor{keyword}{extern}\ \mbox{\hyperlink{libconfig_8h_ad2e07161dd0740870adf00784e3e9875}{LIBCONFIG\_API}}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{libconfig_8h_a19b4a463ea445909637f1168715b61bf}{config\_setting\_lookup\_int64}}(}
+\DoxyCodeLine{00195\ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structconfig__setting__t}{config\_setting\_t}}\ *setting,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *name,\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ *value);}
+\DoxyCodeLine{00196\ \textcolor{keyword}{extern}\ \mbox{\hyperlink{libconfig_8h_ad2e07161dd0740870adf00784e3e9875}{LIBCONFIG\_API}}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{libconfig_8h_a682292daf93fe30ae66dc8f1de0e1f8c}{config\_setting\_lookup\_float}}(}
+\DoxyCodeLine{00197\ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structconfig__setting__t}{config\_setting\_t}}\ *setting,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *name,\ \textcolor{keywordtype}{double}\ *value);}
+\DoxyCodeLine{00198\ \textcolor{keyword}{extern}\ \mbox{\hyperlink{libconfig_8h_ad2e07161dd0740870adf00784e3e9875}{LIBCONFIG\_API}}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{libconfig_8h_aa97b187527fdda6441a8e7b8e7e332b4}{config\_setting\_lookup\_bool}}(}
+\DoxyCodeLine{00199\ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structconfig__setting__t}{config\_setting\_t}}\ *setting,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *name,\ \textcolor{keywordtype}{int}\ *value);}
+\DoxyCodeLine{00200\ \textcolor{keyword}{extern}\ \mbox{\hyperlink{libconfig_8h_ad2e07161dd0740870adf00784e3e9875}{LIBCONFIG\_API}}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{libconfig_8h_a5d4c2d0b9a2336e7874bb4a220ed8e45}{config\_setting\_lookup\_string}}(}
+\DoxyCodeLine{00201\ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structconfig__setting__t}{config\_setting\_t}}\ *setting,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *name,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ **value);}
+\DoxyCodeLine{00202\ }
+\DoxyCodeLine{00203\ \textcolor{keyword}{extern}\ \mbox{\hyperlink{libconfig_8h_ad2e07161dd0740870adf00784e3e9875}{LIBCONFIG\_API}}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{libconfig_8h_a10c2f141b32bcca44df4c60bf04c4a2d}{config\_setting\_set\_int}}(\mbox{\hyperlink{structconfig__setting__t}{config\_setting\_t}}\ *setting,}
+\DoxyCodeLine{00204\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ value);}
+\DoxyCodeLine{00205\ \textcolor{keyword}{extern}\ \mbox{\hyperlink{libconfig_8h_ad2e07161dd0740870adf00784e3e9875}{LIBCONFIG\_API}}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{libconfig_8h_a4161c3f83fe35355a477667cc28e344d}{config\_setting\_set\_int64}}(\mbox{\hyperlink{structconfig__setting__t}{config\_setting\_t}}\ *setting,}
+\DoxyCodeLine{00206\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ value);}
+\DoxyCodeLine{00207\ \textcolor{keyword}{extern}\ \mbox{\hyperlink{libconfig_8h_ad2e07161dd0740870adf00784e3e9875}{LIBCONFIG\_API}}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{libconfig_8h_a40330aa93a3be802ffc486e887d0d303}{config\_setting\_set\_float}}(\mbox{\hyperlink{structconfig__setting__t}{config\_setting\_t}}\ *setting,}
+\DoxyCodeLine{00208\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ value);}
+\DoxyCodeLine{00209\ \textcolor{keyword}{extern}\ \mbox{\hyperlink{libconfig_8h_ad2e07161dd0740870adf00784e3e9875}{LIBCONFIG\_API}}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{libconfig_8h_aa234eb9557b7c0463763ecf9a373d2f9}{config\_setting\_set\_bool}}(\mbox{\hyperlink{structconfig__setting__t}{config\_setting\_t}}\ *setting,}
+\DoxyCodeLine{00210\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ value);}
+\DoxyCodeLine{00211\ \textcolor{keyword}{extern}\ \mbox{\hyperlink{libconfig_8h_ad2e07161dd0740870adf00784e3e9875}{LIBCONFIG\_API}}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{libconfig_8h_a51e31824990a8112f638da692e593d30}{config\_setting\_set\_string}}(\mbox{\hyperlink{structconfig__setting__t}{config\_setting\_t}}\ *setting,}
+\DoxyCodeLine{00212\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *value);}
+\DoxyCodeLine{00213\ }
+\DoxyCodeLine{00214\ \textcolor{keyword}{extern}\ \mbox{\hyperlink{libconfig_8h_ad2e07161dd0740870adf00784e3e9875}{LIBCONFIG\_API}}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{libconfig_8h_a28b5574a94537c59b03bfb79aa5f43c1}{config\_setting\_set\_format}}(\mbox{\hyperlink{structconfig__setting__t}{config\_setting\_t}}\ *setting,}
+\DoxyCodeLine{00215\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{short}\ format);}
+\DoxyCodeLine{00216\ \textcolor{keyword}{extern}\ \mbox{\hyperlink{libconfig_8h_ad2e07161dd0740870adf00784e3e9875}{LIBCONFIG\_API}}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{short}\ \mbox{\hyperlink{libconfig_8h_a0c796f7d6d04b30a12ad4421bc930a3a}{config\_setting\_get\_format}}(}
+\DoxyCodeLine{00217\ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structconfig__setting__t}{config\_setting\_t}}\ *setting);}
+\DoxyCodeLine{00218\ }
+\DoxyCodeLine{00219\ \textcolor{keyword}{extern}\ \mbox{\hyperlink{libconfig_8h_ad2e07161dd0740870adf00784e3e9875}{LIBCONFIG\_API}}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{libconfig_8h_ad7819d9af7d06c3e6e252359256d7380}{config\_setting\_get\_int\_elem}}(}
+\DoxyCodeLine{00220\ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structconfig__setting__t}{config\_setting\_t}}\ *setting,\ \textcolor{keywordtype}{int}\ idx);}
+\DoxyCodeLine{00221\ \textcolor{keyword}{extern}\ \mbox{\hyperlink{libconfig_8h_ad2e07161dd0740870adf00784e3e9875}{LIBCONFIG\_API}}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ \mbox{\hyperlink{libconfig_8h_ae1caf2966faa2e765222a6db47549fe6}{config\_setting\_get\_int64\_elem}}(}
+\DoxyCodeLine{00222\ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structconfig__setting__t}{config\_setting\_t}}\ *setting,\ \textcolor{keywordtype}{int}\ idx);}
+\DoxyCodeLine{00223\ \textcolor{keyword}{extern}\ \mbox{\hyperlink{libconfig_8h_ad2e07161dd0740870adf00784e3e9875}{LIBCONFIG\_API}}\ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{libconfig_8h_ad1fe5d99342917db51580893343560f0}{config\_setting\_get\_float\_elem}}(}
+\DoxyCodeLine{00224\ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structconfig__setting__t}{config\_setting\_t}}\ *setting,\ \textcolor{keywordtype}{int}\ idx);}
+\DoxyCodeLine{00225\ \textcolor{keyword}{extern}\ \mbox{\hyperlink{libconfig_8h_ad2e07161dd0740870adf00784e3e9875}{LIBCONFIG\_API}}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{libconfig_8h_a8e3541a2f0bb8c5a1c0c974b9349e258}{config\_setting\_get\_bool\_elem}}(}
+\DoxyCodeLine{00226\ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structconfig__setting__t}{config\_setting\_t}}\ *setting,\ \textcolor{keywordtype}{int}\ idx);}
+\DoxyCodeLine{00227\ \textcolor{keyword}{extern}\ \mbox{\hyperlink{libconfig_8h_ad2e07161dd0740870adf00784e3e9875}{LIBCONFIG\_API}}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{libconfig_8h_a25bece1d4b246c46547d174a5c178984}{config\_setting\_get\_string\_elem}}(}
+\DoxyCodeLine{00228\ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structconfig__setting__t}{config\_setting\_t}}\ *setting,\ \textcolor{keywordtype}{int}\ idx);}
+\DoxyCodeLine{00229\ }
+\DoxyCodeLine{00230\ \textcolor{keyword}{extern}\ \mbox{\hyperlink{libconfig_8h_ad2e07161dd0740870adf00784e3e9875}{LIBCONFIG\_API}}\ \mbox{\hyperlink{structconfig__setting__t}{config\_setting\_t}}\ *\mbox{\hyperlink{libconfig_8h_ab464376ca2cad637e2817789901aebc8}{config\_setting\_set\_int\_elem}}(}
+\DoxyCodeLine{00231\ \ \ \mbox{\hyperlink{structconfig__setting__t}{config\_setting\_t}}\ *setting,\ \textcolor{keywordtype}{int}\ idx,\ \textcolor{keywordtype}{int}\ value);}
+\DoxyCodeLine{00232\ \textcolor{keyword}{extern}\ \mbox{\hyperlink{libconfig_8h_ad2e07161dd0740870adf00784e3e9875}{LIBCONFIG\_API}}\ \mbox{\hyperlink{structconfig__setting__t}{config\_setting\_t}}\ *\mbox{\hyperlink{libconfig_8h_ae4f752aeba0080a621eb8d01e0e553b1}{config\_setting\_set\_int64\_elem}}(}
+\DoxyCodeLine{00233\ \ \ \mbox{\hyperlink{structconfig__setting__t}{config\_setting\_t}}\ *setting,\ \textcolor{keywordtype}{int}\ idx,\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ value);}
+\DoxyCodeLine{00234\ \textcolor{keyword}{extern}\ \mbox{\hyperlink{libconfig_8h_ad2e07161dd0740870adf00784e3e9875}{LIBCONFIG\_API}}\ \mbox{\hyperlink{structconfig__setting__t}{config\_setting\_t}}\ *\mbox{\hyperlink{libconfig_8h_a1c6e5766c64fa8b69fa5d009af753ec9}{config\_setting\_set\_float\_elem}}(}
+\DoxyCodeLine{00235\ \ \ \mbox{\hyperlink{structconfig__setting__t}{config\_setting\_t}}\ *setting,\ \textcolor{keywordtype}{int}\ idx,\ \textcolor{keywordtype}{double}\ value);}
+\DoxyCodeLine{00236\ \textcolor{keyword}{extern}\ \mbox{\hyperlink{libconfig_8h_ad2e07161dd0740870adf00784e3e9875}{LIBCONFIG\_API}}\ \mbox{\hyperlink{structconfig__setting__t}{config\_setting\_t}}\ *\mbox{\hyperlink{libconfig_8h_ad3dbe790104d2df517a68bddfa7e0cf7}{config\_setting\_set\_bool\_elem}}(}
+\DoxyCodeLine{00237\ \ \ \mbox{\hyperlink{structconfig__setting__t}{config\_setting\_t}}\ *setting,\ \textcolor{keywordtype}{int}\ idx,\ \textcolor{keywordtype}{int}\ value);}
+\DoxyCodeLine{00238\ \textcolor{keyword}{extern}\ \mbox{\hyperlink{libconfig_8h_ad2e07161dd0740870adf00784e3e9875}{LIBCONFIG\_API}}\ \mbox{\hyperlink{structconfig__setting__t}{config\_setting\_t}}\ *\mbox{\hyperlink{libconfig_8h_a120aedfd4358f32c2e509ae1f8ffc57e}{config\_setting\_set\_string\_elem}}(}
+\DoxyCodeLine{00239\ \ \ \mbox{\hyperlink{structconfig__setting__t}{config\_setting\_t}}\ *setting,\ \textcolor{keywordtype}{int}\ idx,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *value);}
+\DoxyCodeLine{00240\ }
+\DoxyCodeLine{00241\ \textcolor{keyword}{extern}\ \mbox{\hyperlink{libconfig_8h_ad2e07161dd0740870adf00784e3e9875}{LIBCONFIG\_API}}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ **\mbox{\hyperlink{libconfig_8h_a37dcde8cafa4d9a152dc1eeac23f391e}{config\_default\_include\_func}}(}
+\DoxyCodeLine{00242\ \ \ \ \ \mbox{\hyperlink{structconfig__t}{config\_t}}\ *config,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *include\_dir,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *path,}
+\DoxyCodeLine{00243\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ **error);}
+\DoxyCodeLine{00244\ }
+\DoxyCodeLine{00245\ \textcolor{keyword}{extern}\ \mbox{\hyperlink{libconfig_8h_ad2e07161dd0740870adf00784e3e9875}{LIBCONFIG\_API}}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{libconfig_8h_aca41a121cbb25b86ce8443fd801b3e68}{config\_setting\_is\_scalar}}(}
+\DoxyCodeLine{00246\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structconfig__setting__t}{config\_setting\_t}}\ *setting);}
+\DoxyCodeLine{00247\ }
+\DoxyCodeLine{00248\ \textcolor{keyword}{extern}\ \mbox{\hyperlink{libconfig_8h_ad2e07161dd0740870adf00784e3e9875}{LIBCONFIG\_API}}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{libconfig_8h_af6a052d87315d9c2332863377fa47cc5}{config\_setting\_is\_aggregate}}(}
+\DoxyCodeLine{00249\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structconfig__setting__t}{config\_setting\_t}}\ *setting);}
+\DoxyCodeLine{00250\ }
+\DoxyCodeLine{00251\ \textcolor{preprocessor}{\#define\ }\textcolor{comment}{/*\ const\ char\ *\ */}\textcolor{preprocessor}{\ config\_get\_include\_dir(}\textcolor{comment}{/*\ const\ config\_t\ *\ */}\textcolor{preprocessor}{\ C)\ \(\backslash\)}}
+\DoxyCodeLine{00252\ \textcolor{preprocessor}{\ \ ((C)-\/>include\_dir)}}
+\DoxyCodeLine{00253\ }
+\DoxyCodeLine{00254\ \textcolor{preprocessor}{\#define\ }\textcolor{comment}{/*\ void\ */}\textcolor{preprocessor}{\ config\_set\_auto\_convert(}\textcolor{comment}{/*\ config\_t\ *\ */}\textcolor{preprocessor}{\ C,\ F)\ \(\backslash\)}}
+\DoxyCodeLine{00255\ \textcolor{preprocessor}{\ \ config\_set\_option((C),\ CONFIG\_OPTION\_AUTOCONVERT,\ (F))}}
+\DoxyCodeLine{00256\ \textcolor{preprocessor}{\#define\ }\textcolor{comment}{/*\ int\ */}\textcolor{preprocessor}{\ config\_get\_auto\_convert(}\textcolor{comment}{/*\ const\ config\_t\ *\ */}\textcolor{preprocessor}{\ C)\ \(\backslash\)}}
+\DoxyCodeLine{00257\ \textcolor{preprocessor}{\ \ config\_get\_option((C),\ CONFIG\_OPTION\_AUTOCONVERT)}}
+\DoxyCodeLine{00258\ }
+\DoxyCodeLine{00259\ \textcolor{preprocessor}{\#define\ }\textcolor{comment}{/*\ int\ */}\textcolor{preprocessor}{\ config\_setting\_type(}\textcolor{comment}{/*\ const\ config\_setting\_t\ *\ */}\textcolor{preprocessor}{\ S)\ \(\backslash\)}}
+\DoxyCodeLine{00260\ \textcolor{preprocessor}{\ \ ((S)-\/>type)}}
+\DoxyCodeLine{00261\ }
+\DoxyCodeLine{00262\ \textcolor{preprocessor}{\#define\ }\textcolor{comment}{/*\ int\ */}\textcolor{preprocessor}{\ config\_setting\_is\_group(}\textcolor{comment}{/*\ const\ config\_setting\_t\ *\ */}\textcolor{preprocessor}{\ S)\ \(\backslash\)}}
+\DoxyCodeLine{00263\ \textcolor{preprocessor}{\ \ ((S)-\/>type\ ==\ CONFIG\_TYPE\_GROUP)}}
+\DoxyCodeLine{00264\ \textcolor{preprocessor}{\#define\ }\textcolor{comment}{/*\ int\ */}\textcolor{preprocessor}{\ config\_setting\_is\_array(}\textcolor{comment}{/*\ const\ config\_setting\_t\ *\ */}\textcolor{preprocessor}{\ S)\ \(\backslash\)}}
+\DoxyCodeLine{00265\ \textcolor{preprocessor}{\ \ ((S)-\/>type\ ==\ CONFIG\_TYPE\_ARRAY)}}
+\DoxyCodeLine{00266\ \textcolor{preprocessor}{\#define\ }\textcolor{comment}{/*\ int\ */}\textcolor{preprocessor}{\ config\_setting\_is\_list(}\textcolor{comment}{/*\ const\ config\_setting\_t\ *\ */}\textcolor{preprocessor}{\ S)\ \(\backslash\)}}
+\DoxyCodeLine{00267\ \textcolor{preprocessor}{\ \ ((S)-\/>type\ ==\ CONFIG\_TYPE\_LIST)}}
+\DoxyCodeLine{00268\ }
+\DoxyCodeLine{00269\ \textcolor{preprocessor}{\#define\ }\textcolor{comment}{/*\ int\ */}\textcolor{preprocessor}{\ config\_setting\_is\_number(}\textcolor{comment}{/*\ const\ config\_setting\_t\ *\ */}\textcolor{preprocessor}{\ S)\ \(\backslash\)}}
+\DoxyCodeLine{00270\ \textcolor{preprocessor}{\ \ (((S)-\/>type\ ==\ CONFIG\_TYPE\_INT)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00271\ \textcolor{preprocessor}{\ \ \ ||\ ((S)-\/>type\ ==\ CONFIG\_TYPE\_INT64)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00272\ \textcolor{preprocessor}{\ \ \ ||\ ((S)-\/>type\ ==\ CONFIG\_TYPE\_FLOAT))}}
+\DoxyCodeLine{00273\ }
+\DoxyCodeLine{00274\ \textcolor{preprocessor}{\#define\ }\textcolor{comment}{/*\ const\ char\ *\ */}\textcolor{preprocessor}{\ config\_setting\_name(\ \(\backslash\)}}
+\DoxyCodeLine{00275\ \textcolor{preprocessor}{\ \ }\textcolor{comment}{/*\ const\ config\_setting\_t\ *\ */}\textcolor{preprocessor}{\ S)\ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00276\ \textcolor{preprocessor}{\ \ ((S)-\/>name)}}
+\DoxyCodeLine{00277\ }
+\DoxyCodeLine{00278\ \textcolor{preprocessor}{\#define\ }\textcolor{comment}{/*\ config\_setting\_t\ *\ */}\textcolor{preprocessor}{\ config\_setting\_parent(\ \(\backslash\)}}
+\DoxyCodeLine{00279\ \textcolor{preprocessor}{\ \ }\textcolor{comment}{/*\ const\ config\_setting\_t\ *\ */}\textcolor{preprocessor}{\ S)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00280\ \textcolor{preprocessor}{\ \ ((S)-\/>parent)}}
+\DoxyCodeLine{00281\ }
+\DoxyCodeLine{00282\ \textcolor{preprocessor}{\#define\ }\textcolor{comment}{/*\ int\ */}\textcolor{preprocessor}{\ config\_setting\_is\_root(\ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00283\ \textcolor{preprocessor}{\ \ }\textcolor{comment}{/*\ const\ config\_setting\_t\ *\ */}\textcolor{preprocessor}{\ S)\ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00284\ \textcolor{preprocessor}{\ \ ((S)-\/>parent\ ?\ CONFIG\_FALSE\ :\ CONFIG\_TRUE)}}
+\DoxyCodeLine{00285\ }
+\DoxyCodeLine{00286\ \textcolor{keyword}{extern}\ \mbox{\hyperlink{libconfig_8h_ad2e07161dd0740870adf00784e3e9875}{LIBCONFIG\_API}}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{libconfig_8h_a3bdeb32c005a97e582d130d227ac3a81}{config\_setting\_index}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structconfig__setting__t}{config\_setting\_t}}\ *setting);}
+\DoxyCodeLine{00287\ }
+\DoxyCodeLine{00288\ \textcolor{keyword}{extern}\ \mbox{\hyperlink{libconfig_8h_ad2e07161dd0740870adf00784e3e9875}{LIBCONFIG\_API}}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{libconfig_8h_aa061576c1ac9497eec69561d78a33772}{config\_setting\_length}}(}
+\DoxyCodeLine{00289\ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structconfig__setting__t}{config\_setting\_t}}\ *setting);}
+\DoxyCodeLine{00290\ \textcolor{keyword}{extern}\ \mbox{\hyperlink{libconfig_8h_ad2e07161dd0740870adf00784e3e9875}{LIBCONFIG\_API}}\ \mbox{\hyperlink{structconfig__setting__t}{config\_setting\_t}}\ *\mbox{\hyperlink{libconfig_8h_a570222365319bec2fd5c447432c0967c}{config\_setting\_get\_elem}}(}
+\DoxyCodeLine{00291\ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structconfig__setting__t}{config\_setting\_t}}\ *setting,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ idx);}
+\DoxyCodeLine{00292\ }
+\DoxyCodeLine{00293\ \textcolor{keyword}{extern}\ \mbox{\hyperlink{libconfig_8h_ad2e07161dd0740870adf00784e3e9875}{LIBCONFIG\_API}}\ \mbox{\hyperlink{structconfig__setting__t}{config\_setting\_t}}\ *\mbox{\hyperlink{libconfig_8h_a272bbead671154587c2cf4ef966bde81}{config\_setting\_get\_member}}(}
+\DoxyCodeLine{00294\ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structconfig__setting__t}{config\_setting\_t}}\ *setting,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *name);}
+\DoxyCodeLine{00295\ }
+\DoxyCodeLine{00296\ \textcolor{keyword}{extern}\ \mbox{\hyperlink{libconfig_8h_ad2e07161dd0740870adf00784e3e9875}{LIBCONFIG\_API}}\ \mbox{\hyperlink{structconfig__setting__t}{config\_setting\_t}}\ *\mbox{\hyperlink{libconfig_8h_a500782c873a5f505262a44207b157192}{config\_setting\_add}}(}
+\DoxyCodeLine{00297\ \ \ \mbox{\hyperlink{structconfig__setting__t}{config\_setting\_t}}\ *parent,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *name,\ \textcolor{keywordtype}{int}\ type);}
+\DoxyCodeLine{00298\ \textcolor{keyword}{extern}\ \mbox{\hyperlink{libconfig_8h_ad2e07161dd0740870adf00784e3e9875}{LIBCONFIG\_API}}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{libconfig_8h_a8985087ce09c9cd2fafc3ef999255a76}{config\_setting\_remove}}(\mbox{\hyperlink{structconfig__setting__t}{config\_setting\_t}}\ *parent,}
+\DoxyCodeLine{00299\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *name);}
+\DoxyCodeLine{00300\ \textcolor{keyword}{extern}\ \mbox{\hyperlink{libconfig_8h_ad2e07161dd0740870adf00784e3e9875}{LIBCONFIG\_API}}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{libconfig_8h_a1b9e9f12ebad863eecba7862ab33c774}{config\_setting\_remove\_elem}}(\mbox{\hyperlink{structconfig__setting__t}{config\_setting\_t}}\ *parent,}
+\DoxyCodeLine{00301\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ idx);}
+\DoxyCodeLine{00302\ \textcolor{keyword}{extern}\ \mbox{\hyperlink{libconfig_8h_ad2e07161dd0740870adf00784e3e9875}{LIBCONFIG\_API}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{libconfig_8h_a5ba715704c1cde127933c07fc9ca6cd5}{config\_setting\_set\_hook}}(\mbox{\hyperlink{structconfig__setting__t}{config\_setting\_t}}\ *setting,}
+\DoxyCodeLine{00303\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ *hook);}
+\DoxyCodeLine{00304\ }
+\DoxyCodeLine{00305\ \textcolor{preprocessor}{\#define\ config\_setting\_get\_hook(S)\ ((S)-\/>hook)}}
+\DoxyCodeLine{00306\ }
+\DoxyCodeLine{00307\ \textcolor{keyword}{extern}\ \mbox{\hyperlink{libconfig_8h_ad2e07161dd0740870adf00784e3e9875}{LIBCONFIG\_API}}\ \mbox{\hyperlink{structconfig__setting__t}{config\_setting\_t}}\ *\mbox{\hyperlink{libconfig_8h_a0852048eab3679fef8a0a0087f5c3254}{config\_lookup}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structconfig__t}{config\_t}}\ *config,}
+\DoxyCodeLine{00308\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *path);}
+\DoxyCodeLine{00309\ \textcolor{keyword}{extern}\ \mbox{\hyperlink{libconfig_8h_ad2e07161dd0740870adf00784e3e9875}{LIBCONFIG\_API}}\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structconfig__setting__t}{config\_setting\_t}}\ *\mbox{\hyperlink{libconfig_8h_ae75e9628db469f7d7e6b7e694eb288ad}{config\_lookup\_const}}(}
+\DoxyCodeLine{00310\ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structconfig__t}{config\_t}}\ *config,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *path);}
+\DoxyCodeLine{00311\ \ \ }
+\DoxyCodeLine{00312\ \textcolor{keyword}{extern}\ \mbox{\hyperlink{libconfig_8h_ad2e07161dd0740870adf00784e3e9875}{LIBCONFIG\_API}}\ \mbox{\hyperlink{structconfig__setting__t}{config\_setting\_t}}\ *\mbox{\hyperlink{libconfig_8h_ae80b3462037cadd904e919165416b394}{config\_setting\_lookup}}(}
+\DoxyCodeLine{00313\ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structconfig__setting__t}{config\_setting\_t}}\ *setting,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *path);}
+\DoxyCodeLine{00314\ \textcolor{keyword}{extern}\ \mbox{\hyperlink{libconfig_8h_ad2e07161dd0740870adf00784e3e9875}{LIBCONFIG\_API}}\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structconfig__setting__t}{config\_setting\_t}}\ *\mbox{\hyperlink{libconfig_8h_a8318a4ace0616b3e003f15ba9cef74c5}{config\_setting\_lookup\_const}}(}
+\DoxyCodeLine{00315\ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structconfig__setting__t}{config\_setting\_t}}\ *setting,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *path);}
+\DoxyCodeLine{00316\ }
+\DoxyCodeLine{00317\ \textcolor{keyword}{extern}\ \mbox{\hyperlink{libconfig_8h_ad2e07161dd0740870adf00784e3e9875}{LIBCONFIG\_API}}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{libconfig_8h_a81b712617906bfe227643a3087a395ab}{config\_lookup\_int}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structconfig__t}{config\_t}}\ *config,}
+\DoxyCodeLine{00318\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *path,\ \textcolor{keywordtype}{int}\ *value);}
+\DoxyCodeLine{00319\ \textcolor{keyword}{extern}\ \mbox{\hyperlink{libconfig_8h_ad2e07161dd0740870adf00784e3e9875}{LIBCONFIG\_API}}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{libconfig_8h_ad34eff9c80f62d6b010c9c1544252802}{config\_lookup\_int64}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structconfig__t}{config\_t}}\ *config,}
+\DoxyCodeLine{00320\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *path,}
+\DoxyCodeLine{00321\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ *value);}
+\DoxyCodeLine{00322\ \textcolor{keyword}{extern}\ \mbox{\hyperlink{libconfig_8h_ad2e07161dd0740870adf00784e3e9875}{LIBCONFIG\_API}}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{libconfig_8h_a7457b1644fca734204e8dda7f1d0e2a5}{config\_lookup\_float}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structconfig__t}{config\_t}}\ *config,}
+\DoxyCodeLine{00323\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *path,\ \textcolor{keywordtype}{double}\ *value);}
+\DoxyCodeLine{00324\ \textcolor{keyword}{extern}\ \mbox{\hyperlink{libconfig_8h_ad2e07161dd0740870adf00784e3e9875}{LIBCONFIG\_API}}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{libconfig_8h_a739e9db5af42e4ebc5f895e9f0ecb5c6}{config\_lookup\_bool}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structconfig__t}{config\_t}}\ *config,}
+\DoxyCodeLine{00325\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *path,\ \textcolor{keywordtype}{int}\ *value);}
+\DoxyCodeLine{00326\ \textcolor{keyword}{extern}\ \mbox{\hyperlink{libconfig_8h_ad2e07161dd0740870adf00784e3e9875}{LIBCONFIG\_API}}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{libconfig_8h_a5fa413ae9c731ce7744be9a8574c7016}{config\_lookup\_string}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structconfig__t}{config\_t}}\ *config,}
+\DoxyCodeLine{00327\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *path,}
+\DoxyCodeLine{00328\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ **value);}
+\DoxyCodeLine{00329\ }
+\DoxyCodeLine{00330\ \textcolor{preprocessor}{\#define\ }\textcolor{comment}{/*\ config\_setting\_t\ *\ */}\textcolor{preprocessor}{\ config\_root\_setting(\ \(\backslash\)}}
+\DoxyCodeLine{00331\ \textcolor{preprocessor}{\ \ }\textcolor{comment}{/*\ const\ config\_t\ *\ */}\textcolor{preprocessor}{\ C)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00332\ \textcolor{preprocessor}{\ \ ((C)-\/>root)}}
+\DoxyCodeLine{00333\ }
+\DoxyCodeLine{00334\ \textcolor{preprocessor}{\#define\ \ }\textcolor{comment}{/*\ void\ */}\textcolor{preprocessor}{\ config\_set\_default\_format(}\textcolor{comment}{/*\ config\_t\ *\ */}\textcolor{preprocessor}{\ C,\ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00335\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{comment}{/*\ unsigned\ short\ */}\textcolor{preprocessor}{\ F)\ \ \ \(\backslash\)}}
+\DoxyCodeLine{00336\ \textcolor{preprocessor}{\ \ (C)-\/>default\_format\ =\ (F)}}
+\DoxyCodeLine{00337\ }
+\DoxyCodeLine{00338\ \textcolor{preprocessor}{\#define\ }\textcolor{comment}{/*\ unsigned\ short\ */}\textcolor{preprocessor}{\ config\_get\_default\_format(}\textcolor{comment}{/*\ config\_t\ *\ */}\textcolor{preprocessor}{\ C)\ \(\backslash\)}}
+\DoxyCodeLine{00339\ \textcolor{preprocessor}{\ \ ((C)-\/>default\_format)}}
+\DoxyCodeLine{00340\ }
+\DoxyCodeLine{00341\ \textcolor{preprocessor}{\#define\ }\textcolor{comment}{/*\ unsigned\ short\ */}\textcolor{preprocessor}{\ config\_setting\_source\_line(\ \ \ \(\backslash\)}}
+\DoxyCodeLine{00342\ \textcolor{preprocessor}{\ \ }\textcolor{comment}{/*\ const\ config\_setting\_t\ *\ */}\textcolor{preprocessor}{\ S)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00343\ \textcolor{preprocessor}{\ \ ((S)-\/>line)}}
+\DoxyCodeLine{00344\ }
+\DoxyCodeLine{00345\ \textcolor{preprocessor}{\#define\ }\textcolor{comment}{/*\ const\ char\ */}\textcolor{preprocessor}{\ config\_setting\_source\_file(\ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00346\ \textcolor{preprocessor}{\ \ }\textcolor{comment}{/*\ const\ config\_setting\_t\ *\ */}\textcolor{preprocessor}{\ S)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00347\ \textcolor{preprocessor}{\ \ ((S)-\/>file)}}
+\DoxyCodeLine{00348\ }
+\DoxyCodeLine{00349\ \textcolor{preprocessor}{\#define\ }\textcolor{comment}{/*\ const\ char\ *\ */}\textcolor{preprocessor}{\ config\_error\_text(}\textcolor{comment}{/*\ const\ config\_t\ *\ */}\textcolor{preprocessor}{\ C)\ \ \(\backslash\)}}
+\DoxyCodeLine{00350\ \textcolor{preprocessor}{\ \ ((C)-\/>error\_text)}}
+\DoxyCodeLine{00351\ }
+\DoxyCodeLine{00352\ \textcolor{preprocessor}{\#define\ }\textcolor{comment}{/*\ const\ char\ *\ */}\textcolor{preprocessor}{\ config\_error\_file(}\textcolor{comment}{/*\ const\ config\_t\ *\ */}\textcolor{preprocessor}{\ C)\ \ \(\backslash\)}}
+\DoxyCodeLine{00353\ \textcolor{preprocessor}{\ \ ((C)-\/>error\_file)}}
+\DoxyCodeLine{00354\ }
+\DoxyCodeLine{00355\ \textcolor{preprocessor}{\#define\ }\textcolor{comment}{/*\ int\ */}\textcolor{preprocessor}{\ config\_error\_line(}\textcolor{comment}{/*\ const\ config\_t\ *\ */}\textcolor{preprocessor}{\ C)\ \ \ \(\backslash\)}}
+\DoxyCodeLine{00356\ \textcolor{preprocessor}{\ \ ((C)-\/>error\_line)}}
+\DoxyCodeLine{00357\ }
+\DoxyCodeLine{00358\ \textcolor{preprocessor}{\#define\ }\textcolor{comment}{/*\ config\_error\_t\ */}\textcolor{preprocessor}{\ config\_error\_type(}\textcolor{comment}{/*\ const\ config\_t\ *\ */}\textcolor{preprocessor}{\ C)\ \(\backslash\)}}
+\DoxyCodeLine{00359\ \textcolor{preprocessor}{\ \ ((C)-\/>error\_type)}}
+\DoxyCodeLine{00360\ }
+\DoxyCodeLine{00361\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00362\ \}}
+\DoxyCodeLine{00363\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ \_\_cplusplus\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00364\ }
+\DoxyCodeLine{00365\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ \_\_libconfig\_h\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}
