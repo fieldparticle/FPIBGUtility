@@ -1,5 +1,5 @@
 import sys
-from PyQt6.QtWidgets import QApplication, QWidget,  QFormLayout, QGridLayout, QTabWidget, QLineEdit, QDateEdit, QPushButton, QLabel, QHBoxLayout, QFileDialog, QVBoxLayout, QGroupBox, QCheckBox
+from PyQt6.QtWidgets import QApplication, QWidget,  QFormLayout, QGridLayout, QTabWidget, QLineEdit, QDateEdit, QPushButton, QLabel, QHBoxLayout, QFileDialog, QVBoxLayout, QGroupBox, QCheckBox, QSpinBox
 from PyQt6.QtCore import Qt
 import datetime
 
@@ -12,32 +12,6 @@ class TabGenConfig(QTabWidget):
     
     def Create(self):
         """ Constructor for the TabGenConfig object, which sets up the form on the tab. """
-        # ## Set up a layout object
-        # layout = QFormLayout()
-
-        # ## FOLDER SELECTION ##
-        # self.folderLineEdit = QLineEdit()
-        # self.browseButton = QPushButton("Browse")
-        # self.browseButton.clicked.connect(self.browseFolder)
-        # # Add the folder line edit and the browse button to an HBox 
-        # hbox = QHBoxLayout()
-        # hbox.addWidget(self.folderLineEdit)
-        # hbox.addWidget(self.browseButton)
-        # # Add that HBox to the layout
-        # layout.addRow("Folder:", hbox)
-
-
-
-        # ## SUBMIT BUTTON ##
-        # self.submitButton = QPushButton("Submit")
-        # self.submitButton.clicked.connect(self.sendFormData)
-        # # Add that button to the layout
-        # layout.addWidget(self.submitButton)
-
-        
-        # self.setLayout(layout)
-
-
         main_layout = QVBoxLayout()
 
         ### SECTION 1: FOLDER SELECTION ###
@@ -67,17 +41,62 @@ class TabGenConfig(QTabWidget):
         self.doautowait_checkbox = QCheckBox()
         doautowait_label = QLabel("Do Auto Wait")
         flow_layout.addRow(self.doautowait_checkbox, doautowait_label)
-
-        email_label = QLabel("Email:")
-        email_edit = QLineEdit()
-        flow_layout.addRow(email_label, email_edit)
-
-        phone_label = QLabel("Phone:")
-        phone_edit = QLineEdit()
-        flow_layout.addRow(phone_label, phone_edit)
+        #Stop on data
+        self.stop_on_data_checkbox = QCheckBox()
+        stop_on_data_label = QLabel("Stop On Data")
+        flow_layout.addRow(self.stop_on_data_checkbox, stop_on_data_label)
+        #Stop on data
+        self.no_compute_checkbox = QCheckBox()
+        no_compute_label = QLabel("No Compute")
+        flow_layout.addRow(self.no_compute_checkbox, no_compute_label)
+        #Debug level
+        self.debug_level = QSpinBox()
+        debug_level_label = QLabel("Debug Level")
+        flow_layout.addRow(self.debug_level, debug_level_label)
+        #Report Compute Frames (int)
+        self.report_compute_frames = QSpinBox()
+        report_compute_frames_label = QLabel("Report Compute Frames")
+        flow_layout.addRow(self.report_compute_frames, report_compute_frames_label)
+        #Report Graphics Frames (int)
+        self.report_graphics_frames = QSpinBox()
+        report_graphics_frames_label = QLabel("Report Compute Frames")
+        flow_layout.addRow(self.report_graphics_frames, report_graphics_frames_label)
 
         flow_group.setLayout(flow_layout)
         main_layout.addWidget(flow_group)
+
+        ### SECTION 3: GPU ###
+        gpu_group = QGroupBox("Flow Control")
+        gpu_layout = QFormLayout()
+        # GPU Model (string)
+        self.gpu_model = QLineEdit()
+        gpu_model_label = QLabel("GPU Model")
+        gpu_layout.addRow(gpu_model_label, self.gpu_model)
+        # Frame Delay (int)
+        self.frame_delay = QSpinBox()
+        frame_delay_label = QLabel("Frame Delay")
+        gpu_layout.addRow( frame_delay_label, self.frame_delay)
+        # End Frame (int)
+        self.end_frame = QSpinBox()
+        end_frame_label = QLabel("Frame Delay")
+        gpu_layout.addRow( end_frame_label, self.end_frame)
+        # dt (int)
+        self.dt = QSpinBox()
+        dt_label = QLabel("dt")
+        gpu_layout.addRow(dt_label, self.dt)
+        # Compile Shaders (checkbox)
+        # Fragment Kernel (browse file)
+        # Vertex Kernel (browse file)
+        # Compute Kernel (browse file)
+
+        gpu_group.setLayout(gpu_layout)
+        main_layout.addWidget(gpu_group)
+
+        ### SECTION 4: LAUNCH ###
+        # Report Extensions (checkbox)
+        # Report Device Limits (checkbox)
+        # Enable Validation Layers (checkbox)
+        # TODO: Device Extensions, Instance Extensions, Validation Layers: These are lists of strings that you can add to and remove from, and should be displayed
 
         ## SUBMIT BUTTON ##
         self.submitButton = QPushButton("Submit")
@@ -99,9 +118,22 @@ class TabGenConfig(QTabWidget):
         # TODO: Once this form is done, call the config file writer
 
         config_dict = {}
+        # Add section 1 details
         config_dict["folder"] = self.folderLineEdit.text()
+        # Add section 2 details
         config_dict["do_auto"] = self.doauto_checkbox.isChecked()
         config_dict["do_auto_wait"] = self.doautowait_checkbox.isChecked()
+        config_dict["stop_on_data"] = self.stop_on_data_checkbox.isChecked()
+        config_dict["no_compute"] = self.no_compute_checkbox.isChecked()
+        config_dict["debug_level"] = self.debug_level.value()
+        config_dict["report_compute_frames"] = self.report_compute_frames.value()
+        config_dict["report_graphics_frames"] = self.report_graphics_frames.value()
+        # Add Section 3 Details
+        config_dict["gpu_model"] = self.gpu_model.text()
+        config_dict["frame_delay"] = self.frame_delay.value()
+        config_dict["end_frame"] = self.end_frame.value()
+        config_dict["dt"] = self.dt.value()
+
 
         self.log_action("sendFormData", config_dict)
         return self.folderLineEdit.text()
