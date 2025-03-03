@@ -165,21 +165,21 @@ class TabGenConfig(QTabWidget):
         file = QFileDialog.getOpenFileName(self, "Select File")
         if file:
             self.frag_kernel.setText(file[0])
-            self.log_action("browseFile", file[0])
+            #self.log_action("browseFile", file[0])
     
     def browseFileVert(self):
         """ Opens a dialog window for the user to select a file in the file system for the vertex kernel. """
         file = QFileDialog.getOpenFileName(self, "Select File")
         if file:
             self.vert_kernel.setText(file[0])
-            self.log_action("browseFile", file[0])
+            #self.log_action("browseFile", file[0])
     
     def browseFileComp(self):
         """ Opens a dialog window for the user to select a file in the file system for the compute kernel. """
         file = QFileDialog.getOpenFileName(self, "Select File")
         if file:
             self.comp_kernel.setText(file[0])
-            self.log_action("browseFile", file[0])
+            #self.log_action("browseFile", file[0])
 
     def sendFormData(self):
         """ Sends data from the form to the config file writer """
@@ -218,7 +218,6 @@ class TabGenConfig(QTabWidget):
         try:
             timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             with open("BRLogging.log", "a") as log:
-                log.write(f"{timestamp} - action: {action}\n")
-                log.write(f"{timestamp} - result: {result}\n")
+                log.write(f"{timestamp} - action: {action} - result: {result}\n")
         except Exception as e:
             print("Could not log")
