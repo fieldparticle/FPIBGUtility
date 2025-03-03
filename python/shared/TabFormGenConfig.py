@@ -198,9 +198,9 @@ class TabGenConfig(QTabWidget):
         config_dict["report_graphics_frames"] = self.report_graphics_frames.text()
         # Add Section 3 Details
         config_dict["gpu_model"] = self.gpu_model.text()
-        config_dict["frame_delay"] = self.frame_delay.value()
-        config_dict["end_frame"] = self.end_frame.value()
-        config_dict["dt"] = self.dt.value()
+        config_dict["frame_delay"] = self.frame_delay.text()
+        config_dict["end_frame"] = self.end_frame.text()
+        config_dict["dt"] = self.dt.text()
         config_dict["compile_shaders"] = self.compile_shaders_checkbox.isChecked()
         config_dict["frag_kernel"] = self.frag_kernel.text()
         config_dict["vert_kernel"] = self.vert_kernel.text()
