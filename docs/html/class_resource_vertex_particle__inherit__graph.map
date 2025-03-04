@@ -1,0 +1,9 @@
+<map id="ResourceVertexParticle" name="ResourceVertexParticle">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,229,164,256"/>
+<area shape="rect" id="Node000002" href="$class_resource_vertex_obj.html" title=" " alt="" coords="17,155,152,181"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="87,197,87,229,82,229,82,197"/>
+<area shape="rect" id="Node000003" href="$class_resource.html" title=" " alt="" coords="46,80,123,107"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="87,122,87,154,82,154,82,122"/>
+<area shape="rect" id="Node000004" href="$class_base_obj.html" title=" " alt="" coords="49,5,120,32"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="87,48,87,80,82,80,82,48"/>
+</map>
