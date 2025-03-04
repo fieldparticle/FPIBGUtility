@@ -12,6 +12,7 @@ sys.path.append(shrddir)                                      #
 
 from FPIBGBase import *
 from MyClass import *
+# First create a base class and name it
 bc = FPIBGBase("GlobalBaseClass")
 bc.Create("ParticleJB.cfg",'MyLog.log')
 myClass = MyClass("ExampleObject")
