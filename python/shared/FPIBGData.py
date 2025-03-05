@@ -1,6 +1,6 @@
 import os
 import csv
-
+import inspect
 
 class DataClass:
 
@@ -26,7 +26,22 @@ class DataClass:
                 
 
     def Open(self):
-        pass
+        if os.path.exists(self.topdir):
+            rettxt = "Sucessfully found data directory :" + self.topdir
+            self.bobj.log.log(   inspect.currentframe().f_lineno,
+            __file__,
+            inspect.currentframe().f_code.co_name,
+            self.ObjName,
+            0,
+            rettxt)
+        else:
+            rettxt = "Data directory :" + self.topdir + " not found"
+            self.bobj.log.log(   inspect.currentframe().f_lineno,
+            __file__,
+            inspect.currentframe().f_code.co_name,
+            self.ObjName,
+            1,
+            rettxt)
 
     def Close(self):
         pass
