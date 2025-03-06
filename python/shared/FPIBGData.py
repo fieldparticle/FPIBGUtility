@@ -35,7 +35,7 @@ class DataClass:
             0,
             rettxt)
         else:
-            rettxt = "Data directory :" + self.topdir + " not found"
+            rettxt = "Data directory :" + self.topdir + " not found."
             self.bobj.log.log(   inspect.currentframe().f_lineno,
             __file__,
             inspect.currentframe().f_code.co_name,
