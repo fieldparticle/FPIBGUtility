@@ -1,6 +1,7 @@
 import socket
 import os
 import time
+import inspect
 class TCPIP:
     def __init__(self, ObjectName):
         self.objname = ObjectName
@@ -8,10 +9,13 @@ class TCPIP:
     ## Create() for the MyClass object.
     # @param   BaseObj -- (FPIBGBase) this is the glovbal class that contains the log and config file facilities.
     def Create(self,BaseObj):
+
+        self.isConnected = False
         ## bobj contains the global object.
         self.bobj = BaseObj
         self.cfg = self.bobj.cfg.config
-        """Initialize the client configuration."""
+        self.log = self.bobj.log.log
+        ## Initialize the client configuration.
         self.server_ip = self.cfg.server_ip
         self.server_port = self.cfg.server_port
         self.buffer_size = self.cfg.server_buf_size
@@ -20,13 +24,24 @@ class TCPIP:
         self.client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
     def Open(self):
-        """Connect to the server."""
+        ##Connect to the server."""
         try:
             self.client_socket.connect((self.server_ip, self.server_port))
-            print(f"Connected to server at {self.server_ip}:{self.server_port}")
+            self.log(  inspect.currentframe().f_lineno,
+                __file__,
+                inspect.currentframe().f_code.co_name,
+                self.objname,
+                1,
+                f"Connected to server at {self.server_ip}:{self.server_port}")
+            self.isConnected = True
         except Exception as err:
-            print("Error:",err)
-            exit()
+            self.bobj.log.log(   inspect.currentframe().f_lineno,
+                __file__,
+                inspect.currentframe().f_code.co_name,
+                self.objname,
+                1,
+                err)
+            self.isConnected = False
 
     def Close(self):
         """Close the client connection properly."""
@@ -34,33 +49,65 @@ class TCPIP:
         print("Client connection closed.")
 
     def Read(self):
-        """Receive confirmation message from the server."""
-        self.response = self.client_socket.recv(self.buffer_size)
-        print("Recieved.  {len(self.response)}  Bytes")
-        
+        #Receive confirmation message from the server.
+        try:
+            self.response = self.client_socket.recv(self.buffer_size)
+        except Exception as err:
+            self.bobj.log.log(   inspect.currentframe().f_lineno,
+                __file__,
+                inspect.currentframe().f_code.co_name,
+                self.objname,
+                1,
+                err)
+            self.isConnected = False
+        #else
+        self.log(  inspect.currentframe().f_lineno,
+                __file__,
+                inspect.currentframe().f_code.co_name,
+                self.objname,
+                0,
+                "Revc:{}".format(len(self.response)))    
 
-    def Write(self, ColumnName):
-        """Send the configuration file to the server."""
-        if not os.path.exists(self.config_file_path):
-            print(f"Error: File {self.config_file_path} not found!")
-            return
+    def Write(self):
+        self.command = self.command.encode('utf-8')
+        try:
+            self.client_socket.sendall(self.command)
+        except Exception as err:
+            self.bobj.log.log(   inspect.currentframe().f_lineno,
+                __file__,
+                inspect.currentframe().f_code.co_name,
+                self.objname,
+                1,
+                err)
+            self.isConnected = False
+        #else
+        self.log(  inspect.currentframe().f_lineno,
+                __file__,
+                inspect.currentframe().f_code.co_name,
+                self.objname,
+                0,
+                "Wrote:{}".format(len(self.command)))   
         
     def RecieveCSVFileGUI(self,OutWidget):
         #Read the number of blocks, type of report file, and filename
-        self.response = self.client_socket.recv(self.buffer_size)
+        self.Read()
+      
         ## Instead of print send out put to OutWidget
         print("Recieved.  {len(self.response)}  Bytes")
+
         msg = self.response.decode();
         msg = msg.split(",")
         match msg[1]:
             case "1":         
                 outdir = self.savecvsdir + "/perfdataPQB/" + msg[2]
         blks = int(msg[0])
+
         ## Instead of print send out put to OutWidget
         print(outdir)
+
         f = open(outdir, "w")
         for i in range(blks):
-            self.response = self.client_socket.recv(self.buffer_size)
+            self.Read()
             wline = self.response.decode();
             modified_lines = [line.rstrip('\r\x00') for line in wline]
             f.writelines(modified_lines)
@@ -76,7 +123,24 @@ class TCPIP:
                 outdir = self.savecvsdir + "/perfdataPQB/" + msg[2]
         blks = int(msg[0])
         print(outdir)
-        f = open(outdir, "w")
+        try:
+            f = open(outdir, "w")
+        except Exception as err:
+            self.bobj.log.log(   inspect.currentframe().f_lineno,
+                    __file__,
+                    inspect.currentframe().f_code.co_name,
+                    self.objname,
+                    1,
+                    err)
+            print("File not Saved" + err )
+            return 
+        self.log(  inspect.currentframe().f_lineno,
+                __file__,
+                inspect.currentframe().f_code.co_name,
+                self.objname,
+                0,
+                "Opened:" + outdir)   
+
         for i in range(blks):
             self.response = self.client_socket.recv(self.buffer_size)
             wline = self.response.decode();
@@ -85,25 +149,21 @@ class TCPIP:
 
     def RecieveImgFile(self):
         # Send the send command to the server
-        self.command = self.command.encode('utf-8')
-        sent = self.client_socket.sendall(self.command)
-        #Read the number of blocks
+        self.Wrtie()
         self.Read()
         int_array = [byte for byte in self.response]
         outdir = self.saveimgdir + "/file001.png"
-        
         print(outdir)
         f = open(outdir, "wb")
         for i in range(int_array[0]):
-            self.response = self.client_socket.recv(self.buffer_size)
+            self.Read()
             f.write(self.response)
 
     def RecieveImgFileGUI(self,OutWidget):
         # Send the send command to the server
-        self.command = self.command.encode('utf-8')
-        sent = self.client_socket.sendall(self.command)
+        self.Write()
         #Read the number of blocks
-        self.response = self.client_socket.recv(self.buffer_size)
+        self.Read()
         ## Instead of print send out put to OutWidget
         print("Recieved.  {len(self.response)}  Bytes")
         int_array = [byte for byte in self.response]
@@ -112,18 +172,16 @@ class TCPIP:
         print(outdir)
         f = open(outdir, "wb")
         for i in range(int_array[0]):
-            self.response = self.client_socket.recv(self.buffer_size)
+            self.Read()
             f.write(self.response)
 
     def RunSeriesGUI(self, OutWidget):
         self.command = "runseries"
-        self.command = self.command.encode('utf-8')
-        sent = self.client_socket.sendall(self.command)    
+        self.Write()
         time.sleep(1.0)
         ret = 0
         while ret == 0:
-            self.response = self.client_socket.recv(self.buffer_size)
-            numbytes = len(self.response)
+            self.Read()
             ## Instead of print send out put to OutWidget
             print(f"Server Response: {self.response.decode()}")
             msg = self.response.decode()
@@ -140,14 +198,11 @@ class TCPIP:
 
     def RunSeriesCMD(self):
         self.command = "runseries"
-        self.command = self.command.encode('utf-8')
-        sent = self.client_socket.sendall(self.command)    
+        self.Write()
         time.sleep(1.0)
         ret = 0
         while ret == 0:
-            self.response = self.client_socket.recv(self.buffer_size)
-            numbytes = len(self.response)
-            #print(f"Recieved. {numbytes} Bytes")
+            self.Read()
             print(f"Server Response: {self.response.decode()}")
             msg = self.response.decode()
             msg = msg.split(",")
@@ -164,20 +219,16 @@ class TCPIP:
     def SendCommandGUI(self,msg):
           match msg:
             case "quit":
-                self.command = self.command.encode('utf-8')
-                totalsent = 0
-                sent = self.client_socket.sendall(self.command)    
+                self.Write()
                 self.Close()
                 return
             case "sendcsv":
-                self.command = self.command.encode('utf-8')
-                sent = self.client_socket.sendall(self.command)     
+                self.Write()
                 self.RecieveCSVFile()
             case "sendimg":     
                 self.RecieveImgFile()
             case "test": 
-                self.command = self.command.encode('utf-8')
-                sent = self.client_socket.sendall(self.command)
+                self.Write()
                 self.Read()
             case "runseries":
                 self.RunLoop()
@@ -192,20 +243,18 @@ class TCPIP:
                 self.command = msg
                 match msg:
                     case "quit":
-                        self.command = self.command.encode('utf-8')
-                        totalsent = 0
-                        sent = self.client_socket.sendall(self.command)    
-                        self.Close()
-                        return
+                        if (self.isConnected == True):
+                            self.Write()
+                            self.Close()
+                            return
+                        return;
                     case "sendcsv":
-                        self.command = self.command.encode('utf-8')
-                        sent = self.client_socket.sendall(self.command)     
+                        self.Write()
                         self.RecieveCSVFile()
                     case "sendimg":     
                         self.RecieveImgFile()
                     case "test": 
-                        self.command = self.command.encode('utf-8')
-                        sent = self.client_socket.sendall(self.command)
+                        self.Write()
                         self.Read()
                     case "runseries":
                         self.RunSeriesCMD()
