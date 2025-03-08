@@ -9,10 +9,13 @@ class DataClass:
         self.data_files = []
         self.average_list = []
         self.ObjName = ObjName
+        
+
 
     def Create(self, BaseObj, file_end):
         self.bobj = BaseObj
         self.cfg = self.bobj.cfg.config
+        self.bobj.lvl = 1000
         
         match(file_end):
             case "PQB":
@@ -28,7 +31,7 @@ class DataClass:
     def Open(self):
         if os.path.exists(self.topdir):
             rettxt = "Sucessfully found data directory :" + self.topdir
-            self.bobj.log.log(   inspect.currentframe().f_lineno,
+            self.bobj.log.log(self.bobj.lvl,inspect.currentframe().f_lineno,
             __file__,
             inspect.currentframe().f_code.co_name,
             self.ObjName,
@@ -36,7 +39,7 @@ class DataClass:
             rettxt)
         else:
             rettxt = "Data directory :" + self.topdir + " not found."
-            self.bobj.log.log(   inspect.currentframe().f_lineno,
+            self.bobj.log.log(self.bobj.lvl, inspect.currentframe().f_lineno,
             __file__,
             inspect.currentframe().f_code.co_name,
             self.ObjName,

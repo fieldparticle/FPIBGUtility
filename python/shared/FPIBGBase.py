@@ -4,6 +4,8 @@ import inspect
 
 
 class FPIBGBase:
+
+    
     """
     This class is the global class for all other classes
 
@@ -22,7 +24,7 @@ class FPIBGBase:
         """
         print(f"Created " + ObjName)
         self.ObjName = ObjName
-    
+        
     def Create(self,CfgFileName,LogName):
         """
         Creates the base object and memeber objects log and config
@@ -36,6 +38,8 @@ class FPIBGBase:
         self.log.Open()
         self.cfg = FPIBGConfig("GlobalConfigObject")
         self.cfg.Create(self.log,CfgFileName)
+        
+        
        
 
 # @abstrctmethod

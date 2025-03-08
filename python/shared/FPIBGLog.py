@@ -1,17 +1,32 @@
 from datetime import datetime
 import inspect
+import os
 
 ## FPIBGLog class perfomrs formmated logging for all other classes
 class FPIBGLog:
         
-    veroseLevel = 1
-    debugLevel = 1
-    
     ##  FPIBGLog Constructor.
     # @param   ApplicationName --  (string) Passes the name of the calling application.
     def __init__ (self,ApplicationName):
         self.appName = ApplicationName
         print(type(self))
+        self.lvl = 0
+        self.dlvl = 0
+
+    def SetDebugLevel(self,lvl):
+        self.dlvl = lvl
+    
+    def CheckLogFile(self,ErrString)-> bool:
+        self.Close()
+        ret = 0;
+        self.FileObj = open(self.logName, "r")
+        for line in self.FileObj:
+            if ErrString in line:
+                print(line)
+                return True
+        return False    
+    
+
 
     ## Standard create for the log class object.
     # @param   LogName -- (string) the name of the log file which will be written to.
@@ -27,7 +42,8 @@ class FPIBGLog:
     # 
     def Open(self):
         self.fileObj = open(self.logName,"w+")
-        logstring = "{}_{}_{}:{}:{}:{}:{}:{}:{}:{}:{}:{}\n".format("yy",
+        logstring = "{},{}_{}_{}:{}:{},{},{},{},{},{},{},{}\n".format("lvl",
+                                                                    "yy",
                                                                    "mm",
                                                                    "dd",
                                                                    "hr",
@@ -40,7 +56,7 @@ class FPIBGLog:
                                                                    "ErrCode",
                                                                    "ErrString")
         self.fileObj.write(str(logstring))  
-        self.log(inspect.currentframe().f_lineno,
+        self.log(1,inspect.currentframe().f_lineno,
                             __file__,
                             inspect.currentframe().f_code.co_name,
                             "LogObject",
@@ -57,12 +73,13 @@ class FPIBGLog:
     # @param The Object Name from self.ObjName.
     # @param The error code from list to be determined later. Just pass 0 for success and 1 for failure.
     # @param The error text.
-    def log(self,LineNumber,ClassName,Function,ObjName,ErrCode,ErrString):
-        current_time = datetime.now()       
-        timestr = "{}_{}_{}:{}:{}".format( current_time.year, current_time.month, current_time.day, current_time.hour, current_time.minute)
-        logstring = "{}:{}:{}:{}:{}:{}:{}:{}\n".format(timestr,self.appName,ClassName,Function,LineNumber,ObjName,ErrCode,ErrString)
-        self.fileObj.write(str(logstring))  
-        
+    def log(self,lvl,LineNumber,ClassName,Function,ObjName,ErrCode,ErrString):
+        if(lvl <= lvl):
+            current_time = datetime.now()       
+            timestr = "{}_{}_{}:{}:{}".format( current_time.year, current_time.month, current_time.day, current_time.hour, current_time.minute)
+            logstring = "{},{},{},{},{},{},{},{},{}\n".format(lvl,timestr,self.appName,os.path.basename(ClassName),Function,LineNumber,ObjName,ErrCode,ErrString)
+            self.fileObj.write(str(logstring))  
+            self.fileObj.flush()
     ## Standard close. Closes the log file.
     def Close(self):
         self.fileObj.close()

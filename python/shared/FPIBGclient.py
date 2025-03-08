@@ -134,6 +134,7 @@ class TCPIP:
                     err)
             print("File not Saved" + err )
             return 
+        #else
         self.log(  inspect.currentframe().f_lineno,
                 __file__,
                 inspect.currentframe().f_code.co_name,

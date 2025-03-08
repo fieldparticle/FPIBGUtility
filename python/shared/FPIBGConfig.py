@@ -5,18 +5,19 @@ import io
 import inspect
 
 class FPIBGConfig:
+    lvl = 100
     def Create(self,LogObj,CfgFileName):
         self.CfgFileName = CfgFileName
         self.configPath = os.path.join(self.get_repo_root(), self.CfgFileName)
         with io.open(self.configPath) as f:
             self.config = libconf.load(f)
             self.log = LogObj
-            self.log.log(   inspect.currentframe().f_lineno,
+            self.log.log( 1,  inspect.currentframe().f_lineno,
                             __file__,
                             inspect.currentframe().f_code.co_name,
                             self.ObjName,
                             0,
-                            "Test 1 Success")       
+                            "Successfully Loaded Config File.")       
 
     def get_repo_root(self):
         """Gets the absolute path of the project root directory."""
@@ -34,22 +35,20 @@ class FPIBGConfig:
         Saves the configuration information as a dictionary.
         """
         self.ObjName = ObjName
-        
 
     def Open():
         pass
     def Close():
         pass    
     
-    def testObject(self,modNumber,dbglvl):
-        if modNumber == 1 and dbglvl == 5:
-            print(f"Running Mod" , modNumber , " Test")
-            self.log.log(   inspect.currentframe().f_lineno,
+    def testObject(self,modName):
+            print(f"Running Mod" , modName , " Test")
+            self.log.log( 1, inspect.currentframe().f_lineno,
                             __file__,
                             inspect.currentframe().f_code.co_name,
                             self.ObjName,
                             0,
-                            "Test 1 Success")
+                            f"Running:" + modName)
             # Please here print out every item indicidually
             print(self.config.application.window.title)
             print(self.config.application.window.size.w)
@@ -92,10 +91,7 @@ class FPIBGConfig:
             print(self.config.application.printExtension)
             print(self.config.application.printDevLimtits)
             print(self.config.application.verbose_rpt)
-
-
-
-        return 0
+            return 0
             
 
    
