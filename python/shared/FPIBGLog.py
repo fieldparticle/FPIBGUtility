@@ -10,12 +10,8 @@ class FPIBGLog:
     def __init__ (self,ApplicationName):
         self.appName = ApplicationName
         print(type(self))
-        self.lvl = 0
-        self.dlvl = 0
+        
 
-    def SetDebugLevel(self,lvl):
-        self.dlvl = lvl
-    
     def CheckLogFile(self,ErrString)-> bool:
         self.Close()
         ret = 0;

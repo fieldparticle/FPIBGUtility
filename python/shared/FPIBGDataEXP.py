@@ -15,7 +15,7 @@ class DataClass:
         self.bobj = BaseObj
         self.cfg = self.bobj.cfg.config
         self.log = self.bobj.log
-        self.log.lvl = 1000
+        self.dlvl= 1000
 
         
         match(file_end):
@@ -36,7 +36,7 @@ class DataClass:
                             __file__,
                             inspect.currentframe().f_code.co_name,
                             self.ObjName,
-                            self.log.lvl+1,
+                            self.dlvl+1,
                             rettxt)
                 return False    
             

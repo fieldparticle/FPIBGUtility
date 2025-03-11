@@ -26,6 +26,21 @@ var NAVTREE =
 [
   [ "FPIBG Utility", "index.html", [
     [ "CEN5035 Submission FPIBG Sprint 2, Modules 3,4,5", "index.html", "index" ],
+    [ "Utility Project Style and Procedure Guide", "_f_p_i_b_g.html", [
+      [ "Class Instantiations", "_f_p_i_b_g.html#section2", null ],
+      [ "Logging", "_f_p_i_b_g.html#section3", [
+        [ "Logging succesfull function calls.", "_f_p_i_b_g.html#subsec1", null ],
+        [ "Logging failures of function calls.", "_f_p_i_b_g.html#subsec2", null ],
+        [ "Debug level for classes.", "_f_p_i_b_g.html#subsec3", null ]
+      ] ],
+      [ "Exercising and Unit testing", "_f_p_i_b_g.html#section4", [
+        [ "Exercising", "_f_p_i_b_g.html#subsec5", null ],
+        [ "Unit Testing with Pytest", "_f_p_i_b_g.html#subsec6", null ]
+      ] ],
+      [ "Documenting the code", "_f_p_i_b_g.html#section5", [
+        [ "Documenting a class", "_f_p_i_b_g.html#subsec7", null ]
+      ] ]
+    ] ],
     [ "Namespaces", "namespaces.html", [
       [ "Namespace List", "namespaces.html", "namespaces_dup" ],
       [ "Namespace Members", "namespacemembers.html", [
@@ -53,9 +68,9 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "_b_r_main_window_8py.html",
-"class_f_p_i_b_gclient_1_1_t_c_p_i_p.html#a548a66abfbe9a841d335077f4aefbbb1",
-"classlibconf_1_1_parser.html#a6f0670d15d607ef6a5c42973c45853d7",
-"namespacelibconf.html#a11c63c6ee7b219a1aa9b3574d02c94d7"
+"class_f_p_i_b_gclient_1_1_t_c_p_i_p.html#a22aba4e791982438c575c7e3528f335e",
+"classlibconf_1_1_parser.html#a4c295c1686026e845f9fa7aaf58b0c53",
+"namespace_test_main_window.html#a514007790bbdb94471b4232a72e6e9ef"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronization';

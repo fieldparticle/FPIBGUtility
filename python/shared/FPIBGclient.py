@@ -6,6 +6,7 @@ class TCPIP:
     def __init__(self, ObjectName):
         self.objname = ObjectName
         
+
     ## Create() for the MyClass object.
     # @param   BaseObj -- (FPIBGBase) this is the glovbal class that contains the log and config file facilities.
     def Create(self,BaseObj):
@@ -15,31 +16,44 @@ class TCPIP:
         self.bobj = BaseObj
         self.cfg = self.bobj.cfg.config
         self.log = self.bobj.log.log
-        ## Initialize the client configuration.
-        self.server_ip = self.cfg.server_ip
-        self.server_port = self.cfg.server_port
-        self.buffer_size = self.cfg.server_buf_size
-        self.saveimgdir = self.cfg.save_img_dir
-        self.savecvsdir = self.cfg.save_csv_dir
-        self.client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self.dlvl = 2000
+        # Assign all configuration items in the create function
+        # and contain them in a try block
+        try:
+            ## Initialize the client configuration.
+            self.server_ip = self.cfg.server_ip
+            self.server_port = self.cfg.server_port
+            self.buffer_size = self.cfg.server_buf_size
+            self.saveimgdir = self.cfg.save_img_dir
+            self.savecvsdir = self.cfg.save_csv_dir
+            self.client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            
+        except Exception as err:
+            self.bobj.log.log( 0,  inspect.currentframe().f_lineno,
+                __file__,
+                inspect.currentframe().f_code.co_name,
+                self.objname,
+                self.dlvl+1,
+                err)
+            self.isConnected = False
 
     def Open(self):
         ##Connect to the server."""
         try:
             self.client_socket.connect((self.server_ip, self.server_port))
-            self.log(  inspect.currentframe().f_lineno,
+            self.log( 0, inspect.currentframe().f_lineno,
                 __file__,
                 inspect.currentframe().f_code.co_name,
                 self.objname,
-                1,
+                0,
                 f"Connected to server at {self.server_ip}:{self.server_port}")
             self.isConnected = True
         except Exception as err:
-            self.bobj.log.log(   inspect.currentframe().f_lineno,
+            self.log( 0,  inspect.currentframe().f_lineno,
                 __file__,
                 inspect.currentframe().f_code.co_name,
                 self.objname,
-                1,
+                self.dlvl+2,
                 err)
             self.isConnected = False
 
@@ -53,15 +67,15 @@ class TCPIP:
         try:
             self.response = self.client_socket.recv(self.buffer_size)
         except Exception as err:
-            self.bobj.log.log(   inspect.currentframe().f_lineno,
+            self.log(0,   inspect.currentframe().f_lineno,
                 __file__,
                 inspect.currentframe().f_code.co_name,
                 self.objname,
-                1,
+                self.dlvl+2,
                 err)
             self.isConnected = False
         #else
-        self.log(  inspect.currentframe().f_lineno,
+        self.log(0,  inspect.currentframe().f_lineno,
                 __file__,
                 inspect.currentframe().f_code.co_name,
                 self.objname,
@@ -73,15 +87,15 @@ class TCPIP:
         try:
             self.client_socket.sendall(self.command)
         except Exception as err:
-            self.bobj.log.log(   inspect.currentframe().f_lineno,
+            self.log( 0,  inspect.currentframe().f_lineno,
                 __file__,
                 inspect.currentframe().f_code.co_name,
                 self.objname,
-                1,
+                self.dlvl+3,
                 err)
             self.isConnected = False
         #else
-        self.log(  inspect.currentframe().f_lineno,
+        self.log(0,  inspect.currentframe().f_lineno,
                 __file__,
                 inspect.currentframe().f_code.co_name,
                 self.objname,
@@ -130,12 +144,12 @@ class TCPIP:
                     __file__,
                     inspect.currentframe().f_code.co_name,
                     self.objname,
-                    1,
+                    self.dlvl+4,
                     err)
             print("File not Saved" + err )
             return 
         #else
-        self.log(  inspect.currentframe().f_lineno,
+        self.log( 0, inspect.currentframe().f_lineno,
                 __file__,
                 inspect.currentframe().f_code.co_name,
                 self.objname,

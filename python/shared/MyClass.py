@@ -13,14 +13,14 @@ class MyClass:
         self.ObjName = ObjName
 
     ## Create() for the MyClass object.
-    # @param   BaseObj -- (FPIBGBase) this is the global class that contains the log and config file facilities.
+    # \param BaseObj -- (FPIBGBase) this is the global class that contains the log and config file facilities.
     def Create(self,BaseObj):
         ## bobj contains the global object.
         self.bobj = BaseObj
         self.cfg = self.bobj.cfg.config
         self.log = self.bobj.log
         # Assign this objects debug level
-        self.log.lvl = 50
+        self.dlvl = 50
         
     ##  Performs opening of file and communcations and takes no input. Any data this function needs 
     #    is assigned to class members in the Create function
@@ -69,7 +69,7 @@ class MyClass:
                         __file__,
                         inspect.currentframe().f_code.co_name,
                         self.ObjName,
-                        self.log.lvl+1,
+                        self.dlvl+1,
                         f"Running Mod:" + modName)
                 
         

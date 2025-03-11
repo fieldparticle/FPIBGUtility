@@ -10,5 +10,8 @@ var searchData=
   ['pptimg2md_7',['pptimg2md',['../classpptimg2md_1_1pptimg2md.html',1,'pptimg2md.pptimg2md'],['../namespacepptimg2md.html',1,'pptimg2md']]],
   ['pptimg2md_2epy_8',['pptimg2md.py',['../pptimg2md_8py.html',1,'']]],
   ['preamble_9',['preamble',['../namespacepreamble.html',1,'']]],
-  ['preamble_2epy_10',['preamble.py',['../preamble_8py.html',1,'']]]
+  ['preamble_2epy_10',['preamble.py',['../preamble_8py.html',1,'']]],
+  ['procedure_20guide_11',['Utility Project Style and Procedure Guide',['../_f_p_i_b_g.html',1,'']]],
+  ['project_20style_20and_20procedure_20guide_12',['Utility Project Style and Procedure Guide',['../_f_p_i_b_g.html',1,'']]],
+  ['pytest_13',['Unit Testing with Pytest',['../_f_p_i_b_g.html#subsec6',1,'']]]
 ];
