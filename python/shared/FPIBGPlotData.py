@@ -33,18 +33,21 @@ class PlotData:
         self.ObjName = ObjName
 
 
+    def new_path(self, dir):
+        parts = dir.rsplit("/", 1) 
+        parts[-1] = parts[-1].replace("data", "")
+        return "/".join(parts)
+
     def plotData(self):
-        data_files = [i for i in os.listdir(self.topdir) if i.endswith("D.csv")]
+        newdir = self.new_path(self.topdir) + ".csv"
+        file_path = os.path.join(self.topdir, newdir)
+        df = pd.read_csv(file_path)
 
-        for file in data_files:
-            file_path = os.path.join(self.topdir, file)
-            df = pd.read_csv(file_path)
-
-            plt.figure(figsize=(8,5))
-            plt.plot(df['loadedp'], df['cpums'], marker='o', linestyle='-', label=file)
-            plt.xlabel("loadedp")
-            plt.ylabel("cpums")
-            plt.title(f"{file}: cpums vs loadedp")
-            plt.legend()
-            plt.grid(True)
-            plt.show()
+        plt.figure(figsize=(8,5))
+        plt.plot(df['loadedp'], df['cpums'], marker='o', linestyle='-', label=newdir)
+        plt.xlabel("loadedp")
+        plt.ylabel("cpums")
+        plt.title(f"{os.path.basename(file_path)}: cpums vs loadedp")
+        plt.legend()
+        plt.grid(True)
+        plt.show()
