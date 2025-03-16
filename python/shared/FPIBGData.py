@@ -17,6 +17,7 @@ class DataClass:
         self.cfg = self.bobj.cfg.config
         self.bobj.lvl = 1000
         
+        
         match(file_end):
             case "PQB":
                 self.topdir = self.cfg.application.testdirPQB
