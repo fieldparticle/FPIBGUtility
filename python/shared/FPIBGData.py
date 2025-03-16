@@ -1,6 +1,6 @@
 import os
 import csv
-
+import inspect
 
 class DataClass:
 
@@ -9,10 +9,13 @@ class DataClass:
         self.data_files = []
         self.average_list = []
         self.ObjName = ObjName
+        
+
 
     def Create(self, BaseObj, file_end):
         self.bobj = BaseObj
         self.cfg = self.bobj.cfg.config
+        self.bobj.lvl = 1000
         
         match(file_end):
             case "PQB":
@@ -26,7 +29,22 @@ class DataClass:
                 
 
     def Open(self):
-        pass
+        if os.path.exists(self.topdir):
+            rettxt = "Sucessfully found data directory :" + self.topdir
+            self.bobj.log.log(self.bobj.lvl,inspect.currentframe().f_lineno,
+            __file__,
+            inspect.currentframe().f_code.co_name,
+            self.ObjName,
+            0,
+            rettxt)
+        else:
+            rettxt = "Data directory :" + self.topdir + " not found."
+            self.bobj.log.log(self.bobj.lvl, inspect.currentframe().f_lineno,
+            __file__,
+            inspect.currentframe().f_code.co_name,
+            self.ObjName,
+            1,
+            rettxt)
 
     def Close(self):
         pass
@@ -50,7 +68,7 @@ class DataClass:
         return "/".join(parts)
 
     def create_summary(self):
-        data = ['Name', 'fps', 'cpums', 'cms', 'gms']
+        data = ['Name', 'fps', 'cpums', 'cms', 'gms', 'loadedp']
         newdir = self.new_path(self.topdir) + ".csv"
         with open(newdir, mode= 'w', newline='') as file:
             writer = csv.writer(file)
@@ -60,7 +78,7 @@ class DataClass:
         directory = self.new_path(self.topdir) + ".csv"
         for i in self.data_files:
             file_path = self.topdir + "/" + i
-            fps = cpums = cms = gms = count = 0
+            fps = cpums = cms = gms = loadedp = count = 0
             with open(file_path, 'r') as filename:
                 file = csv.DictReader(filename)
                 for col in file:
@@ -69,11 +87,13 @@ class DataClass:
                     cpums += float(col['cpums'])
                     cms += float(col['cms'])
                     gms += float(col['gms'])
+                    loadedp += float(col['loadedp'])
             fps = fps / count
             cpums = cpums / count
             cms = cms / count
             gms = gms / count
-            avg_list = [i, fps, cpums, cms, gms]
+            loadedp = loadedp / count
+            avg_list = [i, fps, cpums, cms, gms, loadedp]
             with open(directory, 'a', newline='') as file:
                 writer = csv.writer(file)
                 writer.writerow(avg_list)
