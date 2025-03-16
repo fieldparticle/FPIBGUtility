@@ -60,6 +60,15 @@ class LatexPlot(LatexClass):
         w = "\\end{figure*}\r"
         f.write(w)
         f.close()
+        preoutname = self.outDirectory + "/" + "pre_plots.tex"
+        p = open(preoutname, "w")
+        w = "%%============================================= Plot %s\r"%(self.name)
+        p.write(w)
+        w = "Fig. \\ref{fig:%s}\r"%(self.name)
+        p.write(w)
+        w = "\\input{%s}\r"%(loutname)
+        p.write(w)
+        p.close()
         pass
 
 
