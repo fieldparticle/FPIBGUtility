@@ -16,6 +16,8 @@ class PlotData:
                 self.topdir = self.cfg.application.testdirDUP
             case "CFB":
                 self.topdir = self.cfg.application.testdirCFB
+        newdir = self.new_path(self.topdir) + ".csv"
+        self.topdir = os.path.join(self.topdir, newdir)
 
     def Open(self):
         pass
@@ -38,16 +40,28 @@ class PlotData:
         parts[-1] = parts[-1].replace("data", "")
         return "/".join(parts)
 
-    def plotData(self):
-        newdir = self.new_path(self.topdir) + ".csv"
-        file_path = os.path.join(self.topdir, newdir)
-        df = pd.read_csv(file_path)
+    def plot_cpums(self):
+        df = pd.read_csv(self.topdir)
 
         plt.figure(figsize=(8,5))
-        plt.plot(df['loadedp'], df['cpums'], marker='o', linestyle='-', label=newdir)
+        plt.plot(df['loadedp'], df['cpums'], marker='o', linestyle='-', label="cpums vs loadedp")
         plt.xlabel("loadedp")
         plt.ylabel("cpums")
-        plt.title(f"{os.path.basename(file_path)}: cpums vs loadedp")
+        plt.title(f"{os.path.basename(self.topdir)}: cpums vs loadedp")
+        plt.legend()
+        plt.grid(True)
+        plt.show()
+
+    def plot_B1(self):
+        df = pd.read_csv(self.topdir)
+
+        plt.figure(figsize=(8,5))
+        plt.plot(df['loadedp'], df['gms'], marker='o', linestyle='-', label="gms vs loadedp")
+        plt.plot(df['loadedp'], df['cms'], marker='o', linestyle="-", label="cms vs loadedp")
+        plt.plot(df['loadedp'], df['cms'] + df['gms'], marker='o', linestyle="-", label="(cms+gms) vs loadedp")
+        plt.xlabel("Number of Particles (q)")
+        plt.ylabel("Seconds per frame, spf (ms)")
+        plt.title(f"{os.path.basename(self.topdir)}: B1 Plot")
         plt.legend()
         plt.grid(True)
         plt.show()
