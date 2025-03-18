@@ -65,3 +65,18 @@ class PlotData:
         plt.legend()
         plt.grid(True)
         plt.show()
+
+    def plot_linearity(self):
+        df = pd.read_csv(self.topdir)
+
+        plt.figure(figsize=(8,5))
+        plt.plot(df['loadedp'], df['cms'] / df['loadedp'], marker='o', linestyle="-", label="(cms/loadedp) vs loadedp")
+        plt.plot(df['loadedp'], df['gms'] / df['loadedp'], marker='o', linestyle="-", label="(gms/loadedp) vs loadedp")
+        plt.plot(df['loadedp'], (df['cms'] + df['gms']) / df['loadedp'], marker='o', 
+                 linestyle="-", label="(cms+gms)/loadedp vs loadedp")      
+        plt.xlabel("Number of Particles")
+        plt.ylabel("Linearity")
+        plt.title(f"{os.path.basename(self.topdir)}: Linearity")
+        plt.legend()
+        plt.grid(True)
+        plt.show()

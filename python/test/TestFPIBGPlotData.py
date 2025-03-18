@@ -19,6 +19,7 @@ myClass.Create(bc,"PQB")
 myClass.Open()
 myClass.plot_cpums()
 myClass.plot_B1()
+myClass.plot_linearity()
     
 bc.Close()
 myClass.Close() 
