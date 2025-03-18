@@ -80,3 +80,17 @@ class PlotData:
         plt.legend()
         plt.grid(True)
         plt.show()
+
+    def plot_cell_fraction(self):
+        df = pd.read_csv(self.topdir)
+
+        plt.figure(figsize=(8,5))
+        plt.plot(df['sidelen'], df['cms'], marker='o', linestyle='-', label="cms vs sidelen")
+        plt.plot(df['sidelen'], df['gms'], marker='o', linestyle="-", label="gms vs sidelen")
+        plt.plot(df['sidelen'], df['cms'] + df['gms'], marker='o', linestyle="-", label="(cms+gms) vs sidelen")
+        plt.xlabel("Side Length")
+        plt.ylabel("Seconds per frame, spf (ms)")
+        plt.title(f"{os.path.basename(self.topdir)}: Cell Fraction Benchmark")
+        plt.legend()
+        plt.grid(True)
+        plt.show()
