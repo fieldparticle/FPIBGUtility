@@ -249,7 +249,7 @@ class TabGenConfig(QTabWidget):
             item = parent_layout.itemAt(i)
             if item.widget() is widget:
                 # Check the previous item for a label
-                if i > 0:
+                if i < parent_layout.count() - 1:
                     prev_item = parent_layout.itemAt(i + 1)
                     if prev_item and isinstance(prev_item.widget(), QLabel):
                         return prev_item.widget().text().replace(":", "")
