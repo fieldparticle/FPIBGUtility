@@ -27,7 +27,9 @@ class TabGenConfig(QTabWidget):
         hbox.addWidget(self.folderLineEdit)
         hbox.addWidget(self.browseButton)
         # Add that HBox to the layout
-        folder_layout.addRow("Folder:", hbox)
+        folder_label = QLabel("Folder Selection")
+        # folder_layout.addRow("Folder:", hbox)
+        folder_layout.addRow(folder_label, hbox)
         folder_group.setLayout(folder_layout)
         main_layout.addWidget(folder_group)
 
@@ -103,7 +105,9 @@ class TabGenConfig(QTabWidget):
         frag_hbox = QHBoxLayout()
         frag_hbox.addWidget(self.frag_kernel)
         frag_hbox.addWidget(self.frag_browseButton)
-        gpu_layout.addRow("Fragment Kernel:", frag_hbox)
+        frag_label = QLabel("Fragment Kernel")
+        # gpu_layout.addRow("Fragment Kernel:", frag_hbox)
+        gpu_layout.addRow(frag_label, frag_hbox)
         # Vertex Kernel (browse file)
         self.vert_kernel = QLineEdit()
         self.vert_browseButton = QPushButton("Browse")
@@ -111,7 +115,9 @@ class TabGenConfig(QTabWidget):
         vert_hbox = QHBoxLayout()
         vert_hbox.addWidget(self.vert_kernel)
         vert_hbox.addWidget(self.vert_browseButton)
-        gpu_layout.addRow("Vertex Kernel:", vert_hbox)
+        vert_label = QLabel("Vertex Kernel")
+        # gpu_layout.addRow("Vertex Kernel:", vert_hbox)
+        gpu_layout.addRow(vert_label, vert_hbox)
         # Compute Kernel (browse file)
         self.comp_kernel = QLineEdit()
         self.comp_browseButton = QPushButton("Browse")
@@ -119,7 +125,9 @@ class TabGenConfig(QTabWidget):
         comp_hbox = QHBoxLayout()
         comp_hbox.addWidget(self.comp_kernel)
         comp_hbox.addWidget(self.comp_browseButton)
-        gpu_layout.addRow("Compute Kernel:", comp_hbox)
+        comp_label = QLabel("Compute Kernel")
+        # gpu_layout.addRow("Compute Kernel:", comp_hbox)
+        gpu_layout.addRow(comp_label, comp_hbox)
 
         gpu_group.setLayout(gpu_layout)
         main_layout.addWidget(gpu_group)
@@ -187,7 +195,7 @@ class TabGenConfig(QTabWidget):
         for i in range(layout.count()):
             item = layout.itemAt(i)
             widget = item.widget()
-
+            print("Wrapper | Widget: " + str(type(widget)) + ", item: " + str(type(item)))
             if isinstance(widget, QGroupBox):
                 # Iterate through the layout of the QGroupBox
                 group_layout = widget.layout()
@@ -195,22 +203,21 @@ class TabGenConfig(QTabWidget):
                     for j in range(group_layout.count()):
                         group_item = group_layout.itemAt(j)
                         group_widget = group_item.widget()
-                        if group_widget is not None:
-                            print(f"group_item.layout(): {group_item.layout()}, type: {type(group_item.layout())}")
+                        print("Inner | Widget: " + str(type(group_widget)) + ", item: " + str(type(group_item)))
+                        if group_widget is not None or isinstance(group_item, QHBoxLayout):
                             if isinstance(group_widget, QLineEdit):
                                 if not group_widget.text().strip():
                                     empty_fields.append(self.get_label_for_widget(group_widget, group_layout))
                             elif isinstance(group_widget, QSpinBox):
                                 if group_widget.value() == group_widget.minimum():
                                     empty_fields.append(self.get_label_for_widget(group_widget, group_layout))
-                            elif isinstance(group_item.layout(), QHBoxLayout):
-                                print("Found HBox")
+                            elif isinstance(group_item, QHBoxLayout):
                                 hbox_layout = group_item.layout()  # Get the QHBoxLayout
                                 if hbox_layout:
                                     folder_line_edit = hbox_layout.itemAt(0).widget()  # Access the QLineEdit
                                     if isinstance(folder_line_edit, QLineEdit):
                                         if not folder_line_edit.text().strip():
-                                            empty_fields.append("Folder")  # Or a more specific label
+                                            empty_fields.append(self.get_label_for_hbox(group_item, group_layout))  # Or a more specific label
                             # Add checks for other input widget types as needed
 
         if empty_fields:
@@ -221,6 +228,20 @@ class TabGenConfig(QTabWidget):
             QMessageBox.information(self, "Success", "Form submitted successfully!")
             # Process your form data here
             return False
+
+    def get_label_for_hbox(self, hbox, parent_layout):
+        """Helper function to find the label associated with an input hbox within a layout."""
+        for i in range(parent_layout.count()):
+            item = parent_layout.itemAt(i)
+            if item is hbox:
+                # Check the previous item for a label
+                if i > 0:
+                    prev_item = parent_layout.itemAt(i - 1)
+                    if prev_item and isinstance(prev_item.widget(), QLabel):
+                        return prev_item.widget().text().replace(":", "")
+                # If no preceding label is found, return a generic name
+                return item.__class__.__name__
+        return "Unknown Field"
 
     def get_label_for_widget(self, widget, parent_layout):
         """Helper function to find the label associated with an input widget within a layout."""
