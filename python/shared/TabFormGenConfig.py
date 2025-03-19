@@ -1,5 +1,5 @@
 import sys
-from PyQt6.QtWidgets import QApplication, QWidget,  QFormLayout, QGridLayout, QTabWidget, QLineEdit, QDateEdit, QPushButton, QLabel, QHBoxLayout, QFileDialog, QVBoxLayout, QGroupBox, QCheckBox, QSpinBox
+from PyQt6.QtWidgets import QApplication, QWidget,  QFormLayout, QGridLayout, QTabWidget, QLineEdit, QDateEdit, QPushButton, QLabel, QHBoxLayout, QFileDialog, QVBoxLayout, QGroupBox, QCheckBox, QSpinBox, QMessageBox
 from PyQt6.QtGui import QIntValidator
 from PyQt6.QtCore import Qt
 import datetime
@@ -22,7 +22,7 @@ class TabGenConfig(QTabWidget):
         self.folderLineEdit = QLineEdit()
         self.browseButton = QPushButton("Browse")
         self.browseButton.clicked.connect(self.browseFolder)
-        # Add the folder line edit and the browse button to an HBox 
+        # Add the folder line edit and the browse button to an HBox
         hbox = QHBoxLayout()
         hbox.addWidget(self.folderLineEdit)
         hbox.addWidget(self.browseButton)
@@ -181,9 +181,67 @@ class TabGenConfig(QTabWidget):
             self.comp_kernel.setText(file[0])
             #self.log_action("browseFile", file[0])
 
+    def existsEmpty(self):
+        empty_fields = []
+        layout = self.layout()
+        for i in range(layout.count()):
+            item = layout.itemAt(i)
+            widget = item.widget()
+
+            if isinstance(widget, QGroupBox):
+                # Iterate through the layout of the QGroupBox
+                group_layout = widget.layout()
+                if group_layout:
+                    for j in range(group_layout.count()):
+                        group_item = group_layout.itemAt(j)
+                        group_widget = group_item.widget()
+                        if group_widget is not None:
+                            print(f"group_item.layout(): {group_item.layout()}, type: {type(group_item.layout())}")
+                            if isinstance(group_widget, QLineEdit):
+                                if not group_widget.text().strip():
+                                    empty_fields.append(self.get_label_for_widget(group_widget, group_layout))
+                            elif isinstance(group_widget, QSpinBox):
+                                if group_widget.value() == group_widget.minimum():
+                                    empty_fields.append(self.get_label_for_widget(group_widget, group_layout))
+                            elif isinstance(group_item.layout(), QHBoxLayout):
+                                print("Found HBox")
+                                hbox_layout = group_item.layout()  # Get the QHBoxLayout
+                                if hbox_layout:
+                                    folder_line_edit = hbox_layout.itemAt(0).widget()  # Access the QLineEdit
+                                    if isinstance(folder_line_edit, QLineEdit):
+                                        if not folder_line_edit.text().strip():
+                                            empty_fields.append("Folder")  # Or a more specific label
+                            # Add checks for other input widget types as needed
+
+        if empty_fields:
+            error_message = "The following fields cannot be empty:\n" + "\n".join(empty_fields)
+            QMessageBox.critical(self, "Error", error_message)
+            return True
+        else:
+            QMessageBox.information(self, "Success", "Form submitted successfully!")
+            # Process your form data here
+            return False
+
+    def get_label_for_widget(self, widget, parent_layout):
+        """Helper function to find the label associated with an input widget within a layout."""
+        for i in range(parent_layout.count()):
+            item = parent_layout.itemAt(i)
+            if item.widget() is widget:
+                # Check the previous item for a label
+                if i > 0:
+                    prev_item = parent_layout.itemAt(i + 1)
+                    if prev_item and isinstance(prev_item.widget(), QLabel):
+                        return prev_item.widget().text().replace(":", "")
+                # If no preceding label is found, return a generic name
+                return widget.__class__.__name__
+        return "Unknown Field"
+
     def sendFormData(self):
         """ Sends data from the form to the config file writer """
-        # TODO: Once this form is done, call the config file writer
+        #Check that all inputs have values
+        if self.existsEmpty():
+            self.log_action("Failed to submit: Empty values in form", True)
+            return
 
         config_dict = {}
         # Add section 1 details
@@ -209,6 +267,8 @@ class TabGenConfig(QTabWidget):
         config_dict["rep_ext"] = self.rep_ext_checkbox.isChecked()
         config_dict["rep_lim"] = self.rep_lim_checkbox.isChecked()
         config_dict["val_layers"] = self.val_layers_checkbox.isChecked()
+
+        # TODO: Once this form is done, call the config file writer
 
         self.log_action("sendFormData", config_dict)
         return self.folderLineEdit.text()

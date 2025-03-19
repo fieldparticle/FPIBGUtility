@@ -34,7 +34,8 @@ class FPIBGMainWin(QWidget):
         
     def Create(self,FPIBGBase):
         self.bs = FPIBGBase
-        self.bs.log.log(   inspect.currentframe().f_lineno,
+        self.bs.log.log(    1,
+                            inspect.currentframe().f_lineno,
                             __file__,
                             inspect.currentframe().f_code.co_name,
                             self.ObjName,
