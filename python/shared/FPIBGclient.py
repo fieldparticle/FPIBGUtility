@@ -263,15 +263,15 @@ class TCPIP:
                             self.Close()
                             return
                         return;
-                    case "sendcsv":
+                    case "sndcsv":
                         self.Write()
                         self.RecieveCSVFile()
-                    case "sendimg":     
+                    case "sndimg":     
                         self.RecieveImgFile()
                     case "test": 
                         self.Write()
                         self.Read()
-                    case "runseries":
+                    case "rnser":
                         self.RunSeriesCMD()
                               
             self.closeConnection()
