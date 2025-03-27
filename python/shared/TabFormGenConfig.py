@@ -252,6 +252,13 @@ class TabGenConfig(QTabWidget):
                 if text_to_remove in list:
                     list.remove(text_to_remove)
             self.update_list_widget(widget, list)
+    
+    def get_string_list(self, widget: QListWidget):
+        string_list = []
+        for i in range(widget.count()):
+            item = widget.item(i)
+            string_list.append(item.text())
+        return string_list
 
     def browseFolder(self):
         """ Opens a dialog window for the user to select a folder in the file system. """
@@ -380,6 +387,9 @@ class TabGenConfig(QTabWidget):
         config_dict["rep_ext"] = self.rep_ext_checkbox.isChecked()
         config_dict["rep_lim"] = self.rep_lim_checkbox.isChecked()
         config_dict["val_layers"] = self.val_layers_checkbox.isChecked()
+        config_dict["dev_ext"] = self.get_string_list(self.dev_ext_list_widget)
+        config_dict["ins_ext"] = self.get_string_list(self.ins_ext_list_widget)
+        config_dict["val_lay"] = self.get_string_list(self.val_lay_list_widget)
 
         # TODO: Once this form is done, call the config file writer
 
