@@ -154,7 +154,7 @@ class TabGenConfig(QTabWidget):
         launch_layout.addRow(self.val_layers_checkbox, val_layers_label)
         # TODO: Device Extensions, Instance Extensions, Validation Layers: These are lists of strings that you can add to and remove from, and should be displayed
         #Device Extension Input
-        self.dev_ext_list = ["test val"]
+        self.dev_ext_list = []
         self.dev_ext_input_layout = QHBoxLayout()
         self.dev_ext_input = QLabel("Device Extensions:")
         self.dev_ext_line_edit = QLineEdit()
@@ -173,7 +173,7 @@ class TabGenConfig(QTabWidget):
         launch_layout.addWidget(self.dev_ext_button_remove)
 
         # Instance Extension Input
-        self.ins_ext_list = ["test val"]
+        self.ins_ext_list = []
         self.ins_ext_input_layout = QHBoxLayout()
         self.ins_ext_input = QLabel("Instance Extensions:")
         self.ins_ext_line_edit = QLineEdit()
@@ -191,12 +191,32 @@ class TabGenConfig(QTabWidget):
         self.ins_ext_button_add.clicked.connect(lambda: self.add_item(self.ins_ext_list_widget, self.ins_ext_line_edit, self.ins_ext_list))
         launch_layout.addWidget(self.ins_ext_button_remove)
 
+        # Validation Layers Input
+        self.val_lay_list = []
+        self.val_lay_input_layout = QHBoxLayout()
+        self.val_lay_input = QLabel("Validation Layers:")
+        self.val_lay_line_edit = QLineEdit()
+        self.val_lay_button_add = QPushButton("Add")
+        self.val_lay_input_layout.addWidget(self.val_lay_input)
+        self.val_lay_input_layout.addWidget(self.val_lay_line_edit)
+        self.val_lay_input_layout.addWidget(self.val_lay_button_add)
+        launch_layout.addRow(self.val_lay_input_layout)
+        # Validation Layers Display
+        self.val_lay_list_widget = QListWidget()
+        launch_layout.addWidget(self.val_lay_list_widget)
+        # Validation Layers Remove button
+        self.val_lay_button_remove = QPushButton("Remove Selected")
+        self.val_lay_button_remove.clicked.connect(lambda: self.remove_selected_item(self.val_lay_list_widget, self.val_lay_list))
+        self.val_lay_button_add.clicked.connect(lambda: self.add_item(self.val_lay_list_widget, self.val_lay_line_edit, self.val_lay_list))
+        launch_layout.addWidget(self.val_lay_button_remove)
+
         launch_group.setLayout(launch_layout)
         main_layout.addWidget(launch_group)
 
         # Add Values to lists
         self.update_list_widget(self.dev_ext_list_widget, self.dev_ext_list)
         self.update_list_widget(self.ins_ext_list_widget, self.ins_ext_list)
+        self.update_list_widget(self.val_lay_list_widget, self.val_lay_list)
 
 
         ## SUBMIT BUTTON ##
