@@ -14,7 +14,7 @@ class TabGenConfig(QTabWidget):
     def Create(self):
         """ Constructor for the TabGenConfig object, which sets up the form on the tab. """
         scroll_area = QScrollArea()
-        scroll_area.setWidgetResizable(True)  # Important: Allows inner widget to resize
+        scroll_area.setWidgetResizable(True)
 
         # Create a widget to hold your main layout
         scroll_widget = QWidget()
