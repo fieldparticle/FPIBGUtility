@@ -156,11 +156,9 @@ class TabGenConfig(QTabWidget):
         #Device Extension Input
         self.dev_ext_list = ["test val"]
         self.dev_ext_input_layout = QHBoxLayout()
-        self.dev_ext_input = QLabel("New Item:")
+        self.dev_ext_input = QLabel("Device Extensions:")
         self.dev_ext_line_edit = QLineEdit()
         self.dev_ext_button_add = QPushButton("Add")
-        # self.dev_ext_button_add.clicked.connect(self.add_item)
-        
         self.dev_ext_input_layout.addWidget(self.dev_ext_input)
         self.dev_ext_input_layout.addWidget(self.dev_ext_line_edit)
         self.dev_ext_input_layout.addWidget(self.dev_ext_button_add)
@@ -174,11 +172,31 @@ class TabGenConfig(QTabWidget):
         self.dev_ext_button_add.clicked.connect(lambda: self.add_item(self.dev_ext_list_widget, self.dev_ext_line_edit, self.dev_ext_list))
         launch_layout.addWidget(self.dev_ext_button_remove)
 
+        # Instance Extension Input
+        self.ins_ext_list = ["test val"]
+        self.ins_ext_input_layout = QHBoxLayout()
+        self.ins_ext_input = QLabel("Instance Extensions:")
+        self.ins_ext_line_edit = QLineEdit()
+        self.ins_ext_button_add = QPushButton("Add")
+        self.ins_ext_input_layout.addWidget(self.ins_ext_input)
+        self.ins_ext_input_layout.addWidget(self.ins_ext_line_edit)
+        self.ins_ext_input_layout.addWidget(self.ins_ext_button_add)
+        launch_layout.addRow(self.ins_ext_input_layout)
+        # Instance Extension Display
+        self.ins_ext_list_widget = QListWidget()
+        launch_layout.addWidget(self.ins_ext_list_widget)
+        # Instance Extension Remove button
+        self.ins_ext_button_remove = QPushButton("Remove Selected")
+        self.ins_ext_button_remove.clicked.connect(lambda: self.remove_selected_item(self.ins_ext_list_widget, self.ins_ext_list))
+        self.ins_ext_button_add.clicked.connect(lambda: self.add_item(self.ins_ext_list_widget, self.ins_ext_line_edit, self.ins_ext_list))
+        launch_layout.addWidget(self.ins_ext_button_remove)
+
         launch_group.setLayout(launch_layout)
         main_layout.addWidget(launch_group)
 
         # Add Values to lists
         self.update_list_widget(self.dev_ext_list_widget, self.dev_ext_list)
+        self.update_list_widget(self.ins_ext_list_widget, self.ins_ext_list)
 
 
         ## SUBMIT BUTTON ##
