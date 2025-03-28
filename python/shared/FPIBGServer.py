@@ -2,7 +2,7 @@ import socket
 import os
 import time
 import inspect
-class TCPIP:
+class TCPIPServer:
     def __init__(self, ObjectName):
         self.objname = ObjectName
         
@@ -16,17 +16,18 @@ class TCPIP:
         self.bobj = BaseObj
         self.cfg = self.bobj.cfg.config
         self.log = self.bobj.log.log
-        self.dlvl = 2000
+        self.dlvl = 11000
+        self.response = ""
         # Assign all configuration items in the create function
         # and contain them in a try block
         try:
-            ## Initialize the client configuration.
-            self.server_ip = self.cfg.server_ip
-            self.server_port = self.cfg.server_port
-            self.buffer_size = self.cfg.server_buf_size
+            ## Initialize the server configuration.
+            self.server_ip = self.cfg.image_server_ip
+            self.server_port = self.cfg.image_server_port
+            self.buffer_size = self.cfg.image_buffer_size
             self.saveimgdir = self.cfg.save_img_dir
             self.savecvsdir = self.cfg.save_csv_dir
-            self.client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            self.server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             
         except Exception as err:
             self.bobj.log.log( 0,  inspect.currentframe().f_lineno,
@@ -40,13 +41,14 @@ class TCPIP:
     def Open(self):
         ##Connect to the server."""
         try:
-            self.client_socket.connect((self.server_ip, self.server_port))
+            self.server_socket.bind((self.server_ip, self.server_port))
+            self.server_socket.listen(1)
             self.log( 0, inspect.currentframe().f_lineno,
                 __file__,
                 inspect.currentframe().f_code.co_name,
                 self.objname,
                 0,
-                f"Connected to server at {self.server_ip}:{self.server_port}")
+                f"Image Server L:istening at {self.server_ip}:{self.server_port}")
             self.isConnected = True
         except Exception as err:
             self.log( 0,  inspect.currentframe().f_lineno,
@@ -56,16 +58,21 @@ class TCPIP:
                 self.dlvl+2,
                 err)
             self.isConnected = False
+       
+        print(f"Image Server Listening at {self.server_ip}:{self.server_port}")
+        self.conn, self.addr = self.server_socket.accept()    
+        
+        
 
     def Close(self):
-        """Close the client connection properly."""
-        self.client_socket.close()
-        print("Client connection closed.")
+        """Close the server connection properly."""
+        self.server_socket.close()
+        print("Server connection closed.")
 
     def Read(self):
         #Receive confirmation message from the server.
         try:
-            self.response = self.client_socket.recv(self.buffer_size)
+            self.response = self.conn.recv(self.buffer_size)
         except Exception as err:
             self.log(0,   inspect.currentframe().f_lineno,
                 __file__,
@@ -74,18 +81,19 @@ class TCPIP:
                 self.dlvl+2,
                 err)
             self.isConnected = False
+            return 
         #else
         self.log(0,  inspect.currentframe().f_lineno,
                 __file__,
                 inspect.currentframe().f_code.co_name,
                 self.objname,
                 0,
-                "Revc:{}".format(len(self.response)))    
+                "Revc:{}{}".format(len(self.response),self.response.decode()))    
 
     def Write(self):
         self.command = self.command.encode('utf-8')
         try:
-            self.client_socket.sendall(self.command)
+            self.server_socket.sendall(self.command)
         except Exception as err:
             self.log( 0,  inspect.currentframe().f_lineno,
                 __file__,
@@ -102,71 +110,12 @@ class TCPIP:
                 0,
                 "Wrote:{}".format(len(self.command)))   
         
-    def RecieveCSVFileGUI(self,OutWidget):
-        #Read the number of blocks, type of report file, and filename
-        self.Read()
-      
-        ## Instead of print send out put to OutWidget
-        print("Recieved.  {len(self.response)}  Bytes")
-        msg = self.response.decode();
-        msg = msg.split(",")
-        match msg[1]:
-            case "1":         
-                outdir = self.savecvsdir + "/perfdataPQB/" + msg[2]
-        blks = int(msg[0])
-
-        ## Instead of print send out put to OutWidget
-        print(outdir)
-
-        f = open(outdir, "w")
-        for i in range(blks):
-            self.Read()
-            wline = self.response.decode();
-            modified_lines = [line.rstrip('\r\x00') for line in wline]
-            f.writelines(modified_lines)
-
-
-    def RecieveCSVFile(self):
-        #Read the number of blocks, type of report file, and filename
-        self.Read()
-        msg = self.response.decode();
-        msg = msg.split(",")
-        match msg[1]:
-            case "1":         
-                outdir = self.savecvsdir + "/perfdataPQB/" + msg[2]
-        blks = int(msg[0])
-        print(outdir)
-        try:
-            f = open(outdir, "w")
-        except Exception as err:
-            self.bobj.log.log(   inspect.currentframe().f_lineno,
-                    __file__,
-                    inspect.currentframe().f_code.co_name,
-                    self.objname,
-                    self.dlvl+4,
-                    err)
-            print("File not Saved" + err )
-            return 
-        #else
-        self.log( 0, inspect.currentframe().f_lineno,
-                __file__,
-                inspect.currentframe().f_code.co_name,
-                self.objname,
-                0,
-                "Opened:" + outdir)   
-
-        for i in range(blks):
-            self.response = self.client_socket.recv(self.buffer_size)
-            wline = self.response.decode();
-            modified_lines = [line.rstrip('\r\x00') for line in wline]
-            f.writelines(modified_lines)
-
     def RecieveImgFile(self):
         # Send the send command to the server
-        self.Wrtie()
         self.Read()
+
         int_array = [byte for byte in self.response]
-        outdir = self.saveimgdir + "/file001.png"
+        outdir = self.saveimgdir + self.response.decode()
         print(outdir)
         f = open(outdir, "wb")
         for i in range(int_array[0]):
