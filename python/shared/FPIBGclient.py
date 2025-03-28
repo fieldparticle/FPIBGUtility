@@ -75,13 +75,7 @@ class TCPIP:
                 err)
             self.isConnected = False
         #else
-        self.log(0,  inspect.currentframe().f_lineno,
-                __file__,
-                inspect.currentframe().f_code.co_name,
-                self.objname,
-                0,
-                "Revc:{}".format(len(self.response)))    
-
+       
     def Write(self):
         self.command = self.command.encode('utf-8')
         try:
@@ -103,9 +97,17 @@ class TCPIP:
                 "Wrote:{}".format(len(self.command)))   
         
     def RecieveCSVFileGUI(self,OutWidget):
-        #Read the number of blocks, type of report file, and filename
+        #FileName
         self.Read()
-      
+        self.log(0,  inspect.currentframe().f_lineno,
+                __file__,
+                inspect.currentframe().f_code.co_name,
+                self.objname,
+                0,
+                "Revc:{}".format(len(self.response)))    
+        #Recieve dib header
+        self.Read()
+        
         ## Instead of print send out put to OutWidget
         print("Recieved.  {len(self.response)}  Bytes")
         msg = self.response.decode();

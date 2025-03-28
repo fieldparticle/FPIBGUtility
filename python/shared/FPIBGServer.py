@@ -2,6 +2,9 @@ import socket
 import os
 import time
 import inspect
+from io import BytesIO
+from PIL import Image
+import matplotlib.pyplot as plt
 class TCPIPServer:
     def __init__(self, ObjectName):
         self.objname = ObjectName
@@ -62,7 +65,6 @@ class TCPIPServer:
         print(f"Image Server Listening at {self.server_ip}:{self.server_port}")
         self.conn, self.addr = self.server_socket.accept()    
         
-        
 
     def Close(self):
         """Close the server connection properly."""
@@ -89,6 +91,22 @@ class TCPIPServer:
                 self.objname,
                 0,
                 "Revc:{}{}".format(len(self.response),self.response.decode()))    
+        
+    def ReadBuf(self, bufsize):
+         #Receive confirmation message from the server.
+        try:
+            self.response = self.conn.recv(bufsize)
+        except Exception as err:
+            self.log(0,   inspect.currentframe().f_lineno,
+                __file__,
+                inspect.currentframe().f_code.co_name,
+                self.objname,
+                self.dlvl+2,
+                err)
+            self.isConnected = False
+            return 
+        #else
+       
 
     def Write(self):
         self.command = self.command.encode('utf-8')
@@ -110,17 +128,34 @@ class TCPIPServer:
                 0,
                 "Wrote:{}".format(len(self.command)))   
         
-    def RecieveImgFile(self):
+    def RecieveBMPFile(self):
         # Send the send command to the server
         self.Read()
-
-        int_array = [byte for byte in self.response]
-        outdir = self.saveimgdir + self.response.decode()
-        print(outdir)
+        msg = self.response.decode()
+        msg = msg.split(",")
+        print("File Name is:{}, block1 is {}, block 2 is {}, file size is {}".format(msg[0],msg[1],msg[2],msg[3]))
+        outdir = self.saveimgdir + "/" + msg[0]
         f = open(outdir, "wb")
-        for i in range(int_array[0]):
-            self.Read()
-            f.write(self.response)
+        buffer =  BytesIO()
+            
+        block1 = int(msg[1])
+        block2 = int(msg[2])
+        block3 = int(msg[3])
+        self.ReadBuf(block1)
+        buffer.write(self.response)
+        f.write(self.response)
+        self.ReadBuf(block2)
+        f.write(self.response)
+        buffer.write(self.response)
+        self.ReadBuf(block3)
+        f.write(self.response)
+        buffer.write(self.response)
+        f.close()
+        im = Image.open(buffer)
+        #im = Image.frombuffer(buffer)
+        plt.imshow(im)
+        plt.show()
+
 
     def RecieveImgFileGUI(self,OutWidget):
         # Send the send command to the server
