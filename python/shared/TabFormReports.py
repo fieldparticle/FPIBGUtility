@@ -15,21 +15,36 @@ class TabReports(QTabWidget):
         scroll_widget = QWidget()
         main_layout = QVBoxLayout(scroll_widget)
 
-        folder_group = QGroupBox("Folder Selection")
-        folder_layout = QFormLayout()
-        # Create folder selection row
-        self.folderLineEdit = QLineEdit()
-        self.browseButton = QPushButton("Browse")
-        # Add the folder line edit and the browse button to an HBox
-        hbox = QHBoxLayout()
-        hbox.addWidget(self.folderLineEdit)
-        hbox.addWidget(self.browseButton)
-        # Add that HBox to the layout
-        folder_label = QLabel("Folder Selection")
-        # folder_layout.addRow("Folder:", hbox)
-        folder_layout.addRow(folder_label, hbox)
-        folder_group.setLayout(folder_layout)
-        main_layout.addWidget(folder_group)
+
+        group_box = QGroupBox("Report Options")
+        form_layout = QFormLayout()
+        form_layout.addRow(QLabel("Parameter 1:"), QLineEdit())
+        form_layout.addRow(QLabel("Parameter 2:"), QLineEdit())
+        generate_button = QPushButton("Generate Report")
+        form_layout.addRow(generate_button)
+        group_box.setLayout(form_layout)
+        main_layout.addWidget(group_box)
+
+        # --- Embedded QTabWidget for reports ---
+        self.report_tabs = QTabWidget()
+
+        # Create example report tabs
+        self.report_tab1 = QWidget()
+        layout1 = QVBoxLayout(self.report_tab1)
+        label1 = QLabel("Content of Report Type 1")
+        layout1.addWidget(label1)
+        self.report_tab1.setLayout(layout1)
+        self.report_tabs.addTab(self.report_tab1, "Report Type A")
+
+        self.report_tab2 = QWidget()
+        layout2 = QVBoxLayout(self.report_tab2)
+        label2 = QLabel("Content of Report Type 2")
+        layout2.addWidget(label2)
+        self.report_tab2.setLayout(layout2)
+        self.report_tabs.addTab(self.report_tab2, "Report Type B")
+
+        # Add the embedded tab widget to the main layout
+        main_layout.addWidget(self.report_tabs)
 
         scroll_area.setWidget(scroll_widget)
         main_window_layout = QVBoxLayout(self)
