@@ -165,57 +165,125 @@ class TabReports(QTabWidget):
         self.table001_tab = QWidget()
         table001_layout = QVBoxLayout(self.table001_tab)
         
-        spfvn_image = QLabel("PLACEHOLDER WIDGET FOR IMAGE")
+        table001_image = QLabel("PLACEHOLDER WIDGET FOR IMAGE")
 
-        spfvn_buttons = QHBoxLayout()
-        self.save_latex_spfvn_button = QPushButton("Save Latex")
-        self.save_latex_spfvn_button.clicked.connect(lambda: self.save_latex(spfvn_image))
-        self.save_latex_spfvn_button.setMaximumWidth(150)
-        self.save_image_spfvn_button = QPushButton("Save Image")
-        self.save_image_spfvn_button.clicked.connect(lambda: self.save_image(spfvn_image))
-        self.save_image_spfvn_button.setMaximumWidth(150)
-        spfvn_buttons.addItem(spacer)
-        spfvn_buttons.addWidget(self.save_latex_spfvn_button)
-        spfvn_buttons.addWidget(self.save_image_spfvn_button)
+        table001_buttons = QHBoxLayout()
+        self.save_latex_table001_button = QPushButton("Save Latex")
+        self.save_latex_table001_button.clicked.connect(lambda: self.save_latex(table001_image))
+        self.save_latex_table001_button.setMaximumWidth(150)
+        table001_buttons.addItem(spacer)
+        table001_buttons.addWidget(self.save_latex_table001_button)
 
-        spfvn_caption_container = QHBoxLayout()
-        spfvn_caption_label = QLabel("Caption:")
-        spfvn_caption_container.addWidget(spfvn_caption_label)
-        self.spfvn_text_edit = QTextEdit()
-        self.spfvn_text_edit.setMaximumHeight(80)
-        spfvn_caption_container.addWidget(self.spfvn_text_edit)
+        table001_caption_container = QHBoxLayout()
+        table001_caption_label = QLabel("Caption:")
+        table001_caption_container.addWidget(table001_caption_label)
+        self.table001_text_edit = QTextEdit()
+        self.table001_text_edit.setMaximumHeight(80)
+        table001_caption_container.addWidget(self.table001_text_edit)
 
-        spfvn_layout.addLayout(spfvn_buttons)
-        spfvn_layout.addWidget(spfvn_image)
-        spfvn_layout.addLayout(spfvn_caption_container)
+        table001_layout.addLayout(table001_buttons)
+        table001_layout.addWidget(table001_image)
+        table001_layout.addLayout(table001_caption_container)
 
         self.table001_tab.setLayout(table001_layout)
         self.pqb_subreports.addTab(self.table001_tab, "Table001")
 
+        ####### Linearity Compute #######
         self.lincom_tab = QWidget()
         lincom_layout = QVBoxLayout(self.lincom_tab)
-        #TODO: Insert Linearity Compute content here
-        #END Linearity Compute content
+
+        lincom_image = QLabel("PLACEHOLDER WIDGET FOR IMAGE")
+
+        lincom_buttons = QHBoxLayout()
+        self.save_latex_lincom_button = QPushButton("Save Latex")
+        self.save_latex_lincom_button.clicked.connect(lambda: self.save_latex(lincom_image))
+        self.save_latex_lincom_button.setMaximumWidth(150)
+        self.save_image_lincom_button = QPushButton("Save Image")
+        self.save_image_lincom_button.clicked.connect(lambda: self.save_image(lincom_image))
+        self.save_image_lincom_button.setMaximumWidth(150)
+        lincom_buttons.addItem(spacer)
+        lincom_buttons.addWidget(self.save_latex_lincom_button)
+        lincom_buttons.addWidget(self.save_image_lincom_button)
+
+        lincom_caption_container = QHBoxLayout()
+        lincom_caption_label = QLabel("Caption:")
+        lincom_caption_container.addWidget(lincom_caption_label)
+        self.lincom_text_edit = QTextEdit()
+        self.lincom_text_edit.setMaximumHeight(80)
+        lincom_caption_container.addWidget(self.lincom_text_edit)
+
+        lincom_layout.addLayout(lincom_buttons)
+        lincom_layout.addWidget(lincom_image)
+        lincom_layout.addLayout(lincom_caption_container)
+
         self.lincom_tab.setLayout(lincom_layout)
         self.pqb_subreports.addTab(self.lincom_tab, "Linearity Compute")
 
+        ####### Linearity Graphics #######
         self.lingraph_tab = QWidget()
         lingraph_layout = QVBoxLayout(self.lingraph_tab)
-        #TODO: Insert Linearity Graphics content here
-        #END Linearity Graphics content
+
+        lingraph_image = QLabel("PLACEHOLDER WIDGET FOR IMAGE")
+
+        lingraph_buttons = QHBoxLayout()
+        self.save_latex_lingraph_button = QPushButton("Save Latex")
+        self.save_latex_lingraph_button.clicked.connect(lambda: self.save_latex(lingraph_image))
+        self.save_latex_lingraph_button.setMaximumWidth(150)
+        self.save_image_lingraph_button = QPushButton("Save Image")
+        self.save_image_lingraph_button.clicked.connect(lambda: self.save_image(lingraph_image))
+        self.save_image_lingraph_button.setMaximumWidth(150)
+        lingraph_buttons.addItem(spacer)
+        lingraph_buttons.addWidget(self.save_latex_lingraph_button)
+        lingraph_buttons.addWidget(self.save_image_lingraph_button)
+
+        lingraph_caption_container = QHBoxLayout()
+        lingraph_caption_label = QLabel("Caption:")
+        lingraph_caption_container.addWidget(lingraph_caption_label)
+        self.lingraph_text_edit = QTextEdit()
+        self.lingraph_text_edit.setMaximumHeight(80)
+        lingraph_caption_container.addWidget(self.lingraph_text_edit)
+
+        lingraph_layout.addLayout(lingraph_buttons)
+        lingraph_layout.addWidget(lingraph_image)
+        lingraph_layout.addLayout(lingraph_caption_container)
+
         self.lingraph_tab.setLayout(lingraph_layout)
         self.pqb_subreports.addTab(self.lingraph_tab, "Linearity Graphics")
 
+        ####### Linearity Total #######
         self.lintot_tab = QWidget()
         lintot_layout = QVBoxLayout(self.lintot_tab)
-        #TODO: Insert Linearity Total content here
-        #END Linearity Total content
+
+        lintot_image = QLabel("PLACEHOLDER WIDGET FOR IMAGE")
+
+        lintot_buttons = QHBoxLayout()
+        self.save_latex_lintot_button = QPushButton("Save Latex")
+        self.save_latex_lintot_button.clicked.connect(lambda: self.save_latex(lintot_image))
+        self.save_latex_lintot_button.setMaximumWidth(150)
+        self.save_image_lintot_button = QPushButton("Save Image")
+        self.save_image_lintot_button.clicked.connect(lambda: self.save_image(lintot_image))
+        self.save_image_lintot_button.setMaximumWidth(150)
+        lintot_buttons.addItem(spacer)
+        lintot_buttons.addWidget(self.save_latex_lintot_button)
+        lintot_buttons.addWidget(self.save_image_lintot_button)
+
+        lintot_caption_container = QHBoxLayout()
+        lintot_caption_label = QLabel("Caption:")
+        lintot_caption_container.addWidget(lintot_caption_label)
+        self.lintot_text_edit = QTextEdit()
+        self.lintot_text_edit.setMaximumHeight(80)
+        lintot_caption_container.addWidget(self.lintot_text_edit)
+
+        lintot_layout.addLayout(lintot_buttons)
+        lintot_layout.addWidget(lintot_image)
+        lintot_layout.addLayout(lintot_caption_container)
+
         self.lintot_tab.setLayout(lintot_layout)
         self.pqb_subreports.addTab(self.lintot_tab, "Linearity Total")
 
+        ### Tab finishing
         pqb_layout.addWidget(self.save_latex_pqb_button)
         pqb_layout.addWidget(self.pqb_subreports)
-        # pqb_layout.addWidget(label1)
         self.pqb_tab.setLayout(pqb_layout)
         self.report_tabs.addTab(self.pqb_tab, "PQB")
 
@@ -229,13 +297,38 @@ class TabReports(QTabWidget):
         self.save_latex_pcd_button.setMaximumWidth(150)
         self.pcd_subreports = QTabWidget()
 
+        ####### SPf V Sidelength #######
         self.spfvside_tab = QWidget()
         spfvside_layout = QVBoxLayout(self.spfvside_tab)
-        #TODO: Insert fpsvn content here
-        #END fpsvn content
+
+        spfvside_image = QLabel("PLACEHOLDER WIDGET FOR IMAGE")
+
+        spfvside_buttons = QHBoxLayout()
+        self.save_latex_spfvside_button = QPushButton("Save Latex")
+        self.save_latex_spfvside_button.clicked.connect(lambda: self.save_latex(spfvside_image))
+        self.save_latex_spfvside_button.setMaximumWidth(150)
+        self.save_image_spfvside_button = QPushButton("Save Image")
+        self.save_image_spfvside_button.clicked.connect(lambda: self.save_image(spfvside_image))
+        self.save_image_spfvside_button.setMaximumWidth(150)
+        spfvside_buttons.addItem(spacer)
+        spfvside_buttons.addWidget(self.save_latex_spfvside_button)
+        spfvside_buttons.addWidget(self.save_image_spfvside_button)
+
+        spfvside_caption_container = QHBoxLayout()
+        spfvside_caption_label = QLabel("Caption:")
+        spfvside_caption_container.addWidget(spfvside_caption_label)
+        self.spfvside_text_edit = QTextEdit()
+        self.spfvside_text_edit.setMaximumHeight(80)
+        spfvside_caption_container.addWidget(self.spfvside_text_edit)
+
+        spfvside_layout.addLayout(spfvside_buttons)
+        spfvside_layout.addWidget(spfvside_image)
+        spfvside_layout.addLayout(spfvside_caption_container)
+
         self.spfvside_tab.setLayout(spfvside_layout)
         self.pcd_subreports.addTab(self.spfvside_tab, "SPf V Sidelength")
 
+        ### Tab finishing
         pcd_layout.addWidget(self.save_latex_pcd_button)
         pcd_layout.addWidget(self.pcd_subreports)
         self.pcd_tab.setLayout(pcd_layout)
@@ -251,23 +344,71 @@ class TabReports(QTabWidget):
         self.save_latex_cfb_button.setMaximumWidth(150)
         self.cfb_subreports = QTabWidget()
 
+        ####### SPf V Sidelength #######
         self.graphspfvn_tab = QWidget()
         graphspfvn_layout = QVBoxLayout(self.graphspfvn_tab)
-        #TODO: Insert fpsvn content here
-        #END fpsvn content
+
+        graphspfvn_image = QLabel("PLACEHOLDER WIDGET FOR IMAGE")
+
+        graphspfvn_buttons = QHBoxLayout()
+        self.save_latex_graphspfvn_button = QPushButton("Save Latex")
+        self.save_latex_graphspfvn_button.clicked.connect(lambda: self.save_latex(graphspfvn_image))
+        self.save_latex_graphspfvn_button.setMaximumWidth(150)
+        self.save_image_graphspfvn_button = QPushButton("Save Image")
+        self.save_image_graphspfvn_button.clicked.connect(lambda: self.save_image(graphspfvn_image))
+        self.save_image_graphspfvn_button.setMaximumWidth(150)
+        graphspfvn_buttons.addItem(spacer)
+        graphspfvn_buttons.addWidget(self.save_latex_graphspfvn_button)
+        graphspfvn_buttons.addWidget(self.save_image_graphspfvn_button)
+
+        graphspfvn_caption_container = QHBoxLayout()
+        graphspfvn_caption_label = QLabel("Caption:")
+        graphspfvn_caption_container.addWidget(graphspfvn_caption_label)
+        self.graphspfvn_text_edit = QTextEdit()
+        self.graphspfvn_text_edit.setMaximumHeight(80)
+        graphspfvn_caption_container.addWidget(self.graphspfvn_text_edit)
+
+        graphspfvn_layout.addLayout(graphspfvn_buttons)
+        graphspfvn_layout.addWidget(graphspfvn_image)
+        graphspfvn_layout.addLayout(graphspfvn_caption_container)
+
         self.graphspfvn_tab.setLayout(graphspfvn_layout)
         self.cfb_subreports.addTab(self.graphspfvn_tab, "Graphics SPF v N")
 
+        ####### SPf V Sidelength #######
         self.compspfvn_tab = QWidget()
         compspfvn_layout = QVBoxLayout(self.compspfvn_tab)
-        #TODO: Insert fpsvn content here
-        #END fpsvn content
+
+        compspfvn_image = QLabel("PLACEHOLDER WIDGET FOR IMAGE")
+
+        compspfvn_buttons = QHBoxLayout()
+        self.save_latex_compspfvn_button = QPushButton("Save Latex")
+        self.save_latex_compspfvn_button.clicked.connect(lambda: self.save_latex(compspfvn_image))
+        self.save_latex_compspfvn_button.setMaximumWidth(150)
+        self.save_image_compspfvn_button = QPushButton("Save Image")
+        self.save_image_compspfvn_button.clicked.connect(lambda: self.save_image(compspfvn_image))
+        self.save_image_compspfvn_button.setMaximumWidth(150)
+        compspfvn_buttons.addItem(spacer)
+        compspfvn_buttons.addWidget(self.save_latex_compspfvn_button)
+        compspfvn_buttons.addWidget(self.save_image_compspfvn_button)
+
+        compspfvn_caption_container = QHBoxLayout()
+        compspfvn_caption_label = QLabel("Caption:")
+        compspfvn_caption_container.addWidget(compspfvn_caption_label)
+        self.compspfvn_text_edit = QTextEdit()
+        self.compspfvn_text_edit.setMaximumHeight(80)
+        compspfvn_caption_container.addWidget(self.compspfvn_text_edit)
+
+        compspfvn_layout.addLayout(compspfvn_buttons)
+        compspfvn_layout.addWidget(compspfvn_image)
+        compspfvn_layout.addLayout(compspfvn_caption_container)
+
         self.compspfvn_tab.setLayout(compspfvn_layout)
         self.cfb_subreports.addTab(self.compspfvn_tab, "Compute SPF v N")
 
+        ### Tab finishing
         cfb_layout.addWidget(self.save_latex_cfb_button)
         cfb_layout.addWidget(self.cfb_subreports)
-        # cfb_layout.addWidget(label2)
         self.cfb_tab.setLayout(cfb_layout)
         self.report_tabs.addTab(self.cfb_tab, "CFB")
 
