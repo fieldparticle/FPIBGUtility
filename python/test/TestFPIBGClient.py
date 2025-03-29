@@ -10,10 +10,10 @@ sys.path.append(shrddir)                                      #
 ###############################################################
 
 from FPIBGBase import *
-from FPIBGclient import TCPIP
+from FPIBGclient import TCPIPClient
 bc = FPIBGBase("GlobalBaseClass")
 bc.Create("ParticleJB.cfg",'JBLog.log')
-tcpc = TCPIP("TCPIP Client")
+tcpc = TCPIPClient("TCPIP Client")
 tcpc.Create(bc)
 tcpc.Open()
 tcpc.CommandLoop()
