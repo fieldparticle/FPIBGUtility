@@ -1,5 +1,5 @@
 import sys
-from PyQt6.QtWidgets import QApplication, QWidget,  QFormLayout, QGridLayout, QTabWidget, QLineEdit, QDateEdit, QPushButton, QLabel, QHBoxLayout, QFileDialog, QVBoxLayout, QGroupBox, QCheckBox, QSpinBox, QMessageBox
+from PyQt6.QtWidgets import QApplication, QWidget,  QFormLayout, QGridLayout, QTabWidget, QLineEdit, QDateEdit, QPushButton, QLabel, QHBoxLayout, QFileDialog, QVBoxLayout, QGroupBox, QCheckBox, QSpinBox, QMessageBox, QListWidget, QListWidgetItem, QScrollArea
 from PyQt6.QtGui import QIntValidator
 from PyQt6.QtCore import Qt
 import datetime
@@ -13,7 +13,12 @@ class TabGenConfig(QTabWidget):
     
     def Create(self):
         """ Constructor for the TabGenConfig object, which sets up the form on the tab. """
-        main_layout = QVBoxLayout()
+        scroll_area = QScrollArea()
+        scroll_area.setWidgetResizable(True)
+
+        # Create a widget to hold your main layout
+        scroll_widget = QWidget()
+        main_layout = QVBoxLayout(scroll_widget)
 
         ### SECTION 1: FOLDER SELECTION ###
         folder_group = QGroupBox("Folder Selection")
@@ -148,9 +153,70 @@ class TabGenConfig(QTabWidget):
         val_layers_label = QLabel("Enable Validation Layers")
         launch_layout.addRow(self.val_layers_checkbox, val_layers_label)
         # TODO: Device Extensions, Instance Extensions, Validation Layers: These are lists of strings that you can add to and remove from, and should be displayed
+        #Device Extension Input
+        self.dev_ext_list = []
+        self.dev_ext_input_layout = QHBoxLayout()
+        self.dev_ext_input = QLabel("Device Extensions:")
+        self.dev_ext_line_edit = QLineEdit()
+        self.dev_ext_button_add = QPushButton("Add")
+        self.dev_ext_input_layout.addWidget(self.dev_ext_input)
+        self.dev_ext_input_layout.addWidget(self.dev_ext_line_edit)
+        self.dev_ext_input_layout.addWidget(self.dev_ext_button_add)
+        launch_layout.addRow(self.dev_ext_input_layout)
+        # Device extension Display
+        self.dev_ext_list_widget = QListWidget()
+        launch_layout.addWidget(self.dev_ext_list_widget)
+        # Device extension Remove button
+        self.dev_ext_button_remove = QPushButton("Remove Selected")
+        self.dev_ext_button_remove.clicked.connect(lambda: self.remove_selected_item(self.dev_ext_list_widget, self.dev_ext_list))
+        self.dev_ext_button_add.clicked.connect(lambda: self.add_item(self.dev_ext_list_widget, self.dev_ext_line_edit, self.dev_ext_list))
+        launch_layout.addWidget(self.dev_ext_button_remove)
+
+        # Instance Extension Input
+        self.ins_ext_list = []
+        self.ins_ext_input_layout = QHBoxLayout()
+        self.ins_ext_input = QLabel("Instance Extensions:")
+        self.ins_ext_line_edit = QLineEdit()
+        self.ins_ext_button_add = QPushButton("Add")
+        self.ins_ext_input_layout.addWidget(self.ins_ext_input)
+        self.ins_ext_input_layout.addWidget(self.ins_ext_line_edit)
+        self.ins_ext_input_layout.addWidget(self.ins_ext_button_add)
+        launch_layout.addRow(self.ins_ext_input_layout)
+        # Instance Extension Display
+        self.ins_ext_list_widget = QListWidget()
+        launch_layout.addWidget(self.ins_ext_list_widget)
+        # Instance Extension Remove button
+        self.ins_ext_button_remove = QPushButton("Remove Selected")
+        self.ins_ext_button_remove.clicked.connect(lambda: self.remove_selected_item(self.ins_ext_list_widget, self.ins_ext_list))
+        self.ins_ext_button_add.clicked.connect(lambda: self.add_item(self.ins_ext_list_widget, self.ins_ext_line_edit, self.ins_ext_list))
+        launch_layout.addWidget(self.ins_ext_button_remove)
+
+        # Validation Layers Input
+        self.val_lay_list = []
+        self.val_lay_input_layout = QHBoxLayout()
+        self.val_lay_input = QLabel("Validation Layers:")
+        self.val_lay_line_edit = QLineEdit()
+        self.val_lay_button_add = QPushButton("Add")
+        self.val_lay_input_layout.addWidget(self.val_lay_input)
+        self.val_lay_input_layout.addWidget(self.val_lay_line_edit)
+        self.val_lay_input_layout.addWidget(self.val_lay_button_add)
+        launch_layout.addRow(self.val_lay_input_layout)
+        # Validation Layers Display
+        self.val_lay_list_widget = QListWidget()
+        launch_layout.addWidget(self.val_lay_list_widget)
+        # Validation Layers Remove button
+        self.val_lay_button_remove = QPushButton("Remove Selected")
+        self.val_lay_button_remove.clicked.connect(lambda: self.remove_selected_item(self.val_lay_list_widget, self.val_lay_list))
+        self.val_lay_button_add.clicked.connect(lambda: self.add_item(self.val_lay_list_widget, self.val_lay_line_edit, self.val_lay_list))
+        launch_layout.addWidget(self.val_lay_button_remove)
 
         launch_group.setLayout(launch_layout)
         main_layout.addWidget(launch_group)
+
+        # Add Values to lists
+        self.update_list_widget(self.dev_ext_list_widget, self.dev_ext_list)
+        self.update_list_widget(self.ins_ext_list_widget, self.ins_ext_list)
+        self.update_list_widget(self.val_lay_list_widget, self.val_lay_list)
 
 
         ## SUBMIT BUTTON ##
@@ -159,8 +225,41 @@ class TabGenConfig(QTabWidget):
         # Add that button to the layout
         main_layout.addWidget(self.submitButton)
 
-        self.setLayout(main_layout)
+        scroll_area.setWidget(scroll_widget)
+        main_window_layout = QVBoxLayout(self)
+        main_window_layout.addWidget(scroll_area)
+        self.setLayout(main_window_layout)
+        # self.setLayout(main_layout)
     
+    def update_list_widget(self, widget: QListWidget, list: list[str]):
+        widget.clear()
+        for item_str in list:
+            item = QListWidgetItem(item_str)
+            widget.addItem(item)
+    
+    def add_item(self, widget: QListWidget, input: QLineEdit, list: list[str]):
+        text = input.text().strip()
+        if text:
+            list.append(text)
+            self.update_list_widget(widget, list)
+            input.clear()
+    
+    def remove_selected_item(self, widget: QListWidget, list: list[str]):
+        selected_items = widget.selectedItems()
+        if selected_items:
+            for item in selected_items:
+                text_to_remove = item.text()
+                if text_to_remove in list:
+                    list.remove(text_to_remove)
+            self.update_list_widget(widget, list)
+    
+    def get_string_list(self, widget: QListWidget):
+        string_list = []
+        for i in range(widget.count()):
+            item = widget.item(i)
+            string_list.append(item.text())
+        return string_list
+
     def browseFolder(self):
         """ Opens a dialog window for the user to select a folder in the file system. """
         folder = QFileDialog.getExistingDirectory(self, "Select Folder")
@@ -288,6 +387,9 @@ class TabGenConfig(QTabWidget):
         config_dict["rep_ext"] = self.rep_ext_checkbox.isChecked()
         config_dict["rep_lim"] = self.rep_lim_checkbox.isChecked()
         config_dict["val_layers"] = self.val_layers_checkbox.isChecked()
+        config_dict["dev_ext"] = self.get_string_list(self.dev_ext_list_widget)
+        config_dict["ins_ext"] = self.get_string_list(self.ins_ext_list_widget)
+        config_dict["val_lay"] = self.get_string_list(self.val_lay_list_widget)
 
         # TODO: Once this form is done, call the config file writer
 
