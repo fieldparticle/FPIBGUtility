@@ -1,9 +1,7 @@
 import pandas as pd
 import os
-import numpy as np
+from sklearn.linear_model import LinearRegression
 import matplotlib.pyplot as plt
-from scipy.optimize import curve_fit
-from sklearn.metrics import r2_score
 
 class PlotData:
     def Create(self, BaseObj, file_end):
@@ -47,8 +45,16 @@ class PlotData:
     def plot_cpums(self):
         df = pd.read_csv(self.topdir)
 
+        loadedp = df["loadedp"].values.reshape(-1, 1)
+        cpums = df['cpums']
+
+        model = LinearRegression()
+        model.fit(loadedp, cpums)
+        y_pred = model.predict(loadedp)
+
         plt.figure(figsize=(8,5))
-        plt.plot(df['loadedp'], df['cpums'], marker='o', linestyle='-', label="cpums vs loadedp")
+        plt.scatter(loadedp, cpums, marker='o', color = "cornflowerblue")
+        plt.plot(loadedp, y_pred, linestyle = "-", label="cpums vs loadedp", color = "cornflowerblue")
         plt.xlabel("loadedp")
         plt.ylabel("cpums")
         plt.title(f"{os.path.basename(self.topdir)}: cpums vs loadedp")
@@ -60,10 +66,28 @@ class PlotData:
     def plot_B1(self):
         df = pd.read_csv(self.topdir)
 
+        loadedp = df["loadedp"].values.reshape(-1, 1)
+        gms = df["gms"]
+        cms = df["cms"]
+        gms_cms = df["gms"] + df["cms"]
+
+        model = LinearRegression()
+        model.fit(loadedp, gms)
+        y_pred = model.predict(loadedp)
         plt.figure(figsize=(8,5))
-        plt.plot(df['loadedp'], df['gms'], marker='o', linestyle='-', label="gms vs loadedp")
-        plt.plot(df['loadedp'], df['cms'], marker='o', linestyle="-", label="cms vs loadedp")
-        plt.plot(df['loadedp'], df['cms'] + df['gms'], marker='o', linestyle="-", label="(cms+gms) vs loadedp")
+        plt.scatter(loadedp, gms, marker='o', color="cornflowerblue")
+        plt.plot(loadedp, y_pred, linestyle="-", label="gms vs loadedp", color="cornflowerblue")
+
+        model.fit(loadedp, cms)
+        y_pred = model.predict(loadedp)
+        plt.scatter(loadedp, cms, marker='o', color="mediumseagreen")
+        plt.plot(loadedp, y_pred, linestyle="-", label="cms vs loadedp", color="mediumseagreen")
+
+        model.fit(loadedp, gms_cms)
+        y_pred = model.predict(loadedp)
+        plt.scatter(loadedp, gms_cms, marker='o', color="orchid")
+        plt.plot(loadedp, y_pred, linestyle="-", label="gms+cms vs loadedp", color="orchid")
+
         plt.xlabel("Number of Particles (q)")
         plt.ylabel("Seconds per frame, spf (ms)")
         plt.title(f"{os.path.basename(self.topdir)}: B1 Plot")
@@ -75,12 +99,30 @@ class PlotData:
     def plot_linearity(self):
         df = pd.read_csv(self.topdir)
 
+        loadedp = df["loadedp"].values.reshape(-1, 1)
+        cms_loadedp = df['cms'] / df['loadedp']
+        gms_loadedp = df['gms'] / df['loadedp']
+        cms_gms_loadedp = (df['cms'] + df['gms']) / df['loadedp']
+
+        model = LinearRegression()
+
+        model.fit(loadedp, cms_loadedp)
+        y_pred = model.predict(loadedp)
         plt.figure(figsize=(8,5))
-        plt.plot(df['loadedp'], df['cms'] / df['loadedp'], marker='o', linestyle="-", label="(cms/loadedp) vs loadedp")
-        plt.plot(df['loadedp'], df['gms'] / df['loadedp'], marker='o', linestyle="-", label="(gms/loadedp) vs loadedp")
-        plt.plot(df['loadedp'], (df['cms'] + df['gms']) / df['loadedp'], marker='o', 
-                 linestyle="-", label="(cms+gms)/loadedp vs loadedp")     
-        plt.xlim(82944)
+        plt.scatter(loadedp, cms_loadedp, marker='o', color="royalblue")
+        plt.plot(loadedp, y_pred, linestyle="-", label="(cms/loadedp) vs loadedp", color="royalblue")
+
+        model.fit(loadedp, gms_loadedp)
+        y_pred = model.predict(loadedp)
+        plt.scatter(loadedp, cms_loadedp, marker='o', color="red")
+        plt.plot(loadedp, y_pred, linestyle="-", label="(gms/loadedp) vs loadedp", color="red")
+
+        model.fit(loadedp, cms_gms_loadedp)
+        y_pred = model.predict(loadedp)
+        plt.scatter(loadedp, cms_gms_loadedp, marker='o', color="green")
+        plt.plot(loadedp, y_pred, linestyle="-", label="(cms+gms)/loadedp vs loadedp", color="green")
+    
+        # plt.xlim(82944)
         plt.xlabel("Number of Particles")
         plt.ylabel("Linearity")
         plt.title(f"{os.path.basename(self.topdir)}: Linearity")
@@ -118,9 +160,24 @@ class PlotData:
     def plot_expectedc(self):
         df = pd.read_csv(self.topdir)
         
+        expectedc = df["expectedc"].values.reshape(-1, 1)
+        cms = df["cms"]
+        gms = df["gms"]
+
+        model = LinearRegression()
+
+        model.fit(expectedc, cms)
+        y_pred = model.predict(expectedc)
         plt.figure(figsize=(8,5))
-        plt.plot(df['expectedc'], df['cms'], marker='o', linestyle='-', label="cms vs loadedp")
-        plt.plot(df['expectedc'], df['gms'], marker='o', linestyle='-', label="gms vs loadedp")
+        plt.scatter(expectedc, cms, marker='o', color="cornflowerblue")
+        plt.plot(expectedc, y_pred, linestyle="-", label="cms vs expectedc", color="cornflowerblue")
+
+        model = LinearRegression()
+        model.fit(expectedc, gms)
+        y_pred = model.predict(expectedc)
+        plt.scatter(expectedc, gms, marker='o', color="mediumseagreen")
+        plt.plot(expectedc, y_pred, linestyle="-", label="gms vs expectedc", color="mediumseagreen")
+        
         plt.xlabel("Number of Collisions (n)")
         plt.ylabel("Seconds Per Frame, spf(s)")
         plt.title(f"{os.path.basename(self.topdir)}: Seconds Per Frame vs Number of Collisions")
