@@ -3,6 +3,7 @@ from PyQt6.QtWidgets import QApplication, QWidget,  QFormLayout, QGridLayout, QT
 from PyQt6.QtCore import Qt
 from PyQt6.QtGui import QIcon
 from TabClass import *
+
 import inspect
 ## The main window object that contains the tabs for the utility
 class FPIBGMainWin(QWidget):
@@ -17,11 +18,11 @@ class FPIBGMainWin(QWidget):
         
 
         ## Create a tab widget
-        tabSetup = TabObj(self)
-        tabSetup.Create()
+        self.tabSetup = TabObj(self)
+        
 
-        main_layout.addWidget(tabSetup, 0, 0, 2, 1)
-        main_layout.addWidget(tabSetup, 0, 0, 2, 1)
+        main_layout.addWidget(self.tabSetup, 0, 0, 2, 1)
+        main_layout.addWidget(self.tabSetup, 0, 0, 2, 1)
         self.quitBtn = QPushButton('Quit')
         main_layout.addWidget(self.quitBtn, 2, 0,
                               alignment=Qt.AlignmentFlag.AlignRight)
@@ -33,6 +34,7 @@ class FPIBGMainWin(QWidget):
         exit()
         
     def Create(self,FPIBGBase):
+        self.tabSetup.Create(FPIBGBase)
         self.bs = FPIBGBase
         self.bs.log.log(    1,
                             inspect.currentframe().f_lineno,

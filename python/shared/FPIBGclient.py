@@ -2,11 +2,14 @@ import socket
 import os
 import time
 import inspect
-class TCPIP:
+class TCPIPClient:
     def __init__(self, ObjectName):
         self.objname = ObjectName
+        self.Text = "";
         
-
+    def getText(self):
+        return self.Text
+    
     ## Create() for the MyClass object.
     # @param   BaseObj -- (FPIBGBase) this is the glovbal class that contains the log and config file facilities.
     def Create(self,BaseObj):
@@ -27,7 +30,7 @@ class TCPIP:
             self.saveimgdir = self.cfg.save_img_dir
             self.savecvsdir = self.cfg.save_csv_dir
             self.client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            
+            self.Text =  f"Opend client successfully {self.server_ip}:{self.server_port}"
         except Exception as err:
             self.bobj.log.log( 0,  inspect.currentframe().f_lineno,
                 __file__,
@@ -37,7 +40,7 @@ class TCPIP:
                 err)
             self.isConnected = False
 
-    def Open(self):
+    def Open(self): 
         ##Connect to the server."""
         try:
             self.client_socket.connect((self.server_ip, self.server_port))
@@ -47,7 +50,9 @@ class TCPIP:
                 self.objname,
                 0,
                 f"Connected to server at {self.server_ip}:{self.server_port}")
+            
             self.isConnected = True
+            return f"Connected to server at {self.server_ip}:{self.server_port}"
         except Exception as err:
             self.log( 0,  inspect.currentframe().f_lineno,
                 __file__,

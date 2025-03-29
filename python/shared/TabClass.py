@@ -16,7 +16,8 @@ class TabObj(QTabWidget):
         
 
     ## Add all tabs to this tab form (parent)
-    def Create(self):
+    def Create(self,FPIBGBase):
+        self.bobj = FPIBGBase
         ## Create the tabs
         self.tabFormWelcome = TabFormWelcome()
         self.tabFormGenConfig = TabGenConfig()
@@ -39,7 +40,8 @@ class TabObj(QTabWidget):
 
         ## Call set form to 
         self.tabFormWelcome.Create()
-        self.tabFormSetup.Create()
+        self.tabFormSetup.Create(FPIBGBase)
         self.tabFormGenConfig.Create()
         self.tabFormReports.Create()
         self.tabFormRunRpt.Create()
+        
