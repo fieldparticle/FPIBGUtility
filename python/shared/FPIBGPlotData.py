@@ -1,6 +1,8 @@
 import pandas as pd
 import os
 from sklearn.linear_model import LinearRegression
+import numpy as np
+from scipy.optimize import curve_fit
 import matplotlib.pyplot as plt
 
 class PlotData:
@@ -40,6 +42,9 @@ class PlotData:
         parts = dir.rsplit("/", 1) 
         parts[-1] = parts[-1].replace("data", "")
         return "/".join(parts)
+    
+    def exponential(self, x, a, b):
+        return a * np.exp(b*x)
 
     # Plot cpums vs loadedp
     def plot_cpums(self):
@@ -99,30 +104,31 @@ class PlotData:
     def plot_linearity(self):
         df = pd.read_csv(self.topdir)
 
-        loadedp = df["loadedp"].values.reshape(-1, 1)
-        cms_loadedp = df['cms'] / df['loadedp']
-        gms_loadedp = df['gms'] / df['loadedp']
-        cms_gms_loadedp = (df['cms'] + df['gms']) / df['loadedp']
+        loadedp = df["loadedp"]
+        indexes = loadedp >= 82944
+        loadedp = loadedp[indexes].values.reshape(-1, 1)
+        cms_loadedp = (df['cms'] / df['loadedp'])[indexes]
+        gms_loadedp = (df['gms'] / df['loadedp'])[indexes]
+        cms_gms_loadedp = ((df['cms'] + df['gms']) / df['loadedp'])[indexes]
 
         model = LinearRegression()
 
         model.fit(loadedp, cms_loadedp)
         y_pred = model.predict(loadedp)
         plt.figure(figsize=(8,5))
-        plt.scatter(loadedp, cms_loadedp, marker='o', color="royalblue")
-        plt.plot(loadedp, y_pred, linestyle="-", label="(cms/loadedp) vs loadedp", color="royalblue")
+        plt.scatter(loadedp, cms_loadedp, marker='o', color="cornflowerblue")
+        plt.plot(loadedp, y_pred, linestyle="-", label="(cms/loadedp) vs loadedp", color="cornflowerblue")
 
         model.fit(loadedp, gms_loadedp)
         y_pred = model.predict(loadedp)
-        plt.scatter(loadedp, cms_loadedp, marker='o', color="red")
-        plt.plot(loadedp, y_pred, linestyle="-", label="(gms/loadedp) vs loadedp", color="red")
+        plt.scatter(loadedp, gms_loadedp, marker='o', color="mediumseagreen")
+        plt.plot(loadedp, y_pred, linestyle="-", label="(gms/loadedp) vs loadedp", color="mediumseagreen")
 
         model.fit(loadedp, cms_gms_loadedp)
         y_pred = model.predict(loadedp)
-        plt.scatter(loadedp, cms_gms_loadedp, marker='o', color="green")
-        plt.plot(loadedp, y_pred, linestyle="-", label="(cms+gms)/loadedp vs loadedp", color="green")
+        plt.scatter(loadedp, cms_gms_loadedp, marker='o', color="orchid")
+        plt.plot(loadedp, y_pred, linestyle="-", label="(cms+gms)/loadedp vs loadedp", color="orchid")
     
-        # plt.xlim(82944)
         plt.xlabel("Number of Particles")
         plt.ylabel("Linearity")
         plt.title(f"{os.path.basename(self.topdir)}: Linearity")
@@ -134,10 +140,26 @@ class PlotData:
     def plot_cell_fraction(self):
         df = pd.read_csv(self.topdir)
 
+        sidelen = df["sidelen"]
+        # print(sidelen)
+        cms = df["cms"]
+        gms = df["gms"]
+        cms_gms = df["cms"] + df["gms"]
+
         plt.figure(figsize=(8,5))
-        plt.plot(df['sidelen'], df['cms'], marker='o', linestyle='-', label="cms vs sidelen")
-        plt.plot(df['sidelen'], df['gms'], marker='o', linestyle="-", label="gms vs sidelen")
-        plt.plot(df['sidelen'], df['cms'] + df['gms'], marker='o', linestyle="-", label="(cms+gms) vs sidelen")
+        
+        plt.scatter(sidelen, cms, marker='o', color="cornflowerblue")
+        params, covariance = curve_fit(self.exponential, sidelen, cms, p0=[3, 0])
+        plt.plot(sidelen, self.exponential(sidelen, *params), linestyle='-', label="cms vs sidelen", color="cornflowerblue")
+
+        plt.scatter(sidelen, gms, marker='o', color="mediumseagreen")
+        params, covariance = curve_fit(self.exponential, sidelen, gms, p0=[3, 0])
+        plt.plot(sidelen, self.exponential(sidelen, *params), linestyle='-', label="gms vs sidelen", color="mediumseagreen")
+
+        plt.scatter(sidelen, cms_gms, marker='o', color="orchid")
+        params, covariance = curve_fit(self.exponential, sidelen, cms_gms, p0=[3, 0])
+        plt.plot(sidelen, self.exponential(sidelen, *params), linestyle='-', label="cms+gms vs sidelen", color="orchid")
+
         plt.xlabel("Side Length")
         plt.ylabel("Seconds per frame, spf (ms)")
         plt.title(f"{os.path.basename(self.topdir)}: Cell Fraction Benchmark")
@@ -148,8 +170,14 @@ class PlotData:
     def plot_fps_vs_loadedp(self):
         df = pd.read_csv(self.topdir)
 
+        loadedp = df["loadedp"]
+        fps = df["fps"]
+
         plt.figure(figsize=(8,5))
-        plt.plot(df['loadedp'], df['fps'], marker='o', linestyle='-', label="fps vs loadedp")
+        
+        plt.scatter(loadedp, fps, marker='o', color="cornflowerblue")
+        params, covariance = curve_fit(self.exponential, loadedp, fps, p0=[2500, -1e-6])
+        plt.plot(loadedp, self.exponential(loadedp, *params), linestyle='-', label="fps vs loadedp", color="cornflowerblue")
         plt.xlabel("Number of Particles (q)")
         plt.ylabel("Frames Per Second, fps")
         plt.title(f"{os.path.basename(self.topdir)}: Frames Per Second vs Loaded Particles")
