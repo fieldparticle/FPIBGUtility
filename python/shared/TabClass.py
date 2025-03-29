@@ -42,3 +42,4 @@ class TabObj(QTabWidget):
         self.tabFormSetup.Create()
         self.tabFormGenConfig.Create()
         self.tabFormReports.Create()
+        self.tabFormRunRpt.Create()
