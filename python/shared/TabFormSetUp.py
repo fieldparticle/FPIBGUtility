@@ -8,18 +8,40 @@ class TabSetup(QTabWidget):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.tcpc = TCPIPClient("TCPIP Client")
+    
+    def redText(self,msg) :
+        Txt = "<span style=\" font-size:8pt; font-weight:600; color:red;\" >"
+        Txt += msg
+        Txt += "</span>"
+        self.terminal.append( Txt)
 
+    def greenText(self,MSG) :
+        Txt = "<span style=\" font-size:8pt; font-weight:600; color:green;\" >"
+        Txt += msg
+        Txt += "</span>"
+        self.terminal.append( Txt)
+
+
+    def Open(self):
+        self.tcpc.OpenGUI(self.terminal)
+        
+    
     def xmitCommand(self):
         cmd = self.command.text()
         match cmd:
+            case "":
+                return
             case "test":      
-                Text =  f"Command: " + cmd 
-                self.terminal.append(Text)
-                self.command.setText("")
+                self.tcpc.WriteGUI(cmd,self.terminal)
+                self.tcpc.ReadGUI(self.terminal)    
+            case "quit":      
+                self.tcpc.CloseGUI(self.terminal)
             case _:
                 Text =  f"Command: " + cmd + " bad command or input" 
-                self.terminal.append(Text)
-                self.command.setText("")
+                self.redText(Text)
+        
+        self.command.setText("")
+            
         
     def changeImage(self):
         pixmap = QPixmap('Logo.png')
@@ -32,8 +54,13 @@ class TabSetup(QTabWidget):
 
         
     def Create(self,FPIBBase):
-        
-        
+        self.bobj = FPIBBase;
+        self.cfg = self.bobj.cfg.config
+        self.log = self.bobj.log.log
+        self.server_ip = self.cfg.server_ip
+        self.server_port = self.cfg.server_port
+       
+
         self.setStyleSheet("background-color:  #eeeeee")
         tab_layout = QGridLayout()
         tab_layout.setAlignment(Qt.AlignmentFlag.AlignLeft)
@@ -55,16 +82,18 @@ class TabSetup(QTabWidget):
         
         self.ipEdit =  QLineEdit()
         self.ipEdit.setStyleSheet("background-color:  #ffffff")
+        self.ipEdit.setText(self.server_ip)
         self.portEdit =  QLineEdit()
         self.portEdit.setStyleSheet("background-color:  #ffffff")
-        self.pingButton = QPushButton("Test (ping)")
-        self.pingButton.setStyleSheet("background-color:  #dddddd")
-
+        self.portEdit.setText(str(self.server_port))
+        self.openButton = QPushButton("Open")
+        self.openButton.setStyleSheet("background-color:  #dddddd")
+        self.openButton.clicked.connect(self.Open)
         paramlo.addWidget(self.portEdit,1,1)
         paramlo.addWidget(self.ipEdit,0,1)
         paramlo.addWidget(QLabel('Remote IP address'),0,0)
         paramlo.addWidget(QLabel('Remote Port'),1,0)
-        paramlo.addWidget(self.pingButton,2,0)
+        paramlo.addWidget(self.openButton,2,0)
 
 
         ## -------------------------------------------------------------
@@ -120,7 +149,8 @@ class TabSetup(QTabWidget):
         self.image.setMaximumWidth(400)
         paramlo.addWidget(self.image)
         self.changeImage()
-        self.tcpc.Create(FPIBBase)
-        self.terminal.setText( self.tcpc.getText())
+        self.tcpc.CreateGUI(FPIBBase,self.terminal)
+        
 
    
+ 

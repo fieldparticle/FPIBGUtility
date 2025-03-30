@@ -29,7 +29,9 @@ class FPIBGMainWin(QWidget):
         self.quitBtn.clicked.connect(self.on_clicked)
         self.setLayout(main_layout)
         self.show()
+
     
+
     def on_clicked(self) :
         exit()
         

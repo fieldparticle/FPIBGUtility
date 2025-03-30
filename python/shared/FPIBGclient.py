@@ -6,10 +6,28 @@ class TCPIPClient:
     def __init__(self, ObjectName):
         self.objname = ObjectName
         self.Text = "";
-        
+    
+    def redText(self,msg,control) :
+        Txt = "<span style=\" font-size:8pt; font-weight:600; color:red;\" >"
+        Txt += msg
+        Txt += "</span>"
+        control.append( Txt)
+
+    def greenText(self,msg,control) :
+        Txt = "<span style=\" font-size:8pt; font-weight:600; color:green;\" >"
+        Txt += msg
+        Txt += "</span>"
+        control.append(Txt)
+
     def getText(self):
         return self.Text
     
+    def CreateGUI(self,BaseObj,control):
+        if(self.Create(BaseObj) == 0):
+            self.greenText( self.Text,control)
+        else:
+            self.redText( self.Text,control)  
+        
     ## Create() for the MyClass object.
     # @param   BaseObj -- (FPIBGBase) this is the glovbal class that contains the log and config file facilities.
     def Create(self,BaseObj):
@@ -30,7 +48,8 @@ class TCPIPClient:
             self.saveimgdir = self.cfg.save_img_dir
             self.savecvsdir = self.cfg.save_csv_dir
             self.client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            self.Text =  f"Opend client successfully {self.server_ip}:{self.server_port}"
+            self.Text =  f"Created client successfully {self.server_ip}:{self.server_port}"
+            return 0
         except Exception as err:
             self.bobj.log.log( 0,  inspect.currentframe().f_lineno,
                 __file__,
@@ -39,6 +58,14 @@ class TCPIPClient:
                 self.dlvl+1,
                 err)
             self.isConnected = False
+            return 1
+        
+    def OpenGUI(self,control):
+        if(self.Open() == 0):
+            self.greenText( self.Text,control)
+        else:
+            self.redText( self.Text,control)  
+        
 
     def Open(self): 
         ##Connect to the server."""
@@ -50,9 +77,9 @@ class TCPIPClient:
                 self.objname,
                 0,
                 f"Connected to server at {self.server_ip}:{self.server_port}")
-            
+            self.Text = f"Connected to server at {self.server_ip}:{self.server_port}"
             self.isConnected = True
-            return f"Connected to server at {self.server_ip}:{self.server_port}"
+            return 0
         except Exception as err:
             self.log( 0,  inspect.currentframe().f_lineno,
                 __file__,
@@ -60,7 +87,15 @@ class TCPIPClient:
                 self.objname,
                 self.dlvl+2,
                 err)
+            s = "Error {0}".format(str(err)) 
+            self.Text = s
             self.isConnected = False
+            return 1
+
+    def CloseGUI(self,control):
+        self.client_socket.close()
+        self.isConnected = False
+        self.greenText("Closed Session",control)
 
     def Close(self):
         """Close the client connection properly."""
@@ -79,8 +114,26 @@ class TCPIPClient:
                 self.dlvl+2,
                 err)
             self.isConnected = False
-        #else
-       
+
+    def ReadGUI(self,control):
+        #Receive confirmation message from the server.
+        try:
+            self.response = self.client_socket.recv(self.buffer_size)
+            self.greenText(self.response.decode(),control)
+            self.response = ""
+            return 0
+        except Exception as err:
+            self.log(0,   inspect.currentframe().f_lineno,
+                __file__,
+                inspect.currentframe().f_code.co_name,
+                self.objname,
+                self.dlvl+2,
+                err)
+            self.isConnected = False
+            self.redText(self.response.decode(),control)
+            self.response = ""
+            return 1
+        
     def Write(self):
         self.command = self.command.encode('utf-8')
         try:
@@ -93,14 +146,50 @@ class TCPIPClient:
                 self.dlvl+3,
                 err)
             self.isConnected = False
+            s = "Error {0}".format(str(err)) 
+            self.Text = s
+            return 1
+
         #else
         self.log(0,  inspect.currentframe().f_lineno,
                 __file__,
                 inspect.currentframe().f_code.co_name,
                 self.objname,
                 0,
-                "Wrote:{}".format(len(self.command)))   
-        
+                 "Wrote:{}".format(len(self.command)))   
+        self.Text = "Wrote:{}".format(len(self.command))
+        return 0
+    
+    def WriteGUI(self,msg,control):
+        self.command = msg
+        self.command = self.command.encode('utf-8')
+        try:
+            self.client_socket.sendall(self.command)
+        except Exception as err:
+            self.log( 0,  inspect.currentframe().f_lineno,
+                __file__,
+                inspect.currentframe().f_code.co_name,
+                self.objname,
+                self.dlvl+3,
+                err)
+            self.isConnected = False
+            s = "Error {0}".format(str(err)) 
+            self.Text = s
+            self.redText(control)
+            return 1
+
+        #else
+        self.log(0,  inspect.currentframe().f_lineno,
+                __file__,
+                inspect.currentframe().f_code.co_name,
+                self.objname,
+                0,
+                 "Wrote:{} for {} bytes".format(msg,len(self.command)))   
+        self.Text = "Wrote:{} for {} bytes".format(msg,len(self.command))
+        self.greenText(self.Text,control)
+        return 0
+    
+    
     def RecieveCSVFileGUI(self,OutWidget):
         #FileName
         self.Read()
