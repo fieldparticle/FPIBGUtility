@@ -2,22 +2,30 @@ import socket
 import os
 import time
 import inspect
+from PyQt6.QtCore import Qt,QRect,QObject,QThread, pyqtSignal
+
 class TCPIPClient:
     def __init__(self, ObjectName):
         self.objname = ObjectName
         self.Text = "";
     
+    def rptError(self,err,control):
+         s = "Error {0}".format(str(err)) 
+         self.redText(control)
+        
     def redText(self,msg,control) :
         Txt = "<span style=\" font-size:8pt; font-weight:600; color:red;\" >"
         Txt += msg
         Txt += "</span>"
-        control.append( Txt)
+        control.append(Txt)
+        control.update()
 
     def greenText(self,msg,control) :
         Txt = "<span style=\" font-size:8pt; font-weight:600; color:green;\" >"
         Txt += msg
         Txt += "</span>"
         control.append(Txt)
+        control.update()
 
     def getText(self):
         return self.Text
@@ -61,11 +69,7 @@ class TCPIPClient:
             return 1
         
     def OpenGUI(self,control):
-        if(self.Open() == 0):
-            self.greenText( self.Text,control)
-        else:
-            self.redText( self.Text,control)  
-        
+        self.Open()
 
     def Open(self): 
         ##Connect to the server."""
@@ -115,6 +119,22 @@ class TCPIPClient:
                 err)
             self.isConnected = False
 
+    def ReadBlk(self,size):
+        #Receive confirmation message from the server.
+        try:
+            self.response = self.client_socket.recv(size)
+            self.Text = self.response.decode()
+            return 0
+        except Exception as err:
+            self.log(0,   inspect.currentframe().f_lineno,
+                __file__,
+                inspect.currentframe().f_code.co_name,
+                self.objname,
+                self.dlvl+2,
+                err)
+            self.isConnected = False
+            return 1
+
     def ReadGUI(self,control):
         #Receive confirmation message from the server.
         try:
@@ -138,6 +158,8 @@ class TCPIPClient:
         self.command = self.command.encode('utf-8')
         try:
             self.client_socket.sendall(self.command)
+            self.Text = "Successful Write"
+            return 0
         except Exception as err:
             self.log( 0,  inspect.currentframe().f_lineno,
                 __file__,
@@ -150,21 +172,17 @@ class TCPIPClient:
             self.Text = s
             return 1
 
-        #else
-        self.log(0,  inspect.currentframe().f_lineno,
-                __file__,
-                inspect.currentframe().f_code.co_name,
-                self.objname,
-                0,
-                 "Wrote:{}".format(len(self.command)))   
-        self.Text = "Wrote:{}".format(len(self.command))
-        return 0
+      
     
+    def WriteCmd(self,CMD):
+        self.command = CMD
+        return self.Write()
     def WriteGUI(self,msg,control):
         self.command = msg
         self.command = self.command.encode('utf-8')
         try:
             self.client_socket.sendall(self.command)
+            return 0
         except Exception as err:
             self.log( 0,  inspect.currentframe().f_lineno,
                 __file__,
@@ -188,40 +206,7 @@ class TCPIPClient:
         self.Text = "Wrote:{} for {} bytes".format(msg,len(self.command))
         self.greenText(self.Text,control)
         return 0
-    
-    
-    def RecieveCSVFileGUI(self,OutWidget):
-        #FileName
-        self.Read()
-        self.log(0,  inspect.currentframe().f_lineno,
-                __file__,
-                inspect.currentframe().f_code.co_name,
-                self.objname,
-                0,
-                "Revc:{}".format(len(self.response)))    
-        #Recieve dib header
-        self.Read()
-        
-        ## Instead of print send out put to OutWidget
-        print("Recieved.  {len(self.response)}  Bytes")
-        msg = self.response.decode();
-        msg = msg.split(",")
-        match msg[1]:
-            case "1":         
-                outdir = self.savecvsdir + "/perfdataPQB/" + msg[2]
-        blks = int(msg[0])
-
-        ## Instead of print send out put to OutWidget
-        print(outdir)
-
-        f = open(outdir, "w")
-        for i in range(blks):
-            self.Read()
-            wline = self.response.decode();
-            modified_lines = [line.rstrip('\r\x00') for line in wline]
-            f.writelines(modified_lines)
-
-
+   
     def RecieveCSVFile(self):
         #Read the number of blocks, type of report file, and filename
         self.Read()
@@ -257,6 +242,7 @@ class TCPIPClient:
             modified_lines = [line.rstrip('\r\x00') for line in wline]
             f.writelines(modified_lines)
 
+    
     def RecieveImgFile(self):
         # Send the send command to the server
         self.Wrtie()
@@ -285,26 +271,54 @@ class TCPIPClient:
             self.Read()
             f.write(self.response)
 
-    def RunSeriesGUI(self, OutWidget):
+    def RunSeriesGUI(self, control,tab):
         self.command = "runseries"
-        self.Write()
-        time.sleep(1.0)
+        self.greenText("Sending:runseries",control)
+        self.WriteGUI(self.command,control)
+        tab.update()
         ret = 0
         while ret == 0:
-            self.Read()
-            ## Instead of print send out put to OutWidget
-            print(f"Server Response: {self.response.decode()}")
-            msg = self.response.decode()
-            msg = msg.split(",")
-            if(len(msg) > 1):
-                match msg[4]:
-                    case "endline":
-                            ## Instead of print send out put to OutWidget
-                            print(f"Endline: {self.response.decode()}")    
-                            self.RecieveCSVFile()
-            if(msg[0] == "perfdone"):
-                ret = 1
+            ret = self.ReadBlk(1024)
+            txt = f"Server Response: {self.response.decode()}"
+            self.greenText(txt,control)
             
+
+    def RecieveCSVFileGUI(self,control):
+        #Read the number of blocks, type of report file, and filename
+        self.Read()
+        msg = self.response.decode();
+        msg = msg.split(",")
+        match msg[1]:
+            case "1":         
+                outdir = self.savecvsdir + "/perfdataPQB/" + msg[2]
+        blks = int(msg[0])
+        try:
+            f = open(outdir, "w")
+        except Exception as err:
+            self.bobj.log.log(   inspect.currentframe().f_lineno,
+                    __file__,
+                    inspect.currentframe().f_code.co_name,
+                    self.objname,
+                    self.dlvl+4,
+                    err)
+            print("File not Saved" + err )
+            s = "Error {0}".format(str(err)) 
+            self.Text = s
+            self.redText(control)
+            return 
+        #else
+        self.log( 0, inspect.currentframe().f_lineno,
+                __file__,
+                inspect.currentframe().f_code.co_name,
+                self.objname,
+                0,
+                "Opened:" + outdir)   
+
+        for i in range(blks):
+            self.response = self.client_socket.recv(self.buffer_size)
+            wline = self.response.decode();
+            modified_lines = [line.rstrip('\r\x00') for line in wline]
+            f.writelines(modified_lines)
 
     def RunSeriesCMD(self):
         self.command = "runseries"
@@ -332,7 +346,7 @@ class TCPIPClient:
                 self.Write()
                 self.Close()
                 return
-            case "sendcsv":
+            case "sndcsv":
                 self.Write()
                 self.RecieveCSVFile()
             case "sendimg":     
