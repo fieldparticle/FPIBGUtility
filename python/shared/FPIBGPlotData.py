@@ -79,17 +79,20 @@ class PlotData:
         model = LinearRegression()
         model.fit(loadedp, gms)
         y_pred = model.predict(loadedp)
+        var_gms = np.var(gms)
         plt.figure(figsize=(8,5))
         plt.scatter(loadedp, gms, marker='o', color="cornflowerblue")
         plt.plot(loadedp, y_pred, linestyle="-", label="gms vs loadedp", color="cornflowerblue")
 
         model.fit(loadedp, cms)
         y_pred = model.predict(loadedp)
+        var_cms = np.var(cms)
         plt.scatter(loadedp, cms, marker='o', color="mediumseagreen")
         plt.plot(loadedp, y_pred, linestyle="-", label="cms vs loadedp", color="mediumseagreen")
 
         model.fit(loadedp, gms_cms)
         y_pred = model.predict(loadedp)
+        var_gms_cms = np.var(gms_cms)
         plt.scatter(loadedp, gms_cms, marker='o', color="orchid")
         plt.plot(loadedp, y_pred, linestyle="-", label="gms+cms vs loadedp", color="orchid")
 
@@ -97,6 +100,13 @@ class PlotData:
         plt.ylabel("Seconds per frame, spf (ms)")
         plt.title(f"{os.path.basename(self.topdir)}: B1 Plot")
         plt.legend()
+        plt.grid(True)
+        plt.show()
+
+        plt.figure(figsize=(8,5))
+        plt.bar(["gms", "cms", "gms + cms"], [var_gms, var_cms, var_gms_cms], color=["cornflowerblue", "mediumseagreen", "orchid"])
+        plt.ylabel("Variance")
+        plt.title("Variance of gms, cms, and gms + cms")
         plt.grid(True)
         plt.show()
 
@@ -115,17 +125,20 @@ class PlotData:
 
         model.fit(loadedp, cms_loadedp)
         y_pred = model.predict(loadedp)
+        var_cms_loadedp = np.var(cms_loadedp)
         plt.figure(figsize=(8,5))
         plt.scatter(loadedp, cms_loadedp, marker='o', color="cornflowerblue")
         plt.plot(loadedp, y_pred, linestyle="-", label="(cms/loadedp) vs loadedp", color="cornflowerblue")
 
         model.fit(loadedp, gms_loadedp)
         y_pred = model.predict(loadedp)
+        var_gms_loadedp = np.var(gms_loadedp)
         plt.scatter(loadedp, gms_loadedp, marker='o', color="mediumseagreen")
         plt.plot(loadedp, y_pred, linestyle="-", label="(gms/loadedp) vs loadedp", color="mediumseagreen")
 
         model.fit(loadedp, cms_gms_loadedp)
         y_pred = model.predict(loadedp)
+        var_cms_gms = np.var(cms_gms_loadedp)
         plt.scatter(loadedp, cms_gms_loadedp, marker='o', color="orchid")
         plt.plot(loadedp, y_pred, linestyle="-", label="(cms+gms)/loadedp vs loadedp", color="orchid")
     
@@ -133,6 +146,14 @@ class PlotData:
         plt.ylabel("Linearity")
         plt.title(f"{os.path.basename(self.topdir)}: Linearity")
         plt.legend()
+        plt.grid(True)
+        plt.show()
+
+        plt.figure(figsize=(8,5))
+        plt.bar(["cms/loadedp", "gms/loadedp", "(gms + cms)/loadedp"], [var_cms_loadedp, var_gms_loadedp, var_cms_gms],
+                color=["cornflowerblue", "mediumseagreen", "orchid"])
+        plt.ylabel("Variance")
+        plt.title("Variance of cms/loadedp, gms/loadedp, and gms + cms")
         plt.grid(True)
         plt.show()
 
@@ -196,6 +217,7 @@ class PlotData:
 
         model.fit(expectedc, cms)
         y_pred = model.predict(expectedc)
+        var_cms = np.var(cms)
         plt.figure(figsize=(8,5))
         plt.scatter(expectedc, cms, marker='o', color="cornflowerblue")
         plt.plot(expectedc, y_pred, linestyle="-", label="cms vs expectedc", color="cornflowerblue")
@@ -203,6 +225,7 @@ class PlotData:
         model = LinearRegression()
         model.fit(expectedc, gms)
         y_pred = model.predict(expectedc)
+        var_gms = np.var(gms)
         plt.scatter(expectedc, gms, marker='o', color="mediumseagreen")
         plt.plot(expectedc, y_pred, linestyle="-", label="gms vs expectedc", color="mediumseagreen")
         
@@ -210,5 +233,12 @@ class PlotData:
         plt.ylabel("Seconds Per Frame, spf(s)")
         plt.title(f"{os.path.basename(self.topdir)}: Seconds Per Frame vs Number of Collisions")
         plt.legend()
+        plt.grid(True)
+        plt.show()
+
+        plt.figure(figsize=(8,5))
+        plt.bar(["gms", "cms"], [var_gms, var_cms], color=["cornflowerblue", "mediumseagreen"])
+        plt.ylabel("Variance")
+        plt.title("Variance of gms and cms")
         plt.grid(True)
         plt.show()
