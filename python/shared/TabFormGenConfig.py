@@ -340,15 +340,12 @@ class TabGenConfig(QTabWidget):
                 # Iterate through the layout of the QGroupBox
                 group_layout = widget.layout()
                 if group_layout:
-                    print("hallo")
                     for j in range(group_layout.count()):
                         group_item = group_layout.itemAt(j)
                         group_widget = group_item.widget()
                         print("Inner | Widget: " + str(type(group_widget)) + ", item: " + str(type(group_item)))
                         if group_widget is not None or isinstance(group_item, QHBoxLayout):
-                            print("hallelejuh")
                             if isinstance(group_widget, QLineEdit):
-                                print("widget check:", self.get_label_for_widget(group_widget, group_layout))
                                 if not group_widget.text().strip() or group_widget.text().strip() == "":
                                     empty_fields.append(self.get_label_for_widget(group_widget, group_layout))
                             elif isinstance(group_widget, QSpinBox):
