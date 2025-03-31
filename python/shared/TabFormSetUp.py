@@ -16,7 +16,7 @@ class Worker(QObject):
     
     @Slot(int)
     def do_work(self, n):
-        i = self.clientObj.tcpc.Open()
+        i = self.clientObj.tcpc.OpenAdd(self.clientObj.server_ip,self.clientObj.server_port)
        # self.progress.emit(i)
         self.completed.emit(0)
 
@@ -34,9 +34,10 @@ class WorkerRunSeries(QObject):
         self.progress.emit(ret)
         ret = 0
         while ret == 0:
-            ret = self.clientObj.tcpc.ReadBlk(1024)
+            ret = self.clientObj.tcpc.ReadBlk(32)
             self.progress.emit(0)
             if "perfdone" in self.clientObj.tcpc.response.decode():
+                print()
                 self.completed.emit(0)
         
            
@@ -51,6 +52,7 @@ class TabSetup(QTabWidget):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.tcpc = TCPIPClient("TCPIP Client")
+        self.tcps = TCPIPClient("TCPIP Server")
     
     def redText(self,msg) :
         Txt = "<span style=\" font-size:8pt; font-weight:600; color:red;\" >"
@@ -71,6 +73,10 @@ class TabSetup(QTabWidget):
 
     def completer(self, v):
         #self.btn_start.setEnabled(True)
+        self.openButton.setEnabled(False)
+        self.seriesButton.setEnabled(True)
+        self.sseriesButton.setEnabled(True)
+        self.sopenButton.setEnabled(True)
         self.greenText( "Series run was successful.")
         pass
 
@@ -82,12 +88,16 @@ class TabSetup(QTabWidget):
             self.redText( self.tcpc.getText())  
 
     def startr(self):
+        self.seriesButton.setEnabled(False)
+        self.sseriesButton.setEnabled(False)
+        self.sopenButton.setEnabled(False)
         self.worker_threadr.start()
         #self.btn_start.setEnabled(False)
         n = 0
         self.work_requestedr.emit(n)
   
     def start(self):
+        self.openButton.setEnabled(False)
         self.worker_thread.start()
         print("Threadstart")
         #self.btn_start.setEnabled(False)
@@ -144,7 +154,9 @@ class TabSetup(QTabWidget):
         self.log = self.bobj.log.log
         self.server_ip = self.cfg.server_ip
         self.server_port = self.cfg.server_port
-       
+        self.client_ip = self.cfg.client_ip
+        self.client_port = self.cfg.client_port
+
         self.setStyleSheet("background-color:  #eeeeee")
         tab_layout = QGridLayout()
         tab_layout.setAlignment(Qt.AlignmentFlag.AlignLeft)
@@ -152,15 +164,14 @@ class TabSetup(QTabWidget):
         self.setLayout(tab_layout)
 
         ## -------------------------------------------------------------
-        ## Communicastions parameters and test
-        paramgrp = QGroupBox("Communications Parameters")
+        ## Client communctions panel
+        paramgrp = QGroupBox("Client Communications")
         self.setSize(paramgrp,180,350)
-        tab_layout.addWidget(paramgrp,0,0)
+        tab_layout.addWidget(paramgrp,0,0,1,2)
         
         paramlo = QGridLayout()
         paramgrp.setLayout(paramlo)
 
-        
         self.ipEdit =  QLineEdit()
         self.ipEdit.setStyleSheet("background-color:  #ffffff")
         self.ipEdit.setText(self.server_ip)
@@ -187,10 +198,51 @@ class TabSetup(QTabWidget):
 
 
         ## -------------------------------------------------------------
+        # Server communicatins parameters     
+        sparamgrp = QGroupBox("Server Communications")
+        self.setSize(sparamgrp,180,350)
+        tab_layout.addWidget(sparamgrp,0,2,1,1)
+        
+        sparamlo = QGridLayout()
+        sparamgrp.setLayout(sparamlo)
+
+        self.sipLabel = QLabel('Remote IP address')
+        self.setSize(self.sipLabel,30,100) 
+        
+        self.sipEdit =  QLineEdit()
+        self.sipEdit.setStyleSheet("background-color:  #ffffff")
+        self.sipEdit.setText(self.server_ip)
+
+        self.sportLabel = QLabel('Remote Port')
+        self.setSize(self.sportLabel,30,100) 
+        self.sportEdit =  QLineEdit()
+        self.sportEdit.setStyleSheet("background-color:  #ffffff")
+        self.sportEdit.setText(str(self.server_port))
+
+        self.sopenButton = QPushButton("Open")
+        self.setSize(self.sopenButton,30,100)
+        self.sopenButton.setStyleSheet("background-color:  #dddddd")
+        self.sopenButton.clicked.connect(self.Open)
+
+        self.sseriesButton = QPushButton("Get Image")
+        self.setSize(self.sseriesButton,30,100)
+        self.sseriesButton.setStyleSheet("background-color:  #dddddd")
+        #self.sseriesButton.clicked.connect(self.runSeries)
+
+        
+        sparamlo.addWidget(self.sipEdit,0,1)
+        sparamlo.addWidget(self.sipLabel,0,0)
+        sparamlo.addWidget(self.sportEdit,1,2)
+        sparamlo.addWidget(self.sportLabel,1,0)
+        sparamlo.addWidget(self.sopenButton,2,0)
+        sparamlo.addWidget(self.sseriesButton,2,1)
+
+
+        ## -------------------------------------------------------------
         ## Comunications Interface
         commgrp = QGroupBox("Communications Terminal")
         self.setSize(commgrp,450,420)
-        tab_layout.addWidget(commgrp,1,0)
+        tab_layout.addWidget(commgrp,1,0,1,2)
 
         commlo = QGridLayout()
         commgrp.setLayout(commlo)
@@ -216,7 +268,7 @@ class TabSetup(QTabWidget):
         ## Image Interface
         imgmgrp = QGroupBox("Image Interface")
         self.setSize(imgmgrp,450,420)
-        tab_layout.addWidget(imgmgrp,1,2)
+        tab_layout.addWidget(imgmgrp,1,2,1,2)
         
         paramlo = QGridLayout()
         imgmgrp.setLayout(paramlo)

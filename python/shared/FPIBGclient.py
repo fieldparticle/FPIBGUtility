@@ -5,6 +5,7 @@ import inspect
 from PyQt6.QtCore import Qt,QRect,QObject,QThread, pyqtSignal
 
 class TCPIPClient:
+    
     def __init__(self, ObjectName):
         self.objname = ObjectName
         self.Text = "";
@@ -71,9 +72,15 @@ class TCPIPClient:
     def OpenGUI(self,control):
         self.Open()
 
+    def OpenAdd(self, server_ip,server_port): 
+        self.server_ip = server_ip
+        self_server_port = server_port
+        self.Open()
+
     def Open(self): 
         ##Connect to the server."""
         try:
+            
             self.client_socket.connect((self.server_ip, self.server_port))
             self.log( 0, inspect.currentframe().f_lineno,
                 __file__,
@@ -83,6 +90,7 @@ class TCPIPClient:
                 f"Connected to server at {self.server_ip}:{self.server_port}")
             self.Text = f"Connected to server at {self.server_ip}:{self.server_port}"
             self.isConnected = True
+            
             return 0
         except Exception as err:
             self.log( 0,  inspect.currentframe().f_lineno,
@@ -120,6 +128,7 @@ class TCPIPClient:
             self.isConnected = False
 
     def ReadBlk(self,size):
+       
         #Receive confirmation message from the server.
         try:
             self.response = self.client_socket.recv(size)
