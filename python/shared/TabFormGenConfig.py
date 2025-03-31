@@ -250,6 +250,25 @@ class TabGenConfig(QTabWidget):
         self.report_compute_frames.setText(str(self.cfg.application.reportCompFramesLessThan))
         self.report_graphics_frames.setText(str(self.cfg.application.reportGraphFramesLessThan))
 
+        self.gpu_model.setText(str(self.cfg.application.phys_device))
+        self.frame_delay.setText(str(self.cfg.application.frame_delay))
+        self.end_frame.setText(str(self.cfg.application.end_frame))
+        self.dt.setText(str(self.cfg.application.dt))
+        self.compile_shaders_checkbox.setChecked(self.cfg.application.compileShaders)
+        self.frag_kernel.setText(str(self.cfg.application.frag_kernParticle))
+        self.vert_kernel.setText(str(self.cfg.application.vert_kernParticle))
+        self.comp_kernel.setText(str(self.cfg.application.comp_kernParticle))
+
+        self.rep_ext_checkbox.setChecked(self.cfg.application.printExtension)
+        self.rep_lim_checkbox.setChecked(self.cfg.application.printDevLimtits)
+        self.val_layers_checkbox.setChecked(self.cfg.application.enableValidationLayers)
+        self.dev_ext_list = list(self.cfg.application.device_extensions)
+        self.update_list_widget(self.dev_ext_list_widget, self.dev_ext_list)
+        self.ins_ext_list = list(self.cfg.application.instance_extensions)
+        self.update_list_widget(self.ins_ext_list_widget, self.ins_ext_list)
+        self.val_lay_list = list(self.cfg.application.validation_layers)
+        self.update_list_widget(self.val_lay_list_widget, self.val_lay_list)
+
     
     def update_list_widget(self, widget: QListWidget, list: list[str]):
         widget.clear()
