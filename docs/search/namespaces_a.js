@@ -13,7 +13,8 @@ var searchData=
   ['testfpibgclient_10',['TestFPIBGClient',['../namespace_test_f_p_i_b_g_client.html',1,'']]],
   ['testfpibgclientel_11',['TestFPIBGClientEL',['../namespace_test_f_p_i_b_g_client_e_l.html',1,'']]],
   ['testfpibgdata_12',['TestFPIBGData',['../namespace_test_f_p_i_b_g_data.html',1,'']]],
-  ['testfpibgserver_13',['TestFPIBGserver',['../namespace_test_f_p_i_b_gserver.html',1,'']]],
-  ['testmainwindow_14',['TestMainWindow',['../namespace_test_main_window.html',1,'']]],
-  ['testmyclass_15',['TestMyClass',['../namespace_test_my_class.html',1,'']]]
+  ['testfpibgplotdata_13',['TestFPIBGPlotData',['../namespace_test_f_p_i_b_g_plot_data.html',1,'']]],
+  ['testfpibgserver_14',['TestFPIBGserver',['../namespace_test_f_p_i_b_gserver.html',1,'']]],
+  ['testmainwindow_15',['TestMainWindow',['../namespace_test_main_window.html',1,'']]],
+  ['testmyclass_16',['TestMyClass',['../namespace_test_my_class.html',1,'']]]
 ];

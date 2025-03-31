@@ -1,9 +1,5 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="Node000000" title=" " alt="" coords="5,56,78,83"/>
-<area shape="rect" id="Node000001" href="$class_e_l_main_window_1_1_f_p_i_b_g_main_win.html" title=" " alt="" coords="126,5,332,32"/>
-<area shape="poly" id="edge17_Node000000_Node000001" title=" " alt="" coords="92,51,125,41,169,30,170,35,126,47,93,56"/>
-<area shape="rect" id="Node000002" href="$class_e_l_main_window_1_1_setup_tab.html" title=" " alt="" coords="144,56,314,83"/>
-<area shape="poly" id="edge18_Node000000_Node000002" title=" " alt="" coords="93,67,144,67,144,72,93,72"/>
-<area shape="rect" id="Node000003" href="$class_f_p_i_b_g_main_win_1_1_f_p_i_b_g_main_win.html" title="The main window object that contains the tabs for the utility." alt="" coords="126,107,333,133"/>
-<area shape="poly" id="edge19_Node000000_Node000003" title=" " alt="" coords="93,82,126,92,170,103,169,109,125,97,92,88"/>
+<area shape="rect" id="Node000000" title=" " alt="" coords="5,5,99,32"/>
+<area shape="rect" id="Node000001" href="$classlibconf_1_1_libconf_int64.html" title=" " alt="" coords="147,5,281,32"/>
+<area shape="poly" id="edge4_Node000000_Node000001" title=" " alt="" coords="114,16,146,16,146,21,114,21"/>
 </map>

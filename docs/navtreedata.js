@@ -25,22 +25,7 @@
 var NAVTREE =
 [
   [ "FPIBG Utility", "index.html", [
-    [ "CEN5035 Submission FPIBG Sprint 2, Modules 3,4,5", "index.html", "index" ],
-    [ "Utility Project Style and Procedure Guide", "_f_p_i_b_g.html", [
-      [ "Class Instantiations", "_f_p_i_b_g.html#section2", null ],
-      [ "Logging", "_f_p_i_b_g.html#section3", [
-        [ "Logging succesfull function calls.", "_f_p_i_b_g.html#subsec1", null ],
-        [ "Logging failures of function calls.", "_f_p_i_b_g.html#subsec2", null ],
-        [ "Debug level for classes.", "_f_p_i_b_g.html#subsec3", null ]
-      ] ],
-      [ "Exercising and Unit testing", "_f_p_i_b_g.html#section4", [
-        [ "Exercising", "_f_p_i_b_g.html#subsec5", null ],
-        [ "Unit Testing with Pytest", "_f_p_i_b_g.html#subsec6", null ]
-      ] ],
-      [ "Documenting the code", "_f_p_i_b_g.html#section5", [
-        [ "Documenting a class", "_f_p_i_b_g.html#subsec7", null ]
-      ] ]
-    ] ],
+    [ "CEN5035 Submission FPIBG Sprint 3, Modules 6,7,8", "index.html", "index" ],
     [ "Namespaces", "namespaces.html", [
       [ "Namespace List", "namespaces.html", "namespaces_dup" ],
       [ "Namespace Members", "namespacemembers.html", [
@@ -55,8 +40,8 @@ var NAVTREE =
       [ "Class Hierarchy", "hierarchy.html", "hierarchy" ],
       [ "Class Members", "functions.html", [
         [ "All", "functions.html", "functions_dup" ],
-        [ "Functions", "functions_func.html", null ],
-        [ "Variables", "functions_vars.html", null ]
+        [ "Functions", "functions_func.html", "functions_func" ],
+        [ "Variables", "functions_vars.html", "functions_vars" ]
       ] ]
     ] ],
     [ "Files", "files.html", [
@@ -68,9 +53,11 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "_b_r_main_window_8py.html",
-"class_f_p_i_b_gclient_1_1_t_c_p_i_p.html#a22aba4e791982438c575c7e3528f335e",
-"classlibconf_1_1_parser.html#a4c295c1686026e845f9fa7aaf58b0c53",
-"namespace_test_main_window.html#a514007790bbdb94471b4232a72e6e9ef"
+"class_f_p_i_b_g_log_1_1_f_p_i_b_g_log.html#aa0d2155490a24e7f10eaa1c45b93194c",
+"class_latex_class_1_1_latex_class.html#ac0e84201d15c5f2bddab4ff0886ea4be",
+"class_tab_form_reports_1_1_tab_reports.html#a222ce800c2a000ce070ed80fd1d44db5",
+"classlibconf_1_1_attr_dict.html",
+"namespace_b_r_main_window.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronization';

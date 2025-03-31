@@ -11,7 +11,7 @@ var annotated_dup =
       [ "FPIBGBase", "class_f_p_i_b_g_base_1_1_f_p_i_b_g_base.html", "class_f_p_i_b_g_base_1_1_f_p_i_b_g_base" ]
     ] ],
     [ "FPIBGclient", "namespace_f_p_i_b_gclient.html", [
-      [ "TCPIP", "class_f_p_i_b_gclient_1_1_t_c_p_i_p.html", "class_f_p_i_b_gclient_1_1_t_c_p_i_p" ]
+      [ "TCPIPClient", "class_f_p_i_b_gclient_1_1_t_c_p_i_p_client.html", "class_f_p_i_b_gclient_1_1_t_c_p_i_p_client" ]
     ] ],
     [ "FPIBGConfig", "namespace_f_p_i_b_g_config.html", [
       [ "FPIBGConfig", "class_f_p_i_b_g_config_1_1_f_p_i_b_g_config.html", "class_f_p_i_b_g_config_1_1_f_p_i_b_g_config" ]
@@ -19,11 +19,27 @@ var annotated_dup =
     [ "FPIBGData", "namespace_f_p_i_b_g_data.html", [
       [ "DataClass", "class_f_p_i_b_g_data_1_1_data_class.html", "class_f_p_i_b_g_data_1_1_data_class" ]
     ] ],
+    [ "FPIBGDataEXP", "namespace_f_p_i_b_g_data_e_x_p.html", [
+      [ "DataClass", "class_f_p_i_b_g_data_e_x_p_1_1_data_class.html", "class_f_p_i_b_g_data_e_x_p_1_1_data_class" ]
+    ] ],
     [ "FPIBGLog", "namespace_f_p_i_b_g_log.html", [
       [ "FPIBGLog", "class_f_p_i_b_g_log_1_1_f_p_i_b_g_log.html", "class_f_p_i_b_g_log_1_1_f_p_i_b_g_log" ]
     ] ],
     [ "FPIBGMainWin", "namespace_f_p_i_b_g_main_win.html", [
       [ "FPIBGMainWin", "class_f_p_i_b_g_main_win_1_1_f_p_i_b_g_main_win.html", "class_f_p_i_b_g_main_win_1_1_f_p_i_b_g_main_win" ]
+    ] ],
+    [ "FPIBGPlotData", "namespace_f_p_i_b_g_plot_data.html", [
+      [ "PlotData", "class_f_p_i_b_g_plot_data_1_1_plot_data.html", "class_f_p_i_b_g_plot_data_1_1_plot_data" ]
+    ] ],
+    [ "FPIBGPlotDataJBTemp", "namespace_f_p_i_b_g_plot_data_j_b_temp.html", [
+      [ "PlotData", "class_f_p_i_b_g_plot_data_j_b_temp_1_1_plot_data.html", "class_f_p_i_b_g_plot_data_j_b_temp_1_1_plot_data" ]
+    ] ],
+    [ "FPIBGServer", "namespace_f_p_i_b_g_server.html", [
+      [ "TCPIPServer", "class_f_p_i_b_g_server_1_1_t_c_p_i_p_server.html", "class_f_p_i_b_g_server_1_1_t_c_p_i_p_server" ]
+    ] ],
+    [ "LatexClass", "namespace_latex_class.html", [
+      [ "LatexClass", "class_latex_class_1_1_latex_class.html", "class_latex_class_1_1_latex_class" ],
+      [ "LatexPlot", "class_latex_class_1_1_latex_plot.html", "class_latex_class_1_1_latex_plot" ]
     ] ],
     [ "libconf", "namespacelibconf.html", [
       [ "AttrDict", "classlibconf_1_1_attr_dict.html", "classlibconf_1_1_attr_dict" ],
@@ -66,7 +82,9 @@ var annotated_dup =
       [ "TabRunSim", "class_tab_form_run_sim_1_1_tab_run_sim.html", "class_tab_form_run_sim_1_1_tab_run_sim" ]
     ] ],
     [ "TabFormSetUp", "namespace_tab_form_set_up.html", [
-      [ "TabSetup", "class_tab_form_set_up_1_1_tab_setup.html", "class_tab_form_set_up_1_1_tab_setup" ]
+      [ "TabSetup", "class_tab_form_set_up_1_1_tab_setup.html", "class_tab_form_set_up_1_1_tab_setup" ],
+      [ "Worker", "class_tab_form_set_up_1_1_worker.html", "class_tab_form_set_up_1_1_worker" ],
+      [ "WorkerRunSeries", "class_tab_form_set_up_1_1_worker_run_series.html", "class_tab_form_set_up_1_1_worker_run_series" ]
     ] ],
     [ "TabFormWelcome", "namespace_tab_form_welcome.html", [
       [ "TabFormWelcome", "class_tab_form_welcome_1_1_tab_form_welcome.html", "class_tab_form_welcome_1_1_tab_form_welcome" ]

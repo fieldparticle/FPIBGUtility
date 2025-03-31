@@ -2,9 +2,13 @@ var hierarchy =
 [
     [ "ConfigTest.ConfigTester", "class_config_test_1_1_config_tester.html", null ],
     [ "FPIBGData.DataClass", "class_f_p_i_b_g_data_1_1_data_class.html", null ],
+    [ "FPIBGDataEXP.DataClass", "class_f_p_i_b_g_data_e_x_p_1_1_data_class.html", null ],
     [ "FPIBGBase.FPIBGBase", "class_f_p_i_b_g_base_1_1_f_p_i_b_g_base.html", null ],
     [ "FPIBGConfig.FPIBGConfig", "class_f_p_i_b_g_config_1_1_f_p_i_b_g_config.html", null ],
     [ "FPIBGLog.FPIBGLog", "class_f_p_i_b_g_log_1_1_f_p_i_b_g_log.html", null ],
+    [ "LatexClass.LatexClass", "class_latex_class_1_1_latex_class.html", [
+      [ "LatexClass.LatexPlot", "class_latex_class_1_1_latex_plot.html", null ]
+    ] ],
     [ "list", null, [
       [ "libconf.LibconfArray", "classlibconf_1_1_libconf_array.html", null ]
     ] ],
@@ -24,7 +28,13 @@ var hierarchy =
       [ "libconf.AttrDict", "classlibconf_1_1_attr_dict.html", null ]
     ] ],
     [ "libconf.Parser", "classlibconf_1_1_parser.html", null ],
+    [ "FPIBGPlotData.PlotData", "class_f_p_i_b_g_plot_data_1_1_plot_data.html", null ],
+    [ "FPIBGPlotDataJBTemp.PlotData", "class_f_p_i_b_g_plot_data_j_b_temp_1_1_plot_data.html", null ],
     [ "pptimg2md.pptimg2md", "classpptimg2md_1_1pptimg2md.html", null ],
+    [ "QObject", null, [
+      [ "TabFormSetUp.Worker", "class_tab_form_set_up_1_1_worker.html", null ],
+      [ "TabFormSetUp.WorkerRunSeries", "class_tab_form_set_up_1_1_worker_run_series.html", null ]
+    ] ],
     [ "QTabWidget", null, [
       [ "TabClass.TabObj", "class_tab_class_1_1_tab_obj.html", null ],
       [ "TabFormGenConfig.TabGenConfig", "class_tab_form_gen_config_1_1_tab_gen_config.html", null ],
@@ -43,7 +53,8 @@ var hierarchy =
     [ "RuntimeError", null, [
       [ "libconf.ConfigParseError", "classlibconf_1_1_config_parse_error.html", null ]
     ] ],
-    [ "FPIBGclient.TCPIP", "class_f_p_i_b_gclient_1_1_t_c_p_i_p.html", null ],
+    [ "FPIBGclient.TCPIPClient", "class_f_p_i_b_gclient_1_1_t_c_p_i_p_client.html", null ],
+    [ "FPIBGServer.TCPIPServer", "class_f_p_i_b_g_server_1_1_t_c_p_i_p_server.html", null ],
     [ "libconf.Tokenizer", "classlibconf_1_1_tokenizer.html", null ],
     [ "libconf.TokenStream", "classlibconf_1_1_token_stream.html", null ],
     [ "tuple", null, [
