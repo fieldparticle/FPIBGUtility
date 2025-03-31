@@ -29,6 +29,8 @@ myClass.plot_cpums()
 myClass.plot_B1()
 myClass.plot_linearity()
 myClass.plot_cell_fraction()
-    
+myClass.plot_fps_vs_loadedp()
+myClass.plot_expectedc()
+
 bc.Close()
 myClass.Close() 

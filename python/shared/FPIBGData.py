@@ -69,7 +69,7 @@ class DataClass:
         return "/".join(parts)
 
     def create_summary(self):
-        data = ['Name', 'fps', 'cpums', 'cms', 'gms', 'loadedp', 'sidelen']
+        data = ['Name', 'fps', 'cpums', 'cms', 'gms', 'loadedp', 'sidelen', 'expectedc']
         newdir = self.new_path(self.topdir) + ".csv"
         with open(newdir, mode= 'w', newline='') as file:
             writer = csv.writer(file)
@@ -79,7 +79,7 @@ class DataClass:
         directory = self.new_path(self.topdir) + ".csv"
         for i in self.data_files:
             file_path = self.topdir + "/" + i
-            fps = cpums = cms = gms = loadedp = sidelen = count = 0
+            fps = cpums = cms = gms = loadedp = sidelen = count = expectedc = 0
             with open(file_path, 'r') as filename:
                 file = csv.DictReader(filename)
                 for col in file:
@@ -90,13 +90,15 @@ class DataClass:
                     gms += float(col['gms'])
                     loadedp += float(col['loadedp'])
                     sidelen += float(col[' sidelen'])
+                    expectedc += float(col[' expectedc'])
             fps = fps / count
             cpums = cpums / count
             cms = cms / count
             gms = gms / count
             loadedp = loadedp / count
             sidelen = sidelen / count
-            avg_list = [i, fps, cpums, cms, gms, loadedp, sidelen]
+            expectedc = expectedc / count
+            avg_list = [i, fps, cpums, cms, gms, loadedp, sidelen, expectedc]
             with open(directory, 'a', newline='') as file:
                 writer = csv.writer(file)
                 writer.writerow(avg_list)
