@@ -1,0 +1,71 @@
+\doxysection{ELMain\+Window Namespace Reference}
+\hypertarget{namespace_e_l_main_window}{}\label{namespace_e_l_main_window}\index{ELMainWindow@{ELMainWindow}}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{class_e_l_main_window_1_1_f_p_i_b_g_main_win}{FPIBGMain\+Win}}
+\item 
+class \mbox{\hyperlink{class_e_l_main_window_1_1_setup_tab}{Setup\+Tab}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespace_e_l_main_window_aaede88d60506a1ae3f15c6fcf1d9d9f4}{syspth}} = sys.\+path \#
+\item 
+\mbox{\hyperlink{namespace_e_l_main_window_a7329dceb51fd28e7a8710e30b07d13cf}{cwd}} = os.\+getcwd() \#
+\item 
+str \mbox{\hyperlink{namespace_e_l_main_window_a42422b5afb3da928480e6be6b854fd81}{shrddir}} = \mbox{\hyperlink{namespace_e_l_main_window_a7329dceb51fd28e7a8710e30b07d13cf}{cwd}} + "{}\textbackslash{}\textbackslash{}python\textbackslash{}\textbackslash{}shared"{} \#
+\item 
+\mbox{\hyperlink{namespace_e_l_main_window_aeecaf11b805d4653ea792a0004206b15}{script\+\_\+dir}} = os.\+path.\+dirname(os.\+path.\+abspath(\+\_\+\+\_\+file\+\_\+\+\_\+))
+\item 
+\mbox{\hyperlink{namespace_e_l_main_window_ade101ccfa9be9ebd0c47a96dd6129cde}{shared\+\_\+path}} = os.\+path.\+abspath(os.\+path.\+join(\mbox{\hyperlink{namespace_e_l_main_window_aeecaf11b805d4653ea792a0004206b15}{script\+\_\+dir}}, "{}.."{}, "{}shared"{}))
+\item 
+\mbox{\hyperlink{namespace_e_l_main_window_a3cc8fdf57a2078228a6a80a13bdc84c3}{app}} = QApplication(sys.\+argv)
+\item 
+\mbox{\hyperlink{namespace_e_l_main_window_a28cd329b49ed3ce6f25499af5576154b}{window}} = \mbox{\hyperlink{class_e_l_main_window_1_1_f_p_i_b_g_main_win}{FPIBGMain\+Win}}("{}FPIBGMain\+Win"{})
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{namespace_e_l_main_window_a3cc8fdf57a2078228a6a80a13bdc84c3}\index{ELMainWindow@{ELMainWindow}!app@{app}}
+\index{app@{app}!ELMainWindow@{ELMainWindow}}
+\doxysubsubsection{\texorpdfstring{app}{app}}
+{\footnotesize\ttfamily \label{namespace_e_l_main_window_a3cc8fdf57a2078228a6a80a13bdc84c3} 
+ELMain\+Window.\+app = QApplication(sys.\+argv)}
+
+\Hypertarget{namespace_e_l_main_window_a7329dceb51fd28e7a8710e30b07d13cf}\index{ELMainWindow@{ELMainWindow}!cwd@{cwd}}
+\index{cwd@{cwd}!ELMainWindow@{ELMainWindow}}
+\doxysubsubsection{\texorpdfstring{cwd}{cwd}}
+{\footnotesize\ttfamily \label{namespace_e_l_main_window_a7329dceb51fd28e7a8710e30b07d13cf} 
+ELMain\+Window.\+cwd = os.\+getcwd() \#}
+
+\Hypertarget{namespace_e_l_main_window_aeecaf11b805d4653ea792a0004206b15}\index{ELMainWindow@{ELMainWindow}!script\_dir@{script\_dir}}
+\index{script\_dir@{script\_dir}!ELMainWindow@{ELMainWindow}}
+\doxysubsubsection{\texorpdfstring{script\_dir}{script\_dir}}
+{\footnotesize\ttfamily \label{namespace_e_l_main_window_aeecaf11b805d4653ea792a0004206b15} 
+ELMain\+Window.\+script\+\_\+dir = os.\+path.\+dirname(os.\+path.\+abspath(\+\_\+\+\_\+file\+\_\+\+\_\+))}
+
+\Hypertarget{namespace_e_l_main_window_ade101ccfa9be9ebd0c47a96dd6129cde}\index{ELMainWindow@{ELMainWindow}!shared\_path@{shared\_path}}
+\index{shared\_path@{shared\_path}!ELMainWindow@{ELMainWindow}}
+\doxysubsubsection{\texorpdfstring{shared\_path}{shared\_path}}
+{\footnotesize\ttfamily \label{namespace_e_l_main_window_ade101ccfa9be9ebd0c47a96dd6129cde} 
+ELMain\+Window.\+shared\+\_\+path = os.\+path.\+abspath(os.\+path.\+join(\mbox{\hyperlink{namespace_e_l_main_window_aeecaf11b805d4653ea792a0004206b15}{script\+\_\+dir}}, "{}.."{}, "{}shared"{}))}
+
+\Hypertarget{namespace_e_l_main_window_a42422b5afb3da928480e6be6b854fd81}\index{ELMainWindow@{ELMainWindow}!shrddir@{shrddir}}
+\index{shrddir@{shrddir}!ELMainWindow@{ELMainWindow}}
+\doxysubsubsection{\texorpdfstring{shrddir}{shrddir}}
+{\footnotesize\ttfamily \label{namespace_e_l_main_window_a42422b5afb3da928480e6be6b854fd81} 
+str ELMain\+Window.\+shrddir = \mbox{\hyperlink{namespace_e_l_main_window_a7329dceb51fd28e7a8710e30b07d13cf}{cwd}} + "{}\textbackslash{}\textbackslash{}python\textbackslash{}\textbackslash{}shared"{} \#}
+
+\Hypertarget{namespace_e_l_main_window_aaede88d60506a1ae3f15c6fcf1d9d9f4}\index{ELMainWindow@{ELMainWindow}!syspth@{syspth}}
+\index{syspth@{syspth}!ELMainWindow@{ELMainWindow}}
+\doxysubsubsection{\texorpdfstring{syspth}{syspth}}
+{\footnotesize\ttfamily \label{namespace_e_l_main_window_aaede88d60506a1ae3f15c6fcf1d9d9f4} 
+ELMain\+Window.\+syspth = sys.\+path \#}
+
+\Hypertarget{namespace_e_l_main_window_a28cd329b49ed3ce6f25499af5576154b}\index{ELMainWindow@{ELMainWindow}!window@{window}}
+\index{window@{window}!ELMainWindow@{ELMainWindow}}
+\doxysubsubsection{\texorpdfstring{window}{window}}
+{\footnotesize\ttfamily \label{namespace_e_l_main_window_a28cd329b49ed3ce6f25499af5576154b} 
+ELMain\+Window.\+window = \mbox{\hyperlink{class_e_l_main_window_1_1_f_p_i_b_g_main_win}{FPIBGMain\+Win}}("{}FPIBGMain\+Win"{})}
+

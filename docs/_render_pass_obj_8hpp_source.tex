@@ -1,0 +1,69 @@
+\doxysection{Render\+Pass\+Obj.\+hpp}
+\hypertarget{_render_pass_obj_8hpp_source}{}\label{_render_pass_obj_8hpp_source}\index{J:/FPIBG/vulkan/src/VulkanObj/RenderPassObj.hpp@{J:/FPIBG/vulkan/src/VulkanObj/RenderPassObj.hpp}}
+\mbox{\hyperlink{_render_pass_obj_8hpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*******************************************************************}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\%***\ \ \ \ \ \ C\ PROPRIETARY\ SOURCE\ FILE\ IDENTIFICATION\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ***}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\%*******************************************************************}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\%\ \$Author:\ jb\ \$}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\%}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\%\ \$Date:\ 2023-\/06-\/12\ 16:17:58\ -\/0400\ (Mon,\ 12\ Jun\ 2023)\ \$}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\%\ \$HeadURL:\ https://jbworkstation/svn/svnrootr5/svnvulcan/src/vulkan/RenderPassObj.hpp\ \$}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\%\ \$Id:\ RenderPassObj.hpp\ 31\ 2023-\/06-\/12\ 20:17:58Z\ jb\ \$}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\%*******************************************************************}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\%***\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DESCRIPTION\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ***}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\%*******************************************************************}}
+\DoxyCodeLine{00012\ \textcolor{comment}{@doc}}
+\DoxyCodeLine{00013\ \textcolor{comment}{@module}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ @author:\ Jackie\ Michael\ Bell<nl>}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ COPYRIGHT\ <cp>\ Jackie\ Michael\ Bell<nl>}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ Property\ of\ Jackie\ Michael\ Bell<rtm>.\ All\ Rights\ Reserved.<nl>}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ This\ source\ code\ file\ contains\ proprietary<nl>}}
+\DoxyCodeLine{00018\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ and\ confidential\ information.<nl>}}
+\DoxyCodeLine{00019\ \textcolor{comment}{}}
+\DoxyCodeLine{00020\ \textcolor{comment}{}}
+\DoxyCodeLine{00021\ \textcolor{comment}{@head3\ \ \ \ \ \ Description.\ |}}
+\DoxyCodeLine{00022\ \textcolor{comment}{@normal}}
+\DoxyCodeLine{00023\ \textcolor{comment}{}}
+\DoxyCodeLine{00024\ \textcolor{comment}{}}
+\DoxyCodeLine{00025\ \textcolor{comment}{********************************************************************}}
+\DoxyCodeLine{00026\ \textcolor{comment}{\%***\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ SVN\ CHANGE\ RECORD\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ***}}
+\DoxyCodeLine{00027\ \textcolor{comment}{\%*******************************************************************}}
+\DoxyCodeLine{00028\ \textcolor{comment}{\%*\$Revision:\ 31\ \$}}
+\DoxyCodeLine{00029\ \textcolor{comment}{\%*}}
+\DoxyCodeLine{00030\ \textcolor{comment}{\%*}}
+\DoxyCodeLine{00031\ \textcolor{comment}{\%******************************************************************/}}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#ifndef\ RENDERPASSOBJ\_HPP}}
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#define\ RENDERPASSOBJ\_HPP}}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \textcolor{keyword}{class\ }RenderPass;}
+\DoxyCodeLine{00037\ \textcolor{keyword}{class\ \ }\mbox{\hyperlink{class_render_pass_obj_a0d53fb51d864863168180985218a683f}{RenderPassObj}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_base_obj_a4b83af8a8e0e29a74b5d1780e2dd9172}{BaseObj}}}
+\DoxyCodeLine{00038\ \{}
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ std::vector<Resource*>\ \mbox{\hyperlink{class_render_pass_obj_a0f5d214c55f6b3607e0077f9f0a4abee}{m\_SubPassList}};}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ std::vector<VkDescriptorImageInfo>\ \mbox{\hyperlink{class_render_pass_obj_abeca24f899e156d7ea063fe969b51052}{m\_DescriptorImageInfo}}\{\};}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \ \ \ \ \mbox{\hyperlink{class_swap_chain_obj}{SwapChainObj}}*\ \ \ \mbox{\hyperlink{class_render_pass_obj_a0a0169cf0b14bca0e0c2229be95194d6}{m\_SCO}}=\{\};\ \ }
+\DoxyCodeLine{00044\ \ \ \ \ VkRenderPass\ \ \ \ \mbox{\hyperlink{class_render_pass_obj_aad28a2be26f4e7971ded3bb70c0dab36}{m\_RenderPass}}=\{\};}
+\DoxyCodeLine{00045\ \ \ \ \ VkRenderPass\ \mbox{\hyperlink{class_render_pass_obj_a6cc86edcc7a37060dfb32646cd9c431a}{GetRenderPass}}()}
+\DoxyCodeLine{00046\ \ \ \ \ \{}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_render_pass_obj_aad28a2be26f4e7971ded3bb70c0dab36}{m\_RenderPass}};}
+\DoxyCodeLine{00048\ \ \ \ \ \}}
+\DoxyCodeLine{00049\ \ \ \ \ std::vector<ImageObject*>\ \ \ \ \ \ \mbox{\hyperlink{class_render_pass_obj_a5bc96d6ee19a7ecc3c96c8c6292e3ef2}{m\_IMO}};}
+\DoxyCodeLine{00050\ \ \ \ \ \mbox{\hyperlink{class_render_pass_obj_a0d53fb51d864863168180985218a683f}{RenderPassObj}}(\mbox{\hyperlink{class_vulkan_obj}{VulkanObj}}\ *App,\ std::string\ Name)\ :\ }
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_base_obj_a4b83af8a8e0e29a74b5d1780e2dd9172}{BaseObj}}(Name,0,App)\{\};}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_render_pass_obj_a581b5044c9d71b045aa9366e183a23dc}{createRenderPass}}()=0;}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_render_pass_obj_ab85341ef0e5d0285b4e99799a41fdb95}{Create}}(\mbox{\hyperlink{class_swap_chain_obj}{SwapChainObj}}*\ SCO,\ std::vector<ImageObject*>\ IMO,\ \ std::vector<Resource*>\ SubPassItem);}
+\DoxyCodeLine{00056\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_render_pass_obj_ab85341ef0e5d0285b4e99799a41fdb95}{Create}}(\mbox{\hyperlink{class_swap_chain_obj}{SwapChainObj}}*\ SCO)\ ;}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_render_pass_obj_a67cbf6b8470e1d921f5f3e7d018023f5}{Cleanup}}();}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \ \ \ }
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \};}
+\DoxyCodeLine{00063\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

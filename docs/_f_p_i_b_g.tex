@@ -1,0 +1,303 @@
+\chapter{Utility Project Style and Procedure Guide}
+\hypertarget{_f_p_i_b_g}{}\label{_f_p_i_b_g}\index{Utility Project Style and Procedure Guide@{Utility Project Style and Procedure Guide}}
+All classes will have the methods even if they are not used. The following is an example class. It contains the constructor in which we save the object name. It has a create function that assigns the base object to the member self.\+bobj. It assigned the config and log file objects to short names to make the code more compact. It also assignes the error code level to {\ttfamily python self.\+dlvl} of this class which insures that we have a unique error id for any errors See Section \doxysectlink{_f_p_i_b_g_section3}{Logging}{1}.
+
+Also notice that assignment of all configuration items needed for the class are contained in the Create() function and multiple items are arranged into a try block. This is to insure that all configuration items you need exist before the class is used.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{class\ }\mbox{\hyperlink{namespace_my_class}{MyClass}}:}
+\DoxyCodeLine{}
+\DoxyCodeLine{def\ \_\_init\_\_(self,ObjName):}
+\DoxyCodeLine{\ \ \ \ self.ObjName\ =\ ObjName}
+\DoxyCodeLine{\ \ \ \ }
+\DoxyCodeLine{\textcolor{comment}{\#\ Create(self,BaseObj)\ for\ the\ MyClass\ object.\ Required\ in\ all\ classes}}
+\DoxyCodeLine{\textcolor{comment}{\#\ \ \ BaseObj\ =\ class\ FPIBGBase.\ This\ is\ the\ global\ class\ that\ contains\ the\ log\ and\ config\ file\ facilities.}}
+\DoxyCodeLine{\textcolor{keyword}{def\ }Create(self,BaseObj):}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{\#\ Assign\ bobj\ to\ contain\ the\ global\ object.}}
+\DoxyCodeLine{\ \ \ \ self.bobj\ =\ BaseObj}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{\#\ Make\ these\ assignments\ to\ shorten\ calls\ to\ them.}}
+\DoxyCodeLine{\ \ \ \ self.cfg\ =\ self.bobj.cfg.config}
+\DoxyCodeLine{\ \ \ \ self.log\ =\ self.bobj.log}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{\#\ Assign\ this\ objects\ debug\ level.\ Add\ incremental\ numbers\ to\ this\ to\ identify\ unique\ error\ numbers.}}
+\DoxyCodeLine{\ \ \ \ self.dlvl\ =\ 50}
+\DoxyCodeLine{\ \ \ \ }
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{\#\ Assign\ all\ configuration\ items\ in\ the\ create\ function}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{\#\ and\ contain\ them\ in\ a\ try\ block}}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{try}:}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ self.server\_ip\ =\ self.cfg.server\_ip}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ self.server\_port\ =\ self.cfg.server\_port}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ self.buffer\_size\ =\ self.cfg.server\_buf\_size}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ self.saveimgdir\ =\ self.cfg.save\_img\_dir}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ self.savecvsdir\ =\ self.cfg.save\_csv\_dir}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{except}\ Exception\ \textcolor{keyword}{as}\ err:}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ self.log(\ \ \ 1,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ inspect.currentframe().f\_lineno,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \_\_file\_\_,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ inspect.currentframe().f\_code.co\_name,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ self.objname,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ self.dlvl+1,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ err)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ self.isConnected\ =\ \textcolor{keyword}{False}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\textcolor{comment}{\#\ \ Open(self)\ Performs\ opening\ of\ file\ and\ communcations\ and\ takes\ no\ input.\ Any\ data\ this\ function\ needs\ }}
+\DoxyCodeLine{\textcolor{comment}{\#\ \ \ \ is\ assigned\ to\ class\ members\ in\ the\ Create\ function.\ Required\ of\ all\ classes.}}
+\DoxyCodeLine{\textcolor{keyword}{def\ }Open(self):}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{pass}}
+\DoxyCodeLine{\ \ \ \ }
+\DoxyCodeLine{\textcolor{comment}{\#\ Close().\ Performs\ closing\ of\ files\ and\ communcations\ and\ takes\ no\ input.\ Required\ by\ all\ classes.}}
+\DoxyCodeLine{\textcolor{keyword}{def\ }Close(self):}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{pass}}
+\DoxyCodeLine{\ \ \ \ }
+\DoxyCodeLine{\textcolor{comment}{\#\ Read(self).\ Performs\ reading\ of\ files\ and\ communcations.\ Can\ take\ parameters.\ Required\ by\ all\ classes.}}
+\DoxyCodeLine{\textcolor{keyword}{def\ }Read(self):}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{pass}}
+\DoxyCodeLine{\ \ \ \ }
+\DoxyCodeLine{\textcolor{comment}{\#\ Write(self)\ \ Performs\ writing\ of\ files\ and\ communcations.\ Can\ take\ parameters.\ Required\ by\ all\ classes.}}
+\DoxyCodeLine{\textcolor{keyword}{def\ }Write(self):}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{pass}}
+\DoxyCodeLine{\ \ \ \ }
+\DoxyCodeLine{\textcolor{comment}{\#\ testObject(self,modName).\ This\ function\ performs\ mod\ exersizes.\ It\ is\ not\ only\ a\ test\ function\ but\ provides\ an}}
+\DoxyCodeLine{\textcolor{comment}{\#\ example\ of\ how\ your\ class\ works\ to\ other\ developers.\ }}
+\DoxyCodeLine{\textcolor{comment}{\#\ \ \ modName=\ string\ the\ module\ name\ of\ the\ test.}}
+\DoxyCodeLine{\ \textcolor{keyword}{def\ }testObject(self,modName):}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ if(modName\ ==\ \textcolor{stringliteral}{"{}Test\ Get\ All\ Config\ Items"{}}):}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ print(f\textcolor{stringliteral}{"{}Running\ Mod"{}}\ +\ modName)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ self.bobj.log.log(\ 1,\ \ inspect.currentframe().f\_lineno,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_\_file\_\_,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ inspect.currentframe().f\_code.co\_name,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ self.ObjName,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ f\textcolor{stringliteral}{"{}Running\ Mod:"{}}\ +\ modName)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ self.bobj.cfg.testObject(modName)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ print(self.cfg.application.window.title)}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ if(modName\ ==\ \textcolor{stringliteral}{"{}Log\ an\ Error"{}}):}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ print(f\textcolor{stringliteral}{"{}Running\ Mod"{}}\ +\ modName)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ self.bobj.log.log(\ 1,\ \ inspect.currentframe().f\_lineno,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_\_file\_\_,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ inspect.currentframe().f\_code.co\_name,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ self.ObjName,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ self.dlvl+1,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ f\textcolor{stringliteral}{"{}Running\ Mod:"{}}\ +\ modName)}
+
+\end{DoxyCode}
+\hypertarget{_f_p_i_b_g_section2}{}\doxysection{\texorpdfstring{Class Instantiations}{Class Instantiations}}\label{_f_p_i_b_g_section2}
+Create the object with the following code.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{comment}{\#-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\#}}
+\DoxyCodeLine{\textcolor{comment}{\#\ Preamble\ to\ every\ script.\ Will\ append\ the\ shared\ directory\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{\textcolor{keyword}{import}\ sys\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ \ }}
+\DoxyCodeLine{\textcolor{keyword}{import}\ os\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#}}
+\DoxyCodeLine{sys.path.insert(0,\ os.path.abspath(os.path.join(os.path.dirname(\_\_file\_\_),\ \textcolor{stringliteral}{'../shared'})))\ \ \ \textcolor{comment}{\#}}
+\DoxyCodeLine{\textcolor{keyword}{import}\ getpass\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#}}
+\DoxyCodeLine{print(getpass.getuser())\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#}}
+\DoxyCodeLine{guser\ =\ getpass.getuser()\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ \ \ \ }}
+\DoxyCodeLine{\textcolor{comment}{\#\ Now\ do\ imports\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{\textcolor{comment}{\#-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\#}}
+\DoxyCodeLine{\textcolor{keyword}{from}\ FPIBGBase\ \textcolor{keyword}{import}\ *}
+\DoxyCodeLine{\textcolor{keyword}{from}\ MyClass\ \textcolor{keyword}{import}\ *}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{\#\ First\ instanciate\ a\ base\ class\ and\ name\ it}}
+\DoxyCodeLine{bc\ =\ \mbox{\hyperlink{namespace_f_p_i_b_g_base}{FPIBGBase}}(\textcolor{stringliteral}{"{}GlobalBaseClass"{}})}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{\#\ Then\ call\ create\ with\ your\ configuration\ file\ and\ log\ file\ names.\ }}
+\DoxyCodeLine{bc.Create(\textcolor{stringliteral}{"{}ParticleJB.cfg"{}},\textcolor{stringliteral}{'JBLog.log'})}
+\DoxyCodeLine{\textcolor{comment}{\#\ instanciate\ your\ object\ and\ pass\ it\ a\ name.\ This\ namewill\ be\ used\ for\ logging.}}
+\DoxyCodeLine{myClass\ =\ \mbox{\hyperlink{namespace_my_class}{MyClass}}(\textcolor{stringliteral}{"{}ExampleObject"{}})}
+\DoxyCodeLine{\textcolor{comment}{\#\ Call\ the\ create\ function\ passing\ in\ the\ base\ class.}}
+\DoxyCodeLine{myClass.Create(bc)}
+\DoxyCodeLine{\textcolor{comment}{\#\ Call\ the\ open\ function\ if\ needed.}}
+\DoxyCodeLine{myClass.Open()}
+\DoxyCodeLine{\textcolor{comment}{\#\ Perform\ the\ object\ test.}}
+\DoxyCodeLine{myClass.testObject(\textcolor{stringliteral}{"{}Test\ Get\ All\ Config\ Items"{}})}
+\DoxyCodeLine{\textcolor{comment}{\#\ Close\ your\ class}}
+\DoxyCodeLine{bc.Close()}
+
+\end{DoxyCode}
+\hypertarget{_f_p_i_b_g_section3}{}\doxysection{\texorpdfstring{Logging}{Logging}}\label{_f_p_i_b_g_section3}
+We log all major events for success and failure with a debug verbosity level. The level is from 0 to 5, 5 being the most verbose. \hypertarget{_f_p_i_b_g_subsec1}{}\doxysubsection{\texorpdfstring{Logging succesfull function calls.}{Logging succesfull function calls.}}\label{_f_p_i_b_g_subsec1}
+Verbose level of 0 is for any successful opening of a file or communications port, testing a directory for existence, or any other major function call. Even though these are succesfull we need to see a sort of logging stack when we review the log file. It is really important to log as much as you can.
+
+Also, log reads and writes but set the verbosity level to 5 since this will usually flood the log file and needs to be used in rare cases.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{comment}{\#\ This\ is\ the\ logging\ file\ line\ for\ success.\ It\ requires\ inspect}}
+\DoxyCodeLine{\textcolor{keyword}{import}\ inspect}
+\DoxyCodeLine{}
+\DoxyCodeLine{self.log(\ \ \ 1,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ The\ debug\ verbosity\ level.}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ inspect.currentframe().f\_lineno,\ \ \ \ \ \ \ \ \textcolor{comment}{\#\ The\ calling\ line\ number\ -\/\ automatic.}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \_\_file\_\_,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ The\ file\ from\ which\ it\ is\ called\ -\/\ automatic.\ }}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ inspect.currentframe().f\_code.co\_name,\ \ \textcolor{comment}{\#\ Object\ creation\ name\ -\/\ automatic.}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ self.ObjName,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ The\ name\ assigned\ to\ the\ object\ -\/\ automatic\ prob.\ redundant.}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ 0,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ The\ error\ code\ is\ 0\ for\ successful\ calls.}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}Function\ success"{}})\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ The\ error\ text\ describing\ in\ detail\ what\ succeeded.}}
+
+\end{DoxyCode}
+\hypertarget{_f_p_i_b_g_subsec2}{}\doxysubsection{\texorpdfstring{Logging failures of function calls.}{Logging failures of function calls.}}\label{_f_p_i_b_g_subsec2}
+Verbose level of 0 is for any failure to open a file or communications port, testing a directory for existence, or any other major function call. There are three parameters of this call that are not aotuomatic. The debug level which for errors is 0, the error number and text. The error number is formed by adding numbers sequentially to the class error level set as {\ttfamily self.\+log.\+lvl} in the class definition. The table in The text must provide enough detail to determine why the function failed.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{comment}{\#\ This\ is\ the\ logging\ file\ line\ for\ failure.\ It\ requires\ inspect}}
+\DoxyCodeLine{\textcolor{keyword}{import}\ inspect}
+\DoxyCodeLine{}
+\DoxyCodeLine{self.log(\ 1,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ The\ debug\ verbosity\ level.}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ inspect.currentframe().f\_lineno,\ \ \ \ \ \ \ \ \textcolor{comment}{\#\ The\ calling\ line\ number\ -\/\ automatic.\ \ \ \ \ \ }}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \_\_file\_\_,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ The\ file\ from\ which\ it\ is\ called\ -\/\ automatic.\ }}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ inspect.currentframe().f\_code.co\_name,\ \ \textcolor{comment}{\#\ Object\ creation\ name\ -\/\ automatic.}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ self.ObjName,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ The\ name\ assigned\ to\ the\ object\ -\/\ automatic\ prob.\ redundant.}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ self.dlvl+1,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ The\ error\ code.\ Add\ numbers\ sequentially\ to\ the\ error\ level\ for\ this\ class.}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ f\textcolor{stringliteral}{"{}Running\ Mod:"{}}\ +\ modName)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ A\ descriptive\ string.\ Include\ all\ of\ the\ information\ needede\ to\ solve\ the\ error.}}
+
+\end{DoxyCode}
+\hypertarget{_f_p_i_b_g_subsec3}{}\doxysubsection{\texorpdfstring{Debug level for classes.}{Debug level for classes.}}\label{_f_p_i_b_g_subsec3}
+The follwoing table containes the debug level to be set in the {\ttfamily self.\+log.\+lvl} class member.
+
+\tabulinesep=1mm
+\begin{longtabu}spread 0pt [c]{*{3}{|X[-1]}|}
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ File   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Class   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Level    }\\\cline{1-3}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ File   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Class   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Level    }\\\cline{1-3}
+\endhead
+\doxylink{namespace_f_p_i_b_g_data}{FPIBGData}   &Data\+Class   &1000    \\\cline{1-3}
+\doxylink{namespace_f_p_i_b_gclient}{FPIBGclient}   &TCPIP   &2000    \\\cline{1-3}
+\doxylink{namespace_tab_form_gen_config}{Tab\+Form\+Gen\+Config}   &Tab\+Gen\+Config   &3000    \\\cline{1-3}
+\doxylink{namespace_tab_form_gen_v_perf}{Tab\+Form\+Gen\+VPerf}   &Tab\+Gen\+VPerf   &4000    \\\cline{1-3}
+\doxylink{namespace_tab_form_reports}{Tab\+Form\+Reports}   &Tab\+Reports   &5000    \\\cline{1-3}
+\doxylink{namespace_tab_form_run_rpt}{Tab\+Form\+Run\+Rpt}   &\doxylink{namespace_tab_form_run_rpt}{Tab\+Form\+Run\+Rpt}   &6000    \\\cline{1-3}
+\doxylink{namespace_tab_form_run_sim}{Tab\+Form\+Run\+Sim}   &Tab\+Run\+Sim   &7000    \\\cline{1-3}
+\doxylink{namespace_tab_form_set_up}{Tab\+Form\+Set\+Up}   &Tab\+Setup   &8000    \\\cline{1-3}
+\doxylink{namespace_tab_form_welcome}{Tab\+Form\+Welcome}   &\doxylink{namespace_tab_form_welcome}{Tab\+Form\+Welcome}   &9000   \\\cline{1-3}
+\end{longtabu}
+\hypertarget{_f_p_i_b_g_section4}{}\doxysection{\texorpdfstring{Exercising and Unit testing}{Exercising and Unit testing}}\label{_f_p_i_b_g_section4}
+There is a difference between Exercising and Unit Testing.\hypertarget{_f_p_i_b_g_subsec5}{}\doxysubsection{\texorpdfstring{Exercising}{Exercising}}\label{_f_p_i_b_g_subsec5}
+Exercising code means writing code that performs a specific function. This code resides in the {\ttfamily test} directory. There are three reasons for this.
+
+
+\begin{DoxyItemize}
+\item To push developers to write code modualarly, in small bites
+\item To have example code avaiable for new developers who may need to extend what the original developers have done.
+\item So that the code reviewer can review the developer tasks more easily.
+\end{DoxyItemize}
+
+When you become project mangers you will understand and appreciate the importants of this approach.\hypertarget{_f_p_i_b_g_subsec6}{}\doxysubsection{\texorpdfstring{Unit Testing with Pytest}{Unit Testing with Pytest}}\label{_f_p_i_b_g_subsec6}
+Unit tests with Pytest are located in the {\ttfamily unittest} directory. An example is shown below. Every unit test should be tested for failure or success and that the correct line was written to the log file.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{import}\ pytest}
+\DoxyCodeLine{\textcolor{keyword}{import}\ os}
+\DoxyCodeLine{\textcolor{keyword}{import}\ csv}
+\DoxyCodeLine{\textcolor{keyword}{import}\ sys}
+\DoxyCodeLine{\textcolor{keyword}{from}\ typing\ \textcolor{keyword}{import}\ Type}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{\#\ Point\ ot\ the\ shared\ firectory}}
+\DoxyCodeLine{sys.path.insert(0,\ os.path.abspath(os.path.join(os.path.dirname(\_\_file\_\_),\ \textcolor{stringliteral}{'../shared'})))}
+\DoxyCodeLine{\textcolor{comment}{\#\ Get\ the\ current\ working\ directory\ and\ set\ it\ to\ the\ parent\ directory.}}
+\DoxyCodeLine{cwd\ =\ os.getcwd()}
+\DoxyCodeLine{os.chdir(\textcolor{stringliteral}{"{}..\(\backslash\)\(\backslash\)..\(\backslash\)\(\backslash\)"{}})\ }
+\DoxyCodeLine{print(cwd)}
+\DoxyCodeLine{\textcolor{comment}{\#\ Import\ requied\ classes}}
+\DoxyCodeLine{\textcolor{keyword}{from}\ FPIBGDataEXP\ \textcolor{keyword}{import}\ (DataClass)}
+\DoxyCodeLine{\textcolor{keyword}{from}\ FPIBGBase\ \textcolor{keyword}{import}\ *}
+\DoxyCodeLine{\textcolor{keyword}{from}\ mock\ \textcolor{keyword}{import}\ mock,\ Mock}
+\DoxyCodeLine{\textcolor{keyword}{from}\ unittest.mock\ \textcolor{keyword}{import}\ mock\_open,\ patch}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{\#\ Create\ a\ fixture\ to\ perform\ class\ instatiation\ and\ base\ class\ assignment.}}
+\DoxyCodeLine{\textcolor{preprocessor}{@pytest.fixture(name="{}dataClass"{})}}
+\DoxyCodeLine{\textcolor{keyword}{def\ }dataClass():}
+\DoxyCodeLine{\ \ \ \ bc\ =\ \mbox{\hyperlink{namespace_f_p_i_b_g_base}{FPIBGBase}}(\textcolor{stringliteral}{"{}GlobalBaseClass"{}})}
+\DoxyCodeLine{\ \ \ \ bc.Create(\textcolor{stringliteral}{"{}ParticleJB.cfg"{}},\textcolor{stringliteral}{'JBLog.log'})}
+\DoxyCodeLine{\ \ \ \ dta\ =\ DataClass(\textcolor{keyword}{True},\ \textcolor{stringliteral}{"{}ExampleObject"{}})}
+\DoxyCodeLine{\ \ \ \ dta.Create(bc,\textcolor{stringliteral}{"{}PQB"{}})}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{return}\ dta}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{\#\ Run\ a\ test.\ This\ test\ changes\ the\ data\ directory\ to\ one\ that\ does\ not\ exist\ }}
+\DoxyCodeLine{\textcolor{comment}{\#\ and\ tests\ to\ insure\ that\ it\ fails\ and\ that\ the\ log\ file\ line\ was\ written\ with\ }}
+\DoxyCodeLine{\textcolor{comment}{\#\ the\ correct\ error\ number.}}
+\DoxyCodeLine{\textcolor{keyword}{def\ }test\_can\_find\_data\_directoryTrue(dataClass):}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{\#\ Change\ the\ data\ directory\ to\ a\ non-\/existent\ location}}
+\DoxyCodeLine{\ \ \ \ dataClass.topdir\ =\ \textcolor{stringliteral}{"{}Nonexsitentdirectory"{}}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{\#\ Assert\ that\ the\ function\ returns\ false}}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{assert}\ dataClass.Open()\ ==\ \textcolor{keyword}{False}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{\#\ Assert\ that\ the\ log\ line\ with\ the\ correct\ code\ was\ written\ to\ the\ log\ file}}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{assert}\ dataClass.log.CheckLogFile(\textcolor{stringliteral}{"{}1001"{}})\ ==\ \textcolor{keyword}{True}}
+
+\end{DoxyCode}
+
+
+Run \begin{DoxyVerb}pytest -s 
+\end{DoxyVerb}
+
+
+from the \begin{DoxyVerb}unittest 
+\end{DoxyVerb}
+
+
+directory
+
+In this test the results will be\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\$\ pytest\ -\/s}
+\DoxyCodeLine{====================================================\ test\ session\ starts\ }
+\DoxyCodeLine{platform\ win32\ -\/-\/\ Python\ 3.13.2,\ pytest-\/8.3.5,\ pluggy-\/1.5.0}
+\DoxyCodeLine{rootdir:\ X:\(\backslash\)MODFP\(\backslash\)FPIBGUtility\(\backslash\)python\(\backslash\)unittest}
+\DoxyCodeLine{plugins:\ mock-\/3.14.0}
+\DoxyCodeLine{collecting\ ...\ X:\(\backslash\)MODFP\(\backslash\)FPIBGUtility\(\backslash\)python\(\backslash\)unittest}
+\DoxyCodeLine{collected\ 1\ item}
+\DoxyCodeLine{}
+\DoxyCodeLine{\mbox{\hyperlink{namespacetest___f_p_i_b_g_data}{test\_FPIBGData}}.py\ Created\ GlobalBaseClass}
+\DoxyCodeLine{<\textcolor{keyword}{class\ }'FPIBGLog.FPIBGLog'>}
+\DoxyCodeLine{Created\ Log\ File\ for\ \ GlobalLoggingObject}
+\DoxyCodeLine{Opened\ Log\ File\ for\ FPIBG.log}
+\DoxyCodeLine{1,2025\_3\_8:10:48,,GlobalLoggingObject,FPIBGDataEXP.py,Open,35,ExampleObject,1001,Data\ directory\ :Nonexsitentdirectory\ not\ found.}
+\DoxyCodeLine{}
+\DoxyCodeLine{.}
+\DoxyCodeLine{}
+\DoxyCodeLine{=====================================================\ 1\ passed\ in\ 0.06s\ }
+
+\end{DoxyCode}
+\hypertarget{_f_p_i_b_g_section5}{}\doxysection{\texorpdfstring{Documenting the code}{Documenting the code}}\label{_f_p_i_b_g_section5}
+\hypertarget{_f_p_i_b_g_subsec7}{}\doxysubsection{\texorpdfstring{Documenting a class}{Documenting a class}}\label{_f_p_i_b_g_subsec7}
+The following illustrates how to document a class. Double pound sign above the class decl.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keyword}{class\ }\mbox{\hyperlink{namespace_my_class}{MyClass}}:}
+\DoxyCodeLine{...}
+
+\end{DoxyCode}
+
+
+The following illustrates how to document a class function. Double pound sign above the decl.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keyword}{def\ }\_\_init\_\_(self,ObjName):}
+\DoxyCodeLine{...}
+
+\end{DoxyCode}
+
+
+The following illustrates how to document a class member. Double pound sign above the decl.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{}
+\DoxyCodeLine{self.ObjName\ =\ ObjName}
+\DoxyCodeLine{...}
+
+\end{DoxyCode}
+ 

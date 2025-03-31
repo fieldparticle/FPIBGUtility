@@ -1,0 +1,90 @@
+\doxysection{python/shared/libconf.py File Reference}
+\hypertarget{libconf_8py}{}\label{libconf_8py}\index{python/shared/libconf.py@{python/shared/libconf.py}}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classlibconf_1_1_attr_dict}{libconf.\+Attr\+Dict}}
+\item 
+class \mbox{\hyperlink{classlibconf_1_1_config_parse_error}{libconf.\+Config\+Parse\+Error}}
+\item 
+class \mbox{\hyperlink{classlibconf_1_1_config_serialize_error}{libconf.\+Config\+Serialize\+Error}}
+\item 
+class \mbox{\hyperlink{classlibconf_1_1_token}{libconf.\+Token}}
+\item 
+class \mbox{\hyperlink{classlibconf_1_1_flt_token}{libconf.\+Flt\+Token}}
+\item 
+class \mbox{\hyperlink{classlibconf_1_1_int_token}{libconf.\+Int\+Token}}
+\item 
+class \mbox{\hyperlink{classlibconf_1_1_bool_token}{libconf.\+Bool\+Token}}
+\item 
+class \mbox{\hyperlink{classlibconf_1_1_str_token}{libconf.\+Str\+Token}}
+\item 
+class \mbox{\hyperlink{classlibconf_1_1_tokenizer}{libconf.\+Tokenizer}}
+\item 
+class \mbox{\hyperlink{classlibconf_1_1_token_stream}{libconf.\+Token\+Stream}}
+\item 
+class \mbox{\hyperlink{classlibconf_1_1_parser}{libconf.\+Parser}}
+\item 
+class \mbox{\hyperlink{classlibconf_1_1_libconf_list}{libconf.\+Libconf\+List}}
+\item 
+class \mbox{\hyperlink{classlibconf_1_1_libconf_array}{libconf.\+Libconf\+Array}}
+\item 
+class \mbox{\hyperlink{classlibconf_1_1_libconf_int64}{libconf.\+Libconf\+Int64}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+namespace \mbox{\hyperlink{namespacelibconf}{libconf}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacelibconf_a1ce6366f6d167c7f338cf6873c09dbd6}{libconf.\+isstr}} (s)
+\item 
+\mbox{\hyperlink{namespacelibconf_a1c55014497977be7819d518c6fce16a1}{libconf.\+isint}} (i)
+\item 
+\mbox{\hyperlink{namespacelibconf_a5405f07938d6eb9cec0364674f24b536}{libconf.\+decode\+\_\+escapes}} (s)
+\item 
+\mbox{\hyperlink{namespacelibconf_ad0d853aefa8ffdbf8a861cf8b881458c}{libconf.\+compile\+\_\+regexes}} (token\+\_\+map)
+\item 
+\mbox{\hyperlink{namespacelibconf_a3f2a2dba6a12a3f10a0bfee8884861e6}{libconf.\+load}} (f, filename=None, includedir=\textquotesingle{}\textquotesingle{})
+\item 
+\mbox{\hyperlink{namespacelibconf_a43cd6a0f420eeace085a9b950168b7b2}{libconf.\+loads}} (string, filename=None, includedir=\textquotesingle{}\textquotesingle{})
+\item 
+\mbox{\hyperlink{namespacelibconf_aeb565d24709272aecc7f70cfdaf8ef52}{libconf.\+is\+\_\+long\+\_\+int}} (i)
+\item 
+\mbox{\hyperlink{namespacelibconf_a24addd438b206676e8955bb941402eb6}{libconf.\+dump\+\_\+int}} (i)
+\item 
+\mbox{\hyperlink{namespacelibconf_aba013a6a9b830ed5ff30eb696e91ec53}{libconf.\+dump\+\_\+string}} (s)
+\item 
+\mbox{\hyperlink{namespacelibconf_aec5ab6de3841239ec23e65a279b8afd8}{libconf.\+get\+\_\+dump\+\_\+type}} (value)
+\item 
+\mbox{\hyperlink{namespacelibconf_a3eb3c308ae52cab5110dced2a3b78722}{libconf.\+get\+\_\+array\+\_\+value\+\_\+dtype}} (lst)
+\item 
+\mbox{\hyperlink{namespacelibconf_ad87a6657fb3250059a4c41103d356d0d}{libconf.\+dump\+\_\+value}} (key, value, f, indent=0)
+\item 
+\mbox{\hyperlink{namespacelibconf_afd696a08905c6dcbbd8c9b1496f3a846}{libconf.\+dump\+\_\+collection}} (cfg, f, indent=0)
+\item 
+\mbox{\hyperlink{namespacelibconf_a3218b9a0ed484592e89205538e45189c}{libconf.\+dump\+\_\+dict}} (cfg, f, indent=0)
+\item 
+\mbox{\hyperlink{namespacelibconf_a8f1694c08418cdf5b08797fa66b5fc39}{libconf.\+dumps}} (cfg)
+\item 
+\mbox{\hyperlink{namespacelibconf_ad6b1fe75fa8503b869bb3ed516faa0cc}{libconf.\+dump}} (cfg, f)
+\item 
+\mbox{\hyperlink{namespacelibconf_a792f6bd268e89166244af39f039ef6ee}{libconf.\+main}} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacelibconf_a7172c025cd585be108c445b0a20dea46}{libconf.\+LONGTYPE}} = long
+\item 
+int \mbox{\hyperlink{namespacelibconf_abc5e1fcbf6480e0811cff1baeecb8a39}{libconf.\+SMALL\+\_\+\+INT\+\_\+\+MIN}} = -\/2\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}31
+\item 
+int \mbox{\hyperlink{namespacelibconf_ae7ec2eaab741d4341ae3611cdc6d1f26}{libconf.\+SMALL\+\_\+\+INT\+\_\+\+MAX}} = 2\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}31 -\/ 1
+\item 
+\mbox{\hyperlink{namespacelibconf_ad54ec33f1a598e4741a33fdac12d4ada}{libconf.\+ESCAPE\+\_\+\+SEQUENCE\+\_\+\+RE}} = re.\+compile(, re.\+UNICODE \texorpdfstring{$\vert$}{|} re.\+VERBOSE)
+\item 
+\mbox{\hyperlink{namespacelibconf_a11c63c6ee7b219a1aa9b3574d02c94d7}{libconf.\+SKIP\+\_\+\+RE}} = re.\+compile(r\textquotesingle{}\textbackslash{}s+\texorpdfstring{$\vert$}{|}\#.\texorpdfstring{$\ast$}{*}\$\texorpdfstring{$\vert$}{|}//.\texorpdfstring{$\ast$}{*}\$\texorpdfstring{$\vert$}{|}/\textbackslash{}\texorpdfstring{$\ast$}{*}(.\texorpdfstring{$\vert$}{|}\textbackslash{}n)\texorpdfstring{$\ast$}{*}?\textbackslash{}\texorpdfstring{$\ast$}{*}/\textquotesingle{}, re.\+MULTILINE)
+\item 
+\mbox{\hyperlink{namespacelibconf_ae25c581092a05db6a2f2135d1f33df37}{libconf.\+UNPRINTABLE\+\_\+\+CHARACTER\+\_\+\+RE}} = re.\+compile(r\textquotesingle{}\mbox{[}\textbackslash{}x00-\/\textbackslash{}x1\+F\textbackslash{}x7F\mbox{]}\textquotesingle{})
+\end{DoxyCompactItemize}

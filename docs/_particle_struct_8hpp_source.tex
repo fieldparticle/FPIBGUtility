@@ -1,0 +1,39 @@
+\doxysection{Particle\+Struct.\+hpp}
+\hypertarget{_particle_struct_8hpp_source}{}\label{_particle_struct_8hpp_source}\index{J:/FPIBG/vulkan/src\_app/particleOnly/ParticleStruct.hpp@{J:/FPIBG/vulkan/src\_app/particleOnly/ParticleStruct.hpp}}
+\mbox{\hyperlink{_particle_struct_8hpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ PARTICLE\_STRUCT\_HPP}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ PARTICLE\_STRUCT\_HPP}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_core_8hpp}{VulkanObj/Core.hpp}}"{}}}
+\DoxyCodeLine{00004\ \textcolor{keyword}{const}\ uint32\_t\ \mbox{\hyperlink{_particle_struct_8hpp_a53b04d84283089f9ee395b8902fe1e77}{MAXSPCOLLS}}\ =\ 8;}
+\DoxyCodeLine{00005\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structlstr}{lstr}}\ \{}
+\DoxyCodeLine{00006\ \ \ \ \ uint32\_t\ \mbox{\hyperlink{structlstr_a362756c7b14aa7afac598bbfc3a22869}{pindex}};}
+\DoxyCodeLine{00007\ \ \ \ \ uint32\_t\ \mbox{\hyperlink{structlstr_a7db9597098d953de3750e318eb86f12e}{ploc}};}
+\DoxyCodeLine{00008\ \ \ \ \ uint32\_t\ \mbox{\hyperlink{structlstr_ae17a2fdc63fa95fdcbc8620d561a6fa1}{fill}};}
+\DoxyCodeLine{00009\ \};}
+\DoxyCodeLine{00010\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structbcoll}{bcoll}}\ \{}
+\DoxyCodeLine{00011\ \ \ \ \ uint32\_t\ \mbox{\hyperlink{structbcoll_a47112c40de827a904892564455f9b3fc}{clflg}};}
+\DoxyCodeLine{00012\ \};}
+\DoxyCodeLine{00013\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structccoll}{ccoll}}\ \{}
+\DoxyCodeLine{00014\ \ \ \ \ uint32\_t\ \mbox{\hyperlink{structccoll_ab5f701efff5d023e7d56cdf02f2e1406}{pindex}};}
+\DoxyCodeLine{00015\ \ \ \ \ uint32\_t\ \mbox{\hyperlink{structccoll_a7c229d8d282ff07de6350c77bd64c7e7}{clflg}};}
+\DoxyCodeLine{00016\ \};}
+\DoxyCodeLine{00017\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_particle}{Particle}}\ \{}
+\DoxyCodeLine{00018\ \ \ \ \ glm::vec4\ \ \ \mbox{\hyperlink{struct_particle_a98fc2e00f18cc56ec00cf3883dfbc638}{PosLoc}};\ \textcolor{comment}{//\ \ x,y,z,radius16}}
+\DoxyCodeLine{00019\ \ \ \ \ glm::vec4\ \ \ \mbox{\hyperlink{struct_particle_a7c9fc9ca2ca3e0360b79822dffe7d08b}{VelRad}};}
+\DoxyCodeLine{00020\ \ \ \ \ glm::vec4\ \ \ \mbox{\hyperlink{struct_particle_afe68051edda1d324af4146705108ac52}{FrcAng}};}
+\DoxyCodeLine{00021\ \ \ \ \ glm::vec4\ \ \ \mbox{\hyperlink{struct_particle_aa9253062cd3f89283b90b39489a6fa93}{prvvel}};}
+\DoxyCodeLine{00022\ \ \ \ \ glm::vec4\ \ \ \mbox{\hyperlink{struct_particle_a26d3322de16458a72e6c7db56007c0eb}{parms}};}
+\DoxyCodeLine{00023\ \ \ \ \ \mbox{\hyperlink{structlstr}{lstr}}\ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_particle_abddd8e44da5d206d5a84c231104c0253}{zlink}}[8];}
+\DoxyCodeLine{00024\ \ \ \ \ \mbox{\hyperlink{structbcoll}{bcoll}}\ \ \ \ \ \ \mbox{\hyperlink{struct_particle_a6c918dee8e7994daad80900df420710f}{bcs}}[4];\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ boundary\ collisions}}
+\DoxyCodeLine{00025\ \ \ \ \ \mbox{\hyperlink{structccoll}{ccoll}}\ \ \ \ \ \ \mbox{\hyperlink{struct_particle_ae2e434f1d5e46f765ac91b42d4e59217}{ccs}}[12];\ \ \ \ \ \textcolor{comment}{//\ boundary\ collisions}}
+\DoxyCodeLine{00026\ \ \ \ \ uint32\_t\ \ \ \ \mbox{\hyperlink{struct_particle_a64c885a18c558f4ad064eb664fd0a6d9}{pnum}};}
+\DoxyCodeLine{00027\ \ \ \ \ uint32\_t\ \ \ \ \mbox{\hyperlink{struct_particle_a589afa28bc479eaf6fa4c84bb1461dae}{colFlg}};}
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \mbox{\hyperlink{struct_particle_a1ac04f134697c4ebc67c13dca9a5be1e}{MolarMatter}};}
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \mbox{\hyperlink{struct_particle_a92c6529b291f3a137772ed6d4ac7590b}{temp\_vel}};}
+\DoxyCodeLine{00030\ \ \ \ \ }
+\DoxyCodeLine{00031\ \};}
+\DoxyCodeLine{00032\ \ \ \ \ }
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

@@ -1,0 +1,144 @@
+\doxysection{J\+:/\+FPIBG/vulkan/src\+\_\+app/mmrr\+Triangle/mmrr\+\_\+triangle.cpp File Reference}
+\hypertarget{mmrr__triangle_8cpp}{}\label{mmrr__triangle_8cpp}\index{J:/FPIBG/vulkan/src\_app/mmrrTriangle/mmrr\_triangle.cpp@{J:/FPIBG/vulkan/src\_app/mmrrTriangle/mmrr\_triangle.cpp}}
+{\ttfamily \#include $<$GLFW/glfw3.\+h$>$}\newline
+{\ttfamily \#include $<$iostream$>$}\newline
+{\ttfamily \#include $<$fstream$>$}\newline
+{\ttfamily \#include $<$stdexcept$>$}\newline
+{\ttfamily \#include $<$algorithm$>$}\newline
+{\ttfamily \#include $<$vector$>$}\newline
+{\ttfamily \#include $<$cstring$>$}\newline
+{\ttfamily \#include $<$cstdlib$>$}\newline
+{\ttfamily \#include $<$cstdint$>$}\newline
+{\ttfamily \#include $<$limits$>$}\newline
+{\ttfamily \#include $<$optional$>$}\newline
+{\ttfamily \#include $<$set$>$}\newline
+{\ttfamily \#include "{}Vulkan\+Obj/\+Timer\+Obj.\+hpp"{}}\newline
+{\ttfamily \#include "{}Vulkan\+Obj/\+Core.\+hpp"{}}\newline
+Include dependency graph for mmrr\+\_\+triangle.\+cpp\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{mmrr__triangle_8cpp__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct_queue_family_indices}{Queue\+Family\+Indices}}
+\item 
+struct \mbox{\hyperlink{struct_swap_chain_support_details}{Swap\+Chain\+Support\+Details}}
+\item 
+class \mbox{\hyperlink{class_hello_triangle_application}{Hello\+Triangle\+Application}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{mmrr__triangle_8cpp_ab91f325a54d3e35fe831a86d6382c2a9}{GLFW\+\_\+\+INCLUDE\+\_\+\+VULKAN}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+Vk\+Result \mbox{\hyperlink{mmrr__triangle_8cpp_a761ebce14cb8767a4e480ea446f34ef2}{Create\+Debug\+Utils\+Messenger\+EXT}} (Vk\+Instance instance, const Vk\+Debug\+Utils\+Messenger\+Create\+Info\+EXT \texorpdfstring{$\ast$}{*}p\+Create\+Info, const Vk\+Allocation\+Callbacks \texorpdfstring{$\ast$}{*}p\+Allocator, Vk\+Debug\+Utils\+Messenger\+EXT \texorpdfstring{$\ast$}{*}p\+Debug\+Messenger)
+\item 
+void \mbox{\hyperlink{mmrr__triangle_8cpp_a352d613e62df889b9056955ad16e0338}{Destroy\+Debug\+Utils\+Messenger\+EXT}} (Vk\+Instance instance, Vk\+Debug\+Utils\+Messenger\+EXT debug\+Messenger, const Vk\+Allocation\+Callbacks \texorpdfstring{$\ast$}{*}p\+Allocator)
+\item 
+int \mbox{\hyperlink{mmrr__triangle_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4}{main}} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+const uint32\+\_\+t \mbox{\hyperlink{mmrr__triangle_8cpp_a110637c1f80f9ffe303710de239c3e4d}{WIDTH}} = 800
+\item 
+const uint32\+\_\+t \mbox{\hyperlink{mmrr__triangle_8cpp_af4091c0fc85ce76fe88d5379d7230497}{HEIGHT}} = 600
+\item 
+const int \mbox{\hyperlink{mmrr__triangle_8cpp_a7302e21aaabe341f71d799a7dd3f274f}{MAX\+\_\+\+FRAMES\+\_\+\+IN\+\_\+\+FLIGHT}} = 2
+\item 
+const std\+::vector$<$ const char \texorpdfstring{$\ast$}{*} $>$ \mbox{\hyperlink{mmrr__triangle_8cpp_a7ca66b16460bd6b27fa5176e228218e8}{validation\+Layers}}
+\item 
+const std\+::vector$<$ const char \texorpdfstring{$\ast$}{*} $>$ \mbox{\hyperlink{mmrr__triangle_8cpp_ae9f2e52186582e1f54bb6e686671c24c}{device\+Extensions}}
+\item 
+const bool \mbox{\hyperlink{mmrr__triangle_8cpp_aebf0191c8cb852209eefbb50d9cbf7ba}{enable\+Validation\+Layers}} = true
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{mmrr__triangle_8cpp_ab91f325a54d3e35fe831a86d6382c2a9}\index{mmrr\_triangle.cpp@{mmrr\_triangle.cpp}!GLFW\_INCLUDE\_VULKAN@{GLFW\_INCLUDE\_VULKAN}}
+\index{GLFW\_INCLUDE\_VULKAN@{GLFW\_INCLUDE\_VULKAN}!mmrr\_triangle.cpp@{mmrr\_triangle.cpp}}
+\doxysubsubsection{\texorpdfstring{GLFW\_INCLUDE\_VULKAN}{GLFW\_INCLUDE\_VULKAN}}
+{\footnotesize\ttfamily \label{mmrr__triangle_8cpp_ab91f325a54d3e35fe831a86d6382c2a9} 
+\#define GLFW\+\_\+\+INCLUDE\+\_\+\+VULKAN}
+
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{mmrr__triangle_8cpp_a761ebce14cb8767a4e480ea446f34ef2}\index{mmrr\_triangle.cpp@{mmrr\_triangle.cpp}!CreateDebugUtilsMessengerEXT@{CreateDebugUtilsMessengerEXT}}
+\index{CreateDebugUtilsMessengerEXT@{CreateDebugUtilsMessengerEXT}!mmrr\_triangle.cpp@{mmrr\_triangle.cpp}}
+\doxysubsubsection{\texorpdfstring{CreateDebugUtilsMessengerEXT()}{CreateDebugUtilsMessengerEXT()}}
+{\footnotesize\ttfamily \label{mmrr__triangle_8cpp_a761ebce14cb8767a4e480ea446f34ef2} 
+Vk\+Result Create\+Debug\+Utils\+Messenger\+EXT (\begin{DoxyParamCaption}\item[{Vk\+Instance}]{instance}{, }\item[{const Vk\+Debug\+Utils\+Messenger\+Create\+Info\+EXT \texorpdfstring{$\ast$}{*}}]{p\+Create\+Info}{, }\item[{const Vk\+Allocation\+Callbacks \texorpdfstring{$\ast$}{*}}]{p\+Allocator}{, }\item[{Vk\+Debug\+Utils\+Messenger\+EXT \texorpdfstring{$\ast$}{*}}]{p\+Debug\+Messenger}{}\end{DoxyParamCaption})}
+
+\Hypertarget{mmrr__triangle_8cpp_a352d613e62df889b9056955ad16e0338}\index{mmrr\_triangle.cpp@{mmrr\_triangle.cpp}!DestroyDebugUtilsMessengerEXT@{DestroyDebugUtilsMessengerEXT}}
+\index{DestroyDebugUtilsMessengerEXT@{DestroyDebugUtilsMessengerEXT}!mmrr\_triangle.cpp@{mmrr\_triangle.cpp}}
+\doxysubsubsection{\texorpdfstring{DestroyDebugUtilsMessengerEXT()}{DestroyDebugUtilsMessengerEXT()}}
+{\footnotesize\ttfamily \label{mmrr__triangle_8cpp_a352d613e62df889b9056955ad16e0338} 
+void Destroy\+Debug\+Utils\+Messenger\+EXT (\begin{DoxyParamCaption}\item[{Vk\+Instance}]{instance}{, }\item[{Vk\+Debug\+Utils\+Messenger\+EXT}]{debug\+Messenger}{, }\item[{const Vk\+Allocation\+Callbacks \texorpdfstring{$\ast$}{*}}]{p\+Allocator}{}\end{DoxyParamCaption})}
+
+\Hypertarget{mmrr__triangle_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4}\index{mmrr\_triangle.cpp@{mmrr\_triangle.cpp}!main@{main}}
+\index{main@{main}!mmrr\_triangle.cpp@{mmrr\_triangle.cpp}}
+\doxysubsubsection{\texorpdfstring{main()}{main()}}
+{\footnotesize\ttfamily \label{mmrr__triangle_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4} 
+int main (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{mmrr__triangle_8cpp_ae9f2e52186582e1f54bb6e686671c24c}\index{mmrr\_triangle.cpp@{mmrr\_triangle.cpp}!deviceExtensions@{deviceExtensions}}
+\index{deviceExtensions@{deviceExtensions}!mmrr\_triangle.cpp@{mmrr\_triangle.cpp}}
+\doxysubsubsection{\texorpdfstring{deviceExtensions}{deviceExtensions}}
+{\footnotesize\ttfamily \label{mmrr__triangle_8cpp_ae9f2e52186582e1f54bb6e686671c24c} 
+const std\+::vector$<$const char\texorpdfstring{$\ast$}{*}$>$ device\+Extensions}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=\ \{}
+\DoxyCodeLine{\ \ \ \ VK\_KHR\_SWAPCHAIN\_EXTENSION\_NAME}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+\Hypertarget{mmrr__triangle_8cpp_aebf0191c8cb852209eefbb50d9cbf7ba}\index{mmrr\_triangle.cpp@{mmrr\_triangle.cpp}!enableValidationLayers@{enableValidationLayers}}
+\index{enableValidationLayers@{enableValidationLayers}!mmrr\_triangle.cpp@{mmrr\_triangle.cpp}}
+\doxysubsubsection{\texorpdfstring{enableValidationLayers}{enableValidationLayers}}
+{\footnotesize\ttfamily \label{mmrr__triangle_8cpp_aebf0191c8cb852209eefbb50d9cbf7ba} 
+const bool enable\+Validation\+Layers = true}
+
+\Hypertarget{mmrr__triangle_8cpp_af4091c0fc85ce76fe88d5379d7230497}\index{mmrr\_triangle.cpp@{mmrr\_triangle.cpp}!HEIGHT@{HEIGHT}}
+\index{HEIGHT@{HEIGHT}!mmrr\_triangle.cpp@{mmrr\_triangle.cpp}}
+\doxysubsubsection{\texorpdfstring{HEIGHT}{HEIGHT}}
+{\footnotesize\ttfamily \label{mmrr__triangle_8cpp_af4091c0fc85ce76fe88d5379d7230497} 
+const uint32\+\_\+t HEIGHT = 600}
+
+\Hypertarget{mmrr__triangle_8cpp_a7302e21aaabe341f71d799a7dd3f274f}\index{mmrr\_triangle.cpp@{mmrr\_triangle.cpp}!MAX\_FRAMES\_IN\_FLIGHT@{MAX\_FRAMES\_IN\_FLIGHT}}
+\index{MAX\_FRAMES\_IN\_FLIGHT@{MAX\_FRAMES\_IN\_FLIGHT}!mmrr\_triangle.cpp@{mmrr\_triangle.cpp}}
+\doxysubsubsection{\texorpdfstring{MAX\_FRAMES\_IN\_FLIGHT}{MAX\_FRAMES\_IN\_FLIGHT}}
+{\footnotesize\ttfamily \label{mmrr__triangle_8cpp_a7302e21aaabe341f71d799a7dd3f274f} 
+const int MAX\+\_\+\+FRAMES\+\_\+\+IN\+\_\+\+FLIGHT = 2}
+
+\Hypertarget{mmrr__triangle_8cpp_a7ca66b16460bd6b27fa5176e228218e8}\index{mmrr\_triangle.cpp@{mmrr\_triangle.cpp}!validationLayers@{validationLayers}}
+\index{validationLayers@{validationLayers}!mmrr\_triangle.cpp@{mmrr\_triangle.cpp}}
+\doxysubsubsection{\texorpdfstring{validationLayers}{validationLayers}}
+{\footnotesize\ttfamily \label{mmrr__triangle_8cpp_a7ca66b16460bd6b27fa5176e228218e8} 
+const std\+::vector$<$const char\texorpdfstring{$\ast$}{*}$>$ validation\+Layers}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=\ \{}
+\DoxyCodeLine{\ \ \ \ \textcolor{stringliteral}{"{}VK\_LAYER\_KHRONOS\_validation"{}}}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+\Hypertarget{mmrr__triangle_8cpp_a110637c1f80f9ffe303710de239c3e4d}\index{mmrr\_triangle.cpp@{mmrr\_triangle.cpp}!WIDTH@{WIDTH}}
+\index{WIDTH@{WIDTH}!mmrr\_triangle.cpp@{mmrr\_triangle.cpp}}
+\doxysubsubsection{\texorpdfstring{WIDTH}{WIDTH}}
+{\footnotesize\ttfamily \label{mmrr__triangle_8cpp_a110637c1f80f9ffe303710de239c3e4d} 
+const uint32\+\_\+t WIDTH = 800}
+

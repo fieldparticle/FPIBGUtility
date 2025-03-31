@@ -1,0 +1,85 @@
+\doxysection{Perf\+Obj.\+hpp}
+\hypertarget{_vulkan_obj_2_perf_obj_8hpp_source}{}\label{_vulkan_obj_2_perf_obj_8hpp_source}\index{J:/FPIBG/vulkan/src/VulkanObj/PerfObj.hpp@{J:/FPIBG/vulkan/src/VulkanObj/PerfObj.hpp}}
+\mbox{\hyperlink{_vulkan_obj_2_perf_obj_8hpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*******************************************************************}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\%***\ \ \ \ \ \ C\ PROPRIETARY\ SOURCE\ FILE\ IDENTIFICATION\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ***}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\%*******************************************************************}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\%\ \$Author:\ jb\ \$}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\%}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\%\ \$Date:\ 2023-\/05-\/03\ 15:30:42\ -\/0400\ (Wed,\ 03\ May\ 2023)\ \$}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\%\ \$HeadURL:\ https://jbworkstation/svn/svnrootr5/svnvulcan/src/vulkan/DescriptorSSBO.cpp\ \$}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\%\ \$Id:\ DescriptorSSBO.cpp\ 28\ 2023-\/05-\/03\ 19:30:42Z\ jb\ \$}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\%*******************************************************************}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\%***\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DESCRIPTION\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ***}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\%*******************************************************************}}
+\DoxyCodeLine{00012\ \textcolor{comment}{@doc}}
+\DoxyCodeLine{00013\ \textcolor{comment}{@module}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ @author:\ Jackie\ Michael\ Bell<nl>}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ COPYRIGHT\ <cp>\ Jackie\ Michael\ Bell<nl>}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ Property\ of\ Jackie\ Michael\ Bell<rtm>.\ All\ Rights\ Reserved.<nl>}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ This\ source\ code\ file\ contains\ proprietary<nl>}}
+\DoxyCodeLine{00018\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ and\ confidential\ information.<nl>}}
+\DoxyCodeLine{00019\ \textcolor{comment}{}}
+\DoxyCodeLine{00020\ \textcolor{comment}{}}
+\DoxyCodeLine{00021\ \textcolor{comment}{@head3\ \ \ \ \ \ Description.\ |}}
+\DoxyCodeLine{00022\ \textcolor{comment}{@normal}}
+\DoxyCodeLine{00023\ \textcolor{comment}{}}
+\DoxyCodeLine{00024\ \textcolor{comment}{}}
+\DoxyCodeLine{00025\ \textcolor{comment}{********************************************************************}}
+\DoxyCodeLine{00026\ \textcolor{comment}{\%***\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ SVN\ CHANGE\ RECORD\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ***}}
+\DoxyCodeLine{00027\ \textcolor{comment}{\%*******************************************************************}}
+\DoxyCodeLine{00028\ \textcolor{comment}{\%*\$Revision:\ 28\ \$}}
+\DoxyCodeLine{00029\ \textcolor{comment}{\%*}}
+\DoxyCodeLine{00030\ \textcolor{comment}{\%*}}
+\DoxyCodeLine{00031\ \textcolor{comment}{\%******************************************************************/}}
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_perf_obj_a2830fbc83fb77b988bd92f38f622b2e4}{PerfObj}}}
+\DoxyCodeLine{00035\ \{}
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_perf_obj_1_1_report_type}{ReportType}}}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \ \ \ \ uint32\_t\ \mbox{\hyperlink{struct_perf_obj_1_1_report_type_a59f7d22664e703ef8d548fe888ba6a24}{Second}};}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \mbox{\hyperlink{struct_perf_obj_1_1_report_type_a3263580a54c6263634848e758ff761b7}{FrameRate}};}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \mbox{\hyperlink{struct_perf_obj_1_1_report_type_a945350e000251a479797c0fbfec990bf}{SecondPerFrame}};}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ \ \ \ \ \ \mbox{\hyperlink{struct_perf_obj_1_1_report_type_a0eae88c80f756257355d1461a7d6ee98}{ComputeExecutionTime}};}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ \ \ \ \ \ \mbox{\hyperlink{struct_perf_obj_1_1_report_type_a6a6c6289470171242f8398a221dafbcb}{GraphicsExecutionTime}};}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \ \ \ \ uint32\_t\ \ \ \ \mbox{\hyperlink{struct_perf_obj_1_1_report_type_ae84ed4b87664efba2eb300eb9a59693a}{NumParticlesGenerated}};}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \ \ \ \ uint32\_t\ \ \ \ \mbox{\hyperlink{struct_perf_obj_1_1_report_type_adc37c6a7f1a7d530a59a8d05517b564f}{NumParticlesLoaded}};}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \ \ \ \ uint32\_t\ \ \ \ \mbox{\hyperlink{struct_perf_obj_1_1_report_type_adfbe19e311f1909bf63aedb0e93913fb}{NumParticlesComputeCount}};}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \ \ \ \ uint32\_t\ \ \ \ \mbox{\hyperlink{struct_perf_obj_1_1_report_type_a01e0392a8aee724b09dda9cfd3ed3447}{NumParticlesGraphicsCount}};}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \ \ \ \ uint32\_t\ \ \ \ \mbox{\hyperlink{struct_perf_obj_1_1_report_type_a0d91de05be8575dd910876161d748dd4}{NumCollisionsGenerated}};}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \ \ \ \ uint32\_t\ \ \ \ \mbox{\hyperlink{struct_perf_obj_1_1_report_type_a1045663f2afbcde3df637bd0bb9588c1}{NumCollisionsComputeCount}};}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \ \ \ \ uint32\_t\ \ \ \ \mbox{\hyperlink{struct_perf_obj_1_1_report_type_adacc182f1bda4af2a1899e2bc60d6d71}{ThreadCountComp}};}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \ \ \ \ uint32\_t\ \ \ \ \mbox{\hyperlink{struct_perf_obj_1_1_report_type_a85f7ff9e2c7d89316ee2cdc6ef59da56}{SideLengthLoaded}};}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \ \ \ \ uint32\_t\ \ \ \ \mbox{\hyperlink{struct_perf_obj_1_1_report_type_a76c3c2137582d3cae30c21accdbff71e}{SideLengthGraphics}};}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \ \ \ \ uint32\_t\ \ \ \ \mbox{\hyperlink{struct_perf_obj_1_1_report_type_ac241b26fca8c356b5dab19a939412d9b}{SideLengthCompute}};}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ std::vector<\ ReportType>\ \mbox{\hyperlink{class_perf_obj_aded6f5a022f5c9b8c149dc07d69ec804}{m\_ReportBuffer}};}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ std::string\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_perf_obj_a9220ef98c91b954d7d806e976a0baea6}{m\_TestName}};}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ std::string\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_perf_obj_afe8e9e8125847b368a4ea617b1db948a}{m\_TestDir}};}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ std::string\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_perf_obj_ab6daf25016167a65343b851e53fe545e}{m\_TestCFG}};}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ std::string\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_perf_obj_aa14c8884f073a08408dd4af43fa46f0a}{m\_testPQBDir}};}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ std::string\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_perf_obj_a0f95aebb5df2b31f6fe1f0e79753655f}{m\_testCFBDir}};}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ std::string\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_perf_obj_ac847827beb56601b89cc3cd4a13428ef}{m\_testPCDDir}};}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ std::string\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_perf_obj_a015fa897680ef92c9149d51c88673840}{m\_testDUPDir}};}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ uint32\_t\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_perf_obj_afcfa811c53dde51e5a0d5d0eb25cf961}{m\_SeriesLength}}\ =\ 0;}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ std::string\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_perf_obj_a1fae731ede5c19ce74deef7966561848}{m\_AprFile}};}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ std::string\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_perf_obj_a851ee2f125d944c0359cb96a99a7fa49}{m\_DataFile}};}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ From\ specific\ test\ file}}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ uint32\_t\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_perf_obj_a8907ec1c2d16153e9b3c4931f2079f4d}{m\_colcount}}\ =\ 0;}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_perf_obj_a8c24cb3bbb5062f3ddbc28e305065526}{m\_density}}\ =\ 0;}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_perf_obj_a48e3c579db6c2cf1bd37655f3e69a106}{m\_partcount}}\ =\ 0;}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_perf_obj_a3e609fed60921e35048386fb51a43b30}{Create}}();}
+\DoxyCodeLine{00075\ \ \ \ \ \mbox{\hyperlink{class_perf_obj_a2830fbc83fb77b988bd92f38f622b2e4}{PerfObj}}()\{\};}
+\DoxyCodeLine{00076\ \ \ \ \ uint32\_t\ \mbox{\hyperlink{class_perf_obj_a2eee7b02efb134936010a6c589d8ee78}{DoStudy}}(\mbox{\hyperlink{class_t_c_p_obj}{TCPObj}}*\ tcps);}
+\DoxyCodeLine{00077\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_perf_obj_ae50a11cec14c43bc35badbb785ae3c5c}{Doperf}}(\mbox{\hyperlink{class_draw_obj}{DrawObj}}*\ DrawInstance,\ \mbox{\hyperlink{class_vulkan_obj}{VulkanObj}}*\ VulkanWin,\mbox{\hyperlink{class_t_c_p_obj}{TCPObj}}*\ tcp,\ \textcolor{keywordtype}{size\_t}\ aprCount);}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00079\ \};}
+
+\end{DoxyCode}

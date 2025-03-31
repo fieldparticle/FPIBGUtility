@@ -1,0 +1,122 @@
+\doxysection{Resource\+Graphics\+Container Class Reference}
+\hypertarget{class_resource_graphics_container}{}\label{class_resource_graphics_container}\index{ResourceGraphicsContainer@{ResourceGraphicsContainer}}
+
+
+{\ttfamily \#include $<$Container\+Graphics.\+hpp$>$}
+
+
+
+Inheritance diagram for Resource\+Graphics\+Container\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=219pt]{class_resource_graphics_container__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Resource\+Graphics\+Container\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_resource_graphics_container__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_resource_graphics_container_a990afe352f218352b41818471d3ed38e}{Resource\+Graphics\+Container}} (\mbox{\hyperlink{class_vulkan_obj}{Vulkan\+Obj}} \texorpdfstring{$\ast$}{*}App, std\+::string Name, uint32\+\_\+t Type=\mbox{\hyperlink{_vulkan_defines_8hpp_a70e7f6b71d45cbefd3faecf02b9196d4a52e55b87da9f1ed8b3a038eae8f5cced}{VBW\+\_\+\+TYPE\+\_\+\+GRAPHPIPE}})
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_resource_container_obj}{Resource\+Container\+Obj}}}
+\begin{DoxyCompactItemize}
+\item 
+virtual void \mbox{\hyperlink{class_resource_container_obj_abada6c5b0a6a776d69af7a1966e3cc85}{Allocate\+Descriptor\+Sets}} ()
+\item 
+virtual void \mbox{\hyperlink{class_resource_container_obj_a97acfee9194655726d36c17130585281}{Create\+Set\+Layout\+Bindings}} ()
+\item 
+virtual void \mbox{\hyperlink{class_resource_container_obj_aaa9f5fe3543c47ee087e2b5a33cb887d}{Create\+Descriptor\+Pool}} ()
+\item 
+virtual void \mbox{\hyperlink{class_resource_container_obj_ae9f1e7a7006159a52c26ed5b4bda3aae}{Update\+Descriptor\+Sets}} ()
+\item 
+void \mbox{\hyperlink{class_resource_container_obj_a7974b9f8dfedf2079149840452b3b1c2}{Create}} (std\+::vector$<$ \mbox{\hyperlink{class_resource}{Resource}} \texorpdfstring{$\ast$}{*} $>$ DRList)
+\item 
+Vk\+Descriptor\+Set\+Layout \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_resource_container_obj_a0faf87fa54c4f5eea638c3256bf5a632}{Get\+Descriptor\+Set\+Layout}} ()
+\item 
+std\+::vector$<$ Vk\+Descriptor\+Set $>$ \mbox{\hyperlink{class_resource_container_obj_a1f52c8a321f4dcff50af452b2a57e119}{Get\+Resource\+Descriptor\+Sets}} ()
+\item 
+\mbox{\hyperlink{class_resource_container_obj_a53d6712960baed1f64295766bff906c4}{Resource\+Container\+Obj}} (\mbox{\hyperlink{class_vulkan_obj}{Vulkan\+Obj}} \texorpdfstring{$\ast$}{*}App, std\+::string Name, uint32\+\_\+t Type=\mbox{\hyperlink{_vulkan_defines_8hpp_a70e7f6b71d45cbefd3faecf02b9196d4a52e55b87da9f1ed8b3a038eae8f5cced}{VBW\+\_\+\+TYPE\+\_\+\+GRAPHPIPE}})
+\item 
+std\+::vector$<$ \mbox{\hyperlink{class_resource}{Resource}} \texorpdfstring{$\ast$}{*} $>$ \mbox{\hyperlink{class_resource_container_obj_adf6483ea7d1d5c392e8bae062f5c6af1}{Get\+Resource\+List}} ()
+\item 
+Vk\+Descriptor\+Set \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_resource_container_obj_accab9d443b029e122374ecab07cd7934}{Get\+Resource\+Sets}} (uint32\+\_\+t current\+Buffer)
+\item 
+\mbox{\hyperlink{class_resource}{Resource}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_resource_container_obj_a46986086fb14036875b8b531dbfcedfe}{Get\+Resource\+Name}} (std\+::string Name)
+\item 
+\mbox{\hyperlink{class_resource}{Resource}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_resource_container_obj_a37232cdfc21185d7a3d4efcc95557241}{Get\+Resource\+Type}} (uint32\+\_\+t m\+\_\+\+VTType)
+\item 
+void \mbox{\hyperlink{class_resource_container_obj_a7006e7118c9866e848797ddbc9393c13}{Cleanup}} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_base_obj}{Base\+Obj}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_base_obj_a4b83af8a8e0e29a74b5d1780e2dd9172}{Base\+Obj}} ()
+\item 
+\mbox{\hyperlink{class_base_obj_a591e107302b3a81ff86ad91a93fd3c79}{Base\+Obj}} (std\+::string Name, uint32\+\_\+t Type, \mbox{\hyperlink{class_vulkan_obj}{Vulkan\+Obj}} \texorpdfstring{$\ast$}{*}App)
+\item 
+uint32\+\_\+t \mbox{\hyperlink{class_base_obj_a13d66a7db04f2f49f0b8a7505bd957bb}{Get\+Type}} ()
+\item 
+std\+::string \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_base_obj_a818217adc491531cf69dbe8960313d21}{get\+Name}} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Public Attributes inherited from \mbox{\hyperlink{class_resource_container_obj}{Resource\+Container\+Obj}}}
+\begin{DoxyCompactItemize}
+\item 
+uint32\+\_\+t \mbox{\hyperlink{class_resource_container_obj_acf0bb94ccca38c0ef8eaa04de19e8c26}{m\+\_\+\+UBOSet\+Count}} = 0
+\item 
+uint32\+\_\+t \mbox{\hyperlink{class_resource_container_obj_a5775db1c4ab011d675e006f6c049cb84}{m\+\_\+\+ATTSet\+Count}} = 0
+\item 
+std\+::vector$<$ Vk\+Descriptor\+Set\+Layout\+Binding $>$ \mbox{\hyperlink{class_resource_container_obj_ad1536a1a0b717e667e8c3de840c27066}{m\+\_\+\+Bindings}} =\{\}
+\item 
+Vk\+Descriptor\+Set\+Layout \mbox{\hyperlink{class_resource_container_obj_a082321e10543558b030d5894614bb909}{m\+\_\+\+Resource\+Set\+Layout}} = \{\}
+\item 
+std\+::vector$<$ Vk\+Descriptor\+Set $>$ \mbox{\hyperlink{class_resource_container_obj_a1e8c6929c1e5bb152cf1b61872119d0b}{m\+\_\+\+Resource\+Descriptor\+Sets}}
+\item 
+std\+::vector$<$ Vk\+Descriptor\+Pool\+Size $>$ \mbox{\hyperlink{class_resource_container_obj_aa67d95a625595384eed2a32c1296af14}{m\+\_\+\+Pool\+Sizes}} =\{\}
+\item 
+Vk\+Descriptor\+Pool\+Create\+Info \mbox{\hyperlink{class_resource_container_obj_a084743c015a46f2537cbb4a091f523fd}{m\+\_\+\+Pool\+Info}} =\{\}
+\item 
+Vk\+Descriptor\+Pool \mbox{\hyperlink{class_resource_container_obj_a9244977b6bcbd7fea044e0434bdb9b22}{m\+\_\+\+Resource\+Pool}} = \{\}
+\item 
+uint32\+\_\+t \mbox{\hyperlink{class_resource_container_obj_afd28a510939137464374716540062c2c}{m\+\_\+\+Descriptor\+Count}} =0
+\item 
+std\+::vector$<$ \mbox{\hyperlink{class_resource}{Resource}} \texorpdfstring{$\ast$}{*} $>$ \mbox{\hyperlink{class_resource_container_obj_a9376b4e85af28d8efef8d50b6a8892c4}{m\+\_\+\+DRList}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes inherited from \mbox{\hyperlink{class_base_obj}{Base\+Obj}}}
+\begin{DoxyCompactItemize}
+\item 
+std\+::string \mbox{\hyperlink{class_base_obj_a7a48a870862125c622302bd728a06c8f}{m\+\_\+\+Name}}
+\item 
+std\+::string \mbox{\hyperlink{class_base_obj_a0f4afc531f2ba36a0c4bf735e7d228b9}{m\+\_\+wkstr}}
+\item 
+uint32\+\_\+t \mbox{\hyperlink{class_base_obj_a911900fe67cd3edaf3ef52a7f57f398a}{m\+\_\+\+Type}} =0
+\item 
+\mbox{\hyperlink{class_vulkan_obj}{Vulkan\+Obj}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_base_obj_ab8f8d9c2f68f3bef1153d397d61646b0}{m\+\_\+\+App}} = \{\}
+\item 
+\mbox{\hyperlink{class_config_obj}{Config\+Obj}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_base_obj_aac207590eff5a5e099c4534d46e50f07}{m\+\_\+\+ACfg}} = \{\}
+\item 
+uint32\+\_\+t \mbox{\hyperlink{class_base_obj_a615d9ffc2cf237a1d45ac63721fae83c}{m\+\_\+this\+Frames\+Buffered}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_resource_graphics_container_a990afe352f218352b41818471d3ed38e}\index{ResourceGraphicsContainer@{ResourceGraphicsContainer}!ResourceGraphicsContainer@{ResourceGraphicsContainer}}
+\index{ResourceGraphicsContainer@{ResourceGraphicsContainer}!ResourceGraphicsContainer@{ResourceGraphicsContainer}}
+\doxysubsubsection{\texorpdfstring{ResourceGraphicsContainer()}{ResourceGraphicsContainer()}}
+{\footnotesize\ttfamily \label{class_resource_graphics_container_a990afe352f218352b41818471d3ed38e} 
+Resource\+Graphics\+Container\+::\+Resource\+Graphics\+Container (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_vulkan_obj}{Vulkan\+Obj}} \texorpdfstring{$\ast$}{*}}]{App}{, }\item[{std\+::string}]{Name}{, }\item[{uint32\+\_\+t}]{Type}{ = {\ttfamily \mbox{\hyperlink{_vulkan_defines_8hpp_a70e7f6b71d45cbefd3faecf02b9196d4a52e55b87da9f1ed8b3a038eae8f5cced}{VBW\+\_\+\+TYPE\+\_\+\+GRAPHPIPE}}}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+J\+:/\+FPIBG/vulkan/src\+\_\+app/particle\+Only/\mbox{\hyperlink{_container_graphics_8hpp}{Container\+Graphics.\+hpp}}\end{DoxyCompactItemize}

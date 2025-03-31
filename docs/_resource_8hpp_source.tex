@@ -1,0 +1,149 @@
+\doxysection{Resource.\+hpp}
+\hypertarget{_resource_8hpp_source}{}\label{_resource_8hpp_source}\index{J:/FPIBG/vulkan/src/VulkanObj/Resource.hpp@{J:/FPIBG/vulkan/src/VulkanObj/Resource.hpp}}
+\mbox{\hyperlink{_resource_8hpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*******************************************************************}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\%***\ \ \ \ \ \ C\ PROPRIETARY\ SOURCE\ FILE\ IDENTIFICATION\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ***}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\%*******************************************************************}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\%\ \$Author:\ jb\ \$}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\%}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\%\ \$Date:\ 2023-\/06-\/12\ 16:17:58\ -\/0400\ (Mon,\ 12\ Jun\ 2023)\ \$}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\%\ \$HeadURL:\ https://jbworkstation/svn/svnrootr5/svnvulcan/src/vulkan/Resource.hpp\ \$}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\%\ \$Id:\ Resource.hpp\ 31\ 2023-\/06-\/12\ 20:17:58Z\ jb\ \$}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\%*******************************************************************}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\%***\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DESCRIPTION\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ***}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\%*******************************************************************}}
+\DoxyCodeLine{00012\ \textcolor{comment}{@doc}}
+\DoxyCodeLine{00013\ \textcolor{comment}{@module}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ @author:\ Jackie\ Michael\ Bell<nl>}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ COPYRIGHT\ <cp>\ Jackie\ Michael\ Bell<nl>}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ Property\ of\ Jackie\ Michael\ Bell<rtm>.\ All\ Rights\ Reserved.<nl>}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ This\ source\ code\ file\ contains\ proprietary<nl>}}
+\DoxyCodeLine{00018\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ and\ confidential\ information.<nl>}}
+\DoxyCodeLine{00019\ \textcolor{comment}{}}
+\DoxyCodeLine{00020\ \textcolor{comment}{}}
+\DoxyCodeLine{00021\ \textcolor{comment}{@head3\ \ \ \ \ \ Description.\ |}}
+\DoxyCodeLine{00022\ \textcolor{comment}{@normal}}
+\DoxyCodeLine{00023\ \textcolor{comment}{}}
+\DoxyCodeLine{00024\ \textcolor{comment}{}}
+\DoxyCodeLine{00025\ \textcolor{comment}{********************************************************************}}
+\DoxyCodeLine{00026\ \textcolor{comment}{\%***\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ SVN\ CHANGE\ RECORD\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ***}}
+\DoxyCodeLine{00027\ \textcolor{comment}{\%*******************************************************************}}
+\DoxyCodeLine{00028\ \textcolor{comment}{\%*\$Revision:\ 31\ \$}}
+\DoxyCodeLine{00029\ \textcolor{comment}{\%*}}
+\DoxyCodeLine{00030\ \textcolor{comment}{\%*}}
+\DoxyCodeLine{00031\ \textcolor{comment}{\%******************************************************************/}}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#ifndef\ RESOURCE\_HPP}}
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#define\ RESOURCE\_HPP}}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \textcolor{keyword}{const}\ \textcolor{keyword}{enum}\ \mbox{\hyperlink{_vulkan_defines_8hpp_a70e7f6b71d45cbefd3faecf02b9196d4}{DesType}};}
+\DoxyCodeLine{00038\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_base_obj}{BaseObj}};}
+\DoxyCodeLine{00039\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_command_obj}{CommandObj}};}
+\DoxyCodeLine{00040\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_command_pool_obj}{CommandPoolObj}};}
+\DoxyCodeLine{00041\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_image_object}{ImageObject}};}
+\DoxyCodeLine{00042\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structuniform_buffer_object}{uniformBufferObject}}\ \{}
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{keyword}{alignas}(16)\ glm::mat4\ \mbox{\hyperlink{structuniform_buffer_object_adfcf9055e817b65fc7a9ac9b50ce8b7b}{model}};}
+\DoxyCodeLine{00044\ \ \ \ \ \textcolor{keyword}{alignas}(16)\ glm::mat4\ \mbox{\hyperlink{structuniform_buffer_object_a2b8836370232b0310a0f5df2b31b4b4b}{view}};}
+\DoxyCodeLine{00045\ \ \ \ \ \textcolor{keyword}{alignas}(16)\ glm::mat4\ \mbox{\hyperlink{structuniform_buffer_object_a2069f386d766d551b792f1e5743dfdaa}{proj}};}
+\DoxyCodeLine{00046\ \}\ \mbox{\hyperlink{_resource_8hpp_a88aa60319be17c8bb6eb6fb31b2f06ec}{UniformBufferObject}};}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_resource_a42aa29434566ebc6f41331d8d4ed007e}{Resource}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_base_obj_a4b83af8a8e0e29a74b5d1780e2dd9172}{BaseObj}}}
+\DoxyCodeLine{00049\ \{}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \ \ \ \ }
+\DoxyCodeLine{00054\ \ \ \ \ \textcolor{comment}{//============================================================}}
+\DoxyCodeLine{00055\ \ \ \ \ \textcolor{comment}{//VK\_TYPE\_SUBPASS}}
+\DoxyCodeLine{00056\ \ \ \ \ VkAttachmentDescription\ \mbox{\hyperlink{class_resource_ac775c7073491d1c48e7d06ee4e7c7a5c}{m\_ColorAttachment}}\{\};}
+\DoxyCodeLine{00057\ \ \ \ \ VkAttachmentReference\ \mbox{\hyperlink{class_resource_a5fa3e1ad1b7caefd97306bbda1ab0de7}{m\_ColorAttachmentRef}}\{\};}
+\DoxyCodeLine{00058\ \ \ \ \ VkAttachmentDescription\ \mbox{\hyperlink{class_resource_a70496037797e1b02b31ffa8237fe3bf8}{m\_DepthAttachment}}\{\};}
+\DoxyCodeLine{00059\ \ \ \ \ VkAttachmentReference\ \mbox{\hyperlink{class_resource_aabad6a37637f9f71bfd52a3403ebd98b}{m\_DepthAttachmentRef}}\{\};}
+\DoxyCodeLine{00060\ \ \ \ \ VkVertexInputBindingDescription\ \mbox{\hyperlink{class_resource_ad4c28eb04159ce7bb64c0bf7a44646bc}{m\_BindingDescription}}\{\};}
+\DoxyCodeLine{00061\ \ \ \ \ std::vector<VkVertexInputAttributeDescription>\ \mbox{\hyperlink{class_resource_a89c703ac9008a2edafe37b431f8356bb}{m\_AttributeDescriptions}}\{\};}
+\DoxyCodeLine{00062\ \ \ \ \ uint32\_t\ \mbox{\hyperlink{class_resource_a3a281d3681e48fcd98925b666ee2cb81}{m\_BindingCount}}\ =\ 0;}
+\DoxyCodeLine{00063\ \ \ \ \ uint32\_t\ \mbox{\hyperlink{class_resource_a74a2ccf682e2cf61295590fe7968835c}{m\_DesWriteCount}}\ =\ 0;}
+\DoxyCodeLine{00064\ \ \ \ \ uint32\_t\ \mbox{\hyperlink{class_resource_a73c0a1137e2edb1e4f3f0ccff6b1c4c7}{m\_SubPassNum}}\ =\ 0;}
+\DoxyCodeLine{00065\ \ \ \ \ uint32\_t\ \mbox{\hyperlink{class_resource_a7b1d7f61552b7e60bf4cb7ad4e7cc35c}{m\_TotSubPass}}\ =\ 0;}
+\DoxyCodeLine{00066\ \ \ \ \ uint32\_t\ \mbox{\hyperlink{class_resource_ad30598d4a01080eabad97732ceb1c6a4}{m\_MaxSets}}\ =\ 0;}
+\DoxyCodeLine{00067\ \ \ \ \ \mbox{\hyperlink{class_command_obj}{CommandObj}}*\ \mbox{\hyperlink{class_resource_a8edf76072de32cf9d1f895883bf55b53}{m\_CPO}}\ =\ \{\};}
+\DoxyCodeLine{00068\ \ \ \ \ \mbox{\hyperlink{class_command_pool_obj}{CommandPoolObj}}*\ \mbox{\hyperlink{class_resource_a4ade76e3d450d960845e68504fc5a32b}{m\_CPL}}\ =\ \{\};}
+\DoxyCodeLine{00069\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_resource_ae61f6f983b6f429967c99cde1a0d911e}{m\_InitFlag}}\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00070\ \ \ \ \ std::vector<VkSubpassDescription>\ \mbox{\hyperlink{class_resource_af1a96424de7028462b37e26bd5a5c246}{m\_Subpass}}\{\};}
+\DoxyCodeLine{00071\ \ \ \ \ \mbox{\hyperlink{class_swap_chain_obj}{SwapChainObj}}*\ \mbox{\hyperlink{class_resource_a886f85b4dae851a9522955dd5ab1390b}{m\_SCO}}\ =\ \{\};}
+\DoxyCodeLine{00072\ \ \ \ \ std::vector<ImageObject*>\ \mbox{\hyperlink{class_resource_aead6bd9ad1ac8e15824f7dd33c817647}{m\_IMO}}\ =\ \{\};}
+\DoxyCodeLine{00073\ \ \ \ \ }
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00075\ \ \ \ \ \textcolor{comment}{//============================================================}}
+\DoxyCodeLine{00076\ \ \ \ \ \textcolor{comment}{//\ Variables}}
+\DoxyCodeLine{00077\ \ \ \ \ uint32\_t\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_resource_aee58c13415573ba561591b5153fb309c}{m\_BindPoint}}\ =\ 0;}
+\DoxyCodeLine{00078\ \ \ \ \ std::vector<void*>\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_resource_a68afac75154c106351ce28bd04fd6472}{m\_MappedData}}\ =\ \{\};}
+\DoxyCodeLine{00079\ \ \ \ \ std::vector<VkBuffer>\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_resource_a1d276c026a7bca4e6be49f6d1d4fc770}{m\_Buffers}}=\{\};}
+\DoxyCodeLine{00080\ \ \ \ \ std::vector<VkDeviceMemory>\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_resource_aacaa84c6f7e3270ae90c641138bbd7cb}{m\_BuffersMemory}}=\{\};}
+\DoxyCodeLine{00081\ \ \ \ \ VkBuffer\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_resource_aca9eaa021d5cb88e61d77910f4a577d1}{m\_StagingBuffer}}\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00082\ \ \ \ \ VkDeviceMemory\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_resource_aff06d8582449febbafc4690e1e751cdf}{m\_StagingBufferMemory}}\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00083\ \ \ \ \ std::vector\ <\ VmaAllocationInfo>\ \mbox{\hyperlink{class_resource_aa516e868a35bd1133cb48201ecf2261f}{m\_AllocationInfo}}\ =\ \{\};}
+\DoxyCodeLine{00084\ \ \ \ \ std::vector\ <\ VmaAllocation>\ \mbox{\hyperlink{class_resource_a65c9e2003b1c7f1220e5b6505ef33c8d}{m\_Allocation}}\ =\ \{\};}
+\DoxyCodeLine{00085\ \ \ \ \ std::vector\ <VkDescriptorSetLayoutBinding>\ \ \mbox{\hyperlink{class_resource_a5a446284df671eb48f48fda02ef327cd}{m\_LayoutBinding}}\ =\ \{\};}
+\DoxyCodeLine{00086\ \ \ \ \ std::vector\ <VkDescriptorSetLayoutBinding>\ \mbox{\hyperlink{class_resource_af8f89cef1a6b250140de7c848c758915}{LayoutBinding}}()}
+\DoxyCodeLine{00087\ \ \ \ \ \{}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_resource_a5a446284df671eb48f48fda02ef327cd}{m\_LayoutBinding}};}
+\DoxyCodeLine{00089\ \ \ \ \ \}}
+\DoxyCodeLine{00090\ \ \ \ \ \textcolor{comment}{//============================================================}}
+\DoxyCodeLine{00091\ \ \ \ \ \textcolor{comment}{//\ Member\ Functions}}
+\DoxyCodeLine{00092\ \ \ \ \ \mbox{\hyperlink{class_resource_a42aa29434566ebc6f41331d8d4ed007e}{Resource}}(\mbox{\hyperlink{class_vulkan_obj}{VulkanObj}}*\ App,\ std::string\ Name,\ uint32\_t\ Type)\ }
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ :\ \mbox{\hyperlink{class_base_obj_a4b83af8a8e0e29a74b5d1780e2dd9172}{BaseObj}}(Name,\ Type,\ App)\{\ \};}
+\DoxyCodeLine{00094\ \ \ \ \ \mbox{\hyperlink{class_resource_a5a87b23dc0327bbf8d53c6f38f637f48}{Resource}}()\ \{\};}
+\DoxyCodeLine{00095\ \ \ \ \ }
+\DoxyCodeLine{00096\ \ \ \ \ \textcolor{comment}{//============================================================}}
+\DoxyCodeLine{00097\ \ \ \ \ \textcolor{comment}{//\ Virtual}}
+\DoxyCodeLine{00098\ \ \ \ \ }
+\DoxyCodeLine{00099\ \ \ \ \ \textcolor{comment}{//============================================================}}
+\DoxyCodeLine{00100\ \ \ \ \ \textcolor{comment}{//\ Pure\ Virtual}}
+\DoxyCodeLine{00101\ \ \ \ \ }
+\DoxyCodeLine{00102\ \ \ \ \ \textcolor{keyword}{virtual}\ std::vector<VkVertexInputAttributeDescription>*}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_resource_ace3e169dc2a26ea6b0dd370c9ea2e199}{GetAttributeDescriptions}}()\ =\ 0;}
+\DoxyCodeLine{00104\ }
+\DoxyCodeLine{00105\ }
+\DoxyCodeLine{00106\ \ \ \ \ \textcolor{keyword}{virtual}\ VkVertexInputBindingDescription*}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_resource_a7a2e68b5933115fbf8eabb6dfb4a03e2}{GetBindingDescription}}()\ =\ 0;}
+\DoxyCodeLine{00108\ \ \ \ \ \textcolor{comment}{//\ Update\ mem\ gets\ memory\ from\ the\ device}}
+\DoxyCodeLine{00109\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_resource_ac1ca6f5eb387846500c8763c7ec3250e}{PushMem}}(uint32\_t\ currentBuffer)\ =\ 0;}
+\DoxyCodeLine{00110\ \ \ \ \ \textcolor{comment}{//\ Copy\ meme\ copies\ memory\ to\ the\ device}}
+\DoxyCodeLine{00111\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_resource_abee9feab650a0956dd9eec1c6574ba57}{PullMem}}(uint32\_t\ currentBuffer)\ =\ 0;}
+\DoxyCodeLine{00112\ }
+\DoxyCodeLine{00113\ \ \ \ \ \textcolor{comment}{//============================================================}}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00115\ \ \ \ }
+\DoxyCodeLine{00116\ \ \ \ \ std::vector<void*>\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_resource_a47ecd17b2e90027d50cda87e2d929e68}{m\_BuffersMapped}}=\{\};}
+\DoxyCodeLine{00117\ \ \ \ \ uint32\_t\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_resource_afb3d2d4c846c3ee9bf3949aa4cead980}{m\_BufSize}}=0;}
+\DoxyCodeLine{00118\ \ \ \ \ \textcolor{keywordtype}{void}*\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_resource_aedb56a3196ce594d82b835747ecf5bf5}{m\_data}}=\textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00119\ \ \ \ \ uint32\_t\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_resource_a70500035b9342c605de8e3b4701472b7}{m\_NumElements}}=0;}
+\DoxyCodeLine{00120\ \ \ \ \ VkDescriptorType\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_resource_ac605e98c566a4583760d1b6e5c6dc984}{m\_VkType}}\ =\ \{\};}
+\DoxyCodeLine{00121\ \ \ \ \ std::string\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_resource_ab43db8847b8908adcc04104017556e7a}{m\_PiplineName}}\ =\ \{\};}
+\DoxyCodeLine{00122\ \ \ \ \ VkPushConstantRange\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_resource_a9222ef634870e3434f459423ec82846e}{m\_PushConstant}}\{\};}
+\DoxyCodeLine{00123\ \ \ \ \ std::vector<VkWriteDescriptorSet>\ \ \ \ \ \ \ \mbox{\hyperlink{class_resource_acd025f0cd61e0ff31dccf3f8d18093ff}{m\_DescriptorWrite}}\ =\ \{\};}
+\DoxyCodeLine{00124\ \ \ \ \ std::vector<VkDescriptorBufferInfo>\ \ \ \ \ \mbox{\hyperlink{class_resource_a64b52a05bc157e06eee97cc69c1da591}{m\_BufferInfo}}\ =\ \{\};}
+\DoxyCodeLine{00125\ \ \ \ \ std::vector<\ VkDescriptorImageInfo>\ \ \ \ \ \mbox{\hyperlink{class_resource_a2d3d86cc1f474e6d832574c8b4f28b59}{m\_ImageInfos}}\{\};}
+\DoxyCodeLine{00126\ }
+\DoxyCodeLine{00127\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_resource_accc8e2e77cc26cf3f5a484cbe8246205}{CheckBindPoint}}(uint32\_t\ BindPoint);}
+\DoxyCodeLine{00128\ \ \ \ \ std::vector\ <VkWriteDescriptorSet>\ \mbox{\hyperlink{class_resource_a75ea4d1db988f69a1bc27222b48e9d60}{GetWriteDescriptorSet}}()}
+\DoxyCodeLine{00129\ \ \ \ \ \{}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_resource_acd025f0cd61e0ff31dccf3f8d18093ff}{m\_DescriptorWrite}};}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00132\ \ \ \ \ \}}
+\DoxyCodeLine{00133\ \ \ \ \ VkDescriptorSetLayoutBinding*\ \mbox{\hyperlink{class_resource_a527c2fa9593aaa040b703b7537d6443a}{GetLayoutBinding}}(uint32\_t\ Index)}
+\DoxyCodeLine{00134\ \ \ \ \ \{}
+\DoxyCodeLine{00135\ }
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \&\mbox{\hyperlink{class_resource_a5a446284df671eb48f48fda02ef327cd}{m\_LayoutBinding}}[Index];}
+\DoxyCodeLine{00137\ \ \ \ \ \}}
+\DoxyCodeLine{00138\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_resource_af9de8f46b43ac53941d299c2ae98f1d1}{Cleanup}}()\ \{\};}
+\DoxyCodeLine{00139\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_resource_aa5903bc7369edfaaaa6fa3f64215be28}{AskObject}}(uint32\_t\ AnyNumber)\ =\ 0;}
+\DoxyCodeLine{00140\ \ \ \ \ }
+\DoxyCodeLine{00141\ \};}
+\DoxyCodeLine{00142\ }
+\DoxyCodeLine{00143\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

@@ -1,0 +1,94 @@
+\doxysection{TCPCObj.\+hpp}
+\hypertarget{_t_c_p_c_obj_8hpp_source}{}\label{_t_c_p_c_obj_8hpp_source}\index{J:/FPIBG/vulkan/src/tcpip/TCPCObj.hpp@{J:/FPIBG/vulkan/src/tcpip/TCPCObj.hpp}}
+\mbox{\hyperlink{_t_c_p_c_obj_8hpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*******************************************************************}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\%***\ \ \ \ \ \ C\ PROPRIETARY\ SOURCE\ FILE\ IDENTIFICATION\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ***}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\%*******************************************************************}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\%\ \$Author:\ jb\ \$}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\%}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\%\ \$Date:\ 2023-\/06-\/12\ 16:17:58\ -\/0400\ (Mon,\ 12\ Jun\ 2023)\ \$}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\%\ \$HeadURL:\ https://jbworkstation/svn/svnrootr5/svnvulcan/src/vulkan/CommandObj.hpp\ \$}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\%\ \$Id:\ CommandObj.hpp\ 31\ 2023-\/06-\/12\ 20:17:58Z\ jb\ \$}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\%*******************************************************************}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\%***\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DESCRIPTION\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ***}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\%*******************************************************************}}
+\DoxyCodeLine{00012\ \textcolor{comment}{@doc}}
+\DoxyCodeLine{00013\ \textcolor{comment}{@module}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ @author:\ Jackie\ Michael\ Bell<nl>}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ COPYRIGHT\ <cp>\ Jackie\ Michael\ Bell<nl>}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ Property\ of\ Jackie\ Michael\ Bell<rtm>.\ All\ Rights\ Reserved.<nl>}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ This\ source\ code\ file\ contains\ proprietary<nl>}}
+\DoxyCodeLine{00018\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ and\ confidential\ information.<nl>}}
+\DoxyCodeLine{00019\ \textcolor{comment}{}}
+\DoxyCodeLine{00020\ \textcolor{comment}{}}
+\DoxyCodeLine{00021\ \textcolor{comment}{@head3\ \ \ \ \ \ Description.\ |}}
+\DoxyCodeLine{00022\ \textcolor{comment}{@normal}}
+\DoxyCodeLine{00023\ \textcolor{comment}{}}
+\DoxyCodeLine{00024\ \textcolor{comment}{}}
+\DoxyCodeLine{00025\ \textcolor{comment}{********************************************************************}}
+\DoxyCodeLine{00026\ \textcolor{comment}{\%***\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ SVN\ CHANGE\ RECORD\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ***}}
+\DoxyCodeLine{00027\ \textcolor{comment}{\%*******************************************************************}}
+\DoxyCodeLine{00028\ \textcolor{comment}{\%*\$Revision:\ 31\ \$}}
+\DoxyCodeLine{00029\ \textcolor{comment}{\%*}}
+\DoxyCodeLine{00030\ \textcolor{comment}{\%*}}
+\DoxyCodeLine{00031\ \textcolor{comment}{\%******************************************************************/}}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#define\ WIN32\_LEAN\_AND\_MEAN}}
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\#include\ <windows.h>}}
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\#include\ <winsock2.h>}}
+\DoxyCodeLine{00038\ \textcolor{preprocessor}{\#include\ <ws2tcpip.h>}}
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\#include\ <stdlib.h>}}
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\#include\ <stdio.h>}}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \textcolor{comment}{//\ Need\ to\ link\ with\ Ws2\_32.lib,\ Mswsock.lib,\ and\ Advapi32.lib}}
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#pragma\ comment\ (lib,\ "{}Ws2\_32.lib"{})}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#pragma\ comment\ (lib,\ "{}Mswsock.lib"{})}}
+\DoxyCodeLine{00046\ \textcolor{preprocessor}{\#pragma\ comment\ (lib,\ "{}AdvApi32.lib"{})}}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#define\ DEFAULT\_BUFLEN\ 512}}
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#define\ DEFAULT\_PORT\ "{}50004"{}}}
+\DoxyCodeLine{00051\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_t_c_p_c_obj}{TCPCObj}}}
+\DoxyCodeLine{00052\ \{}
+\DoxyCodeLine{00053\ \ \ \ \ }
+\DoxyCodeLine{00054\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00055\ \ \ \ \ }
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00057\ \ \ \ \ \ WSADATA\ \mbox{\hyperlink{class_t_c_p_c_obj_a735cb46c72920e7fbabbe1d435219425}{wsaData}};}
+\DoxyCodeLine{00058\ \ \ \ \ \ SOCKET\ \mbox{\hyperlink{class_t_c_p_c_obj_a326d692146f22c700559f83a3e48ee79}{ConnectSocket}}\ =\ INVALID\_SOCKET;}
+\DoxyCodeLine{00059\ \ \ \ \ \ \textcolor{keyword}{struct\ }addrinfo\ *\mbox{\hyperlink{class_t_c_p_c_obj_a5cc045e7667a91eb6c4ac1bb35c3498d}{result}}\ =\ NULL,}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *\mbox{\hyperlink{class_t_c_p_c_obj_a4d48a54d4b57b5d54e0409df95265d0b}{ptr}}\ =\ NULL,}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_t_c_p_c_obj_a6d7462cfc17e8d46badc4f93d73bde07}{hints}};}
+\DoxyCodeLine{00062\ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{class_t_c_p_c_obj_acac1f35f94f52c90e8ef67c780dcf58d}{sendbuf}}\ =\ \textcolor{stringliteral}{"{}quit"{}};}
+\DoxyCodeLine{00063\ \ \ \ \ \ \textcolor{keywordtype}{char}\ \mbox{\hyperlink{class_t_c_p_c_obj_a8494492e3953f7b943b8f4c34bd76122}{recvbuf}}[\mbox{\hyperlink{_t_c_p_c_obj_8hpp_a5261516a174b035b084a9ae06dc85730}{DEFAULT\_BUFLEN}}];}
+\DoxyCodeLine{00064\ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_t_c_p_c_obj_aeda8737ca6371aeb381de7362216f166}{iResult}};}
+\DoxyCodeLine{00065\ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_t_c_p_c_obj_a6a7bddd904191ba4e6991c009cb4c4de}{recvbuflen}}\ =\ \mbox{\hyperlink{_t_c_p_c_obj_8hpp_a5261516a174b035b084a9ae06dc85730}{DEFAULT\_BUFLEN}};}
+\DoxyCodeLine{00066\ \ \ \ \ \ std::string\ \mbox{\hyperlink{class_t_c_p_c_obj_ad5e6d843fbebe65e9d3f93278895f04e}{m\_Server}}\ =\ \textcolor{stringliteral}{"{}127.0.0.1"{}};}
+\DoxyCodeLine{00067\ \ \ \ \ \ std::string\ \mbox{\hyperlink{class_t_c_p_c_obj_ad6ee384d4bf86d412af7a7b537ccb2c5}{m\_PortAddress}}\ =\ \textcolor{stringliteral}{"{}50004"{}};}
+\DoxyCodeLine{00068\ \ \ \ \ }
+\DoxyCodeLine{00069\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_t_c_p_c_obj_a200911aa1c75036b0249242f4d493166}{SetServerIP}}(std::string\ IPAddress)}
+\DoxyCodeLine{00070\ \ \ \ \ \{}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_t_c_p_c_obj_ad5e6d843fbebe65e9d3f93278895f04e}{m\_Server}}\ =\ \ IPAddress;}
+\DoxyCodeLine{00072\ \ \ \ \ \};}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00074\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_t_c_p_c_obj_a5330c4a101d8b6fee446a10e161dff64}{SetServerPort}}(std::string\ PortAddress)}
+\DoxyCodeLine{00075\ \ \ \ \ \{}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_t_c_p_c_obj_ad6ee384d4bf86d412af7a7b537ccb2c5}{m\_PortAddress}}\ =\ PortAddress;}
+\DoxyCodeLine{00077\ \ \ \ \ \};}
+\DoxyCodeLine{00078\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_t_c_p_c_obj_a9750645c5dd286d57e0d826e18a97843}{SetBufSize}}(uint32\_t\ BufSize)}
+\DoxyCodeLine{00079\ \ \ \ \ \{}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00083\ \ \ \ \ \}}
+\DoxyCodeLine{00084\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_t_c_p_c_obj_a221cf3628b13929d722d4380ad31cdaf}{Create}}();}
+\DoxyCodeLine{00085\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_t_c_p_c_obj_a214570399b3dfdf44ee2000601a395f1}{ReadPort}}();}
+\DoxyCodeLine{00086\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_t_c_p_c_obj_a8fe7f0143c14a36ae0cd072f31e1f146}{WritePort}}(std::string\ Command);}
+\DoxyCodeLine{00087\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_t_c_p_c_obj_aa2b067ff36382c81a7ea5fa1facb4302}{Close}}();}
+\DoxyCodeLine{00088\ \};}
+
+\end{DoxyCode}

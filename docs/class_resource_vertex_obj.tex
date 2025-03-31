@@ -1,0 +1,351 @@
+\doxysection{Resource\+Vertex\+Obj Class Reference}
+\hypertarget{class_resource_vertex_obj}{}\label{class_resource_vertex_obj}\index{ResourceVertexObj@{ResourceVertexObj}}
+
+
+{\ttfamily \#include $<$Resource\+Vertex\+Obj.\+hpp$>$}
+
+
+
+Inheritance diagram for Resource\+Vertex\+Obj\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=199pt]{class_resource_vertex_obj__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Resource\+Vertex\+Obj\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_resource_vertex_obj__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual void \mbox{\hyperlink{class_resource_vertex_obj_a1eabf3232a31351283cfd2aecd8e6da4}{Get\+Shader\+Mem}} ()
+\item 
+\mbox{\hyperlink{class_resource_vertex_obj_a6f40fa59a1d45359de59c17bebec7c98}{Resource\+Vertex\+Obj}} (\mbox{\hyperlink{class_vulkan_obj}{Vulkan\+Obj}} \texorpdfstring{$\ast$}{*}App, std\+::string Name)
+\item 
+void \mbox{\hyperlink{class_resource_vertex_obj_a62391592e7669b648298fd52d1cc8980}{Make\+Axes}} (uint32\+\_\+t sidelen)
+\item 
+virtual void \mbox{\hyperlink{class_resource_vertex_obj_a6c24f6cc3534e47e8229eda73c4608b2}{Create}} (uint32\+\_\+t Bind\+Point, \mbox{\hyperlink{class_resource_vertex_particle}{Resource\+Vertex\+Particle}} \texorpdfstring{$\ast$}{*}Part\+Vert)
+\item 
+virtual void \mbox{\hyperlink{class_resource_vertex_obj_ab4144ea54fd9598833dbc7624af160cc}{Create}} (uint32\+\_\+t Bind\+Point)
+\item 
+std\+::vector$<$ Vk\+Vertex\+Input\+Attribute\+Description $>$ \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_resource_vertex_obj_a18b1047a3685ed79b632bc7207731dd0}{Get\+Attribute\+Descriptions}} ()
+\item 
+Vk\+Vertex\+Input\+Binding\+Description \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_resource_vertex_obj_aaed9dc36797d1815b0fd3697079197f1}{Get\+Binding\+Description}} ()
+\item 
+void \mbox{\hyperlink{class_resource_vertex_obj_ac7538842c4f0aa20a921f8109aa59c13}{Pull\+Mem}} (uint32\+\_\+t current\+Buffer)
+\item 
+virtual void \mbox{\hyperlink{class_resource_vertex_obj_a8af6cd757b46bfd4179c0240381c14a0}{Push\+Mem}} (uint32\+\_\+t current\+Buffer)
+\item 
+void \mbox{\hyperlink{class_resource_vertex_obj_a0f32152e9679eb859f92100411ae339d}{Cleanup}} ()
+\item 
+virtual void \mbox{\hyperlink{class_resource_vertex_obj_ad46df1d580312dd4de10c9efc748c0a7}{Update\+Mem}} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_resource}{Resource}}}
+\begin{DoxyCompactItemize}
+\item 
+std\+::vector$<$ Vk\+Descriptor\+Set\+Layout\+Binding $>$ \mbox{\hyperlink{class_resource_af8f89cef1a6b250140de7c848c758915}{Layout\+Binding}} ()
+\item 
+\mbox{\hyperlink{class_resource_a42aa29434566ebc6f41331d8d4ed007e}{Resource}} (\mbox{\hyperlink{class_vulkan_obj}{Vulkan\+Obj}} \texorpdfstring{$\ast$}{*}App, std\+::string Name, uint32\+\_\+t Type)
+\item 
+\mbox{\hyperlink{class_resource_a5a87b23dc0327bbf8d53c6f38f637f48}{Resource}} ()
+\item 
+void \mbox{\hyperlink{class_resource_accc8e2e77cc26cf3f5a484cbe8246205}{Check\+Bind\+Point}} (uint32\+\_\+t Bind\+Point)
+\item 
+std\+::vector$<$ Vk\+Write\+Descriptor\+Set $>$ \mbox{\hyperlink{class_resource_a75ea4d1db988f69a1bc27222b48e9d60}{Get\+Write\+Descriptor\+Set}} ()
+\item 
+Vk\+Descriptor\+Set\+Layout\+Binding \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_resource_a527c2fa9593aaa040b703b7537d6443a}{Get\+Layout\+Binding}} (uint32\+\_\+t Index)
+\item 
+virtual void \mbox{\hyperlink{class_resource_aa5903bc7369edfaaaa6fa3f64215be28}{Ask\+Object}} (uint32\+\_\+t Any\+Number)=0
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_base_obj}{Base\+Obj}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_base_obj_a4b83af8a8e0e29a74b5d1780e2dd9172}{Base\+Obj}} ()
+\item 
+\mbox{\hyperlink{class_base_obj_a591e107302b3a81ff86ad91a93fd3c79}{Base\+Obj}} (std\+::string Name, uint32\+\_\+t Type, \mbox{\hyperlink{class_vulkan_obj}{Vulkan\+Obj}} \texorpdfstring{$\ast$}{*}App)
+\item 
+uint32\+\_\+t \mbox{\hyperlink{class_base_obj_a13d66a7db04f2f49f0b8a7505bd957bb}{Get\+Type}} ()
+\item 
+std\+::string \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_base_obj_a818217adc491531cf69dbe8960313d21}{get\+Name}} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+std\+::vector$<$ \mbox{\hyperlink{struct_cart_vert}{Cart\+Vert}} $>$ \mbox{\hyperlink{class_resource_vertex_obj_a1fdc8781ab2e0822ae5f4a8a0912f318}{m\+\_\+\+Axes}}
+\item 
+std\+::string \mbox{\hyperlink{class_resource_vertex_obj_a33c39884387e96403453460326d384cc}{m\+\_\+\+File\+Name}}
+\item 
+std\+::vector$<$ glm\+::vec3 $>$ \mbox{\hyperlink{class_resource_vertex_obj_ab5290310b6c6bc482f07d5ac5172a0e1}{m\+\_\+vtemp}}
+\item 
+\mbox{\hyperlink{class_resource_vertex_particle}{Resource\+Vertex\+Particle}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_resource_vertex_obj_a88a0a5ddf27fc981ca9aa305b38fc9dd}{m\+\_\+\+Particle\+Vert}} \{\}
+\item 
+std\+::vector$<$ \mbox{\hyperlink{struct_cart_vert}{Cart\+Vert}} $>$ \mbox{\hyperlink{class_resource_vertex_obj_adf1fe5c45f8191c103d0b528d2ef7534}{m\+\_\+\+Verts}} \{\}
+\item 
+std\+::vector$<$ glm\+::vec2 $>$ \mbox{\hyperlink{class_resource_vertex_obj_a0d0d5e67f9a2885267b3e6eb9658422e}{m\+\_\+\+UVS}} \{\}
+\item 
+std\+::vector$<$ glm\+::vec3 $>$ \mbox{\hyperlink{class_resource_vertex_obj_a6d8cb15ec8d3f03df53ace9fb8e05d22}{m\+\_\+\+Normals}} \{\}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes inherited from \mbox{\hyperlink{class_resource}{Resource}}}
+\begin{DoxyCompactItemize}
+\item 
+Vk\+Attachment\+Description \mbox{\hyperlink{class_resource_ac775c7073491d1c48e7d06ee4e7c7a5c}{m\+\_\+\+Color\+Attachment}} \{\}
+\item 
+Vk\+Attachment\+Reference \mbox{\hyperlink{class_resource_a5fa3e1ad1b7caefd97306bbda1ab0de7}{m\+\_\+\+Color\+Attachment\+Ref}} \{\}
+\item 
+Vk\+Attachment\+Description \mbox{\hyperlink{class_resource_a70496037797e1b02b31ffa8237fe3bf8}{m\+\_\+\+Depth\+Attachment}} \{\}
+\item 
+Vk\+Attachment\+Reference \mbox{\hyperlink{class_resource_aabad6a37637f9f71bfd52a3403ebd98b}{m\+\_\+\+Depth\+Attachment\+Ref}} \{\}
+\item 
+Vk\+Vertex\+Input\+Binding\+Description \mbox{\hyperlink{class_resource_ad4c28eb04159ce7bb64c0bf7a44646bc}{m\+\_\+\+Binding\+Description}} \{\}
+\item 
+std\+::vector$<$ Vk\+Vertex\+Input\+Attribute\+Description $>$ \mbox{\hyperlink{class_resource_a89c703ac9008a2edafe37b431f8356bb}{m\+\_\+\+Attribute\+Descriptions}} \{\}
+\item 
+uint32\+\_\+t \mbox{\hyperlink{class_resource_a3a281d3681e48fcd98925b666ee2cb81}{m\+\_\+\+Binding\+Count}} = 0
+\item 
+uint32\+\_\+t \mbox{\hyperlink{class_resource_a74a2ccf682e2cf61295590fe7968835c}{m\+\_\+\+Des\+Write\+Count}} = 0
+\item 
+uint32\+\_\+t \mbox{\hyperlink{class_resource_a73c0a1137e2edb1e4f3f0ccff6b1c4c7}{m\+\_\+\+Sub\+Pass\+Num}} = 0
+\item 
+uint32\+\_\+t \mbox{\hyperlink{class_resource_a7b1d7f61552b7e60bf4cb7ad4e7cc35c}{m\+\_\+\+Tot\+Sub\+Pass}} = 0
+\item 
+uint32\+\_\+t \mbox{\hyperlink{class_resource_ad30598d4a01080eabad97732ceb1c6a4}{m\+\_\+\+Max\+Sets}} = 0
+\item 
+\mbox{\hyperlink{class_command_obj}{Command\+Obj}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_resource_a8edf76072de32cf9d1f895883bf55b53}{m\+\_\+\+CPO}} = \{\}
+\item 
+\mbox{\hyperlink{class_command_pool_obj}{Command\+Pool\+Obj}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_resource_a4ade76e3d450d960845e68504fc5a32b}{m\+\_\+\+CPL}} = \{\}
+\item 
+bool \mbox{\hyperlink{class_resource_ae61f6f983b6f429967c99cde1a0d911e}{m\+\_\+\+Init\+Flag}} = false
+\item 
+std\+::vector$<$ Vk\+Subpass\+Description $>$ \mbox{\hyperlink{class_resource_af1a96424de7028462b37e26bd5a5c246}{m\+\_\+\+Subpass}} \{\}
+\item 
+\mbox{\hyperlink{class_swap_chain_obj}{Swap\+Chain\+Obj}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_resource_a886f85b4dae851a9522955dd5ab1390b}{m\+\_\+\+SCO}} = \{\}
+\item 
+std\+::vector$<$ \mbox{\hyperlink{class_image_object}{Image\+Object}} \texorpdfstring{$\ast$}{*} $>$ \mbox{\hyperlink{class_resource_aead6bd9ad1ac8e15824f7dd33c817647}{m\+\_\+\+IMO}} = \{\}
+\item 
+uint32\+\_\+t \mbox{\hyperlink{class_resource_aee58c13415573ba561591b5153fb309c}{m\+\_\+\+Bind\+Point}} = 0
+\item 
+std\+::vector$<$ void \texorpdfstring{$\ast$}{*} $>$ \mbox{\hyperlink{class_resource_a68afac75154c106351ce28bd04fd6472}{m\+\_\+\+Mapped\+Data}} = \{\}
+\item 
+std\+::vector$<$ Vk\+Buffer $>$ \mbox{\hyperlink{class_resource_a1d276c026a7bca4e6be49f6d1d4fc770}{m\+\_\+\+Buffers}} =\{\}
+\item 
+std\+::vector$<$ Vk\+Device\+Memory $>$ \mbox{\hyperlink{class_resource_aacaa84c6f7e3270ae90c641138bbd7cb}{m\+\_\+\+Buffers\+Memory}} =\{\}
+\item 
+Vk\+Buffer \mbox{\hyperlink{class_resource_aca9eaa021d5cb88e61d77910f4a577d1}{m\+\_\+\+Staging\+Buffer}} = nullptr
+\item 
+Vk\+Device\+Memory \mbox{\hyperlink{class_resource_aff06d8582449febbafc4690e1e751cdf}{m\+\_\+\+Staging\+Buffer\+Memory}} = nullptr
+\item 
+std\+::vector$<$ Vma\+Allocation\+Info $>$ \mbox{\hyperlink{class_resource_aa516e868a35bd1133cb48201ecf2261f}{m\+\_\+\+Allocation\+Info}} = \{\}
+\item 
+std\+::vector$<$ Vma\+Allocation $>$ \mbox{\hyperlink{class_resource_a65c9e2003b1c7f1220e5b6505ef33c8d}{m\+\_\+\+Allocation}} = \{\}
+\item 
+std\+::vector$<$ Vk\+Descriptor\+Set\+Layout\+Binding $>$ \mbox{\hyperlink{class_resource_a5a446284df671eb48f48fda02ef327cd}{m\+\_\+\+Layout\+Binding}} = \{\}
+\item 
+std\+::vector$<$ void \texorpdfstring{$\ast$}{*} $>$ \mbox{\hyperlink{class_resource_a47ecd17b2e90027d50cda87e2d929e68}{m\+\_\+\+Buffers\+Mapped}} =\{\}
+\item 
+uint32\+\_\+t \mbox{\hyperlink{class_resource_afb3d2d4c846c3ee9bf3949aa4cead980}{m\+\_\+\+Buf\+Size}} =0
+\item 
+void \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_resource_aedb56a3196ce594d82b835747ecf5bf5}{m\+\_\+data}} =nullptr
+\item 
+uint32\+\_\+t \mbox{\hyperlink{class_resource_a70500035b9342c605de8e3b4701472b7}{m\+\_\+\+Num\+Elements}} =0
+\item 
+Vk\+Descriptor\+Type \mbox{\hyperlink{class_resource_ac605e98c566a4583760d1b6e5c6dc984}{m\+\_\+\+Vk\+Type}} = \{\}
+\item 
+std\+::string \mbox{\hyperlink{class_resource_ab43db8847b8908adcc04104017556e7a}{m\+\_\+\+Pipline\+Name}} = \{\}
+\item 
+Vk\+Push\+Constant\+Range \mbox{\hyperlink{class_resource_a9222ef634870e3434f459423ec82846e}{m\+\_\+\+Push\+Constant}} \{\}
+\item 
+std\+::vector$<$ Vk\+Write\+Descriptor\+Set $>$ \mbox{\hyperlink{class_resource_acd025f0cd61e0ff31dccf3f8d18093ff}{m\+\_\+\+Descriptor\+Write}} = \{\}
+\item 
+std\+::vector$<$ Vk\+Descriptor\+Buffer\+Info $>$ \mbox{\hyperlink{class_resource_a64b52a05bc157e06eee97cc69c1da591}{m\+\_\+\+Buffer\+Info}} = \{\}
+\item 
+std\+::vector$<$ Vk\+Descriptor\+Image\+Info $>$ \mbox{\hyperlink{class_resource_a2d3d86cc1f474e6d832574c8b4f28b59}{m\+\_\+\+Image\+Infos}} \{\}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes inherited from \mbox{\hyperlink{class_base_obj}{Base\+Obj}}}
+\begin{DoxyCompactItemize}
+\item 
+std\+::string \mbox{\hyperlink{class_base_obj_a7a48a870862125c622302bd728a06c8f}{m\+\_\+\+Name}}
+\item 
+std\+::string \mbox{\hyperlink{class_base_obj_a0f4afc531f2ba36a0c4bf735e7d228b9}{m\+\_\+wkstr}}
+\item 
+uint32\+\_\+t \mbox{\hyperlink{class_base_obj_a911900fe67cd3edaf3ef52a7f57f398a}{m\+\_\+\+Type}} =0
+\item 
+\mbox{\hyperlink{class_vulkan_obj}{Vulkan\+Obj}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_base_obj_ab8f8d9c2f68f3bef1153d397d61646b0}{m\+\_\+\+App}} = \{\}
+\item 
+\mbox{\hyperlink{class_config_obj}{Config\+Obj}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_base_obj_aac207590eff5a5e099c4534d46e50f07}{m\+\_\+\+ACfg}} = \{\}
+\item 
+uint32\+\_\+t \mbox{\hyperlink{class_base_obj_a615d9ffc2cf237a1d45ac63721fae83c}{m\+\_\+this\+Frames\+Buffered}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_resource_vertex_obj_a6f40fa59a1d45359de59c17bebec7c98}\index{ResourceVertexObj@{ResourceVertexObj}!ResourceVertexObj@{ResourceVertexObj}}
+\index{ResourceVertexObj@{ResourceVertexObj}!ResourceVertexObj@{ResourceVertexObj}}
+\doxysubsubsection{\texorpdfstring{ResourceVertexObj()}{ResourceVertexObj()}}
+{\footnotesize\ttfamily \label{class_resource_vertex_obj_a6f40fa59a1d45359de59c17bebec7c98} 
+Resource\+Vertex\+Obj\+::\+Resource\+Vertex\+Obj (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_vulkan_obj}{Vulkan\+Obj}} \texorpdfstring{$\ast$}{*}}]{App}{, }\item[{std\+::string}]{Name}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_resource_vertex_obj_a0f32152e9679eb859f92100411ae339d}\index{ResourceVertexObj@{ResourceVertexObj}!Cleanup@{Cleanup}}
+\index{Cleanup@{Cleanup}!ResourceVertexObj@{ResourceVertexObj}}
+\doxysubsubsection{\texorpdfstring{Cleanup()}{Cleanup()}}
+{\footnotesize\ttfamily \label{class_resource_vertex_obj_a0f32152e9679eb859f92100411ae339d} 
+void Resource\+Vertex\+Obj\+::\+Cleanup (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Reimplemented from \mbox{\hyperlink{class_resource_af9de8f46b43ac53941d299c2ae98f1d1}{Resource}}.
+
+
+
+Reimplemented in \mbox{\hyperlink{class_resource_vertex_particle_ab85227dea0d630e90d1d0e25d1daafe2}{Resource\+Vertex\+Particle}}.
+
+\Hypertarget{class_resource_vertex_obj_ab4144ea54fd9598833dbc7624af160cc}\index{ResourceVertexObj@{ResourceVertexObj}!Create@{Create}}
+\index{Create@{Create}!ResourceVertexObj@{ResourceVertexObj}}
+\doxysubsubsection{\texorpdfstring{Create()}{Create()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{class_resource_vertex_obj_ab4144ea54fd9598833dbc7624af160cc} 
+void Resource\+Vertex\+Obj\+::\+Create (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{Bind\+Point}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Reimplemented in \mbox{\hyperlink{class_resource_vertex_particle_a16b0aafdec60a87ab56edbfb8efea2c6}{Resource\+Vertex\+Particle}}.
+
+\Hypertarget{class_resource_vertex_obj_a6c24f6cc3534e47e8229eda73c4608b2}\index{ResourceVertexObj@{ResourceVertexObj}!Create@{Create}}
+\index{Create@{Create}!ResourceVertexObj@{ResourceVertexObj}}
+\doxysubsubsection{\texorpdfstring{Create()}{Create()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{class_resource_vertex_obj_a6c24f6cc3534e47e8229eda73c4608b2} 
+void Resource\+Vertex\+Obj\+::\+Create (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{Bind\+Point}{, }\item[{\mbox{\hyperlink{class_resource_vertex_particle}{Resource\+Vertex\+Particle}} \texorpdfstring{$\ast$}{*}}]{Part\+Vert}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+\Hypertarget{class_resource_vertex_obj_a18b1047a3685ed79b632bc7207731dd0}\index{ResourceVertexObj@{ResourceVertexObj}!GetAttributeDescriptions@{GetAttributeDescriptions}}
+\index{GetAttributeDescriptions@{GetAttributeDescriptions}!ResourceVertexObj@{ResourceVertexObj}}
+\doxysubsubsection{\texorpdfstring{GetAttributeDescriptions()}{GetAttributeDescriptions()}}
+{\footnotesize\ttfamily \label{class_resource_vertex_obj_a18b1047a3685ed79b632bc7207731dd0} 
+std\+::vector$<$ Vk\+Vertex\+Input\+Attribute\+Description $>$ \texorpdfstring{$\ast$}{*} Resource\+Vertex\+Obj\+::\+Get\+Attribute\+Descriptions (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_resource_ace3e169dc2a26ea6b0dd370c9ea2e199}{Resource}}.
+
+
+
+Reimplemented in \mbox{\hyperlink{class_resource_vertex_particle_aa1e78e894e8d81305de9c2f68fdd3308}{Resource\+Vertex\+Particle}}.
+
+\Hypertarget{class_resource_vertex_obj_aaed9dc36797d1815b0fd3697079197f1}\index{ResourceVertexObj@{ResourceVertexObj}!GetBindingDescription@{GetBindingDescription}}
+\index{GetBindingDescription@{GetBindingDescription}!ResourceVertexObj@{ResourceVertexObj}}
+\doxysubsubsection{\texorpdfstring{GetBindingDescription()}{GetBindingDescription()}}
+{\footnotesize\ttfamily \label{class_resource_vertex_obj_aaed9dc36797d1815b0fd3697079197f1} 
+Vk\+Vertex\+Input\+Binding\+Description \texorpdfstring{$\ast$}{*} Resource\+Vertex\+Obj\+::\+Get\+Binding\+Description (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_resource_a7a2e68b5933115fbf8eabb6dfb4a03e2}{Resource}}.
+
+
+
+Reimplemented in \mbox{\hyperlink{class_resource_vertex_particle_af1f2ccecfe35551c0c7c6f3fd0e9677b}{Resource\+Vertex\+Particle}}.
+
+\Hypertarget{class_resource_vertex_obj_a1eabf3232a31351283cfd2aecd8e6da4}\index{ResourceVertexObj@{ResourceVertexObj}!GetShaderMem@{GetShaderMem}}
+\index{GetShaderMem@{GetShaderMem}!ResourceVertexObj@{ResourceVertexObj}}
+\doxysubsubsection{\texorpdfstring{GetShaderMem()}{GetShaderMem()}}
+{\footnotesize\ttfamily \label{class_resource_vertex_obj_a1eabf3232a31351283cfd2aecd8e6da4} 
+virtual void Resource\+Vertex\+Obj\+::\+Get\+Shader\+Mem (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+\Hypertarget{class_resource_vertex_obj_a62391592e7669b648298fd52d1cc8980}\index{ResourceVertexObj@{ResourceVertexObj}!MakeAxes@{MakeAxes}}
+\index{MakeAxes@{MakeAxes}!ResourceVertexObj@{ResourceVertexObj}}
+\doxysubsubsection{\texorpdfstring{MakeAxes()}{MakeAxes()}}
+{\footnotesize\ttfamily \label{class_resource_vertex_obj_a62391592e7669b648298fd52d1cc8980} 
+void Resource\+Vertex\+Obj\+::\+Make\+Axes (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{sidelen}{}\end{DoxyParamCaption})}
+
+\Hypertarget{class_resource_vertex_obj_ac7538842c4f0aa20a921f8109aa59c13}\index{ResourceVertexObj@{ResourceVertexObj}!PullMem@{PullMem}}
+\index{PullMem@{PullMem}!ResourceVertexObj@{ResourceVertexObj}}
+\doxysubsubsection{\texorpdfstring{PullMem()}{PullMem()}}
+{\footnotesize\ttfamily \label{class_resource_vertex_obj_ac7538842c4f0aa20a921f8109aa59c13} 
+void Resource\+Vertex\+Obj\+::\+Pull\+Mem (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{current\+Buffer}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_resource_abee9feab650a0956dd9eec1c6574ba57}{Resource}}.
+
+
+
+Reimplemented in \mbox{\hyperlink{class_resource_vertex_particle_a893a949ba962be262d21b48462289d0f}{Resource\+Vertex\+Particle}}.
+
+\Hypertarget{class_resource_vertex_obj_a8af6cd757b46bfd4179c0240381c14a0}\index{ResourceVertexObj@{ResourceVertexObj}!PushMem@{PushMem}}
+\index{PushMem@{PushMem}!ResourceVertexObj@{ResourceVertexObj}}
+\doxysubsubsection{\texorpdfstring{PushMem()}{PushMem()}}
+{\footnotesize\ttfamily \label{class_resource_vertex_obj_a8af6cd757b46bfd4179c0240381c14a0} 
+virtual void Resource\+Vertex\+Obj\+::\+Push\+Mem (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{current\+Buffer}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_resource_ac1ca6f5eb387846500c8763c7ec3250e}{Resource}}.
+
+
+
+Reimplemented in \mbox{\hyperlink{class_resource_vertex_particle_ab3c93c1e561b531c63bb866728bfaf2f}{Resource\+Vertex\+Particle}}.
+
+\Hypertarget{class_resource_vertex_obj_ad46df1d580312dd4de10c9efc748c0a7}\index{ResourceVertexObj@{ResourceVertexObj}!UpdateMem@{UpdateMem}}
+\index{UpdateMem@{UpdateMem}!ResourceVertexObj@{ResourceVertexObj}}
+\doxysubsubsection{\texorpdfstring{UpdateMem()}{UpdateMem()}}
+{\footnotesize\ttfamily \label{class_resource_vertex_obj_ad46df1d580312dd4de10c9efc748c0a7} 
+virtual void Resource\+Vertex\+Obj\+::\+Update\+Mem (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{class_resource_vertex_obj_a1fdc8781ab2e0822ae5f4a8a0912f318}\index{ResourceVertexObj@{ResourceVertexObj}!m\_Axes@{m\_Axes}}
+\index{m\_Axes@{m\_Axes}!ResourceVertexObj@{ResourceVertexObj}}
+\doxysubsubsection{\texorpdfstring{m\_Axes}{m\_Axes}}
+{\footnotesize\ttfamily \label{class_resource_vertex_obj_a1fdc8781ab2e0822ae5f4a8a0912f318} 
+std\+::vector$<$\mbox{\hyperlink{struct_cart_vert}{Cart\+Vert}}$>$ Resource\+Vertex\+Obj\+::m\+\_\+\+Axes}
+
+\Hypertarget{class_resource_vertex_obj_a33c39884387e96403453460326d384cc}\index{ResourceVertexObj@{ResourceVertexObj}!m\_FileName@{m\_FileName}}
+\index{m\_FileName@{m\_FileName}!ResourceVertexObj@{ResourceVertexObj}}
+\doxysubsubsection{\texorpdfstring{m\_FileName}{m\_FileName}}
+{\footnotesize\ttfamily \label{class_resource_vertex_obj_a33c39884387e96403453460326d384cc} 
+std\+::string Resource\+Vertex\+Obj\+::m\+\_\+\+File\+Name}
+
+\Hypertarget{class_resource_vertex_obj_a6d8cb15ec8d3f03df53ace9fb8e05d22}\index{ResourceVertexObj@{ResourceVertexObj}!m\_Normals@{m\_Normals}}
+\index{m\_Normals@{m\_Normals}!ResourceVertexObj@{ResourceVertexObj}}
+\doxysubsubsection{\texorpdfstring{m\_Normals}{m\_Normals}}
+{\footnotesize\ttfamily \label{class_resource_vertex_obj_a6d8cb15ec8d3f03df53ace9fb8e05d22} 
+std\+::vector$<$glm\+::vec3$>$ Resource\+Vertex\+Obj\+::m\+\_\+\+Normals \{\}}
+
+\Hypertarget{class_resource_vertex_obj_a88a0a5ddf27fc981ca9aa305b38fc9dd}\index{ResourceVertexObj@{ResourceVertexObj}!m\_ParticleVert@{m\_ParticleVert}}
+\index{m\_ParticleVert@{m\_ParticleVert}!ResourceVertexObj@{ResourceVertexObj}}
+\doxysubsubsection{\texorpdfstring{m\_ParticleVert}{m\_ParticleVert}}
+{\footnotesize\ttfamily \label{class_resource_vertex_obj_a88a0a5ddf27fc981ca9aa305b38fc9dd} 
+\mbox{\hyperlink{class_resource_vertex_particle}{Resource\+Vertex\+Particle}}\texorpdfstring{$\ast$}{*} Resource\+Vertex\+Obj\+::m\+\_\+\+Particle\+Vert \{\}}
+
+\Hypertarget{class_resource_vertex_obj_a0d0d5e67f9a2885267b3e6eb9658422e}\index{ResourceVertexObj@{ResourceVertexObj}!m\_UVS@{m\_UVS}}
+\index{m\_UVS@{m\_UVS}!ResourceVertexObj@{ResourceVertexObj}}
+\doxysubsubsection{\texorpdfstring{m\_UVS}{m\_UVS}}
+{\footnotesize\ttfamily \label{class_resource_vertex_obj_a0d0d5e67f9a2885267b3e6eb9658422e} 
+std\+::vector$<$glm\+::vec2$>$ Resource\+Vertex\+Obj\+::m\+\_\+\+UVS \{\}}
+
+\Hypertarget{class_resource_vertex_obj_adf1fe5c45f8191c103d0b528d2ef7534}\index{ResourceVertexObj@{ResourceVertexObj}!m\_Verts@{m\_Verts}}
+\index{m\_Verts@{m\_Verts}!ResourceVertexObj@{ResourceVertexObj}}
+\doxysubsubsection{\texorpdfstring{m\_Verts}{m\_Verts}}
+{\footnotesize\ttfamily \label{class_resource_vertex_obj_adf1fe5c45f8191c103d0b528d2ef7534} 
+std\+::vector$<$\mbox{\hyperlink{struct_cart_vert}{Cart\+Vert}}$>$ Resource\+Vertex\+Obj\+::m\+\_\+\+Verts \{\}}
+
+\Hypertarget{class_resource_vertex_obj_ab5290310b6c6bc482f07d5ac5172a0e1}\index{ResourceVertexObj@{ResourceVertexObj}!m\_vtemp@{m\_vtemp}}
+\index{m\_vtemp@{m\_vtemp}!ResourceVertexObj@{ResourceVertexObj}}
+\doxysubsubsection{\texorpdfstring{m\_vtemp}{m\_vtemp}}
+{\footnotesize\ttfamily \label{class_resource_vertex_obj_ab5290310b6c6bc482f07d5ac5172a0e1} 
+std\+::vector$<$glm\+::vec3$>$ Resource\+Vertex\+Obj\+::m\+\_\+vtemp}
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+J\+:/\+FPIBG/vulkan/src/\+Vulkan\+Obj/\mbox{\hyperlink{_resource_vertex_obj_8hpp}{Resource\+Vertex\+Obj.\+hpp}}\item 
+J\+:/\+FPIBG/vulkan/src/\+Vulkan\+Obj/\mbox{\hyperlink{_resource_vertex_obj_8cpp}{Resource\+Vertex\+Obj.\+cpp}}\end{DoxyCompactItemize}

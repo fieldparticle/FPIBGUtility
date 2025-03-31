@@ -1,0 +1,40 @@
+\doxysection{python/test/\+ELTest\+FPIBGserver.py File Reference}
+\hypertarget{_e_l_test_f_p_i_b_gserver_8py}{}\label{_e_l_test_f_p_i_b_gserver_8py}\index{python/test/ELTestFPIBGserver.py@{python/test/ELTestFPIBGserver.py}}
+\doxysubsubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+namespace \mbox{\hyperlink{namespace_e_l_test_f_p_i_b_gserver}{ELTest\+FPIBGserver}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespace_e_l_test_f_p_i_b_gserver_a279ddd57e0662735f4ebd5aabe0bcbfb}{ELTest\+FPIBGserver.\+syspth}} = sys.\+path \#
+\item 
+\mbox{\hyperlink{namespace_e_l_test_f_p_i_b_gserver_a9a9587b4551492317e4f2a228c2b620b}{ELTest\+FPIBGserver.\+cwd}} = os.\+getcwd() \#
+\item 
+str \mbox{\hyperlink{namespace_e_l_test_f_p_i_b_gserver_afc3025895cb2f1b8d40f8daebc248dba}{ELTest\+FPIBGserver.\+shrddir}} = \mbox{\hyperlink{namespace_e_l_test_f_p_i_b_gserver_a9a9587b4551492317e4f2a228c2b620b}{cwd}} + "{}\textbackslash{}\textbackslash{}python\textbackslash{}\textbackslash{}shared"{} \#
+\item 
+str \mbox{\hyperlink{namespace_e_l_test_f_p_i_b_gserver_a006f315f3b7e00c15a77758e95059f40}{ELTest\+FPIBGserver.\+HOST}} = "{}127.\+0.\+0.\+1"{}
+\item 
+int \mbox{\hyperlink{namespace_e_l_test_f_p_i_b_gserver_a8e8961e7df4b72d08d597336ccc62c40}{ELTest\+FPIBGserver.\+PORT}} = 50004
+\item 
+int \mbox{\hyperlink{namespace_e_l_test_f_p_i_b_gserver_ab5de53add9c2f38e21d61379aebefb35}{ELTest\+FPIBGserver.\+BUFFER\+\_\+\+SIZE}} = 4096
+\item 
+\mbox{\hyperlink{namespace_e_l_test_f_p_i_b_gserver_a32fa098ebf1efc6dc833c7928c2bcf24}{ELTest\+FPIBGserver.\+script\+\_\+dir}} = os.\+path.\+dirname(os.\+path.\+abspath(\+\_\+\+\_\+file\+\_\+\+\_\+))
+\item 
+\mbox{\hyperlink{namespace_e_l_test_f_p_i_b_gserver_a932238f741a521fc1945b5ee83abf580}{ELTest\+FPIBGserver.\+CONFIG\+\_\+\+PATH}} = os.\+path.\+join(\mbox{\hyperlink{namespace_e_l_test_f_p_i_b_gserver_a32fa098ebf1efc6dc833c7928c2bcf24}{script\+\_\+dir}}, "{}.."{}, "{}ELParticle.\+cfg"{})
+\item 
+\mbox{\hyperlink{namespace_e_l_test_f_p_i_b_gserver_a653cc426e01b4d048bd440d21ba4e33b}{ELTest\+FPIBGserver.\+server\+\_\+socket}} = socket.\+socket(socket.\+AF\+\_\+\+INET, socket.\+SOCK\+\_\+\+STREAM)
+\item 
+\mbox{\hyperlink{namespace_e_l_test_f_p_i_b_gserver_a9172102ba5591498655482b64408e953}{ELTest\+FPIBGserver.\+conn}}
+\item 
+\mbox{\hyperlink{namespace_e_l_test_f_p_i_b_gserver_a0335ff1c1011cd535f4bc56e7f556300}{ELTest\+FPIBGserver.\+addr}}
+\item 
+\mbox{\hyperlink{namespace_e_l_test_f_p_i_b_gserver_a977f3248bbc8567244f58097fe81d9d1}{ELTest\+FPIBGserver.\+data}} = conn.\+recv(1024).decode().strip()
+\item 
+\mbox{\hyperlink{namespace_e_l_test_f_p_i_b_gserver_a1bb28279af0541eb2d947ebf38bdc840}{ELTest\+FPIBGserver.\+file\+\_\+data}} = conn.\+recv(\mbox{\hyperlink{namespace_e_l_test_f_p_i_b_gserver_ab5de53add9c2f38e21d61379aebefb35}{BUFFER\+\_\+\+SIZE}})
+\item 
+str \mbox{\hyperlink{namespace_e_l_test_f_p_i_b_gserver_ae13e301049333820a1e6ad17b7c20177}{ELTest\+FPIBGserver.\+command}} = f"{}python3 \{os.\+path.\+join(\mbox{\hyperlink{namespace_e_l_test_f_p_i_b_gserver_a32fa098ebf1efc6dc833c7928c2bcf24}{script\+\_\+dir}}, \textquotesingle{}..\textquotesingle{}, \textquotesingle{}shared\textquotesingle{}, \textquotesingle{}FPIBGConfig.\+py\textquotesingle{})\} -\/-\/config \{\mbox{\hyperlink{namespace_e_l_test_f_p_i_b_gserver_a932238f741a521fc1945b5ee83abf580}{CONFIG\+\_\+\+PATH}}\}"{}
+\item 
+\mbox{\hyperlink{namespace_e_l_test_f_p_i_b_gserver_a307d44f5a9756473f29f42fde5ff82e5}{ELTest\+FPIBGserver.\+shell}}
+\end{DoxyCompactItemize}

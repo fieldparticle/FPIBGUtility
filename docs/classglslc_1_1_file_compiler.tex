@@ -1,0 +1,169 @@
+\doxysection{glslc\+::File\+Compiler Class Reference}
+\hypertarget{classglslc_1_1_file_compiler}{}\label{classglslc_1_1_file_compiler}\index{glslc::FileCompiler@{glslc::FileCompiler}}
+
+
+{\ttfamily \#include $<$file\+\_\+compiler.\+h$>$}
+
+\doxysubsubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+enum class \mbox{\hyperlink{classglslc_1_1_file_compiler_a71fdb633fbaf091e40fda933f2e1d9e2}{Spirv\+Binary\+Emission\+Format}} \{ \newline
+\mbox{\hyperlink{classglslc_1_1_file_compiler_a71fdb633fbaf091e40fda933f2e1d9e2a6fcdc090caeade09d0efd6253932b6f5}{Unspecified}}
+, \mbox{\hyperlink{classglslc_1_1_file_compiler_a71fdb633fbaf091e40fda933f2e1d9e2a6ce976e8f061b2b5cfe4d0c50c3405dd}{Binary}}
+, \mbox{\hyperlink{classglslc_1_1_file_compiler_a71fdb633fbaf091e40fda933f2e1d9e2acbebfa21dbe8e87e788d94a76f073807}{Numbers}}
+, \mbox{\hyperlink{classglslc_1_1_file_compiler_a71fdb633fbaf091e40fda933f2e1d9e2a8ecabc499dbac5965ea559083194b407}{CInit\+List}}
+, \newline
+\mbox{\hyperlink{classglslc_1_1_file_compiler_a71fdb633fbaf091e40fda933f2e1d9e2a29e42526b6c679260105b3ec393f410e}{WGSL}}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classglslc_1_1_file_compiler_a12308a5c31efa6936ca4a930c651e125}{File\+Compiler}} ()
+\item 
+bool \mbox{\hyperlink{classglslc_1_1_file_compiler_a4b2554d30e700a0e972735cbedb68fb9}{Compile\+Shader\+File}} (const \mbox{\hyperlink{structglslc_1_1_input_file_spec}{Input\+File\+Spec}} \&input\+\_\+file)
+\item 
+void \mbox{\hyperlink{classglslc_1_1_file_compiler_aaf5cc047737476364a012d9d4454d43d}{Add\+Include\+Directory}} (const std\+::string \&path)
+\item 
+void \mbox{\hyperlink{classglslc_1_1_file_compiler_a3048d3f34888533751f797cd8bc411c4}{Set\+Output\+File\+Name}} (const shaderc\+\_\+util\+::string\+\_\+piece \&file)
+\item 
+void \mbox{\hyperlink{classglslc_1_1_file_compiler_a293aeea8ac381967c10ac02d17338f7e}{Set\+Spirv\+Binary\+Output\+Format}} (\mbox{\hyperlink{classglslc_1_1_file_compiler_a71fdb633fbaf091e40fda933f2e1d9e2}{Spirv\+Binary\+Emission\+Format}} format)
+\item 
+bool \mbox{\hyperlink{classglslc_1_1_file_compiler_ac69cc7cbaebdc3a2866d0d224a00c575}{Validate\+Options}} (size\+\_\+t num\+\_\+files)
+\item 
+void \mbox{\hyperlink{classglslc_1_1_file_compiler_ab2e09ddff878d4b16142f4f627ba0940}{Output\+Messages}} ()
+\item 
+void \mbox{\hyperlink{classglslc_1_1_file_compiler_a772564b22737d6052162859f0feb716f}{Set\+Individual\+Compilation\+Flag}} ()
+\item 
+void \mbox{\hyperlink{classglslc_1_1_file_compiler_a50a995ee9c40dec0593a94feece9fa59}{Set\+Disassembly\+Flag}} ()
+\item 
+void \mbox{\hyperlink{classglslc_1_1_file_compiler_ae79d367e0f6eda0abd186956b00e0aaa}{Set\+Preprocessing\+Only\+Flag}} ()
+\item 
+shaderc\+::\+Compile\+Options \& \mbox{\hyperlink{classglslc_1_1_file_compiler_a8012fdf14c9d0625f32792a795f865cb}{options}} ()
+\item 
+Dependency\+Info\+Dumping\+Handler \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{classglslc_1_1_file_compiler_a078d51b4c24fa62558e1429e63c620a5}{Get\+Dependency\+Dumping\+Handler}} ()
+\item 
+{\footnotesize template$<$typename Compilation\+Result\+Type$>$ }\\bool \mbox{\hyperlink{classglslc_1_1_file_compiler_ac402dfa8a06462b1e18896b672e1a4f4}{Emit\+Compiled\+Result}} (const Compilation\+Result\+Type \&result, const std\+::string \&input\+\_\+file, const std\+::string \&output\+\_\+file\+\_\+name, string\+\_\+piece error\+\_\+file\+\_\+name, const std\+::unordered\+\_\+set$<$ std\+::string $>$ \&used\+\_\+source\+\_\+files)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Enumeration Documentation}
+\Hypertarget{classglslc_1_1_file_compiler_a71fdb633fbaf091e40fda933f2e1d9e2}\index{glslc::FileCompiler@{glslc::FileCompiler}!SpirvBinaryEmissionFormat@{SpirvBinaryEmissionFormat}}
+\index{SpirvBinaryEmissionFormat@{SpirvBinaryEmissionFormat}!glslc::FileCompiler@{glslc::FileCompiler}}
+\doxysubsubsection{\texorpdfstring{SpirvBinaryEmissionFormat}{SpirvBinaryEmissionFormat}}
+{\footnotesize\ttfamily \label{classglslc_1_1_file_compiler_a71fdb633fbaf091e40fda933f2e1d9e2} 
+enum class \mbox{\hyperlink{classglslc_1_1_file_compiler_a71fdb633fbaf091e40fda933f2e1d9e2}{glslc\+::\+File\+Compiler\+::\+Spirv\+Binary\+Emission\+Format}}\hspace{0.3cm}{\ttfamily [strong]}}
+
+\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Unspecified@{Unspecified}!glslc::FileCompiler@{glslc::FileCompiler}}\index{glslc::FileCompiler@{glslc::FileCompiler}!Unspecified@{Unspecified}}}\Hypertarget{classglslc_1_1_file_compiler_a71fdb633fbaf091e40fda933f2e1d9e2a6fcdc090caeade09d0efd6253932b6f5}\label{classglslc_1_1_file_compiler_a71fdb633fbaf091e40fda933f2e1d9e2a6fcdc090caeade09d0efd6253932b6f5} 
+Unspecified&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Binary@{Binary}!glslc::FileCompiler@{glslc::FileCompiler}}\index{glslc::FileCompiler@{glslc::FileCompiler}!Binary@{Binary}}}\Hypertarget{classglslc_1_1_file_compiler_a71fdb633fbaf091e40fda933f2e1d9e2a6ce976e8f061b2b5cfe4d0c50c3405dd}\label{classglslc_1_1_file_compiler_a71fdb633fbaf091e40fda933f2e1d9e2a6ce976e8f061b2b5cfe4d0c50c3405dd} 
+Binary&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Numbers@{Numbers}!glslc::FileCompiler@{glslc::FileCompiler}}\index{glslc::FileCompiler@{glslc::FileCompiler}!Numbers@{Numbers}}}\Hypertarget{classglslc_1_1_file_compiler_a71fdb633fbaf091e40fda933f2e1d9e2acbebfa21dbe8e87e788d94a76f073807}\label{classglslc_1_1_file_compiler_a71fdb633fbaf091e40fda933f2e1d9e2acbebfa21dbe8e87e788d94a76f073807} 
+Numbers&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CInitList@{CInitList}!glslc::FileCompiler@{glslc::FileCompiler}}\index{glslc::FileCompiler@{glslc::FileCompiler}!CInitList@{CInitList}}}\Hypertarget{classglslc_1_1_file_compiler_a71fdb633fbaf091e40fda933f2e1d9e2a8ecabc499dbac5965ea559083194b407}\label{classglslc_1_1_file_compiler_a71fdb633fbaf091e40fda933f2e1d9e2a8ecabc499dbac5965ea559083194b407} 
+CInit\+List&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{WGSL@{WGSL}!glslc::FileCompiler@{glslc::FileCompiler}}\index{glslc::FileCompiler@{glslc::FileCompiler}!WGSL@{WGSL}}}\Hypertarget{classglslc_1_1_file_compiler_a71fdb633fbaf091e40fda933f2e1d9e2a29e42526b6c679260105b3ec393f410e}\label{classglslc_1_1_file_compiler_a71fdb633fbaf091e40fda933f2e1d9e2a29e42526b6c679260105b3ec393f410e} 
+WGSL&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classglslc_1_1_file_compiler_a12308a5c31efa6936ca4a930c651e125}\index{glslc::FileCompiler@{glslc::FileCompiler}!FileCompiler@{FileCompiler}}
+\index{FileCompiler@{FileCompiler}!glslc::FileCompiler@{glslc::FileCompiler}}
+\doxysubsubsection{\texorpdfstring{FileCompiler()}{FileCompiler()}}
+{\footnotesize\ttfamily \label{classglslc_1_1_file_compiler_a12308a5c31efa6936ca4a930c651e125} 
+glslc\+::\+File\+Compiler\+::\+File\+Compiler (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classglslc_1_1_file_compiler_aaf5cc047737476364a012d9d4454d43d}\index{glslc::FileCompiler@{glslc::FileCompiler}!AddIncludeDirectory@{AddIncludeDirectory}}
+\index{AddIncludeDirectory@{AddIncludeDirectory}!glslc::FileCompiler@{glslc::FileCompiler}}
+\doxysubsubsection{\texorpdfstring{AddIncludeDirectory()}{AddIncludeDirectory()}}
+{\footnotesize\ttfamily \label{classglslc_1_1_file_compiler_aaf5cc047737476364a012d9d4454d43d} 
+void glslc\+::\+File\+Compiler\+::\+Add\+Include\+Directory (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{path}{}\end{DoxyParamCaption})}
+
+\Hypertarget{classglslc_1_1_file_compiler_a4b2554d30e700a0e972735cbedb68fb9}\index{glslc::FileCompiler@{glslc::FileCompiler}!CompileShaderFile@{CompileShaderFile}}
+\index{CompileShaderFile@{CompileShaderFile}!glslc::FileCompiler@{glslc::FileCompiler}}
+\doxysubsubsection{\texorpdfstring{CompileShaderFile()}{CompileShaderFile()}}
+{\footnotesize\ttfamily \label{classglslc_1_1_file_compiler_a4b2554d30e700a0e972735cbedb68fb9} 
+bool glslc\+::\+File\+Compiler\+::\+Compile\+Shader\+File (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structglslc_1_1_input_file_spec}{Input\+File\+Spec}} \&}]{input\+\_\+file}{}\end{DoxyParamCaption})}
+
+\Hypertarget{classglslc_1_1_file_compiler_ac402dfa8a06462b1e18896b672e1a4f4}\index{glslc::FileCompiler@{glslc::FileCompiler}!EmitCompiledResult@{EmitCompiledResult}}
+\index{EmitCompiledResult@{EmitCompiledResult}!glslc::FileCompiler@{glslc::FileCompiler}}
+\doxysubsubsection{\texorpdfstring{EmitCompiledResult()}{EmitCompiledResult()}}
+{\footnotesize\ttfamily \label{classglslc_1_1_file_compiler_ac402dfa8a06462b1e18896b672e1a4f4} 
+template$<$typename Compilation\+Result\+Type$>$ \\
+bool glslc\+::\+File\+Compiler\+::\+Emit\+Compiled\+Result (\begin{DoxyParamCaption}\item[{const Compilation\+Result\+Type \&}]{result}{, }\item[{const std\+::string \&}]{input\+\_\+file}{, }\item[{const std\+::string \&}]{output\+\_\+file\+\_\+name}{, }\item[{string\+\_\+piece}]{error\+\_\+file\+\_\+name}{, }\item[{const std\+::unordered\+\_\+set$<$ std\+::string $>$ \&}]{used\+\_\+source\+\_\+files}{}\end{DoxyParamCaption})}
+
+\Hypertarget{classglslc_1_1_file_compiler_a078d51b4c24fa62558e1429e63c620a5}\index{glslc::FileCompiler@{glslc::FileCompiler}!GetDependencyDumpingHandler@{GetDependencyDumpingHandler}}
+\index{GetDependencyDumpingHandler@{GetDependencyDumpingHandler}!glslc::FileCompiler@{glslc::FileCompiler}}
+\doxysubsubsection{\texorpdfstring{GetDependencyDumpingHandler()}{GetDependencyDumpingHandler()}}
+{\footnotesize\ttfamily \label{classglslc_1_1_file_compiler_a078d51b4c24fa62558e1429e63c620a5} 
+Dependency\+Info\+Dumping\+Handler \texorpdfstring{$\ast$}{*} glslc\+::\+File\+Compiler\+::\+Get\+Dependency\+Dumping\+Handler (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{classglslc_1_1_file_compiler_a8012fdf14c9d0625f32792a795f865cb}\index{glslc::FileCompiler@{glslc::FileCompiler}!options@{options}}
+\index{options@{options}!glslc::FileCompiler@{glslc::FileCompiler}}
+\doxysubsubsection{\texorpdfstring{options()}{options()}}
+{\footnotesize\ttfamily \label{classglslc_1_1_file_compiler_a8012fdf14c9d0625f32792a795f865cb} 
+shaderc\+::\+Compile\+Options \& glslc\+::\+File\+Compiler\+::options (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{classglslc_1_1_file_compiler_ab2e09ddff878d4b16142f4f627ba0940}\index{glslc::FileCompiler@{glslc::FileCompiler}!OutputMessages@{OutputMessages}}
+\index{OutputMessages@{OutputMessages}!glslc::FileCompiler@{glslc::FileCompiler}}
+\doxysubsubsection{\texorpdfstring{OutputMessages()}{OutputMessages()}}
+{\footnotesize\ttfamily \label{classglslc_1_1_file_compiler_ab2e09ddff878d4b16142f4f627ba0940} 
+void glslc\+::\+File\+Compiler\+::\+Output\+Messages (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+\Hypertarget{classglslc_1_1_file_compiler_a50a995ee9c40dec0593a94feece9fa59}\index{glslc::FileCompiler@{glslc::FileCompiler}!SetDisassemblyFlag@{SetDisassemblyFlag}}
+\index{SetDisassemblyFlag@{SetDisassemblyFlag}!glslc::FileCompiler@{glslc::FileCompiler}}
+\doxysubsubsection{\texorpdfstring{SetDisassemblyFlag()}{SetDisassemblyFlag()}}
+{\footnotesize\ttfamily \label{classglslc_1_1_file_compiler_a50a995ee9c40dec0593a94feece9fa59} 
+void glslc\+::\+File\+Compiler\+::\+Set\+Disassembly\+Flag (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+\Hypertarget{classglslc_1_1_file_compiler_a772564b22737d6052162859f0feb716f}\index{glslc::FileCompiler@{glslc::FileCompiler}!SetIndividualCompilationFlag@{SetIndividualCompilationFlag}}
+\index{SetIndividualCompilationFlag@{SetIndividualCompilationFlag}!glslc::FileCompiler@{glslc::FileCompiler}}
+\doxysubsubsection{\texorpdfstring{SetIndividualCompilationFlag()}{SetIndividualCompilationFlag()}}
+{\footnotesize\ttfamily \label{classglslc_1_1_file_compiler_a772564b22737d6052162859f0feb716f} 
+void glslc\+::\+File\+Compiler\+::\+Set\+Individual\+Compilation\+Flag (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+\Hypertarget{classglslc_1_1_file_compiler_a3048d3f34888533751f797cd8bc411c4}\index{glslc::FileCompiler@{glslc::FileCompiler}!SetOutputFileName@{SetOutputFileName}}
+\index{SetOutputFileName@{SetOutputFileName}!glslc::FileCompiler@{glslc::FileCompiler}}
+\doxysubsubsection{\texorpdfstring{SetOutputFileName()}{SetOutputFileName()}}
+{\footnotesize\ttfamily \label{classglslc_1_1_file_compiler_a3048d3f34888533751f797cd8bc411c4} 
+void glslc\+::\+File\+Compiler\+::\+Set\+Output\+File\+Name (\begin{DoxyParamCaption}\item[{const shaderc\+\_\+util\+::string\+\_\+piece \&}]{file}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{classglslc_1_1_file_compiler_ae79d367e0f6eda0abd186956b00e0aaa}\index{glslc::FileCompiler@{glslc::FileCompiler}!SetPreprocessingOnlyFlag@{SetPreprocessingOnlyFlag}}
+\index{SetPreprocessingOnlyFlag@{SetPreprocessingOnlyFlag}!glslc::FileCompiler@{glslc::FileCompiler}}
+\doxysubsubsection{\texorpdfstring{SetPreprocessingOnlyFlag()}{SetPreprocessingOnlyFlag()}}
+{\footnotesize\ttfamily \label{classglslc_1_1_file_compiler_ae79d367e0f6eda0abd186956b00e0aaa} 
+void glslc\+::\+File\+Compiler\+::\+Set\+Preprocessing\+Only\+Flag (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+\Hypertarget{classglslc_1_1_file_compiler_a293aeea8ac381967c10ac02d17338f7e}\index{glslc::FileCompiler@{glslc::FileCompiler}!SetSpirvBinaryOutputFormat@{SetSpirvBinaryOutputFormat}}
+\index{SetSpirvBinaryOutputFormat@{SetSpirvBinaryOutputFormat}!glslc::FileCompiler@{glslc::FileCompiler}}
+\doxysubsubsection{\texorpdfstring{SetSpirvBinaryOutputFormat()}{SetSpirvBinaryOutputFormat()}}
+{\footnotesize\ttfamily \label{classglslc_1_1_file_compiler_a293aeea8ac381967c10ac02d17338f7e} 
+void glslc\+::\+File\+Compiler\+::\+Set\+Spirv\+Binary\+Output\+Format (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classglslc_1_1_file_compiler_a71fdb633fbaf091e40fda933f2e1d9e2}{Spirv\+Binary\+Emission\+Format}}}]{format}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{classglslc_1_1_file_compiler_ac69cc7cbaebdc3a2866d0d224a00c575}\index{glslc::FileCompiler@{glslc::FileCompiler}!ValidateOptions@{ValidateOptions}}
+\index{ValidateOptions@{ValidateOptions}!glslc::FileCompiler@{glslc::FileCompiler}}
+\doxysubsubsection{\texorpdfstring{ValidateOptions()}{ValidateOptions()}}
+{\footnotesize\ttfamily \label{classglslc_1_1_file_compiler_ac69cc7cbaebdc3a2866d0d224a00c575} 
+bool glslc\+::\+File\+Compiler\+::\+Validate\+Options (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{num\+\_\+files}{}\end{DoxyParamCaption})}
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+J\+:/\+FPIBG/vulkan/src/glsl/\mbox{\hyperlink{file__compiler_8h}{file\+\_\+compiler.\+h}}\item 
+J\+:/\+FPIBG/vulkan/src/glsl/\mbox{\hyperlink{file__compiler_8cc}{file\+\_\+compiler.\+cc}}\end{DoxyCompactItemize}
