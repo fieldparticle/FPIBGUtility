@@ -242,7 +242,13 @@ class TabGenConfig(QTabWidget):
         self.populate()
 
     def populate(self):
-        print("Dict test:", self.cfg.application.doAuto)
+        self.doauto_checkbox.setChecked(self.cfg.application.doAuto)
+        self.doautowait_checkbox.setChecked(self.cfg.application.doAutoWait)
+        self.stop_on_data_checkbox.setChecked(self.cfg.application.stopondata)
+        self.no_compute_checkbox.setChecked(self.cfg.application.noCompute)
+        self.debug_level.setValue(self.cfg.application.debugLevel)
+        self.report_compute_frames.setText(str(self.cfg.application.reportCompFramesLessThan))
+        self.report_graphics_frames.setText(str(self.cfg.application.reportGraphFramesLessThan))
 
     
     def update_list_widget(self, widget: QListWidget, list: list[str]):
