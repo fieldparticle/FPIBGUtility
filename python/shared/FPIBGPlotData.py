@@ -80,6 +80,7 @@ class PlotData:
         model.fit(loadedp, gms)
         y_pred = model.predict(loadedp)
         var_gms = np.var(gms)
+        sd_gms = np.std(gms)
         plt.figure(figsize=(8,5))
         plt.scatter(loadedp, gms, marker='o', color="cornflowerblue")
         plt.plot(loadedp, y_pred, linestyle="-", label="gms vs loadedp", color="cornflowerblue")
@@ -87,12 +88,14 @@ class PlotData:
         model.fit(loadedp, cms)
         y_pred = model.predict(loadedp)
         var_cms = np.var(cms)
+        sd_cms = np.std(cms)
         plt.scatter(loadedp, cms, marker='o', color="mediumseagreen")
         plt.plot(loadedp, y_pred, linestyle="-", label="cms vs loadedp", color="mediumseagreen")
 
         model.fit(loadedp, gms_cms)
         y_pred = model.predict(loadedp)
         var_gms_cms = np.var(gms_cms)
+        sd_gms_cms = np.std(gms_cms)
         plt.scatter(loadedp, gms_cms, marker='o', color="orchid")
         plt.plot(loadedp, y_pred, linestyle="-", label="gms+cms vs loadedp", color="orchid")
 
@@ -107,6 +110,13 @@ class PlotData:
         plt.bar(["gms", "cms", "gms + cms"], [var_gms, var_cms, var_gms_cms], color=["cornflowerblue", "mediumseagreen", "orchid"])
         plt.ylabel("Variance")
         plt.title("Variance of gms, cms, and gms + cms")
+        plt.grid(True)
+        plt.show()
+
+        plt.figure(figsize=(8,5))
+        plt.bar(["gms", "cms", "gms + cms"], [sd_gms, sd_cms, sd_gms_cms], color=["cornflowerblue", "mediumseagreen", "orchid"])
+        plt.ylabel("Standard Deviation")
+        plt.title("Standard Deviation of gms, cms, and gms + cms")
         plt.grid(True)
         plt.show()
 
@@ -126,6 +136,7 @@ class PlotData:
         model.fit(loadedp, cms_loadedp)
         y_pred = model.predict(loadedp)
         var_cms_loadedp = np.var(cms_loadedp)
+        sd_cms_loadedp = np.std(cms_loadedp)
         plt.figure(figsize=(8,5))
         plt.scatter(loadedp, cms_loadedp, marker='o', color="cornflowerblue")
         plt.plot(loadedp, y_pred, linestyle="-", label="(cms/loadedp) vs loadedp", color="cornflowerblue")
@@ -133,12 +144,14 @@ class PlotData:
         model.fit(loadedp, gms_loadedp)
         y_pred = model.predict(loadedp)
         var_gms_loadedp = np.var(gms_loadedp)
+        sd_gms_loadedp = np.std(gms_loadedp)
         plt.scatter(loadedp, gms_loadedp, marker='o', color="mediumseagreen")
         plt.plot(loadedp, y_pred, linestyle="-", label="(gms/loadedp) vs loadedp", color="mediumseagreen")
 
         model.fit(loadedp, cms_gms_loadedp)
         y_pred = model.predict(loadedp)
         var_cms_gms = np.var(cms_gms_loadedp)
+        sd_cms_gms = np.std(cms_gms_loadedp)
         plt.scatter(loadedp, cms_gms_loadedp, marker='o', color="orchid")
         plt.plot(loadedp, y_pred, linestyle="-", label="(cms+gms)/loadedp vs loadedp", color="orchid")
     
@@ -154,6 +167,14 @@ class PlotData:
                 color=["cornflowerblue", "mediumseagreen", "orchid"])
         plt.ylabel("Variance")
         plt.title("Variance of cms/loadedp, gms/loadedp, and gms + cms")
+        plt.grid(True)
+        plt.show()
+
+        plt.figure(figsize=(8,5))
+        plt.bar(["cms/loadedp", "gms/loadedp", "(gms + cms)/loadedp"], [sd_cms_loadedp, sd_gms_loadedp, sd_cms_gms],
+                color=["cornflowerblue", "mediumseagreen", "orchid"])
+        plt.ylabel("Standard Deviation")
+        plt.title("Standard Deviation of cms/loadedp, gms/loadedp, and gms + cms")
         plt.grid(True)
         plt.show()
 
@@ -218,6 +239,7 @@ class PlotData:
         model.fit(expectedc, cms)
         y_pred = model.predict(expectedc)
         var_cms = np.var(cms)
+        sd_cms = np.std(cms)
         plt.figure(figsize=(8,5))
         plt.scatter(expectedc, cms, marker='o', color="cornflowerblue")
         plt.plot(expectedc, y_pred, linestyle="-", label="cms vs expectedc", color="cornflowerblue")
@@ -226,6 +248,7 @@ class PlotData:
         model.fit(expectedc, gms)
         y_pred = model.predict(expectedc)
         var_gms = np.var(gms)
+        sd_gms = np.std(gms)
         plt.scatter(expectedc, gms, marker='o', color="mediumseagreen")
         plt.plot(expectedc, y_pred, linestyle="-", label="gms vs expectedc", color="mediumseagreen")
         
@@ -240,5 +263,12 @@ class PlotData:
         plt.bar(["gms", "cms"], [var_gms, var_cms], color=["cornflowerblue", "mediumseagreen"])
         plt.ylabel("Variance")
         plt.title("Variance of gms and cms")
+        plt.grid(True)
+        plt.show()
+
+        plt.figure(figsize=(8,5))
+        plt.bar(["gms", "cms"], [sd_gms, sd_cms], color=["cornflowerblue", "mediumseagreen"])
+        plt.ylabel("Standard Deviation")
+        plt.title("Standard Deviation of gms and cms")
         plt.grid(True)
         plt.show()
