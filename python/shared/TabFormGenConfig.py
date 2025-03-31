@@ -2,6 +2,8 @@ import sys
 from PyQt6.QtWidgets import QApplication, QWidget,  QFormLayout, QGridLayout, QTabWidget, QLineEdit, QDateEdit, QPushButton, QLabel, QHBoxLayout, QFileDialog, QVBoxLayout, QGroupBox, QCheckBox, QSpinBox, QMessageBox, QListWidget, QListWidgetItem, QScrollArea
 from PyQt6.QtGui import QIntValidator
 from PyQt6.QtCore import Qt
+from FPIBGConfig import *
+from FPIBGLog import *
 import datetime
 
 
@@ -11,8 +13,14 @@ class TabGenConfig(QTabWidget):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
     
-    def Create(self):
+    def Create(self, FPIBGBase):
         """ Constructor for the TabGenConfig object, which sets up the form on the tab. """
+        # Create Base member variables
+        self.bobj = FPIBGBase
+        self.cfg = self.bobj.cfg.config
+        self.log = self.bobj.log.log
+        
+        
         scroll_area = QScrollArea()
         scroll_area.setWidgetResizable(True)
 
@@ -230,6 +238,12 @@ class TabGenConfig(QTabWidget):
         main_window_layout.addWidget(scroll_area)
         self.setLayout(main_window_layout)
         # self.setLayout(main_layout)
+
+        self.populate()
+
+    def populate(self):
+        print("Dict test:", self.cfg.application.doAuto)
+
     
     def update_list_widget(self, widget: QListWidget, list: list[str]):
         widget.clear()
