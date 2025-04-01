@@ -186,6 +186,7 @@ class TCPIPClient:
     def WriteCmd(self,CMD):
         self.command = CMD
         return self.Write()
+    
     def WriteGUI(self,msg,control):
         self.command = msg
         self.command = self.command.encode('utf-8')

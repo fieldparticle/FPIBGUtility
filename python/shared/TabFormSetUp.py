@@ -3,10 +3,15 @@ import sys
 from PyQt6.QtWidgets import QApplication, QWidget,  QFormLayout, QGridLayout, QTabWidget, QLineEdit
 from PyQt6.QtWidgets import QDateEdit, QPushButton,QLabel, QGroupBox,QVBoxLayout,QHBoxLayout, QTextEdit
 from PyQt6.QtCore import QThread, QObject, pyqtSignal as Signal, pyqtSlot as Slot
-from PyQt6.QtGui import QPixmap
+from PyQt6.QtGui import QPixmap,QImage
+from PIL import Image,ImageFile
 from FPIBGclient import *
+from FPIBGServer import *
+from _thread import *
+from PIL.ImageQt import ImageQt
 import threading
-
+from io import BytesIO
+ImageFile.LOAD_TRUNCATED_IMAGES = True
 class Worker(QObject):
     progress = Signal(int)
     completed = Signal(int)
@@ -20,13 +25,44 @@ class Worker(QObject):
        # self.progress.emit(i)
         self.completed.emit(0)
 
+class WorkerServerOpen(QObject):
+    progress = Signal(int)
+    completed = Signal(int)
+    def __init__(self, clientObj):
+        QObject.__init__(self)
+        self.clientObj = clientObj
+        print("sthread")
+    @Slot(int)
+    def do_work(self, n):
+        print("sthreadwork")
+        self.greenText( self.tcps.Text)
+        i = self.clientObj.tcps.Open()
+        if(i == 0):
+            self.greenText( self.tcps.Text)
+        else:
+            self.redText( self.tcps.Text)  
+        self.progress.emit(i)
+        self.completed.emit(0)
+
+class WorkerServer(QObject):
+    progress = Signal(int)
+    completed = Signal(int)
+    def __init__(self, clientObj):
+        QObject.__init__(self)
+        self.clientObj = clientObj
+    @Slot(int)
+    def do_work(self, n):
+        i = self.clientObj.tcps.OpenAdd(self.clientObj.server_ip,self.clientObj.server_port)
+       # self.progress.emit(i)
+        self.completed.emit(0)
+
+
 class WorkerRunSeries(QObject):
     progress = Signal(int)
     completed = Signal(int)
     def __init__(self, clientObj):
         QObject.__init__(self)
         self.clientObj = clientObj
-    
     @Slot(int)
     def do_work(self, n):
         command = "runseries"
@@ -34,26 +70,56 @@ class WorkerRunSeries(QObject):
         self.progress.emit(ret)
         ret = 0
         while ret == 0:
-            ret = self.clientObj.tcpc.ReadBlk(32)
+            print("read")
+            ret = self.clientObj.tcpc.ReadBlk(1024)
             self.progress.emit(0)
-            if "perfdone" in self.clientObj.tcpc.response.decode():
+            if "perfdone" in self.clientObj.tcpc.Text:
                 print()
                 self.completed.emit(0)
         
-           
-           
-            
 
 class TabSetup(QTabWidget):
 
-    
+    print_lock = threading.Lock()
+    servopenworker_requested = Signal(int)
     work_requested = Signal(int)
     work_requestedr = Signal(int)
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.tcpc = TCPIPClient("TCPIP Client")
-        self.tcps = TCPIPClient("TCPIP Server")
+        self.tcps = TCPIPServer("TCPIP Server")
+
+    ### Threads       
+    def openThread(self,tcps):
+        print("Treadin")
+        if(tcps.Open() == 0):
+            self.greenText( self.tcpc.getText())
+        else:
+            self.redText( self.tcpc.getText())  
+        tcps.Accept()
+        while tcps.RecieveBMPFile() == 0:
+            self.tcps.im = self.tcps.im.convert("RGBA")
+            data = self.tcps.im.tobytes("raw","RGBA")
+            qim = QImage(data, self.tcps.im.size[0], self.tcps.im.size[1],QImage.Format.Format_ARGB32)
+            pix = QPixmap.fromImage(qim)
+            self.image.setPixmap(pix)        
+       
+
     
+    def OpenServer(self):
+        #self.tcps.Open()
+        self.thread = threading.Thread(target=self.openThread,args=(self.tcps,))
+        self.thread.start()
+        #self.thread.join()
+
+    def getImg(self,tcps):
+        tcps.RecieveBMPFile()
+
+    def GetImages(self):
+        self.thread = threading.Thread(target=self.getImg,args=(self.tcps,))
+        self.thread.start()
+    
+
     def redText(self,msg) :
         Txt = "<span style=\" font-size:8pt; font-weight:600; color:red;\" >"
         Txt += msg
@@ -70,6 +136,10 @@ class TabSetup(QTabWidget):
         #self.btn_start.setEnabled(True)
         self.greenText( self.tcpc.getText())
         pass
+    
+    def complete_open_process(self):
+        self.greenText( self.tcps.getText())
+    
 
     def completer(self, v):
         #self.btn_start.setEnabled(True)
@@ -86,16 +156,23 @@ class TabSetup(QTabWidget):
             self.greenText( self.tcpc.getText())
         else:
             self.redText( self.tcpc.getText())  
+    #Start open server
+    def starts(self):
+        self.servopenworker_thread.start()
+        self.work_requestedr.emit(1)
+       
 
+    #Start runseries
     def startr(self):
         self.seriesButton.setEnabled(False)
         self.sseriesButton.setEnabled(False)
         self.sopenButton.setEnabled(False)
-        self.worker_threadr.start()
+        self.worker_threadr.start(0)
         #self.btn_start.setEnabled(False)
         n = 0
         self.work_requestedr.emit(n)
   
+    #Start open client
     def start(self):
         self.openButton.setEnabled(False)
         self.worker_thread.start()
@@ -104,10 +181,12 @@ class TabSetup(QTabWidget):
         n = 0
         self.work_requested.emit(n)
   
+            
 
-    def Open(self):
+    
+    def OpenClient(self):
        self.start()
-        
+
     def runSeries(self):
        self.startr()
 
@@ -182,7 +261,7 @@ class TabSetup(QTabWidget):
         self.openButton = QPushButton("Open")
         self.setSize(self.openButton,30,100)
         self.openButton.setStyleSheet("background-color:  #dddddd")
-        self.openButton.clicked.connect(self.Open)
+        self.openButton.clicked.connect(self.OpenClient)
 
         self.seriesButton = QPushButton("RunSeries")
         self.setSize(self.seriesButton,30,100)
@@ -219,15 +298,15 @@ class TabSetup(QTabWidget):
         self.sportEdit.setStyleSheet("background-color:  #ffffff")
         self.sportEdit.setText(str(self.server_port))
 
-        self.sopenButton = QPushButton("Open")
+        self.sopenButton = QPushButton("Open Server")
         self.setSize(self.sopenButton,30,100)
         self.sopenButton.setStyleSheet("background-color:  #dddddd")
-        self.sopenButton.clicked.connect(self.Open)
+        self.sopenButton.clicked.connect(self.OpenServer)
 
         self.sseriesButton = QPushButton("Get Image")
         self.setSize(self.sseriesButton,30,100)
         self.sseriesButton.setStyleSheet("background-color:  #dddddd")
-        #self.sseriesButton.clicked.connect(self.runSeries)
+        self.sseriesButton.clicked.connect(self.GetImages)
 
         
         sparamlo.addWidget(self.sipEdit,0,1)
@@ -293,9 +372,20 @@ class TabSetup(QTabWidget):
         self.workerr.progress.connect(self.update_progress)
         self.workerr.completed.connect(self.completer)
         self.work_requestedr.connect(self.workerr.do_work)
-        self.workerr.moveToThread(self.worker_thread)
+        self.workerr.moveToThread(self.worker_threadr)
         
+        self.servopenworker = WorkerServerOpen(self)
+        self.servopenworker_thread = QThread()
+        self.servopenworker.progress.connect(self.update_progress)
+        self.servopenworker.completed.connect(self.complete_open_process)
+        self.servopenworker_requested.connect(self.servopenworker.do_work)
+        self.servopenworker.moveToThread(self.servopenworker_thread)
 
+
+        if(self.tcps.Create(FPIBBase) == 0):
+            self.greenText( self.tcps.Text)
+        else:
+            self.redText( self.tcps.Text)  
         self.tcpc.CreateGUI(FPIBBase,self.terminal)
         
 
