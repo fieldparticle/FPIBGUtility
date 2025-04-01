@@ -26,7 +26,7 @@ class TabGenConfig(QTabWidget):
 
         # Create a widget to hold your main layout
         scroll_widget = QWidget()
-        main_layout = QVBoxLayout(scroll_widget)
+        self.main_layout = QVBoxLayout(scroll_widget)
 
         ### SECTION 1: FOLDER SELECTION ###
         folder_group = QGroupBox("Folder Selection")
@@ -44,7 +44,7 @@ class TabGenConfig(QTabWidget):
         # folder_layout.addRow("Folder:", hbox)
         folder_layout.addRow(folder_label, hbox)
         folder_group.setLayout(folder_layout)
-        main_layout.addWidget(folder_group)
+        self.main_layout.addWidget(folder_group)
 
         ### SECTION 2: FLOW CONTROL ###
         flow_group = QGroupBox("Flow Control")
@@ -83,7 +83,7 @@ class TabGenConfig(QTabWidget):
         flow_layout.addRow(self.report_graphics_frames, report_graphics_frames_label)
 
         flow_group.setLayout(flow_layout)
-        main_layout.addWidget(flow_group)
+        self.main_layout.addWidget(flow_group)
 
         ### SECTION 3: GPU ###
         gpu_group = QGroupBox("GPU")
@@ -143,7 +143,7 @@ class TabGenConfig(QTabWidget):
         gpu_layout.addRow(comp_label, comp_hbox)
 
         gpu_group.setLayout(gpu_layout)
-        main_layout.addWidget(gpu_group)
+        self.main_layout.addWidget(gpu_group)
 
         ### SECTION 4: LAUNCH ###
         launch_group = QGroupBox("Launch")
@@ -219,7 +219,7 @@ class TabGenConfig(QTabWidget):
         launch_layout.addWidget(self.val_lay_button_remove)
 
         launch_group.setLayout(launch_layout)
-        main_layout.addWidget(launch_group)
+        self.main_layout.addWidget(launch_group)
 
         # Add Values to lists
         self.update_list_widget(self.dev_ext_list_widget, self.dev_ext_list)
@@ -231,7 +231,7 @@ class TabGenConfig(QTabWidget):
         self.submitButton = QPushButton("Submit")
         self.submitButton.clicked.connect(self.sendFormData)
         # Add that button to the layout
-        main_layout.addWidget(self.submitButton)
+        self.main_layout.addWidget(self.submitButton)
 
         scroll_area.setWidget(scroll_widget)
         main_window_layout = QVBoxLayout(self)
@@ -329,11 +329,13 @@ class TabGenConfig(QTabWidget):
 
     def existsEmpty(self):
         empty_fields = []
-        layout = self.layout()
+
+        # layout = self.layout()
+        layout = self.main_layout
         for i in range(layout.count()):
             item = layout.itemAt(i)
             widget = item.widget()
-            print("Wrapper | Widget: " + str(type(widget)) + ", item: " + str(type(item)))
+            print("Wrapper | Widget: " + str(type(widget.layout())) + ", item: " + str(type(item)))
             if isinstance(widget, QGroupBox):
                 # Iterate through the layout of the QGroupBox
                 group_layout = widget.layout()
@@ -344,7 +346,7 @@ class TabGenConfig(QTabWidget):
                         print("Inner | Widget: " + str(type(group_widget)) + ", item: " + str(type(group_item)))
                         if group_widget is not None or isinstance(group_item, QHBoxLayout):
                             if isinstance(group_widget, QLineEdit):
-                                if not group_widget.text().strip():
+                                if not group_widget.text().strip() or group_widget.text().strip() == "":
                                     empty_fields.append(self.get_label_for_widget(group_widget, group_layout))
                             elif isinstance(group_widget, QSpinBox):
                                 if group_widget.value() == group_widget.minimum():
@@ -354,7 +356,7 @@ class TabGenConfig(QTabWidget):
                                 if hbox_layout:
                                     folder_line_edit = hbox_layout.itemAt(0).widget()  # Access the QLineEdit
                                     if isinstance(folder_line_edit, QLineEdit):
-                                        if not folder_line_edit.text().strip():
+                                        if not folder_line_edit.text().strip() or folder_line_edit.text().strip() == "":
                                             empty_fields.append(self.get_label_for_hbox(group_item, group_layout))  # Or a more specific label
                             # Add checks for other input widget types as needed
 
