@@ -93,11 +93,12 @@ class TabSetup(QTabWidget):
     def openThread(self,tcps):
         print("Treadin")
         if(tcps.Open() == 0):
-            self.greenText( self.tcpc.getText())
+            self.greenText( self.tcps.Text)
         else:
-            self.redText( self.tcpc.getText())  
+            self.redText( self.tcps.Text)  
         tcps.Accept()
         while tcps.RecieveBMPFile() == 0:
+            self.greenText( self.tcps.Text)
             self.tcps.im = self.tcps.im.convert("RGBA")
             data = self.tcps.im.tobytes("raw","RGBA")
             qim = QImage(data, self.tcps.im.size[0], self.tcps.im.size[1],QImage.Format.Format_ARGB32)
@@ -112,8 +113,7 @@ class TabSetup(QTabWidget):
         self.thread.start()
         #self.thread.join()
 
-    def getImg(self,tcps):
-        tcps.RecieveBMPFile()
+   
 
     def GetImages(self):
         self.thread = threading.Thread(target=self.getImg,args=(self.tcps,))
@@ -258,7 +258,7 @@ class TabSetup(QTabWidget):
         self.portEdit.setStyleSheet("background-color:  #ffffff")
         self.portEdit.setText(str(self.server_port))
 
-        self.openButton = QPushButton("Open")
+        self.openButton = QPushButton("Open Client")
         self.setSize(self.openButton,30,100)
         self.openButton.setStyleSheet("background-color:  #dddddd")
         self.openButton.clicked.connect(self.OpenClient)
@@ -303,10 +303,10 @@ class TabSetup(QTabWidget):
         self.sopenButton.setStyleSheet("background-color:  #dddddd")
         self.sopenButton.clicked.connect(self.OpenServer)
 
-        self.sseriesButton = QPushButton("Get Image")
-        self.setSize(self.sseriesButton,30,100)
-        self.sseriesButton.setStyleSheet("background-color:  #dddddd")
-        self.sseriesButton.clicked.connect(self.GetImages)
+        #self.sseriesButton = QPushButton("Get Image")
+        #self.setSize(self.sseriesButton,30,100)
+        #self.sseriesButton.setStyleSheet("background-color:  #dddddd")
+        #self.sseriesButton.clicked.connect(self.GetImages)
 
         
         sparamlo.addWidget(self.sipEdit,0,1)
@@ -314,7 +314,7 @@ class TabSetup(QTabWidget):
         sparamlo.addWidget(self.sportEdit,1,2)
         sparamlo.addWidget(self.sportLabel,1,0)
         sparamlo.addWidget(self.sopenButton,2,0)
-        sparamlo.addWidget(self.sseriesButton,2,1)
+        #sparamlo.addWidget(self.sseriesButton,2,1)
 
 
         ## -------------------------------------------------------------
