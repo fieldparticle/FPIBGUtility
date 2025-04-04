@@ -220,12 +220,15 @@ class TCPIPClient:
     def RecieveCSVFile(self):
         #Read the number of blocks, type of report file, and filename
         self.Read()
-        msg = self.response.decode();
+        msg = self.response.decode()
         msg = msg.split(",")
-        match msg[1]:
+        match msg[0]:
             case "1":         
                 outdir = self.savecvsdir + "/perfdataPQB/" + msg[2]
-        blks = int(msg[0])
+                self.Text = "Recieving {}".format(outdir)
+            case "perfdone":
+                return 1
+        blks = int(msg[1])
         print(outdir)
         try:
             f = open(outdir, "w")
@@ -236,6 +239,8 @@ class TCPIPClient:
                     self.objname,
                     self.dlvl+4,
                     err)
+            s = "Error {0}".format(str(err)) 
+            self.Text = s
             print("File not Saved" + err )
             return 
         #else
@@ -251,6 +256,7 @@ class TCPIPClient:
             wline = self.response.decode();
             modified_lines = [line.rstrip('\r\x00') for line in wline]
             f.writelines(modified_lines)
+        return 0
 
     
     def RecieveImgFile(self):
