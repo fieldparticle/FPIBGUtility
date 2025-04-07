@@ -1,9 +1,11 @@
+import io
 import pandas as pd
 import os
 from sklearn.linear_model import LinearRegression
 import numpy as np
 from scipy.optimize import curve_fit
 import matplotlib.pyplot as plt
+from PyQt6.QtGui import QPixmap, QImage
 
 class PlotData:
     def Create(self, BaseObj, file_end):
@@ -104,8 +106,16 @@ class PlotData:
         plt.title(f"{os.path.basename(self.topdir)}: B1 Plot")
         plt.legend()
         plt.grid(True)
-        plt.show()
+        buf = io.BytesIO()
+        fig = plt.gcf()
+        fig.savefig(buf, format='png')
+        buf.seek(0)
 
+        image = QImage()
+        image.loadFromData(buf.getvalue())
+        pixmap = QPixmap.fromImage(image)
+        return pixmap
+        
         plt.figure(figsize=(8,5))
         plt.bar(["gms", "cms", "gms + cms"], [var_gms, var_cms, var_gms_cms], color=["cornflowerblue", "mediumseagreen", "orchid"])
         plt.ylabel("Variance")
@@ -160,7 +170,16 @@ class PlotData:
         plt.title(f"{os.path.basename(self.topdir)}: Linearity")
         plt.legend()
         plt.grid(True)
-        plt.show()
+
+        buf = io.BytesIO()
+        fig = plt.gcf()
+        fig.savefig(buf, format='png')
+        buf.seek(0)
+
+        image = QImage()
+        image.loadFromData(buf.getvalue())
+        pixmap = QPixmap.fromImage(image)
+        return pixmap
 
         plt.figure(figsize=(8,5))
         plt.bar(["cms/loadedp", "gms/loadedp", "(gms + cms)/loadedp"], [var_cms_loadedp, var_gms_loadedp, var_cms_gms],
@@ -207,7 +226,16 @@ class PlotData:
         plt.title(f"{os.path.basename(self.topdir)}: Cell Fraction Benchmark")
         plt.legend()
         plt.grid(True)
-        plt.show()
+        
+        buf = io.BytesIO()
+        fig = plt.gcf()
+        fig.savefig(buf, format='png')
+        buf.seek(0)
+
+        image = QImage()
+        image.loadFromData(buf.getvalue())
+        pixmap = QPixmap.fromImage(image)
+        return pixmap
 
     def plot_fps_vs_loadedp(self):
         df = pd.read_csv(self.topdir)
