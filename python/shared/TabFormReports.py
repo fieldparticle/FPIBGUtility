@@ -1,9 +1,13 @@
 import sys
+from FPIBGPlotData import *
+from FPIBGBase import *
+import getpass 
 from PyQt6.QtWidgets import (
     QApplication, QMainWindow, QMdiArea, QMdiSubWindow, QWidget, QVBoxLayout,
     QTabWidget, QLabel, QScrollArea, QGroupBox, QFormLayout, QLineEdit, QPushButton,
     QHBoxLayout,QRadioButton, QFileDialog, QSpacerItem, QSizePolicy, QTextEdit )
 from PyQt6.QtCore import Qt
+from PyQt6.QtGui import QPixmap
 
 class TabReports(QTabWidget):
     def __init__(self, *args, **kwargs):
@@ -49,6 +53,17 @@ class TabReports(QTabWidget):
         return
 
     def Create(self):
+        guser = getpass.getuser() 
+        bc = FPIBGBase("GlobalBaseClass")
+        match guser:
+            case "jbwk":
+                bc.Create("ParticleJB.cfg",'MyLog.log')
+            case _:
+                bc.Create("ParticleKM.cfg",'KMLog.log')
+        myClass = PlotData("ExampleObject")
+        myClass.Create(bc,"PQB")
+        myClass.Open()
+
         scroll_area = QScrollArea()
         scroll_area.setWidgetResizable(True)
         scroll_widget = QWidget()
@@ -134,7 +149,9 @@ class TabReports(QTabWidget):
         self.spfvn_tab = QWidget()
         spfvn_layout = QVBoxLayout(self.spfvn_tab)
 
-        spfvn_image = QLabel("PLACEHOLDER WIDGET FOR IMAGE")
+        spfvn_image = QLabel()
+        spfvn_pixmap = myClass.plot_B1()
+        spfvn_image.setPixmap(spfvn_pixmap)
 
         spfvn_buttons = QHBoxLayout()
         self.save_latex_spfvn_button = QPushButton("Save Latex")
@@ -254,7 +271,9 @@ class TabReports(QTabWidget):
         self.lintot_tab = QWidget()
         lintot_layout = QVBoxLayout(self.lintot_tab)
 
-        lintot_image = QLabel("PLACEHOLDER WIDGET FOR IMAGE")
+        lintot_image = QLabel()
+        lintot_pixmap = myClass.plot_linearity()
+        lintot_image.setPixmap(lintot_pixmap)
 
         lintot_buttons = QHBoxLayout()
         self.save_latex_lintot_button = QPushButton("Save Latex")
