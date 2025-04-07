@@ -10,6 +10,8 @@ from _thread import *
 from PIL.ImageQt import ImageQt
 import threading
 from io import BytesIO
+from pyqtLED import QtLed
+
 ImageFile.LOAD_TRUNCATED_IMAGES = True
 
 class TabGenVPerf(QTabWidget):
@@ -36,18 +38,19 @@ class TabGenVPerf(QTabWidget):
         self.server_port = self.cfg.server_port
         self.client_ip = self.cfg.client_ip
         self.client_port = self.cfg.client_port
+        self.save_csv_dir = self.cfg.save_csv_dir
 
         self.setStyleSheet("background-color:  #eeeeee")
         tab_layout = QGridLayout()
-        tab_layout.setAlignment(Qt.AlignmentFlag.AlignLeft)
-        tab_layout.setAlignment(Qt.AlignmentFlag.AlignTop)
+       # tab_layout.setAlignment(Qt.AlignmentFlag.AlignLeft)
+     #   tab_layout.setAlignment(Qt.AlignmentFlag.AlignTop)
         self.setLayout(tab_layout)
 
         ## -------------------------------------------------------------
         ## Mode Panel
         modegrp = QGroupBox("Mode")
         self.setSize(modegrp,120,200)
-        tab_layout.addWidget(modegrp,0,0,1,2)
+        tab_layout.addWidget(modegrp,0,0,1,2,alignment= Qt.AlignmentFlag.AlignLeft)
         
         modegrid = QGridLayout()
         modegrp.setLayout(modegrid)
@@ -62,7 +65,7 @@ class TabGenVPerf(QTabWidget):
         ## Mode Panel
         typegrp = QGroupBox("Test Type")
         self.setSize(typegrp,120,150)
-        tab_layout.addWidget(typegrp,0,1,1,2)
+        tab_layout.addWidget(typegrp,0,1,1,2,alignment= Qt.AlignmentFlag.AlignLeft)
         
         typegrid = QGridLayout()
         typegrp.setLayout(typegrid)
@@ -79,14 +82,14 @@ class TabGenVPerf(QTabWidget):
         ## Set parent directory
         typegrp = QGroupBox("Test Parent Directory")
         self.setSize(typegrp,120,300)
-        tab_layout.addWidget(typegrp,0,2,1,2)
+        tab_layout.addWidget(typegrp,0,2,1,2,alignment= Qt.AlignmentFlag.AlignLeft)
         
         dirgrid = QGridLayout()
         typegrp.setLayout(dirgrid)
 
         self.dirEdit =  QLineEdit()
         self.dirEdit.setStyleSheet("background-color:  #ffffff")
-        self.dirEdit.setText(self.server_ip)
+        self.dirEdit.setText(self.save_csv_dir)
 
         self.dirButton = QPushButton("Browse")
         self.setSize(self.dirButton,30,100)
@@ -94,4 +97,112 @@ class TabGenVPerf(QTabWidget):
         self.dirButton.clicked.connect(self.browseFolder)
         dirgrid.addWidget(self.dirButton,0,0)
         dirgrid.addWidget(self.dirEdit,0,1)
+
+
+        ## -------------------------------------------------------------
+        ## Verification Checks
+        chcksgrp = QGroupBox("Verification Checks")
+        self.setSize(chcksgrp,120,600)
+        tab_layout.addWidget(chcksgrp,1,0,1,3,alignment= Qt.AlignmentFlag.AlignLeft)
         
+        dirgrid = QGridLayout()
+        chcksgrp.setLayout(dirgrid)
+        
+        self.loadedDisk =  QLineEdit()
+        self.loadedDisk.setStyleSheet("background-color:  #ffffff")
+        self.setSize(self.loadedDisk,20,100)
+        self.loadedDisk.setText("0")
+
+        self.loadedGPU =  QLineEdit()
+        self.loadedGPU.setStyleSheet("background-color:  #ffffff")
+        self.setSize(self.loadedGPU,20,100)
+        self.loadedGPU.setText("0")
+
+        self.processedCompute =  QLineEdit()
+        self.processedCompute.setStyleSheet("background-color:  #ffffff")
+        self.setSize(self.processedCompute,20,100)
+        self.processedCompute.setText("0")
+
+        self.processedGraphics =  QLineEdit()
+        self.processedGraphics.setStyleSheet("background-color:  #ffffff")
+        self.setSize(self.processedGraphics,20,100)
+        self.processedGraphics.setText("0")
+
+        self.loadedDiskLED = QtLed("green")
+        self.loadedGPULED = QtLed("green")
+        self.processedComputeLED = QtLed("green")
+        self.ProcessedGraphicsLED = QtLed("green")
+        self.collisionsComputeLED = QtLed("green")
+        self.collisionsGraphicsLED = QtLed("green")
+
+        self.collisionsDisk =  QLineEdit()
+        self.collisionsDisk.setStyleSheet("background-color:  #ffffff")
+        self.setSize(self.collisionsDisk,20,100)
+        self.collisionsDisk.setText("0")
+
+        self.collisionsComp =  QLineEdit()
+        self.collisionsComp.setStyleSheet("background-color:  #ffffff")
+        self.setSize(self.collisionsComp,20,100)
+        self.collisionsComp.setText("0")
+
+        dirgrid.addWidget(QLabel('Particles loaded from disk:'),0,0)
+        dirgrid.addWidget(self.loadedDisk,0,1)
+        dirgrid.addWidget(self.loadedDiskLED,0,2)
+        dirgrid.addWidget(QLabel('Particles loaded to GPU:'),1,0)
+        dirgrid.addWidget(self.loadedGPU,1,1)
+        dirgrid.addWidget(self.loadedGPULED,1,2)
+        dirgrid.addWidget(QLabel('Particles processed in compute:'),2,0)
+        dirgrid.addWidget(self.processedCompute,2,1)
+        dirgrid.addWidget(self.processedComputeLED,2,2)
+        dirgrid.addWidget(QLabel('Particles processed in graphics:'),3,0)
+        dirgrid.addWidget(self.processedGraphics,3,1)
+        dirgrid.addWidget(self.ProcessedGraphicsLED,3,2)
+
+        dirgrid.addWidget(QLabel('Collisions loaded from disk:'),0,4)
+        dirgrid.addWidget(self.collisionsDisk,0,5)
+        dirgrid.addWidget(self.collisionsComputeLED,0,6)
+        dirgrid.addWidget(QLabel('Collisions Compute:'),1,4)
+        dirgrid.addWidget(self.collisionsComp,1,5)
+        dirgrid.addWidget(self.collisionsGraphicsLED,1,6)
+
+        ## -------------------------------------------------------------
+        ## Comunications Interface
+        commgrp = QGroupBox("Communications Terminal")
+        self.setSize(commgrp,450,420)
+        tab_layout.addWidget(commgrp,2,0,1,2,alignment= Qt.AlignmentFlag.AlignLeft)
+
+        commlo = QGridLayout()
+        commgrp.setLayout(commlo)
+
+        self.terminal =  QTextEdit()
+        self.terminal.setStyleSheet("background-color:  #ffffff; color: green")
+        self.setSize(commgrp,350,400)
+        self.terminal.setAlignment(Qt.AlignmentFlag.AlignTop)
+   
+        self.command =  QLineEdit()
+        self.command.setStyleSheet("background-color:  #ffffff")
+       
+        commlo.addWidget(QLabel('Terminal'),0,0)
+        commlo.addWidget(self.terminal,1,0)
+        commlo.addWidget(QLabel('Command'),2,0)
+        commlo.addWidget(self.command,3,0)
+
+       #self.command.editingFinished.connect(self.xmitCommand)
+        
+        ## -------------------------------------------------------------
+        ## Series Box
+        serGrp = QGroupBox("Series Type")
+        serGrp.setAlignment(Qt.AlignmentFlag.AlignLeft)
+        self.setSize(serGrp,100,100)
+        tab_layout.addWidget(serGrp,2,2,1,1,alignment= Qt.AlignmentFlag.AlignTop | Qt.AlignmentFlag.AlignLeft)        
+        sergrid = QGridLayout()
+        serGrp.setLayout(sergrid)
+
+
+        self.seriesRadio = QRadioButton("Series",self)
+        #self.seriesRadio.setStyleSheet("background-color:  #ffffff")
+        self.singleRadio = QRadioButton("Single",self)
+        #self.singleRadio.setStyleSheet("background-color:  #ffffff")
+        
+        sergrid.addWidget(self.seriesRadio,1,0)
+        sergrid.addWidget(self.singleRadio,0,0)
