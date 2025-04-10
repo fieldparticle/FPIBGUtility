@@ -52,16 +52,13 @@ class TabReports(QTabWidget):
         #TODO
         return
 
-    def Create(self):
-        guser = getpass.getuser() 
-        bc = FPIBGBase("GlobalBaseClass")
-        match guser:
-            case "jbwk":
-                bc.Create("ParticleJB.cfg",'MyLog.log')
-            case _:
-                bc.Create("ParticleKM.cfg",'KMLog.log')
+    def Create(self, FPIBGBase):
+        self.bobj = FPIBGBase
+        self.cfg = self.bobj.cfg.config
+        self.log = self.bobj.log.log
+
         myClass = PlotData("ExampleObject")
-        myClass.Create(bc,"PQB")
+        myClass.Create(self.bobj,"PQB")
         myClass.Open()
 
         scroll_area = QScrollArea()
@@ -116,6 +113,10 @@ class TabReports(QTabWidget):
         ####### FPS v N #######
         self.fpsvn_tab = QWidget()
         fpsvn_layout = QVBoxLayout(self.fpsvn_tab)
+
+        fpsvn_image = QLabel()
+        fpsvn_pixmap = myClass.plot_B1()
+        fpsvn_image.setPixmap(fpsvn_pixmap)
         
         fpsvn_image = QLabel("PLACEHOLDER WIDGET FOR IMAGE")
 

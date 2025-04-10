@@ -23,6 +23,7 @@ class PlotData:
                 self.topdir = self.cfg.application.testdirCFB
         newdir = self.new_path(self.topdir) + ".csv"
         self.topdir = os.path.join(self.topdir, newdir)
+        print(self.topdir)
 
     def Open(self):
         pass
@@ -253,7 +254,16 @@ class PlotData:
         plt.title(f"{os.path.basename(self.topdir)}: Frames Per Second vs Loaded Particles")
         plt.legend()
         plt.grid(True)
-        plt.show()
+        
+        buf = io.BytesIO()
+        fig = plt.gcf()
+        fig.savefig(buf, format='png')
+        buf.seek(0)
+
+        image = QImage()
+        image.loadFromData(buf.getvalue())
+        pixmap = QPixmap.fromImage(image)
+        return pixmap
 
     def plot_expectedc(self):
         df = pd.read_csv(self.topdir)

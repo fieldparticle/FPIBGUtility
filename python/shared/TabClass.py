@@ -44,7 +44,7 @@ class TabObj(QTabWidget):
         self.tabFormWelcome.Create()
         self.tabFormSetup.Create(FPIBGBase)
         self.tabFormGenConfig.Create(FPIBGBase)
-        self.tabFormReports.Create()
+        self.tabFormReports.Create(FPIBGBase)
         self.tabFormRunRpt.Create()
         self.tabFormGenData.Create(FPIBGBase)
         self.tabFormGenVPerf.Create(FPIBGBase)
