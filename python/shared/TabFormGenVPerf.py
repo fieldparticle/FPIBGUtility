@@ -17,6 +17,8 @@ ImageFile.LOAD_TRUNCATED_IMAGES = True
 class TabGenVPerf(QTabWidget):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        self.tcpc = TCPIPClient("TCPIP Client")
+        self.tcps = TCPIPServer("TCPIP Server")
 
     def setSize(self,control,H,W):
         control.setMinimumHeight(H)
@@ -27,8 +29,57 @@ class TabGenVPerf(QTabWidget):
         """ Opens a dialog window for the user to select a folder in the file system. """
         folder = QFileDialog.getExistingDirectory(self, "Select Folder")
         if folder:
-            self.folderLineEdit.setText(folder)
-            self.log_action("browseFolder", folder)
+            self.dirEdit.setText(folder)
+
+    def redText(self,msg) :
+        Txt = "<span style=\" font-size:8pt; font-weight:600; color:red;\" >"
+        Txt += msg
+        Txt += "</span>"
+        self.terminal.append( Txt)
+
+    def greenText(self,msg) :
+        Txt = "<span style=\" font-size:8pt; font-weight:600; color:green;\" >"
+        Txt += msg
+        Txt += "</span>"
+        self.terminal.append( Txt)      
+
+    def runSeriesThread(self,tcpc):
+        if(tcpc.Open() == 0):
+            self.greenText( self.tcpc.Text)
+        else:
+            self.redText( self.tcpc.Text)  
+        command = "runseries"
+        ret = tcpc.WriteCmd(command)
+        ret = 0
+        while ret == 0:
+            ret = tcpc.ReadBlk(1024)
+            msg = self.tcpc.Text.split(",")
+            match msg[0]:
+                case "perfline":
+                    
+                    self.loadedDisk.setText(msg[7])
+                    self.processedGraphics.setText(msg[9])
+                    self.processedCompute.setText(msg[8])
+                    self.collisionsDisk.setText(msg[10]) 
+                    self.collisionsComp.setText(msg[11])
+                    if msg[14] == "1":
+                        self.processedComputeLED.changeColor("red")    
+                    if msg[15] == "1":
+                        self.ProcessedGraphicsLED.changeColor("red")    
+                    if msg[16] == "1":
+                        self.collisionsComputeLED.changeColor("red") 
+                case "csvfile":
+                    ret = tcpc.RecieveCSVFile()        
+                    self.greenText(tcpc.Text)
+                case "perfdone":
+                    break
+            self.tcpc.command = "cont"
+            self.tcpc.Write()            
+        print("Perf Study done.") 
+        self.greenText("Perf Study Done.")
+    def runSeries(self):
+        self.thread = threading.Thread(target=self.runSeriesThread,args=(self.tcpc,))
+        self.thread.start()
     
     def Create(self,FPIBBase):
         self.bobj = FPIBBase;
@@ -57,9 +108,10 @@ class TabGenVPerf(QTabWidget):
 
         self.VerifyRadio = QRadioButton("Verify (D)",self)
         self.PerformanceRadio = QRadioButton("Performance (R)",self)
-        
+        self.PerformanceRadio.toggle()
         modegrid.addWidget(self.VerifyRadio,1,1)
         modegrid.addWidget(self.PerformanceRadio,0,1)
+
         
         ## -------------------------------------------------------------
         ## Mode Panel
@@ -76,6 +128,8 @@ class TabGenVPerf(QTabWidget):
         self.typlist.insertItem(1, "PCD")
         self.typlist.insertItem(2, "CFB")
         self.typlist.insertItem(3, "DUP")
+        self.typlist.setCurrentRow(0)
+
         typegrid.addWidget(self.typlist)
         
         ## -------------------------------------------------------------
@@ -128,12 +182,12 @@ class TabGenVPerf(QTabWidget):
         self.setSize(self.processedGraphics,20,100)
         self.processedGraphics.setText("0")
 
-        self.loadedDiskLED = QtLed("green")
-        self.loadedGPULED = QtLed("green")
+        #self.loadedDiskLED = QtLed("green")
+        #self.loadedGPULED = QtLed("green")
         self.processedComputeLED = QtLed("green")
         self.ProcessedGraphicsLED = QtLed("green")
         self.collisionsComputeLED = QtLed("green")
-        self.collisionsGraphicsLED = QtLed("green")
+        self.collisionsGraphicsLED = QtLed("red")
 
         self.collisionsDisk =  QLineEdit()
         self.collisionsDisk.setStyleSheet("background-color:  #ffffff")
@@ -147,10 +201,10 @@ class TabGenVPerf(QTabWidget):
 
         dirgrid.addWidget(QLabel('Particles loaded from disk:'),0,0)
         dirgrid.addWidget(self.loadedDisk,0,1)
-        dirgrid.addWidget(self.loadedDiskLED,0,2)
-        dirgrid.addWidget(QLabel('Particles loaded to GPU:'),1,0)
-        dirgrid.addWidget(self.loadedGPU,1,1)
-        dirgrid.addWidget(self.loadedGPULED,1,2)
+        # dirgrid.addWidget(self.loadedDiskLED,0,2)
+        #dirgrid.addWidget(QLabel('Particles loaded to GPU:'),1,0)
+        #dirgrid.addWidget(self.loadedGPU,1,1)
+       #dirgrid.addWidget(self.loadedGPULED,1,2)
         dirgrid.addWidget(QLabel('Particles processed in compute:'),2,0)
         dirgrid.addWidget(self.processedCompute,2,1)
         dirgrid.addWidget(self.processedComputeLED,2,2)
@@ -163,7 +217,7 @@ class TabGenVPerf(QTabWidget):
         dirgrid.addWidget(self.collisionsComputeLED,0,6)
         dirgrid.addWidget(QLabel('Collisions Compute:'),1,4)
         dirgrid.addWidget(self.collisionsComp,1,5)
-        dirgrid.addWidget(self.collisionsGraphicsLED,1,6)
+        dirgrid.addWidget(self.collisionsComputeLED,1,6)
 
         ## -------------------------------------------------------------
         ## Comunications Interface
@@ -176,7 +230,7 @@ class TabGenVPerf(QTabWidget):
 
         self.terminal =  QTextEdit()
         self.terminal.setStyleSheet("background-color:  #ffffff; color: green")
-        self.setSize(commgrp,350,400)
+        self.setSize(commgrp,350,750)
         self.terminal.setAlignment(Qt.AlignmentFlag.AlignTop)
    
         self.command =  QLineEdit()
@@ -194,15 +248,44 @@ class TabGenVPerf(QTabWidget):
         serGrp = QGroupBox("Series Type")
         serGrp.setAlignment(Qt.AlignmentFlag.AlignLeft)
         self.setSize(serGrp,100,100)
-        tab_layout.addWidget(serGrp,2,2,1,1,alignment= Qt.AlignmentFlag.AlignTop | Qt.AlignmentFlag.AlignLeft)        
+        tab_layout.addWidget(serGrp,2,3,1,1,alignment= Qt.AlignmentFlag.AlignTop | Qt.AlignmentFlag.AlignLeft)        
         sergrid = QGridLayout()
         serGrp.setLayout(sergrid)
 
 
         self.seriesRadio = QRadioButton("Series",self)
+        self.seriesRadio.toggle()
         #self.seriesRadio.setStyleSheet("background-color:  #ffffff")
         self.singleRadio = QRadioButton("Single",self)
         #self.singleRadio.setStyleSheet("background-color:  #ffffff")
         
         sergrid.addWidget(self.seriesRadio,1,0)
         sergrid.addWidget(self.singleRadio,0,0)
+
+        ## -------------------------------------------------------------
+        ## Control Box
+        ctrlGrp = QGroupBox("Run Control")
+        ctrlGrp.setAlignment(Qt.AlignmentFlag.AlignLeft)
+        self.setSize(ctrlGrp,100,130)
+        tab_layout.addWidget(ctrlGrp,2,3,1,1,alignment= Qt.AlignmentFlag.AlignVCenter | Qt.AlignmentFlag.AlignLeft)        
+        ctrlgrid = QGridLayout()
+        ctrlGrp.setLayout(ctrlgrid)
+
+        self.runButton = QPushButton("Run Tests")
+        self.setSize(self.runButton,30,100)
+        self.runButton.setStyleSheet("background-color:  #dddddd")
+        #self.runButton.clicked.connect(self.DoAll)
+        ctrlgrid.addWidget(self.runButton,0,1,1,1)
+        self.runButton.clicked.connect(self.runSeries)
+
+        self.stopButton = QPushButton("Stop")
+        self.setSize(self.stopButton,30,100)
+        self.stopButton.setStyleSheet("background-color:  #dddddd")
+        #self.runButton.clicked.connect(self.DoAll)
+        ctrlgrid.addWidget(self.stopButton,1,1,1,1)
+
+        if(self.tcps.Create(FPIBBase) == 0):
+            self.greenText( self.tcps.Text)
+        else:
+            self.redText( self.tcps.Text)  
+        self.tcpc.CreateGUI(FPIBBase,self.terminal)

@@ -24,7 +24,7 @@ class TabSetup(QTabWidget):
         self.tcpc = TCPIPClient("TCPIP Client")
         self.tcps = TCPIPServer("TCPIP Server")
 
-    ### Threads       
+    ### Open server to recieve image files
     def openServerThread(self,tcps):
         print("Treadin")
         if(tcps.Open() == 0):
@@ -54,6 +54,10 @@ class TabSetup(QTabWidget):
         self.thread.start()
 
     def runSeriesThread(self,tcpc):
+        if(tcpc.Open() == 0):
+            self.greenText( self.tcpc.Text)
+        else:
+            self.redText( self.tcpc.Text)  
         command = "runseries"
         ret = tcpc.WriteCmd(command)
         ret = 0

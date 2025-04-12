@@ -34,8 +34,8 @@ class TabObj(QTabWidget):
         self.addTab(self.tabFormGenConfig, 'General Configuration')
         self.addTab(self.tabFormGenVPerf, 'Verification and Performance Testing')
         self.addTab(self.tabFormReports, 'Reports')
-        self.addTab(self.tabFormRunRpt, 'Run')
-        self.addTab(self.tabFormRunSim, 'Run Simulation Movie')
+        self.addTab(self.tabFormRunRpt, 'Movie ')
+        self.addTab(self.tabFormRunSim, 'Run Simulation')
         self.addTab(self.tabFormSetup, 'Setup')
         self.addTab(self.tabFormGenData, 'Gen Data')
         
@@ -46,6 +46,7 @@ class TabObj(QTabWidget):
         self.tabFormGenConfig.Create(FPIBGBase)
         self.tabFormReports.Create()
         self.tabFormRunRpt.Create()
+        self.tabFormRunSim.Create(FPIBGBase)
         self.tabFormGenData.Create(FPIBGBase)
         self.tabFormGenVPerf.Create(FPIBGBase)
         
