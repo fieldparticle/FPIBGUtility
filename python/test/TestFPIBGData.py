@@ -22,8 +22,8 @@ match guser:
     case _:
         bc.Create("ParticleKM.cfg",'KMLog.log')
 
-myClass = DataClass(True, "ExampleObject")
-myClass.Create(bc,"PQB")
+myClass = DataClass("ExampleObject")
+myClass.Create(bc,"PCD")
 
 myClass.Open()
 if (myClass.check_data_files() != True):
