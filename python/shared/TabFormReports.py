@@ -57,9 +57,17 @@ class TabReports(QTabWidget):
         self.cfg = self.bobj.cfg.config
         self.log = self.bobj.log.log
 
-        myClass = PlotData("ExampleObject")
-        myClass.Create(self.bobj,"PQB")
-        myClass.Open()
+        PQBClass = PlotData("ExampleObject")
+        PQBClass.Create(self.bobj,"PQB")
+        PQBClass.Open()
+
+        PCDClass = PlotData("ExampleObject")
+        PCDClass.Create(self.bobj,"PCD")
+        PCDClass.Open()
+
+        CFBClass = PlotData("ExampleObject")
+        CFBClass.Create(self.bobj,"CFB")
+        CFBClass.Open()
 
         scroll_area = QScrollArea()
         scroll_area.setWidgetResizable(True)
@@ -115,10 +123,8 @@ class TabReports(QTabWidget):
         fpsvn_layout = QVBoxLayout(self.fpsvn_tab)
 
         fpsvn_image = QLabel()
-        fpsvn_pixmap = myClass.plot_B1()
+        fpsvn_pixmap = PQBClass.PlotData("fpsvn")
         fpsvn_image.setPixmap(fpsvn_pixmap)
-        
-        fpsvn_image = QLabel("PLACEHOLDER WIDGET FOR IMAGE")
 
         fpsvn_buttons = QHBoxLayout()
         spacer = QSpacerItem(40, 2, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
@@ -151,7 +157,7 @@ class TabReports(QTabWidget):
         spfvn_layout = QVBoxLayout(self.spfvn_tab)
 
         spfvn_image = QLabel()
-        spfvn_pixmap = myClass.plot_B1()
+        spfvn_pixmap = PQBClass.PlotData("spfvn")
         spfvn_image.setPixmap(spfvn_pixmap)
 
         spfvn_buttons = QHBoxLayout()
@@ -273,7 +279,7 @@ class TabReports(QTabWidget):
         lintot_layout = QVBoxLayout(self.lintot_tab)
 
         lintot_image = QLabel()
-        lintot_pixmap = myClass.plot_linearity()
+        lintot_pixmap = PQBClass.PlotData("lintot")
         lintot_image.setPixmap(lintot_pixmap)
 
         lintot_buttons = QHBoxLayout()
@@ -321,7 +327,9 @@ class TabReports(QTabWidget):
         self.spfvside_tab = QWidget()
         spfvside_layout = QVBoxLayout(self.spfvside_tab)
 
-        spfvside_image = QLabel("PLACEHOLDER WIDGET FOR IMAGE")
+        spfvside_image = QLabel()
+        spfvside_pixmap = PCDClass.PlotData("spfvside")
+        spfvside_image.setPixmap(spfvside_pixmap)
 
         spfvside_buttons = QHBoxLayout()
         self.save_latex_spfvside_button = QPushButton("Save Latex")
@@ -368,7 +376,9 @@ class TabReports(QTabWidget):
         self.graphspfvn_tab = QWidget()
         graphspfvn_layout = QVBoxLayout(self.graphspfvn_tab)
 
-        graphspfvn_image = QLabel("PLACEHOLDER WIDGET FOR IMAGE")
+        graphspfvn_image = QLabel()
+        graphspfvn_pixmap = CFBClass.PlotData("spfvside")
+        graphspfvn_image.setPixmap(graphspfvn_pixmap)
 
         graphspfvn_buttons = QHBoxLayout()
         self.save_latex_graphspfvn_button = QPushButton("Save Latex")

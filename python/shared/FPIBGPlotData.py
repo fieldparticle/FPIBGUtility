@@ -23,7 +23,6 @@ class PlotData:
                 self.topdir = self.cfg.application.testdirCFB
         newdir = self.new_path(self.topdir) + ".csv"
         self.topdir = os.path.join(self.topdir, newdir)
-        print(self.topdir)
 
     def Open(self):
         pass
@@ -39,6 +38,17 @@ class PlotData:
 
     def __init__(self, ObjName):
         self.ObjName = ObjName
+
+    def PlotData(self, name):
+        match name:
+            case "fpsvn":
+                return self.plot_fpsvn()
+            case "spfvn":
+                return self.plot_spfvn()
+            case "lintot":
+                return self.plot_lintot()
+            case "spfvside":
+                return self.plot_spfvside()
 
 
     def new_path(self, dir):
@@ -71,7 +81,7 @@ class PlotData:
         plt.show()
 
     # Plot B1
-    def plot_B1(self):
+    def plot_spfvn(self):
         df = pd.read_csv(self.topdir)
 
         loadedp = df["loadedp"].values.reshape(-1, 1)
@@ -132,7 +142,7 @@ class PlotData:
         plt.show()
 
     # Plot Linearity
-    def plot_linearity(self):
+    def plot_lintot(self):
         df = pd.read_csv(self.topdir)
 
         loadedp = df["loadedp"]
@@ -199,7 +209,7 @@ class PlotData:
         plt.show()
 
     # Plot Cell Fraction Benchmark
-    def plot_cell_fraction(self):
+    def plot_spfvside(self):
         df = pd.read_csv(self.topdir)
 
         sidelen = df["sidelen"]
@@ -238,7 +248,7 @@ class PlotData:
         pixmap = QPixmap.fromImage(image)
         return pixmap
 
-    def plot_fps_vs_loadedp(self):
+    def plot_fpsvn(self):
         df = pd.read_csv(self.topdir)
 
         loadedp = df["loadedp"]
