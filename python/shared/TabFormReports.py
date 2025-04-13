@@ -37,7 +37,6 @@ class TabReports(QTabWidget):
         self.data.Open("PQB")
         if (self.data.check_data_files() != True):
             print("Did not work") 
-
         self.data.create_summary()
         self.data.get_averages()
 
@@ -59,8 +58,19 @@ class TabReports(QTabWidget):
             spfvside_pixmap = self.dataPlot.PlotData("spfvside")
             self.spfvside_image.setPixmap(spfvside_pixmap)
         
-        
-      
+        self.dataPlot.Open("PCD")
+        self.data.Open("PCD")
+        if (self.data.check_data_files() != True):
+            print("Did not work") 
+
+        if(self.dataPlot.hasData() == True):
+            spfvside_pixmap = self.dataPlot.PlotData("spfvside")
+            self.spfvside_image.setPixmap(spfvside_pixmap)
+            
+
+        #self.data.Open("CFB")
+       # if (self.data.check_data_files() != True):
+         #   print("Did not work") 
 
       
 
