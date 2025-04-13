@@ -13,6 +13,8 @@ from io import BytesIO
 from pyqtLED import QtLed
 
 class TabRunSim(QTabWidget):
+
+   
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.tcpc = TCPIPClient("TCPIP Client")
@@ -45,7 +47,6 @@ class TabRunSim(QTabWidget):
         
     ### Open server to recieve image files
     def openImageServerThread(self,tcps):
-        print("Treadin")
         if(tcps.Open() == 0):
             self.greenText( self.tcps.Text)
         else:
@@ -76,20 +77,53 @@ class TabRunSim(QTabWidget):
             match msg[0]:
                 case "perfline":
                     self.np.setText(msg[4])
-                    self.spf.setText(msg[3])
-                    self.fps.setText(msg[2])
+                    self.fps.setText(msg[3])
+                    self.spf.setText(msg[2])
                 case "simdone":
                     break
-            self.tcpc.command = "cont"
-            self.tcpc.Write()            
+
+            if(self.stopFlag == True):
+                self.tcpc.command = "stop"
+            else:
+                self.tcpc.command = "cont"
+            self.stopFlag = False    
+
+            if(self.tsRunFlag == True):    
+                self.tcpc.command = "tgrun"
+                self.tsRunFlag = False
+
+            if(self.changeColorFlag == True):
+                if(self.row == 0):
+                    self.tcpc.command = "colorc"
+                if(self.row == 1):
+                    self.tcpc.command = "colorang"
+                self.changeColorFlag = False
+            self.tcpc.Write()  
         print("Perf Study done.") 
-        self.greenText("Perf Study Done.")
+        tcpc.Close()
+        return
     def runSim(self):
         self.simthread = threading.Thread(target=self.runSimThread,args=(self.tcpc,))
         self.simthread.start()
        
-    
+    def stopSim(self):
+        self.stopFlag = True
 
+    def tsRun(self):
+        self.tsRunFlag = True
+
+    def changeColor(self):
+        self.row = self.typlist.currentRow()
+        match(self.row):
+            case 0:
+                self.changeColorFlag = True
+            case 1:    
+                self.changeColorFlag = True
+            case 2:
+                self.changeColorFlag = False
+            case 3:                
+                self.changeColorFlag = False
+        
     def Create(self,FPIBBase):
         self.bobj = FPIBBase;
         self.cfg = self.bobj.cfg.config
@@ -131,28 +165,35 @@ class TabRunSim(QTabWidget):
         ctrlGrp = QGroupBox("Run Control")
         ctrlGrp.setAlignment(Qt.AlignmentFlag.AlignLeft)
         ctrlGrp.setAlignment(Qt.AlignmentFlag.AlignTop)
-        self.setSize(ctrlGrp,100,130)
+        self.setSize(ctrlGrp,150,200)
         tab_layout.addWidget(ctrlGrp,0,2,1,1,alignment= Qt.AlignmentFlag.AlignVCenter | Qt.AlignmentFlag.AlignLeft)        
         ctrlgrid = QGridLayout()
         ctrlGrp.setLayout(ctrlgrid)
 
-        self.runButton = QPushButton("Run Tests")
-        self.setSize(self.runButton,30,100)
+        self.runButton = QPushButton("Run Simulation")
+        self.setSize(self.runButton,30,150)
         self.runButton.setStyleSheet("background-color:  #dddddd")
-        #self.runButton.clicked.connect(self.DoAll)
         ctrlgrid.addWidget(self.runButton,0,1,1,1)
         self.runButton.clicked.connect(self.runSim)
 
+        self.tsButton = QPushButton("Toggle Run")
+        self.setSize(self.tsButton,30,150)
+        self.tsButton.setStyleSheet("background-color:  #dddddd")
+        ctrlgrid.addWidget(self.tsButton,3,1,1,1)
+        self.tsButton.clicked.connect(self.tsRun)
+        self.tsRunFlag = False
+
         self.stopButton = QPushButton("Stop")
-        self.setSize(self.stopButton,30,100)
+        self.setSize(self.stopButton,30,150)
         self.stopButton.setStyleSheet("background-color:  #dddddd")
-        #self.runButton.clicked.connect(self.DoAll)
-        ctrlgrid.addWidget(self.stopButton,1,1,1,1)
+        ctrlgrid.addWidget(self.stopButton,4,1,1,1)
+        self.stopButton.clicked.connect(self.stopSim)
+        self.stopFlag = False
 
         ## -------------------------------------------------------------
         ## Image Interface
         imgmgrp = QGroupBox("Image Interface")
-        self.setSize(imgmgrp,570,560)
+        self.setSize(imgmgrp,500,570)
         tab_layout.addWidget(imgmgrp,1,0,1,1)
         
         paramlo = QGridLayout()
@@ -160,9 +201,31 @@ class TabRunSim(QTabWidget):
 
         self.image = QLabel('Text')
         self.image.setStyleSheet("background-color:  #ffffff")
-        self.setSize(self.image,530,545)
-        paramlo.addWidget(self.image)
+        self.setSize(self.image,400,545)
+        paramlo.addWidget(self.image,1,0,alignment= Qt.AlignmentFlag.AlignTop | Qt.AlignmentFlag.AlignLeft)
         #self.changeImage()
+
+        ## -------------------------------------------------------------
+        ## Mode Panel
+        colorGrp = QGroupBox("Colorization")
+        self.setSize(colorGrp,150,200)
+        tab_layout.addWidget(colorGrp,1,2,1,1,alignment= Qt.AlignmentFlag.AlignTop | Qt.AlignmentFlag.AlignLeft)
+        
+        ColorGrid = QGridLayout()
+        colorGrp.setLayout(ColorGrid)
+
+        self.typlist = QListWidget()
+        self.typlist.setStyleSheet("background-color:  #ffffff")
+        self.typlist.insertItem(0, "Colllions (Red=True,Blue=False)")
+        self.typlist.insertItem(1, "Velocity Angle (HSV)")
+        self.typlist.insertItem(2, "Velocity Magnitude (CM)")
+        self.typlist.insertItem(3, "Pressure (CM)")
+        self.row = 0
+        self.typlist.setCurrentRow( self.row )
+        self.typlist.itemClicked.connect(self.changeColor)
+        ColorGrid.addWidget(self.typlist)
+        self.changeColorFlag = False
+        
 
         ## -------------------------------------------------------------
         ## Performance output
@@ -170,11 +233,10 @@ class TabRunSim(QTabWidget):
         chcksgrp.setAlignment(Qt.AlignmentFlag.AlignLeft)
         chcksgrp.setAlignment(Qt.AlignmentFlag.AlignTop)
         self.setSize(chcksgrp,120,300)
-        tab_layout.addWidget(chcksgrp,1,2,1,1,alignment= Qt.AlignmentFlag.AlignLeft)
+        tab_layout.addWidget(chcksgrp,2,2,1,1,alignment= Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignTop)
         
         dirgrid = QGridLayout()
         chcksgrp.setLayout(dirgrid)
-        
         self.fps =  QLineEdit()
         self.fps.setStyleSheet("background-color:  #ffffff")
         self.setSize(self.fps,20,100)
