@@ -8,23 +8,37 @@ import matplotlib.pyplot as plt
 from PyQt6.QtGui import QPixmap, QImage
 
 class PlotData:
-    def Create(self, BaseObj, file_end):
+    def Create(self, BaseObj):
         self.bobj = BaseObj
         self.cfg = self.bobj.cfg.config
+        self.testFile = ""
         
+
+    def hasData(self):
+        return self.hasDataFlag
+    
+    def Open(self,file_end):
         match(file_end):
             case "PQB":
                 self.topdir = self.cfg.application.testdirPQB
+                self.testFile = "perfPQB.csv"
             case "PCD":
                 self.topdir = self.cfg.application.testdirPCD
+                self.testFile = "perfPCD.csv"
             case "DUP":
                 self.topdir = self.cfg.application.testdirDUP
+                self.testFile = "perfDUP.csv"
             case "CFB":
                 self.topdir = self.cfg.application.testdirCFB
-        newdir = self.new_path(self.topdir) + ".csv"
-        self.topdir = os.path.join(self.topdir, newdir)
+                self.testFile = "perfCFB.csv"
 
-    def Open(self):
+        self.upper = os.path.split(self.topdir)
+        self.topdir = self.upper[0] + "/" + self.testFile
+        if (os.path.exists(self.topdir) == True):
+            self.hasDataFlag = True
+        else:
+            self.hasDataFlag = False
+        print(self.topdir)
         pass
 
     def Close(self):
@@ -40,6 +54,8 @@ class PlotData:
         self.ObjName = ObjName
 
     def PlotData(self, name):
+        if(self.hasData == False):
+            return
         match name:
             case "fpsvn":
                 return self.plot_fpsvn()

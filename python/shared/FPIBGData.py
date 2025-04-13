@@ -11,12 +11,16 @@ class DataClass:
         
 
 
-    def Create(self, BaseObj, file_end):
+    def Create(self, BaseObj):
         self.bobj = BaseObj
         self.cfg = self.bobj.cfg.config
         self.bobj.lvl = 1000
         
         
+      
+                
+
+    def Open(self,file_end):
         match(file_end):
             case "PQB":
                 self.topdir = self.cfg.application.testdirPQB
@@ -26,9 +30,7 @@ class DataClass:
                 self.topdir = self.cfg.application.testdirDUP
             case "CFB":
                 self.topdir = self.cfg.application.testdirCFB
-                
-
-    def Open(self):
+        
         if os.path.exists(self.topdir):
             rettxt = "Sucessfully found data directory :" + self.topdir
             self.bobj.log.log(self.bobj.lvl,inspect.currentframe().f_lineno,
