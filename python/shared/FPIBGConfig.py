@@ -103,7 +103,7 @@ class FPIBGConfig:
         """
         return self.config
     
-    
+
 
     def WriteConfig(self, dict):
         if not os.path.exists(self.CfgFileName):
@@ -116,12 +116,21 @@ class FPIBGConfig:
         try:
             shutil.copy2(self.CfgFileName, destination_filename)
             print(f"Successfully created a copy: '{destination_filename}'")
-
-
         except Exception as e:
             print(f"Error creating copy: {e}")
             return None
         
+        #Make the Changes
+        dest_path = os.path.join(self.get_repo_root(), destination_filename)
+        with io.open(dest_path, 'r+', encoding='utf-8') as f:
+            conf_copy = libconf.load(f)
+            print("Debug from dict: ", dict['debug_level'])
+            conf_copy['application']["debugLevel"] = dict['debug_level']
+            # Clear the file and save the new contents
+            f.seek(0)
+            f.truncate()
+            libconf.dump(conf_copy, f)
+
         return
 
 
