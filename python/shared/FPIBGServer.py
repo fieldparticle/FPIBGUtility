@@ -187,9 +187,7 @@ class TCPIPServer:
         #f.write(blk3)
         buffer.write(blk3)
         
-        self.command = "next"
-        self.Write()
-
+       
         #f.close()
         self.im = Image.open(buffer)
         #im = Image.frombuffer(buffer)

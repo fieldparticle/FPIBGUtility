@@ -58,9 +58,12 @@ class TabRunSim(QTabWidget):
             data = self.tcps.im.tobytes("raw","RGBA")
             qim = QImage(data, self.tcps.im.size[0], self.tcps.im.size[1],QImage.Format.Format_ARGB32)
             pix = QPixmap.fromImage(qim)
-            self.image.setPixmap(pix)        
+            self.image.setPixmap(pix)   
+            self.command = "next"
+            self.Write()
+     
     def OpenImageServer(self):
-        self.thread = threading.Thread(target=self.opeImageServerThread,args=(self.tcps,))
+        self.thread = threading.Thread(target=self.openImageServerThread,args=(self.tcps,))
         self.thread.start()
 
     def runSimThread(self,tcpc):
@@ -103,8 +106,9 @@ class TabRunSim(QTabWidget):
         tcpc.Close()
         return
     def runSim(self):
-        self.simthread = threading.Thread(target=self.runSimThread,args=(self.tcpc,))
-        self.simthread.start()
+        #self.simthread = threading.Thread(target=self.runSimThread,args=(self.tcpc,))
+        #self.simthread.start()
+        self.OpenImageServer()
        
     def stopSim(self):
         self.stopFlag = True
