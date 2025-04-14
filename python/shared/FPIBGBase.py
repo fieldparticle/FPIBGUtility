@@ -27,7 +27,7 @@ class FPIBGBase:
         
     def Create(self,CfgFileName,LogName):
         """
-        Creates the base object and memeber objects log and config
+        Creates the base object and member objects log and config
 
         Args:
             self : this.
@@ -38,8 +38,13 @@ class FPIBGBase:
         self.log.Open()
         self.cfg = FPIBGConfig("GlobalConfigObject")
         self.cfg.Create(self.log,CfgFileName)
-        
-        
+        #Added by Ben
+        self.cfgname = CfgFileName
+    
+    #Added by Ben
+    def WriteConfig(self, dict):
+        self.cfg.WriteConfig(dict)
+        return
        
 
 # @abstrctmethod
