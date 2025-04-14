@@ -268,68 +268,7 @@ class TabReports(QTabWidget):
         self.table001_tab.setLayout(table001_layout)
         self.pqb_subreports.addTab(self.table001_tab, "Table001")
 
-        ####### Linearity Compute #######
-        self.lincom_tab = QWidget()
-        lincom_layout = QVBoxLayout(self.lincom_tab)
-
-        lincom_image = QLabel("PLACEHOLDER WIDGET FOR IMAGE")
-
-        lincom_buttons = QHBoxLayout()
-        self.save_latex_lincom_button = QPushButton("Save Latex")
-        self.save_latex_lincom_button.clicked.connect(lambda: self.save_latex(lincom_image))
-        self.save_latex_lincom_button.setMaximumWidth(150)
-        self.save_image_lincom_button = QPushButton("Save Image")
-        self.save_image_lincom_button.clicked.connect(lambda: self.save_image(lincom_image))
-        self.save_image_lincom_button.setMaximumWidth(150)
-        lincom_buttons.addItem(spacer)
-        lincom_buttons.addWidget(self.save_latex_lincom_button)
-        lincom_buttons.addWidget(self.save_image_lincom_button)
-
-        lincom_caption_container = QHBoxLayout()
-        lincom_caption_label = QLabel("Caption:")
-        lincom_caption_container.addWidget(lincom_caption_label)
-        self.lincom_text_edit = QTextEdit()
-        self.lincom_text_edit.setMaximumHeight(80)
-        lincom_caption_container.addWidget(self.lincom_text_edit)
-
-        lincom_layout.addLayout(lincom_buttons)
-        lincom_layout.addWidget(lincom_image)
-        lincom_layout.addLayout(lincom_caption_container)
-
-        self.lincom_tab.setLayout(lincom_layout)
-        self.pqb_subreports.addTab(self.lincom_tab, "Linearity Compute")
-
-        ####### Linearity Graphics #######
-        self.lingraph_tab = QWidget()
-        lingraph_layout = QVBoxLayout(self.lingraph_tab)
-
-        lingraph_image = QLabel("PLACEHOLDER WIDGET FOR IMAGE")
-
-        lingraph_buttons = QHBoxLayout()
-        self.save_latex_lingraph_button = QPushButton("Save Latex")
-        self.save_latex_lingraph_button.clicked.connect(lambda: self.save_latex(lingraph_image))
-        self.save_latex_lingraph_button.setMaximumWidth(150)
-        self.save_image_lingraph_button = QPushButton("Save Image")
-        self.save_image_lingraph_button.clicked.connect(lambda: self.save_image(lingraph_image))
-        self.save_image_lingraph_button.setMaximumWidth(150)
-        lingraph_buttons.addItem(spacer)
-        lingraph_buttons.addWidget(self.save_latex_lingraph_button)
-        lingraph_buttons.addWidget(self.save_image_lingraph_button)
-
-        lingraph_caption_container = QHBoxLayout()
-        lingraph_caption_label = QLabel("Caption:")
-        lingraph_caption_container.addWidget(lingraph_caption_label)
-        self.lingraph_text_edit = QTextEdit()
-        self.lingraph_text_edit.setMaximumHeight(80)
-        lingraph_caption_container.addWidget(self.lingraph_text_edit)
-
-        lingraph_layout.addLayout(lingraph_buttons)
-        lingraph_layout.addWidget(lingraph_image)
-        lingraph_layout.addLayout(lingraph_caption_container)
-
-        self.lingraph_tab.setLayout(lingraph_layout)
-        self.pqb_subreports.addTab(self.lingraph_tab, "Linearity Graphics")
-
+       
         ####### Linearity Total #######
         self.lintot_tab = QWidget()
         lintot_layout = QVBoxLayout(self.lintot_tab)
