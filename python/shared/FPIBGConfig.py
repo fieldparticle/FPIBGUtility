@@ -124,8 +124,10 @@ class FPIBGConfig:
         dest_path = os.path.join(self.get_repo_root(), destination_filename)
         with io.open(dest_path, 'r+', encoding='utf-8') as f:
             conf_copy = libconf.load(f)
-            print("Debug from dict: ", dict['debug_level'])
-            conf_copy['application']["debugLevel"] = dict['debug_level']
+
+            for key, value in dict.items():
+                conf_copy['application'][key] = value
+
             # Clear the file and save the new contents
             f.seek(0)
             f.truncate()
