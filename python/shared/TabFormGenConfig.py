@@ -433,6 +433,7 @@ class TabGenConfig(QTabWidget):
         config_dict["val_lay"] = self.get_string_list(self.val_lay_list_widget)
 
         # TODO: Once this form is done, call the config file writer
+        self.bobj.WriteConfig(config_dict)
 
         self.log_action("sendFormData", config_dict)
         return self.folderLineEdit.text()
