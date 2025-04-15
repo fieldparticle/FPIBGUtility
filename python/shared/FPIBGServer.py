@@ -6,10 +6,13 @@ from io import BytesIO
 from PIL import Image
 import matplotlib.pyplot as plt
 class TCPIPServer:
+
+
+    
     def __init__(self, ObjectName):
         self.objname = ObjectName
         
-
+    
     ## Create() for the MyClass object.
     # @param   BaseObj -- (FPIBGBase) this is the glovbal class that contains the log and config file facilities.
     def Create(self,BaseObj):
@@ -22,6 +25,7 @@ class TCPIPServer:
         self.dlvl = 11000
         self.response = ""
         self.Text = ""
+        self.buffer =  BytesIO()
         # Assign all configuration items in the create function
         # and contain them in a try block
         try:
@@ -78,6 +82,7 @@ class TCPIPServer:
         
     def Accept(self):
         self.conn, self.addr = self.server_socket.accept()    
+        
 
     def Close(self):
         """Close the server connection properly."""
@@ -150,8 +155,8 @@ class TCPIPServer:
 
         self.command = "start"
         self.Write()
-
-        msg = self.ReadBuf(124)
+        msg = self.Read()
+        msg = self.response
         msg = msg.decode()
         msg = msg.split(",")
         if(msg[0] == "end"):
@@ -161,7 +166,7 @@ class TCPIPServer:
         print(self.Text)
         outdir = self.saveimgdir + "/" + msg[0]
         #f = open(outdir, "wb")
-        buffer =  BytesIO()
+        
         block1 = int(msg[1])
         block2 = int(msg[2])
         block3 = int(msg[3])
@@ -169,7 +174,7 @@ class TCPIPServer:
         self.Write()
 
         blk1 = self.ReadBuf(block1)
-        buffer.write(blk1)
+        self.buffer.write(blk1)
 
         self.command = "next"
         self.Write()
@@ -179,20 +184,20 @@ class TCPIPServer:
         #f.write(blk2)
         self.command = "next"
         self.Write()
-        buffer.write(blk2)
+        self.buffer.write(blk2)
         
       
         blk3 = self.ReadBuf(block3)
         print("Total Bytes{}".format(block3))
         #f.write(blk3)
-        buffer.write(blk3)
+        self.buffer.write(blk3)
         
        
         #f.close()
-        self.im = Image.open(buffer)
+        self.im = Image.open(self.buffer)
         #im = Image.frombuffer(buffer)
         self.im.save("img.bmp")
-        del(buffer)
+        
         #plt.imshow(im)
         #plt.show()
         return 0

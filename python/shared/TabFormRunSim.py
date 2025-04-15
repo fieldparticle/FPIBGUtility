@@ -74,7 +74,6 @@ class TabRunSim(QTabWidget):
             self.ImagestopButton.setText("Start Image Capture")
             self.ssImage = True
             self.imageRunning = 3
-            
             return    
 
 
@@ -87,6 +86,8 @@ class TabRunSim(QTabWidget):
             text = self.redText(self.tcps.Text)  
             self.bmpdata_ready.emit(1,text)
         tcps.Accept()
+        text = self.greenText("Accepted Capture App Client")
+        self.bmpdata_ready.emit(1,text)
             
         while tcps.RecieveBMPFile() == 0:
             text = self.greenText( self.tcps.Text)
