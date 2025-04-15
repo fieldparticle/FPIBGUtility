@@ -1,6 +1,7 @@
 import os
 import csv
 import inspect
+import pandas as pd
 
 class DataClass:
 
@@ -57,16 +58,29 @@ class DataClass:
     def Write(self):
         pass
 
+    def new_path(self, dir):
+        parts = dir.rsplit("/", 1) 
+        parts[-1] = parts[-1].replace("data", "")
+        return "/".join(parts)
+    
+    # Returns column names of the object summary file
+    def query(self):
+        newdir = self.new_path(self.topdir) + ".csv"
+        with open(newdir, mode= 'r') as file:
+            reader = csv.reader(file)
+            for row in reader:
+                return row
+            
+    def return_table(self, colNames):
+        newdir = self.new_path(self.topdir) + ".csv"
+        table = pd.read_csv(newdir, usecols=colNames)
+        return table
+
     # Returns true if number of .tst files equal to number of R or D files
     def check_data_files(self) -> bool:
         tst_files = [i for i in os.listdir(self.topdir) if i.endswith(".tst")]
         self.data_files = [i[:-5] for i in os.listdir(self.topdir) if i.endswith("D.csv")]
         return len(tst_files) == len(self.data_files)
-
-    def new_path(self, dir):
-        parts = dir.rsplit("/", 1) 
-        parts[-1] = parts[-1].replace("data", "")
-        return "/".join(parts)
 
     def create_summary(self):
         data = ['Name', 'fps', 'cpums', 'cms', 'gms', 'expectedp', 'loadedp',

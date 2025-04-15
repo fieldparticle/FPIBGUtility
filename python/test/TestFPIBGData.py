@@ -23,14 +23,15 @@ match guser:
         bc.Create("ParticleKM.cfg",'KMLog.log')
 
 myClass = DataClass("ExampleObject")
-myClass.Create(bc,"PCD")
-
-myClass.Open()
+myClass.Create(bc)
+myClass.Open("PQB")
 if (myClass.check_data_files() != True):
     print("Did not work") 
 myClass.create_summary()
 myClass.get_averages()
-print(myClass.average_list)
+myClass.query()
+myClass.return_table(['fps', 'expectedp'])
+# print(myClass.average_list)
     
 bc.Close()
 myClass.Close() 
