@@ -21,6 +21,7 @@ class TCPIPServer:
         self.log = self.bobj.log.log
         self.dlvl = 11000
         self.response = ""
+        self.Text = ""
         # Assign all configuration items in the create function
         # and contain them in a try block
         try:
@@ -31,7 +32,8 @@ class TCPIPServer:
             self.saveimgdir = self.cfg.save_img_dir
             self.savecvsdir = self.cfg.save_csv_dir
             self.server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            
+            self.Text =  f"Created Image Server successfully {self.server_ip}:{self.server_port}"
+            return 0
         except Exception as err:
             self.bobj.log.log( 0,  inspect.currentframe().f_lineno,
                 __file__,
@@ -39,8 +41,11 @@ class TCPIPServer:
                 self.objname,
                 self.dlvl+1,
                 err)
+            s = "Error {0}".format(str(err)) 
+            self.Text = s
             self.isConnected = False
-
+            return 1
+        
     def Open(self):
         ##Connect to the server."""
         try:
@@ -52,7 +57,9 @@ class TCPIPServer:
                 self.objname,
                 0,
                 f"Image Server L:istening at {self.server_ip}:{self.server_port}")
+            self.Text = f"Image Server L:istening at {self.server_ip}:{self.server_port}"
             self.isConnected = True
+    
         except Exception as err:
             self.log( 0,  inspect.currentframe().f_lineno,
                 __file__,
@@ -60,11 +67,17 @@ class TCPIPServer:
                 self.objname,
                 self.dlvl+2,
                 err)
+            s = "Error {0}".format(str(err)) 
+            self.Text = s
             self.isConnected = False
-       
+            return 1;
+    
         print(f"Image Server Listening at {self.server_ip}:{self.server_port}")
-        self.conn, self.addr = self.server_socket.accept()    
+        self.Text = f"Image Server Listening at {self.server_ip}:{self.server_port}"
+        return 0;    
         
+    def Accept(self):
+        self.conn, self.addr = self.server_socket.accept()    
 
     def Close(self):
         """Close the server connection properly."""
@@ -74,6 +87,7 @@ class TCPIPServer:
     def Read(self):
         #Receive confirmation message from the server.
         try:
+            self.response = ""
             self.response = self.conn.recv(self.buffer_size)
         except Exception as err:
             self.log(0,   inspect.currentframe().f_lineno,
@@ -82,20 +96,18 @@ class TCPIPServer:
                 self.objname,
                 self.dlvl+2,
                 err)
+            s = "Error {0}".format(str(err)) 
+            self.Text = s
+            print(s)
             self.isConnected = False
             return 
         #else
-        self.log(0,  inspect.currentframe().f_lineno,
-                __file__,
-                inspect.currentframe().f_code.co_name,
-                self.objname,
-                0,
-                "Revc:{}{}".format(len(self.response),self.response.decode()))    
+        
         
     def ReadBuf(self, bufsize):
          #Receive confirmation message from the server.
         try:
-            self.response = self.conn.recv(bufsize)
+            return self.conn.recv(bufsize)
         except Exception as err:
             self.log(0,   inspect.currentframe().f_lineno,
                 __file__,
@@ -103,15 +115,18 @@ class TCPIPServer:
                 self.objname,
                 self.dlvl+2,
                 err)
+            s = "Error {0}".format(str(err)) 
+            self.Text = s
+            print(s)
             self.isConnected = False
-            return 
+            return ""
         #else
        
 
     def Write(self):
         self.command = self.command.encode('utf-8')
         try:
-            self.server_socket.sendall(self.command)
+            self.conn.sendall(self.command)
         except Exception as err:
             self.log( 0,  inspect.currentframe().f_lineno,
                 __file__,
@@ -119,6 +134,9 @@ class TCPIPServer:
                 self.objname,
                 self.dlvl+3,
                 err)
+            s = "Error {0}".format(str(err)) 
+            self.Text = s
+            print(s)
             self.isConnected = False
         #else
         self.log(0,  inspect.currentframe().f_lineno,
@@ -129,32 +147,55 @@ class TCPIPServer:
                 "Wrote:{}".format(len(self.command)))   
         
     def RecieveBMPFile(self):
-        # Send the send command to the server
-        self.Read()
-        msg = self.response.decode()
+
+        self.command = "start"
+        self.Write()
+
+        msg = self.ReadBuf(124)
+        msg = msg.decode()
         msg = msg.split(",")
-        print("File Name is:{}, block1 is {}, block 2 is {}, file size is {}".format(msg[0],msg[1],msg[2],msg[3]))
+        if(msg[0] == "end"):
+            print("Got end msg")
+            return 1;
+        self.Text ="File:{},block1:{},block 2{},file size{}".format(msg[0],msg[1],msg[2],msg[3])
+        print(self.Text)
         outdir = self.saveimgdir + "/" + msg[0]
-        f = open(outdir, "wb")
+        #f = open(outdir, "wb")
         buffer =  BytesIO()
-            
         block1 = int(msg[1])
         block2 = int(msg[2])
         block3 = int(msg[3])
-        self.ReadBuf(block1)
-        buffer.write(self.response)
-        f.write(self.response)
-        self.ReadBuf(block2)
-        f.write(self.response)
-        buffer.write(self.response)
-        self.ReadBuf(block3)
-        f.write(self.response)
-        buffer.write(self.response)
-        f.close()
-        im = Image.open(buffer)
+        self.command = "next"
+        self.Write()
+
+        blk1 = self.ReadBuf(block1)
+        buffer.write(blk1)
+
+        self.command = "next"
+        self.Write()
+        #f.write(self.response)
+        blk2 = self.ReadBuf(block2)
+
+        #f.write(blk2)
+        self.command = "next"
+        self.Write()
+        buffer.write(blk2)
+        
+      
+        blk3 = self.ReadBuf(block3)
+        print("Total Bytes{}".format(block3))
+        #f.write(blk3)
+        buffer.write(blk3)
+        
+       
+        #f.close()
+        self.im = Image.open(buffer)
         #im = Image.frombuffer(buffer)
-        plt.imshow(im)
-        plt.show()
+        self.im.save("img.bmp")
+        
+        #plt.imshow(im)
+        #plt.show()
+        return 0
 
 
     def RecieveImgFileGUI(self,OutWidget):

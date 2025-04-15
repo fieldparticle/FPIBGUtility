@@ -8,6 +8,7 @@ from TabFormRunRpt import *
 from TabFormRunSim import *
 from TabFormSetUp import *
 from TabFormWelcome import *
+from TabFormGenData import *
 ## Add all tabs
 class TabObj(QTabWidget):
     def __init__(self, *args, **kwargs):
@@ -26,22 +27,26 @@ class TabObj(QTabWidget):
         self.tabFormRunRpt = TabRunRpt()
         self.tabFormRunSim = TabRunSim()
         self.tabFormSetup = TabSetup()
-        
+        self.tabFormGenData = TabGenData()        
 
         ## Add the tabs to tabs to this tab container.
         self.addTab(self.tabFormWelcome, 'Welcome')
         self.addTab(self.tabFormGenConfig, 'General Configuration')
         self.addTab(self.tabFormGenVPerf, 'Verification and Performance Testing')
         self.addTab(self.tabFormReports, 'Reports')
-        self.addTab(self.tabFormRunRpt, 'Run')
-        self.addTab(self.tabFormRunSim, 'Run Simulation Movie')
+        self.addTab(self.tabFormRunRpt, 'Movie ')
+        self.addTab(self.tabFormRunSim, 'Run Simulation')
         self.addTab(self.tabFormSetup, 'Setup')
+        self.addTab(self.tabFormGenData, 'Gen Data')
         
 
         ## Call set form to 
         self.tabFormWelcome.Create()
         self.tabFormSetup.Create(FPIBGBase)
         self.tabFormGenConfig.Create(FPIBGBase)
-        self.tabFormReports.Create()
+        self.tabFormReports.Create(FPIBGBase)
         self.tabFormRunRpt.Create()
+        self.tabFormRunSim.Create(FPIBGBase)
+        self.tabFormGenData.Create(FPIBGBase)
+        self.tabFormGenVPerf.Create(FPIBGBase)
         

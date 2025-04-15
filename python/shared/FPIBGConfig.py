@@ -3,6 +3,7 @@ import os
 import libconf
 import io
 import inspect
+import shutil
 
 class FPIBGConfig:
     lvl = 100
@@ -101,6 +102,38 @@ class FPIBGConfig:
         This object contains all of the data from the configuration file as a dictionary.
         """
         return self.config
+    
+
+
+    def WriteConfig(self, dict):
+        if not os.path.exists(self.CfgFileName):
+            print(f"Error: Source file '{self.CfgFileName}' does not exist.")
+            return None
+
+        name, ext = os.path.splitext(self.CfgFileName)
+        destination_filename = f"{name}_copy{ext}"
+
+        try:
+            shutil.copy2(self.CfgFileName, destination_filename)
+            print(f"Successfully created a copy: '{destination_filename}'")
+        except Exception as e:
+            print(f"Error creating copy: {e}")
+            return None
+        
+        #Make the Changes
+        dest_path = os.path.join(self.get_repo_root(), destination_filename)
+        with io.open(dest_path, 'r+', encoding='utf-8') as f:
+            conf_copy = libconf.load(f)
+
+            for key, value in dict.items():
+                conf_copy['application'][key] = value
+
+            # Clear the file and save the new contents
+            f.seek(0)
+            f.truncate()
+            libconf.dump(conf_copy, f)
+
+        return
 
 
     

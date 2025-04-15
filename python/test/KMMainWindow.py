@@ -1,13 +1,23 @@
-    
-import sys
+
+###############################################################
+## Preamble to every script. Will append the shared directory #
+import sys                                                    #  
+import os                                                     #
+syspth = sys.path                                             #
+cwd = os.getcwd()                                             #
+shrddir = cwd + "\\python\\shared"                            #
+sys.path.append(shrddir)                                      #
+# Now do imports                                              #
+###############################################################
 from PyQt6.QtWidgets import QApplication, QWidget,  QFormLayout, QGridLayout, QTabWidget, QLineEdit, QDateEdit, QPushButton
 from PyQt6.QtCore import Qt
-sys.path.append("X:\FPIBGMain\FPIBGUtility\python\shared")
 from FPIBGMainWin import *
 from FPIBGBase import FPIBGBase
+## Create a base class.
 bc = FPIBGBase("FPIBGFrontEnd")
-bc.Create("ParticleJB.cfg","FPIBG.log")
-#print(sys.path)
+ 
+bc.Create("ParticleKM.cfg","FPIBGKM.log")
+#
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     window = FPIBGMainWin("FPIBGMainWin")

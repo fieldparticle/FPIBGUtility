@@ -1,28 +1,44 @@
+import io
 import pandas as pd
 import os
 from sklearn.linear_model import LinearRegression
 import numpy as np
 from scipy.optimize import curve_fit
 import matplotlib.pyplot as plt
+from PyQt6.QtGui import QPixmap, QImage
 
 class PlotData:
-    def Create(self, BaseObj, file_end):
+    def Create(self, BaseObj):
         self.bobj = BaseObj
         self.cfg = self.bobj.cfg.config
+        self.testFile = ""
         
+
+    def hasData(self):
+        return self.hasDataFlag
+    
+    def Open(self,file_end):
         match(file_end):
             case "PQB":
                 self.topdir = self.cfg.application.testdirPQB
+                self.testFile = "perfPQB.csv"
             case "PCD":
                 self.topdir = self.cfg.application.testdirPCD
+                self.testFile = "perfPCD.csv"
             case "DUP":
                 self.topdir = self.cfg.application.testdirDUP
+                self.testFile = "perfDUP.csv"
             case "CFB":
                 self.topdir = self.cfg.application.testdirCFB
-        newdir = self.new_path(self.topdir) + ".csv"
-        self.topdir = os.path.join(self.topdir, newdir)
+                self.testFile = "perfCFB.csv"
 
-    def Open(self):
+        self.upper = os.path.split(self.topdir)
+        self.topdir = self.upper[0] + "/" + self.testFile
+        if (os.path.exists(self.topdir) == True):
+            self.hasDataFlag = True
+        else:
+            self.hasDataFlag = False
+        print(self.topdir)
         pass
 
     def Close(self):
@@ -36,6 +52,19 @@ class PlotData:
 
     def __init__(self, ObjName):
         self.ObjName = ObjName
+
+    def PlotData(self, name):
+        if(self.hasData == False):
+            return
+        match name:
+            case "fpsvn":
+                return self.plot_fpsvn()
+            case "spfvn":
+                return self.plot_spfvn()
+            case "lintot":
+                return self.plot_lintot()
+            case "spfvside":
+                return self.plot_spfvside()
 
 
     def new_path(self, dir):
@@ -68,7 +97,7 @@ class PlotData:
         plt.show()
 
     # Plot B1
-    def plot_B1(self):
+    def plot_spfvn(self):
         df = pd.read_csv(self.topdir)
 
         loadedp = df["loadedp"].values.reshape(-1, 1)
@@ -104,8 +133,16 @@ class PlotData:
         plt.title(f"{os.path.basename(self.topdir)}: B1 Plot")
         plt.legend()
         plt.grid(True)
-        plt.show()
+        buf = io.BytesIO()
+        fig = plt.gcf()
+        fig.savefig(buf, format='png')
+        buf.seek(0)
 
+        image = QImage()
+        image.loadFromData(buf.getvalue())
+        pixmap = QPixmap.fromImage(image)
+        return pixmap
+        
         plt.figure(figsize=(8,5))
         plt.bar(["gms", "cms", "gms + cms"], [var_gms, var_cms, var_gms_cms], color=["cornflowerblue", "mediumseagreen", "orchid"])
         plt.ylabel("Variance")
@@ -121,7 +158,7 @@ class PlotData:
         plt.show()
 
     # Plot Linearity
-    def plot_linearity(self):
+    def plot_lintot(self):
         df = pd.read_csv(self.topdir)
 
         loadedp = df["loadedp"]
@@ -160,7 +197,16 @@ class PlotData:
         plt.title(f"{os.path.basename(self.topdir)}: Linearity")
         plt.legend()
         plt.grid(True)
-        plt.show()
+
+        buf = io.BytesIO()
+        fig = plt.gcf()
+        fig.savefig(buf, format='png')
+        buf.seek(0)
+
+        image = QImage()
+        image.loadFromData(buf.getvalue())
+        pixmap = QPixmap.fromImage(image)
+        return pixmap
 
         plt.figure(figsize=(8,5))
         plt.bar(["cms/loadedp", "gms/loadedp", "(gms + cms)/loadedp"], [var_cms_loadedp, var_gms_loadedp, var_cms_gms],
@@ -179,7 +225,7 @@ class PlotData:
         plt.show()
 
     # Plot Cell Fraction Benchmark
-    def plot_cell_fraction(self):
+    def plot_spfvside(self):
         df = pd.read_csv(self.topdir)
 
         sidelen = df["sidelen"]
@@ -207,9 +253,18 @@ class PlotData:
         plt.title(f"{os.path.basename(self.topdir)}: Cell Fraction Benchmark")
         plt.legend()
         plt.grid(True)
-        plt.show()
+        
+        buf = io.BytesIO()
+        fig = plt.gcf()
+        fig.savefig(buf, format='png')
+        buf.seek(0)
 
-    def plot_fps_vs_loadedp(self):
+        image = QImage()
+        image.loadFromData(buf.getvalue())
+        pixmap = QPixmap.fromImage(image)
+        return pixmap
+
+    def plot_fpsvn(self):
         df = pd.read_csv(self.topdir)
 
         loadedp = df["loadedp"]
@@ -225,7 +280,16 @@ class PlotData:
         plt.title(f"{os.path.basename(self.topdir)}: Frames Per Second vs Loaded Particles")
         plt.legend()
         plt.grid(True)
-        plt.show()
+        
+        buf = io.BytesIO()
+        fig = plt.gcf()
+        fig.savefig(buf, format='png')
+        buf.seek(0)
+
+        image = QImage()
+        image.loadFromData(buf.getvalue())
+        pixmap = QPixmap.fromImage(image)
+        return pixmap
 
     def plot_expectedc(self):
         df = pd.read_csv(self.topdir)

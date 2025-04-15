@@ -21,6 +21,12 @@ class LatexClass:
         # Assign this objects debug level
         self.dlvl = 10000
    
+class LatexTable(LatexClass):
+    def __init__(self,ObjName):
+        self.ObjName = ObjName
+        super().__init__(ObjName)        
+
+    
 
 class LatexPlot(LatexClass):
 
