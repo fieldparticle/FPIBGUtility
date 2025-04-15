@@ -113,12 +113,17 @@ class TCPIPClient:
     def Close(self):
         """Close the client connection properly."""
         self.client_socket.close()
+        self.isConnected = False
+        self.client_socket.close()
+        self.Text = "Client Connection Closed."
         print("Client connection closed.")
 
     def Read(self):
         #Receive confirmation message from the server.
         try:
             self.response = self.client_socket.recv(self.buffer_size)
+            self.Text = self.response.decode()
+            return 0
         except Exception as err:
             self.log(0,   inspect.currentframe().f_lineno,
                 __file__,
@@ -129,7 +134,6 @@ class TCPIPClient:
             self.isConnected = False
 
     def ReadBlk(self,size):
-       
         #Receive confirmation message from the server.
         try:
             self.response = self.client_socket.recv(size)
@@ -169,6 +173,7 @@ class TCPIPClient:
         try:
             self.client_socket.sendall(self.command)
             self.Text = "Successful Write"
+#            print("write {}".format(self.command) )
             return 0
         except Exception as err:
             self.log( 0,  inspect.currentframe().f_lineno,

@@ -192,7 +192,7 @@ class TCPIPServer:
         self.im = Image.open(buffer)
         #im = Image.frombuffer(buffer)
         self.im.save("img.bmp")
-        
+        del(buffer)
         #plt.imshow(im)
         #plt.show()
         return 0
