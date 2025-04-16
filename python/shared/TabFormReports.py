@@ -34,7 +34,7 @@ class TabReports(QTabWidget):
     def updateData(self):
         self.data = DataClass("DataClass")
         self.data.Create(self.bobj)
-        self.data.Open("PQB","r")
+        self.data.Open("PQB")
         if (self.data.check_data_files() != True):
             print("Did not work") 
         self.data.create_summary()
@@ -42,7 +42,7 @@ class TabReports(QTabWidget):
 
         self.dataPlot = PlotData("Data Plot Class")
         self.dataPlot.Create(self.bobj)
-        self.dataPlot.Open("PQB")
+        self.dataPlot.Open("PQB","r")
        
 
         if(self.dataPlot.hasData() == True):
@@ -58,8 +58,8 @@ class TabReports(QTabWidget):
             spfvside_pixmap = self.dataPlot.PlotData("spfvside")
             self.spfvside_image.setPixmap(spfvside_pixmap)
         
-        self.dataPlot.Open("PCD")
-        self.data.Open("PCD","r")
+        self.dataPlot.Open("PCD","r")
+        self.data.Open("PCD")
         if (self.data.check_data_files() != True):
             print("Did not work") 
 
