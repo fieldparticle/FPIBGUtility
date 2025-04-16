@@ -17,7 +17,7 @@ class PlotData:
     def hasData(self):
         return self.hasDataFlag
     
-    def Open(self,file_end):
+    def Open(self,file_end,typeFlag):
         match(file_end):
             case "PQB":
                 self.topdir = self.cfg.application.testdirPQB

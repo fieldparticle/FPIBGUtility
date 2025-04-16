@@ -34,7 +34,7 @@ class TabReports(QTabWidget):
     def updateData(self):
         self.data = DataClass("DataClass")
         self.data.Create(self.bobj)
-        self.data.Open("PQB")
+        self.data.Open("PQB","r")
         if (self.data.check_data_files() != True):
             print("Did not work") 
         self.data.create_summary()
@@ -59,7 +59,7 @@ class TabReports(QTabWidget):
             self.spfvside_image.setPixmap(spfvside_pixmap)
         
         self.dataPlot.Open("PCD")
-        self.data.Open("PCD")
+        self.data.Open("PCD","r")
         if (self.data.check_data_files() != True):
             print("Did not work") 
 
@@ -97,10 +97,14 @@ class TabReports(QTabWidget):
         control.setMaximumWidth(W)
 
     def save_latex_pqb(self):
-        #TODO
+        self.data.Open("PQB")
+        header = self.data.query()
+        print(header)
+        latexFile = ["fps", "cms", "gms", "loadedp"]
+        #latexTable = self.data.table()
         return
     def save_latex_pcd(self):
-        #TODO
+        print("pqb")
         return
     def save_latex_cfb(self):
         #TODO
@@ -119,7 +123,7 @@ class TabReports(QTabWidget):
         self.bobj = FPIBGBase
         self.cfg = self.bobj.cfg.config
         self.log = self.bobj.log.log
-
+     
         
         scroll_area = QScrollArea()
         scroll_area.setWidgetResizable(True)
@@ -440,3 +444,4 @@ class TabReports(QTabWidget):
         main_window_layout = QVBoxLayout(self)
         main_window_layout.addWidget(scroll_area)
         self.setLayout(main_window_layout)
+        self.updateData()
