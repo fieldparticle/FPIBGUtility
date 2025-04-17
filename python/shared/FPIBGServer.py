@@ -35,8 +35,7 @@ class TCPIPServer:
             self.buffer_size = self.cfg.image_buffer_size
             self.saveimgdir = self.cfg.save_img_dir
             self.savecvsdir = self.cfg.save_csv_dir
-            self.server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            self.Text =  f"Created Image Server successfully {self.server_ip}:{self.server_port}"
+            
             return 0
         except Exception as err:
             self.bobj.log.log( 0,  inspect.currentframe().f_lineno,
@@ -53,6 +52,8 @@ class TCPIPServer:
     def Open(self):
         ##Connect to the server."""
         try:
+            self.server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            self.Text =  f"Created Image Server successfully {self.server_ip}:{self.server_port}"
             self.server_socket.bind((self.server_ip, self.server_port))
             self.server_socket.listen(1)
             self.log( 0, inspect.currentframe().f_lineno,

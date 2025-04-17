@@ -291,7 +291,7 @@ class TabRunSim(QTabWidget):
         paramlo = QGridLayout()
         imgmgrp.setLayout(paramlo)
 
-        self.image = QLabel('Text')
+        self.image = QLabel()
         self.image.setStyleSheet("background-color:  #ffffff")
         self.setSize(self.image,400,545)
         paramlo.addWidget(self.image,1,0,alignment= Qt.AlignmentFlag.AlignTop | Qt.AlignmentFlag.AlignLeft)

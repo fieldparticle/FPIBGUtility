@@ -56,7 +56,6 @@ class TCPIPClient:
             self.buffer_size = self.cfg.server_buf_size
             self.saveimgdir = self.cfg.save_img_dir
             self.savecvsdir = self.cfg.save_csv_dir
-           
             self.Text =  f"Created client successfully {self.server_ip}:{self.server_port}"
             return 0
         except Exception as err:

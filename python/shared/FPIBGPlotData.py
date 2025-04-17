@@ -57,14 +57,21 @@ class PlotData:
         if(self.hasData == False):
             return
         match name:
+            # PQB
             case "fpsvn":
                 return self.plot_fpsvn()
+            # PQB
             case "spfvn":
                 return self.plot_spfvn()
+            # PQB
             case "lintot":
                 return self.plot_lintot()
+            # PCD 
             case "spfvside":
                 return self.plot_spfvside()
+            #CFB
+            case "spfccollsions"
+                pass
 
 
     def new_path(self, dir):
