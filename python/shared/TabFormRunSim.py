@@ -92,19 +92,22 @@ class TabRunSim(QTabWidget):
         while tcps.RecieveBMPFile() == 0:
             text = self.greenText( self.tcps.Text)
             self.bmpdata_ready.emit(1,text)
-
             self.tcps.im = self.tcps.im.convert("RGBA")
             data = self.tcps.im.tobytes("raw","RGBA")
             qim = QImage(data, self.tcps.im.size[0], self.tcps.im.size[1],QImage.Format.Format_ARGB32)
             pix = QPixmap.fromImage(qim)
             self.bmp_image_ready.emit(pix)
             self.tcps.command = "next"
-            self.tcps.Write()
-            if(self.ssImage == True):
+            if(self.imageRunning == 3):
+                self.tcpc.command = "stopcap"
+                self.imageRunning = 0
+                self.tcps.Write()
                 print("Closing FPIBG app Server")
                 self.tcps.Close()
                 break
-     
+            self.tcps.Write()        
+            
+                
     def OpenImageServer(self):
         self.bmpthread = threading.Thread(target=self.openImageServerThread,args=(self.tcps,))
        
@@ -161,9 +164,7 @@ class TabRunSim(QTabWidget):
                 self.tcpc.command = "startcap"
                 self.imageRunning = 2
 
-            if(self.imageRunning == 3):
-                self.tcpc.command = "stopcap"
-                self.imageRunning = 0
+           
 
             
             self.tcpc.Write()  

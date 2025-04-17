@@ -25,7 +25,7 @@ class TCPIPServer:
         self.dlvl = 11000
         self.response = ""
         self.Text = ""
-        self.buffer =  BytesIO()
+        
         # Assign all configuration items in the create function
         # and contain them in a try block
         try:
@@ -89,6 +89,16 @@ class TCPIPServer:
         self.server_socket.close()
         print("Server connection closed.")
 
+    def readnbyte(self, n):
+        buff = bytearray(n)
+        pos = 0
+        while pos < n:
+            cr = self.conn.recv_into(memoryview(buff)[pos:])
+            if cr == 0:
+                raise EOFError
+            pos += cr
+        return buff
+    
     def Read(self):
         #Receive confirmation message from the server.
         try:
@@ -152,7 +162,7 @@ class TCPIPServer:
                 "Wrote:{}".format(len(self.command)))   
         
     def RecieveBMPFile(self):
-
+        buffer =  BytesIO()    
         self.command = "start"
         self.Write()
         msg = self.Read()
@@ -174,7 +184,7 @@ class TCPIPServer:
         self.Write()
 
         blk1 = self.ReadBuf(block1)
-        self.buffer.write(blk1)
+        buffer.write(blk1)
 
         self.command = "next"
         self.Write()
@@ -184,20 +194,20 @@ class TCPIPServer:
         #f.write(blk2)
         self.command = "next"
         self.Write()
-        self.buffer.write(blk2)
+        buffer.write(blk2)
         
-      
-        blk3 = self.ReadBuf(block3)
+        bytes = self.readnbyte(block3)
+        #blk3 = self.ReadBuf(block3)
         print("Total Bytes{}".format(block3))
         #f.write(blk3)
-        self.buffer.write(blk3)
+        buffer.write(bytes)
         
        
         #f.close()
-        self.im = Image.open(self.buffer)
+        self.im = Image.open(buffer)
         #im = Image.frombuffer(buffer)
         self.im.save("img.bmp")
-        
+        del buffer
         #plt.imshow(im)
         #plt.show()
         return 0

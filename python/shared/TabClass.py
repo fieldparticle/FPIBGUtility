@@ -37,7 +37,7 @@ class TabObj(QTabWidget):
         self.addTab(self.tabFormRunRpt, 'Movie ')
         self.addTab(self.tabFormRunSim, 'Run Simulation')
         self.addTab(self.tabFormSetup, 'Setup')
-        self.addTab(self.tabFormGenData, 'Gen Data')
+        self.addTab(self.tabFormGenData, 'Solution Suite')
         
 
         ## Call set form to 

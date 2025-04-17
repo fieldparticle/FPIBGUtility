@@ -2,6 +2,7 @@ import sys
 from FPIBGPlotData import *
 from FPIBGBase import *
 import getpass 
+from LatexClass import *
 from PyQt6.QtWidgets import (
     QApplication, QMainWindow, QMdiArea, QMdiSubWindow, QWidget, QVBoxLayout,
     QTabWidget, QLabel, QScrollArea, QGroupBox, QFormLayout, QLineEdit, QPushButton,
@@ -67,7 +68,16 @@ class TabReports(QTabWidget):
             spfvside_pixmap = self.dataPlot.PlotData("spfvside")
             self.spfvside_image.setPixmap(spfvside_pixmap)
             
+            self.fpsvnltx = LatexPlot("LatexClass")
+            self.fpsvnltx.Create(self.folderLineEdit.text(),"fpsvn")
+            caption = self.fpsvnltx.readCapFile()
+            self.fpsvn_text_edit.setText(caption)
 
+            self.spfvnltx = LatexPlot("LatexClass")
+            self.spfvnltx.Create(self.folderLineEdit.text(),"spfvn")
+            caption = self.spfvnltx.readCapFile()
+            self.spfvn_text_edit.setText(caption)
+                
         #self.data.Open("CFB")
        # if (self.data.check_data_files() != True):
          #   print("Did not work") 
@@ -97,6 +107,45 @@ class TabReports(QTabWidget):
         control.setMaximumWidth(W)
 
     def save_latex_pqb(self):
+        self.dataPlot.Open("PQB","r")
+        if(self.dataPlot.hasData() == True):
+            self.dataPlot.PlotData("fpsvn")
+            self.dataPlot.fpsvnfig
+            self.fpsvnltx = LatexPlot("LatexClass")
+            self.fpsvnltx.Create(self.folderLineEdit.text(),"fpsvn")
+            self.fpsvnltx.caption =  self.fpsvn_text_edit.toPlainText()
+            self.fpsvnltx.width = 0
+            self.fpsvnltx.height = 0
+            self.fpsvnltx.title = "TITLE:Plot of fps v loadedp"
+            self.fpsvnltx.scale = 0.50
+            self.fpsvnltx.fontSize = 10
+            self.fpsvnltx.outDirectory = self.cfg.latex_dir
+            self.fpsvnltx.float = False
+            self.fpsvnltx.placement = "h"
+            self.fpsvnltx.Write(plt)
+       
+       
+       
+        if(self.dataPlot.hasData() == True):
+            self.dataPlot.PlotData("spfvn")
+            self.fpsvnltx = LatexPlot("LatexClass")
+            self.fpsvnltx.Create(self.folderLineEdit.text(),"spfvn")
+            self.fpsvnltx.caption =  self.spfvn_text_edit.toPlainText()
+            self.fpsvnltx.width = 0
+            self.fpsvnltx.height = 0
+            self.fpsvnltx.title = "TITLE:spf v loaded p"
+            self.fpsvnltx.scale = 0.50
+            self.fpsvnltx.fontSize = 10
+            self.fpsvnltx.outDirectory = self.cfg.latex_dir
+            self.fpsvnltx.float = False
+            self.fpsvnltx.placement = "h"
+            self.fpsvnltx.Write(self.dataPlot.spfvnfig)
+            
+
+
+            
+            
+
         self.data.Open("PQB")
         header = self.data.query()
         print(header)
@@ -123,6 +172,8 @@ class TabReports(QTabWidget):
         self.bobj = FPIBGBase
         self.cfg = self.bobj.cfg.config
         self.log = self.bobj.log.log
+        self.latexDir = self.cfg.latex_dir
+
      
         
         scroll_area = QScrollArea()
@@ -145,7 +196,7 @@ class TabReports(QTabWidget):
         hbox.addWidget(self.folderLineEdit)
         hbox.addWidget(self.browseButton)
         hbox.addWidget(self.save_latex_all_button)
-
+        self.folderLineEdit.setText(self.latexDir)
         self.updateButton = QPushButton("Update Data")
         self.setSize(self.updateButton,30,150)
         self.updateButton.setStyleSheet("background-color:  #dddddd")
@@ -198,6 +249,7 @@ class TabReports(QTabWidget):
         fpsvn_buttons.addItem(spacer)
         fpsvn_buttons.addWidget(self.save_latex_fpsvn_button)
         fpsvn_buttons.addWidget(self.save_image_fpsvn_button)
+        
 
         fpsvn_caption_container = QHBoxLayout()
         fpsvn_caption_label = QLabel("Caption:")

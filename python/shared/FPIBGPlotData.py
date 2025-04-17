@@ -94,7 +94,7 @@ class PlotData:
         plt.title(f"{os.path.basename(self.topdir)}: cpums vs loadedp")
         plt.legend()
         plt.grid(True)
-        plt.show()
+        #plt.show()
 
     # Plot B1
     def plot_spfvn(self):
@@ -134,8 +134,8 @@ class PlotData:
         plt.legend()
         plt.grid(True)
         buf = io.BytesIO()
-        fig = plt.gcf()
-        fig.savefig(buf, format='png')
+        self.spfvnfig = plt.gcf()
+        self.spfvnfig.savefig(buf, format='png')
         buf.seek(0)
 
         image = QImage()
@@ -280,10 +280,10 @@ class PlotData:
         plt.title(f"{os.path.basename(self.topdir)}: Frames Per Second vs Loaded Particles")
         plt.legend()
         plt.grid(True)
-        
+        self.fpsvnfig = plt
         buf = io.BytesIO()
-        fig = plt.gcf()
-        fig.savefig(buf, format='png')
+        self.fpsvnfig = plt.gcf()
+        self.fpsvnfig.savefig(buf, format='png')
         buf.seek(0)
 
         image = QImage()
@@ -321,18 +321,18 @@ class PlotData:
         plt.title(f"{os.path.basename(self.topdir)}: Seconds Per Frame vs Number of Collisions")
         plt.legend()
         plt.grid(True)
-        plt.show()
+        #plt.show()
 
         plt.figure(figsize=(8,5))
         plt.bar(["gms", "cms"], [var_gms, var_cms], color=["cornflowerblue", "mediumseagreen"])
         plt.ylabel("Variance")
         plt.title("Variance of gms and cms")
         plt.grid(True)
-        plt.show()
+        #plt.show()
 
         plt.figure(figsize=(8,5))
         plt.bar(["gms", "cms"], [sd_gms, sd_cms], color=["cornflowerblue", "mediumseagreen"])
         plt.ylabel("Standard Deviation")
         plt.title("Standard Deviation of gms and cms")
         plt.grid(True)
-        plt.show()
+        #plt.show()

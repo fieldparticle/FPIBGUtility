@@ -1,5 +1,6 @@
 from FPIBGLog import FPIBGLog
 from FPIBGConfig import FPIBGConfig
+import os
 import inspect
 
 
@@ -47,8 +48,29 @@ class LatexPlot(LatexClass):
         self.float = False
         self.placement = "h"
 
+    def saveCaption(self,Text):
+        capname = self.outDirectory + "/" + self.name + ".cap"     
+        f = open(capname, "w")
+        f.write(Text)
 
+    def readCapFile(self):
+        capname = self.outDirectory + "/" + self.name + ".cap"     
+        if os.path.exists(capname):
+            f = open(capname, "r")
+            return f.read()    
+        else:
+            f = open(capname, "w")
+            f.write("No caption")
+            return "No Caption"
+
+        
+    def Create(self,outDirectory,pltName):
+        self.outDirectory = outDirectory    
+        self.name = pltName
+      
+ 
     def Write(self,Plot):
+        self.saveCaption(self.caption)
         outname = self.outDirectory + "/" + self.name + ".png"
         Plot.savefig(outname)
         loutname = self.outDirectory + "/" + self.name + ".tex"
