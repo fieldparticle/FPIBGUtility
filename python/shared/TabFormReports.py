@@ -150,7 +150,8 @@ class TabReports(QTabWidget):
         header = self.data.query()
         print(header)
         latexFile = ["fps", "cms", "gms", "loadedp"]
-        #latexTable = self.data.table(latexFile)
+        latexTable = self.data.return_table(latexFile)
+        print(latexTable)
         return
     def save_latex_pcd(self):
         print("pqb")
