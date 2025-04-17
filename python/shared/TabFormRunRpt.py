@@ -12,7 +12,17 @@ from PyQt6.QtWidgets import (
 )
 from PyQt6.QtMultimedia import QMediaPlayer
 from PyQt6.QtMultimediaWidgets import QVideoWidget
-from PyQt6.QtCore import Qt, QUrl, QTimer, QTime
+from PyQt6.QtCore import Qt, QUrl, QTimer, QTime, QDir
+import os
+
+def get_repo_root():
+        """Gets the absolute path of the project root directory."""
+        current_dir = os.path.dirname(os.path.abspath(__file__))
+        while not os.path.exists(os.path.join(current_dir, ".git")):
+            current_dir = os.path.dirname(current_dir)
+            if current_dir == "/":
+                raise FileNotFoundError("Could not find .git directory")
+        return current_dir
 
 class TabRunRpt(QTabWidget):
     def __init__(self, *args, **kwargs):
@@ -33,6 +43,7 @@ class TabRunRpt(QTabWidget):
         self.current_time_label = QLabel("00:00")
         self.total_time_label = QLabel(" / 00:00")
         self.open_button = QPushButton("Open Video")
+        self.open_button.setFixedWidth(150)
 
         #########################
         ### Create the Layout ###
@@ -41,7 +52,7 @@ class TabRunRpt(QTabWidget):
 
         #Add main video box
         self.video_widget.setStyleSheet("background-color: black;")
-        main_layout.addWidget(self.video_widget)
+        main_layout.addWidget(self.video_widget, 1)
 
         #Add Control layout
         controls_layout = QHBoxLayout()
@@ -59,7 +70,11 @@ class TabRunRpt(QTabWidget):
         main_layout.addLayout(controls_layout)
 
         #Open Button
-        main_layout.addWidget(self.open_button)
+        # main_layout.addWidget(self.open_button)
+        open_button_layout = QHBoxLayout()
+        open_button_layout.addWidget(self.open_button)
+        open_button_layout.addStretch(1)  # Add a stretch item to push the button to the left
+        main_layout.addLayout(open_button_layout)
 
         #########################
         ### Add Functionality ###
@@ -89,9 +104,12 @@ class TabRunRpt(QTabWidget):
         self.timer.timeout.connect(self.update_time_labels)
 
     def open_video(self):
+        video_dir = get_repo_root() + r"\FPIBGData\video"
+        video_dir = QDir.cleanPath(video_dir)
+        print(video_dir)
         file_dialog = QFileDialog()
         file_path, _ = file_dialog.getOpenFileName(
-            self, "Open Video File", "", "Video Files (*.mp4 *.avi *.mov *.mkv *)"
+            self, caption = "Open Video File", directory = video_dir, filter = "Video Files (*.mp4 *.avi *.mov *.mkv *)"
         )
         if file_path:
             self.current_video_path = file_path
@@ -102,6 +120,9 @@ class TabRunRpt(QTabWidget):
             self.total_time_label.setText(" / 00:00")
             self.current_time_label.setText("00:00")
             self.progress_slider.setValue(0)
+            #play the video for 1/5 of a second to render it to the screen
+            self.media_player.play()
+            QTimer.singleShot(200, self.media_player.pause)
         return
     def play_video(self):
         if self.media_player.mediaStatus() == QMediaPlayer.MediaStatus.NoMedia:
