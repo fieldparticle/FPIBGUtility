@@ -83,7 +83,7 @@ class TabReports(QTabWidget):
         self.data.Open("PQB")
         header = self.data.query()
         print(header)
-        latexFile = ["fps", "cms", "gms", "loadedp"]
+        latexFile = ["fps", "cpums", "cms", "gms", "loadedp"]
         tdata = self.data.return_table(latexFile)
         self.model = PandasModel(tdata)
         self.table001_image.setModel(self.model)

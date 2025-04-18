@@ -17,6 +17,18 @@ class PandasModel(QtCore.QAbstractTableModel):
             if (index.column() == 0):
                 return "%.0f" % value
             
+            if (index.column() == 1):
+                return "%.2f" % (1000*value)
+            
+            if (index.column() == 2):
+                return "%.2f" % (1000*value)
+            
+            if (index.column() == 3):
+                return "%.2f" % (1000*value)
+            
+            if (index.column() == 4):
+                return "%d" % (value)
+            
             if isinstance(value, float):
             # Render float to 2 dp
                 return "%.5f" % value
