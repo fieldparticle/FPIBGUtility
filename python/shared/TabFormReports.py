@@ -6,10 +6,11 @@ from LatexClass import *
 from PyQt6.QtWidgets import (
     QApplication, QMainWindow, QMdiArea, QMdiSubWindow, QWidget, QVBoxLayout,
     QTabWidget, QLabel, QScrollArea, QGroupBox, QFormLayout, QLineEdit, QPushButton,
-    QHBoxLayout,QRadioButton, QFileDialog, QSpacerItem, QSizePolicy, QTextEdit )
+    QHBoxLayout,QRadioButton, QFileDialog, QSpacerItem, QSizePolicy, QTextEdit,QTableView )
 from PyQt6.QtCore import Qt
 from PyQt6.QtGui import QPixmap
 from FPIBGData import *
+from TableModel import *
 
 class TabReports(QTabWidget):
     def __init__(self, *args, **kwargs):
@@ -57,26 +58,37 @@ class TabReports(QTabWidget):
             self.lintot_image.setPixmap(lintot_pixmap)
 
             spfvside_pixmap = self.dataPlot.PlotData("spfvside")
-            self.compspfvn_image.setPixmap(spfvside_pixmap)
+            self.spfvside_image.setPixmap(spfvside_pixmap)
         
-      
-                
-        self.data.Open("CFB")
+        self.dataPlot.Open("PCD","r")
+        self.data.Open("PCD")
         if (self.data.check_data_files() != True):
             print("Did not work") 
 
         if(self.dataPlot.hasData() == True):
-            spfvn_pixmap = self.dataPlot.PlotData("spfvn")
-        #    self.spfvn_image.setPixmap(spfvn_pixmap)
-
-       # if(self.dataPQB.hasData() == True):
-       #     spfvside_pixmap = self.dataPQB.PlotData("spfvside")
-       #     self.spfvside_image.setPixmap(spfvside_pixmap)
-
-        
-
+            spfvside_pixmap = self.dataPlot.PlotData("spfvside")
+            self.spfvside_image.setPixmap(spfvside_pixmap)
             
-        #print(self.data.average_list)
+        self.fpsvnltx = LatexPlot("LatexClass")
+        self.fpsvnltx.Create(self.folderLineEdit.text(),"fpsvn")
+        caption = self.fpsvnltx.readCapFile()
+        self.fpsvn_text_edit.setText(caption)
+
+        self.spfvnltx = LatexPlot("LatexClass")
+        self.spfvnltx.Create(self.folderLineEdit.text(),"spfvn")
+        caption = self.spfvnltx.readCapFile()
+        self.spfvn_text_edit.setText(caption)
+        
+        ## Uodate Tables
+        self.data.Open("PQB")
+        header = self.data.query()
+        print(header)
+        latexFile = ["fps", "cms", "gms", "loadedp"]
+        tdata = self.data.return_table(latexFile)
+        self.model = PandasModel(tdata)
+        self.table001_image.setModel(self.model)
+
+
 
     def get_output_dir(self):
         return self.folderLineEdit.text()
@@ -122,18 +134,7 @@ class TabReports(QTabWidget):
             self.fpsvnltx.placement = "h"
             self.fpsvnltx.Write(self.dataPlot.spfvnfig)
             
-
-
-            
-            
-
-        self.data.Open("PQB")
-        header = self.data.query()
-        print(header)
-        latexFile = ["fps", "cms", "gms", "loadedp"]
-        latexTable = self.data.return_table(latexFile)
-        print(latexTable)
-        return
+      
     def save_latex_pcd(self):
         print("pqb")
         return
@@ -283,11 +284,11 @@ class TabReports(QTabWidget):
         self.table001_tab = QWidget()
         table001_layout = QVBoxLayout(self.table001_tab)
         
-        table001_image = QLabel("PLACEHOLDER WIDGET FOR IMAGE")
+        self.table001_image = QTableView()
 
         table001_buttons = QHBoxLayout()
         self.save_latex_table001_button = QPushButton("Save Latex")
-        self.save_latex_table001_button.clicked.connect(lambda: self.save_latex(table001_image))
+        #self.save_latex_table001_button.clicked.connect(lambda: self.save_latex(self.table001_image))
         self.save_latex_table001_button.setMaximumWidth(150)
         table001_buttons.addItem(spacer)
         table001_buttons.addWidget(self.save_latex_table001_button)
@@ -300,7 +301,7 @@ class TabReports(QTabWidget):
         table001_caption_container.addWidget(self.table001_text_edit)
 
         table001_layout.addLayout(table001_buttons)
-        table001_layout.addWidget(table001_image)
+        table001_layout.addWidget(self.table001_image)
         table001_layout.addLayout(table001_caption_container)
 
         self.table001_tab.setLayout(table001_layout)
@@ -432,20 +433,20 @@ class TabReports(QTabWidget):
         graphspfvn_layout.addLayout(graphspfvn_caption_container)
 
         self.graphspfvn_tab.setLayout(graphspfvn_layout)
-       #self.cfb_subreports.addTab(self.graphspfvn_tab, "Graphics SPF v N")
+        self.cfb_subreports.addTab(self.graphspfvn_tab, "Graphics SPF v N")
 
         ####### SPf V Sidelength #######
         self.compspfvn_tab = QWidget()
         compspfvn_layout = QVBoxLayout(self.compspfvn_tab)
 
-        self.compspfvn_image = QLabel("PLACEHOLDER WIDGET FOR IMAGE")
+        compspfvn_image = QLabel("PLACEHOLDER WIDGET FOR IMAGE")
 
         compspfvn_buttons = QHBoxLayout()
         self.save_latex_compspfvn_button = QPushButton("Save Latex")
-        self.save_latex_compspfvn_button.clicked.connect(lambda: self.save_latex(self.compspfvn_image))
+        self.save_latex_compspfvn_button.clicked.connect(lambda: self.save_latex(compspfvn_image))
         self.save_latex_compspfvn_button.setMaximumWidth(150)
         self.save_image_compspfvn_button = QPushButton("Save Image")
-        self.save_image_compspfvn_button.clicked.connect(lambda: self.save_image(self.compspfvn_image))
+        self.save_image_compspfvn_button.clicked.connect(lambda: self.save_image(compspfvn_image))
         self.save_image_compspfvn_button.setMaximumWidth(150)
         compspfvn_buttons.addItem(spacer)
         compspfvn_buttons.addWidget(self.save_latex_compspfvn_button)
@@ -459,7 +460,7 @@ class TabReports(QTabWidget):
         compspfvn_caption_container.addWidget(self.compspfvn_text_edit)
 
         compspfvn_layout.addLayout(compspfvn_buttons)
-        compspfvn_layout.addWidget(self.compspfvn_image)
+        compspfvn_layout.addWidget(compspfvn_image)
         compspfvn_layout.addLayout(compspfvn_caption_container)
 
         self.compspfvn_tab.setLayout(compspfvn_layout)

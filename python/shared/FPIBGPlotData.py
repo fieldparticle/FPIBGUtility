@@ -70,7 +70,7 @@ class PlotData:
             case "spfvside":
                 return self.plot_spfvside()
             #CFB
-            case "spfccollsions"
+            case "spfccollsions":
                 pass
 
 
