@@ -1,7 +1,7 @@
 import sys
 from PyQt6 import QtCore, QtGui, QtWidgets
 from PyQt6.QtCore import Qt
-
+from LatexClass import *
 import pandas as pd
 
 
@@ -10,13 +10,24 @@ class PandasModel(QtCore.QAbstractTableModel):
     def __init__(self, data):
         super().__init__()
         self._data = data
+        self.Latex = LatexTable(data)
+        self.Latex.Create(self._data.shape[0],self._data.shape[1],"PerfTable")
 
+
+    def dataChanged(self):
+        self.setData()
+
+    rowlength = 0
+    collength = 0
     def data(self, index, role):
+        #self.Latex.setLatexData(self)
         if role == Qt.ItemDataRole.DisplayRole:
             value = self._data.iloc[index.row(), index.column()]
+           
+            cellstr = ""
             if (index.column() == 0):
                 return "%.0f" % value
-            
+                
             if (index.column() == 1):
                 return "%.2f" % (1000*value)
             
@@ -29,14 +40,9 @@ class PandasModel(QtCore.QAbstractTableModel):
             if (index.column() == 4):
                 return "%d" % (value)
             
-            if isinstance(value, float):
-            # Render float to 2 dp
-                return "%.5f" % value
+            print(index.row(),index.column())
 
-            if isinstance(value, str):
-            # Render strings with quotes
-                return '"%s"' % value
-
+    
     def rowCount(self, index):
         return self._data.shape[0]
 

@@ -78,18 +78,20 @@ class TabReports(QTabWidget):
         self.spfvnltx.Create(self.folderLineEdit.text(),"spfvn")
         caption = self.spfvnltx.readCapFile()
         self.spfvn_text_edit.setText(caption)
-        
+
         ## Uodate Tables
         self.data.Open("PQB")
         header = self.data.query()
-        print(header)
         latexFile = ["fps", "cpums", "cms", "gms", "loadedp"]
+        
         tdata = self.data.return_table(latexFile)
         self.model = PandasModel(tdata)
         self.table001_image.setModel(self.model)
+        self.table001_image.show()
+        
+        
 
-
-
+    
     def get_output_dir(self):
         return self.folderLineEdit.text()
 
@@ -148,7 +150,12 @@ class TabReports(QTabWidget):
         #TODO
         return
     def save_latex(self, widget):
-        #TODO
+        
+        ## Latex stuff
+        latxheader = ["FPS","CPU Time(ms)","Commpute Time(ms)","Graphics Time(ms)","Number particles"]
+        self.model.Latex.setLatexHeaderArray(latxheader)
+        self.model.Latex.name = "perftable"
+        self.model.Latex.WriteLatexTable()
         return
 
     def Create(self, FPIBGBase):
@@ -288,7 +295,7 @@ class TabReports(QTabWidget):
 
         table001_buttons = QHBoxLayout()
         self.save_latex_table001_button = QPushButton("Save Latex")
-        #self.save_latex_table001_button.clicked.connect(lambda: self.save_latex(self.table001_image))
+        self.save_latex_table001_button.clicked.connect(lambda: self.save_latex(self.table001_image))
         self.save_latex_table001_button.setMaximumWidth(150)
         table001_buttons.addItem(spacer)
         table001_buttons.addWidget(self.save_latex_table001_button)
