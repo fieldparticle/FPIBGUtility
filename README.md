@@ -2,7 +2,7 @@
 
 The documentation for FPIBG Utility can be found at:
 
-https://fieldparticle.github.io/FPIBGUtility/
+[https://fieldparticle.github.io/FPIBGUtility/](https://fieldparticle.github.io/ParticleCollisionDetection/)
 
 # FPIBGUtility
 
