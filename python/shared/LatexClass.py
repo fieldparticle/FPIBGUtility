@@ -43,9 +43,10 @@ class LatexClass:
             f.close()
             return buf
         else:
-            f = open(capname, "w")
-            f.write("No caption")
-            f.close()            
+            # Commented this out to prevent errors trying to open a file that doesn't exist
+            # f = open(capname, "w")
+            # f.write("No caption")
+            # f.close()            
             return "No Caption"
         
     def WritePre(self,mode):
