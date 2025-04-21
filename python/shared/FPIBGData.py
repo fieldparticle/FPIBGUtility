@@ -88,7 +88,14 @@ class DataClass:
             return False
         tst_files = [i for i in os.listdir(self.topdir) if i.endswith(".tst")]
         self.data_files = [i[:-5] for i in os.listdir(self.topdir) if i.endswith("D.csv")]
-        return len(tst_files) == len(self.data_files)
+        self.hasData = len(tst_files) == len(self.data_files)
+        if(self.hasData == False):
+            return False
+        self.data_files = [i[:-5] for i in os.listdir(self.topdir) if i.endswith("R.csv")]
+        self.hasData = len(tst_files) == len(self.data_files)
+        if(self.hasData == False):
+            return False
+        
 
     def create_summary(self):
         if(self.hasData == False):
