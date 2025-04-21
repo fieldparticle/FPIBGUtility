@@ -92,13 +92,16 @@ class TabReports(QTabWidget):
             self.compspfvn_image.setPixmap(compspfvn_image)
         
         
-        self.dataPlot.Open("PCD","r")
         self.data.Open("PCD")
         if (self.data.check_data_files() != True):
             return 
-
-
-       
+        self.data.create_summary()
+        self.data.get_averages()
+        self.dataPlot.Open("PCD","r")
+        if(self.dataPlot.hasData() == True):
+            spfvside_image = self.dataPlot.PlotData("spfvcollisions")
+            self.spfvside_image.setPixmap(spfvside_image)
+        
               
 
     

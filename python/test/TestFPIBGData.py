@@ -24,9 +24,9 @@ match guser:
 
 myClass = DataClass("ExampleObject")
 myClass.Create(bc)
-myClass.Open("PQB")
-if (myClass.check_data_files() != True):
-    print("Did not work") 
+myClass.Open("CFB")
+# if (myClass.check_data_files() != True):
+#     print("Did not work") 
 myClass.create_summary()
 myClass.get_averages()
 myClass.query()

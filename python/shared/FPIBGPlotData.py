@@ -127,8 +127,8 @@ class PlotData:
             case "spfvside":
                 return self.plot_spfvside()
             #CFB
-            case "spfccollsions":
-                pass
+            case "spfvcollsions":
+                return self.plot_spfvcollsions()
 
 
     def new_path(self, dir):
@@ -402,3 +402,29 @@ class PlotData:
         plt.title("Standard Deviation of gms and cms")
         plt.grid(True)
         #plt.show()
+
+    def plot_spfvcollsions(self):
+        df = pd.read_csv(self.topdir)
+
+        shaderc = df["shaderc"].values.reshape(-1, 1)
+        cms = df['cms']
+
+        plt.figure(figsize=(8,5))
+        plt.scatter(shaderc, cms, marker='o', color = "cornflowerblue")
+        plt.plot(shaderc, cms, linestyle = "-", label="cms v shaderc", color = "cornflowerblue")
+        plt.xlabel("shaderc")
+        plt.ylabel("cms")
+        plt.title(f"{os.path.basename(self.topdir)}: cms v shaderc")
+        plt.legend()
+        plt.grid(True)
+        plt.show()
+        buf = io.BytesIO()
+        self.spfvcollision = plt.gcf()
+        self.spfvcollision.savefig(buf, format='png')
+        buf.seek(0)
+
+        image = QImage()
+        image.loadFromData(buf.getvalue())
+        pixmap = QPixmap.fromImage(image)
+        return pixmap
+
