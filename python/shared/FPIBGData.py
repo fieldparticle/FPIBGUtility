@@ -96,6 +96,8 @@ class DataClass:
         if(self.hasData == False):
             return False
         
+        return True
+        
 
     def create_summary(self):
         if(self.hasData == False):
