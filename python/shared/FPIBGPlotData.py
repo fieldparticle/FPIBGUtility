@@ -50,6 +50,7 @@ class PlotData:
                 if(len(df) <= 1):
                     self.hasDataFlag = False
                     return         
+                self.hasDataFlag = True
             case "DUP":
                 self.topdir = self.cfg.application.testdirDUP
                 self.testFile = "perfDUP.csv"
@@ -68,10 +69,10 @@ class PlotData:
                 if(len(df) <= 1):
                     self.hasDataFlag = False
                     return         
+                self.hasDataFlag = True
             case "CFB":
                 self.topdir = self.cfg.application.testdirCFB
                 self.testFile = "perfCFB.csv"
-                df = pd.read_csv(self.topdir)
                 self.upper = os.path.split(self.topdir)
                 self.topdir = self.upper[0] + "/" + self.testFile
                 if (os.path.exists(self.topdir) == True):
@@ -85,7 +86,8 @@ class PlotData:
                     return         
                 if(len(df) <= 1):
                     self.hasDataFlag = False
-                    return         
+                    return 
+                self.hasDataFlag = True
 
         self.upper = os.path.split(self.topdir)
         self.topdir = self.upper[0] + "/" + self.testFile

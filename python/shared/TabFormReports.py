@@ -80,8 +80,17 @@ class TabReports(QTabWidget):
             lintot_pixmap = self.dataPlot.PlotData("lintot")
             self.lintot_image.setPixmap(lintot_pixmap)
 
+        
+        self.data.Open("CFB")
+        if (self.data.check_data_files() != True):
+            return
+        self.data.create_summary()
+        self.data.get_averages()
+        self.dataPlot.Open("CFB","r")
+        if(self.dataPlot.hasData() == True):
             compspfvn_image = self.dataPlot.PlotData("spfvside")
             self.compspfvn_image.setPixmap(compspfvn_image)
+        
         
         self.dataPlot.Open("PCD","r")
         self.data.Open("PCD")
