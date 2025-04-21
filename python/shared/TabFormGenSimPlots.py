@@ -13,7 +13,8 @@ import threading
 from io import BytesIO
 from pyqtLED import QtLed
 
-class TabGenData(QTabWidget):
+
+class TabSimPlots(QTabWidget):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
     
@@ -28,5 +29,8 @@ class TabGenData(QTabWidget):
         self.setLayout(tab_layout)
         tbdLabel = QLabel("To be Completed")
         tbdLabel.setStyleSheet("font: 30pt Comic Sans MS")
+        vectpolt = QLabel()
+        self.pixmap = QPixmap("SimpVectPlotFiltered.png")
+        vectpolt.setPixmap(self.pixmap)
         tab_layout.addWidget(tbdLabel)
-       
+        tab_layout.addWidget(vectpolt)

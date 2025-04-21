@@ -1,6 +1,7 @@
 import os
 import csv
 import inspect
+import pandas as pd
 
 class DataClass:
 
@@ -30,8 +31,9 @@ class DataClass:
                 self.topdir = self.cfg.application.testdirDUP
             case "CFB":
                 self.topdir = self.cfg.application.testdirCFB
-        
+        self.hasData = False
         if os.path.exists(self.topdir):
+            self.hasData = True
             rettxt = "Sucessfully found data directory :" + self.topdir
             self.bobj.log.log(self.bobj.lvl,inspect.currentframe().f_lineno,
             __file__,
@@ -57,18 +59,49 @@ class DataClass:
     def Write(self):
         pass
 
-    # Returns true if number of .tst files equal to number of R or D files
-    def check_data_files(self) -> bool:
-        tst_files = [i for i in os.listdir(self.topdir) if i.endswith(".tst")]
-        self.data_files = [i[:-5] for i in os.listdir(self.topdir) if i.endswith("D.csv")]
-        return len(tst_files) == len(self.data_files)
-
     def new_path(self, dir):
         parts = dir.rsplit("/", 1) 
         parts[-1] = parts[-1].replace("data", "")
         return "/".join(parts)
+    
+    # Returns column names of the object summary file
+    def query(self):
+        if(self.hasData == False):
+            return ["no data"]
+        newdir = self.new_path(self.topdir) + ".csv"
+        with open(newdir, mode= 'r') as file:
+            reader = csv.reader(file)
+            for row in reader:
+                return row
+            
+    def return_table(self, colNames):
+        if(self.hasData == False):
+            return ["no data"]
+        newdir = self.new_path(self.topdir) + ".csv"
+        table = pd.read_csv(newdir, usecols=colNames)
+        return table
+
+    # Returns true if number of .tst files equal to number of R or D files
+    def check_data_files(self) -> bool:
+        if(os.path.exists(self.topdir) == False):
+            print ("Data Direcoptries not available" )
+            return False
+        tst_files = [i for i in os.listdir(self.topdir) if i.endswith(".tst")]
+        self.data_files = [i[:-5] for i in os.listdir(self.topdir) if i.endswith("D.csv")]
+        self.hasData = len(tst_files) == len(self.data_files)
+        if(self.hasData == False):
+            return False
+        self.data_files = [i[:-5] for i in os.listdir(self.topdir) if i.endswith("R.csv")]
+        self.hasData = len(tst_files) == len(self.data_files)
+        if(self.hasData == False):
+            return False
+        
+        return True
+        
 
     def create_summary(self):
+        if(self.hasData == False):
+            return False
         data = ['Name', 'fps', 'cpums', 'cms', 'gms', 'expectedp', 'loadedp',
                 'shaderp_comp', 'shaderp_grph', 'expectedc', 'shaderc', 'sidelen']
         newdir = self.new_path(self.topdir) + ".csv"
@@ -77,6 +110,8 @@ class DataClass:
             writer.writerow(data)
 
     def get_averages(self):
+        if(self.hasData == False):
+            return False
         directory = self.new_path(self.topdir) + ".csv"
         for i in self.data_files:
             file_path_debug = self.topdir + "/" + i + "D.csv"

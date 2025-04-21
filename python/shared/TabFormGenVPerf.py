@@ -15,6 +15,8 @@ from pyqtLED import QtLed
 ImageFile.LOAD_TRUNCATED_IMAGES = True
 
 class TabGenVPerf(QTabWidget):
+    
+    stopFlag = False
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.tcpc = TCPIPClient("TCPIP Client")
@@ -43,12 +45,15 @@ class TabGenVPerf(QTabWidget):
         Txt += "</span>"
         self.terminal.append( Txt)      
 
+    def stop(self):
+        self.stopFlag = True
+        
     def runSeriesThread(self,tcpc):
         if(tcpc.Open() == 0):
             self.greenText( self.tcpc.Text)
         else:
             self.redText( self.tcpc.Text)  
-        command = "runseries"
+        command = "runseries,particleVP.cfg"
         ret = tcpc.WriteCmd(command)
         ret = 0
         while ret == 0:
@@ -56,7 +61,6 @@ class TabGenVPerf(QTabWidget):
             msg = self.tcpc.Text.split(",")
             match msg[0]:
                 case "perfline":
-                    
                     self.loadedDisk.setText(msg[7])
                     self.processedGraphics.setText(msg[9])
                     self.processedCompute.setText(msg[8])
@@ -74,6 +78,9 @@ class TabGenVPerf(QTabWidget):
                 case "perfdone":
                     break
             self.tcpc.command = "cont"
+            if(self.stopFlag == True):
+                self.tcpc.command = "stop"
+                ret = 1
             self.tcpc.Write()            
         print("Perf Study done.") 
         self.greenText("Perf Study Done.")
@@ -281,7 +288,7 @@ class TabGenVPerf(QTabWidget):
         self.stopButton = QPushButton("Stop")
         self.setSize(self.stopButton,30,100)
         self.stopButton.setStyleSheet("background-color:  #dddddd")
-        #self.runButton.clicked.connect(self.DoAll)
+        self.stopButton.clicked.connect(self.stop)
         ctrlgrid.addWidget(self.stopButton,1,1,1,1)
 
         if(self.tcps.Create(FPIBBase) == 0):

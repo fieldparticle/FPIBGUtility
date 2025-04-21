@@ -6,10 +6,13 @@ from io import BytesIO
 from PIL import Image
 import matplotlib.pyplot as plt
 class TCPIPServer:
+
+
+    
     def __init__(self, ObjectName):
         self.objname = ObjectName
         
-
+    
     ## Create() for the MyClass object.
     # @param   BaseObj -- (FPIBGBase) this is the glovbal class that contains the log and config file facilities.
     def Create(self,BaseObj):
@@ -22,6 +25,7 @@ class TCPIPServer:
         self.dlvl = 11000
         self.response = ""
         self.Text = ""
+        
         # Assign all configuration items in the create function
         # and contain them in a try block
         try:
@@ -31,8 +35,7 @@ class TCPIPServer:
             self.buffer_size = self.cfg.image_buffer_size
             self.saveimgdir = self.cfg.save_img_dir
             self.savecvsdir = self.cfg.save_csv_dir
-            self.server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            self.Text =  f"Created Image Server successfully {self.server_ip}:{self.server_port}"
+            
             return 0
         except Exception as err:
             self.bobj.log.log( 0,  inspect.currentframe().f_lineno,
@@ -49,6 +52,8 @@ class TCPIPServer:
     def Open(self):
         ##Connect to the server."""
         try:
+            self.server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            self.Text =  f"Created Image Server successfully {self.server_ip}:{self.server_port}"
             self.server_socket.bind((self.server_ip, self.server_port))
             self.server_socket.listen(1)
             self.log( 0, inspect.currentframe().f_lineno,
@@ -78,12 +83,23 @@ class TCPIPServer:
         
     def Accept(self):
         self.conn, self.addr = self.server_socket.accept()    
+        
 
     def Close(self):
         """Close the server connection properly."""
         self.server_socket.close()
         print("Server connection closed.")
 
+    def readnbyte(self, n):
+        buff = bytearray(n)
+        pos = 0
+        while pos < n:
+            cr = self.conn.recv_into(memoryview(buff)[pos:])
+            if cr == 0:
+                raise EOFError
+            pos += cr
+        return buff
+    
     def Read(self):
         #Receive confirmation message from the server.
         try:
@@ -147,11 +163,11 @@ class TCPIPServer:
                 "Wrote:{}".format(len(self.command)))   
         
     def RecieveBMPFile(self):
-
+        buffer =  BytesIO()    
         self.command = "start"
         self.Write()
-
-        msg = self.ReadBuf(124)
+        msg = self.Read()
+        msg = self.response
         msg = msg.decode()
         msg = msg.split(",")
         if(msg[0] == "end"):
@@ -161,7 +177,7 @@ class TCPIPServer:
         print(self.Text)
         outdir = self.saveimgdir + "/" + msg[0]
         #f = open(outdir, "wb")
-        buffer =  BytesIO()
+        
         block1 = int(msg[1])
         block2 = int(msg[2])
         block3 = int(msg[3])
@@ -181,18 +197,18 @@ class TCPIPServer:
         self.Write()
         buffer.write(blk2)
         
-      
-        blk3 = self.ReadBuf(block3)
+        bytes = self.readnbyte(block3)
+        #blk3 = self.ReadBuf(block3)
         print("Total Bytes{}".format(block3))
         #f.write(blk3)
-        buffer.write(blk3)
+        buffer.write(bytes)
         
        
         #f.close()
         self.im = Image.open(buffer)
         #im = Image.frombuffer(buffer)
         self.im.save("img.bmp")
-        
+        del buffer
         #plt.imshow(im)
         #plt.show()
         return 0

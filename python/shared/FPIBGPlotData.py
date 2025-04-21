@@ -17,20 +17,77 @@ class PlotData:
     def hasData(self):
         return self.hasDataFlag
     
-    def Open(self,file_end):
+    def Open(self,file_end,typeFlag):
         match(file_end):
             case "PQB":
                 self.topdir = self.cfg.application.testdirPQB
                 self.testFile = "perfPQB.csv"
+                self.upper = os.path.split(self.topdir)
+                self.topdir = self.upper[0] + "/" + self.testFile
+                if (os.path.exists(self.topdir) == True):
+                    self.hasDataFlag = True
+                else:
+                    self.hasDataFlag = False
+                    return
+                df = pd.read_csv(self.topdir)
+                if(len(df) <= 1):
+                    self.hasDataFlag = False
+                    return         
             case "PCD":
                 self.topdir = self.cfg.application.testdirPCD
                 self.testFile = "perfPCD.csv"
+                self.upper = os.path.split(self.topdir)
+                self.topdir = self.upper[0] + "/" + self.testFile
+                if (os.path.exists(self.topdir) == True):
+                    self.hasDataFlag = True
+                else:
+                    self.hasDataFlag = False
+                    return
+                df = pd.read_csv(self.topdir)
+                if(len(df) <= 1):
+                    self.hasDataFlag = False
+                    return         
+                if(len(df) <= 1):
+                    self.hasDataFlag = False
+                    return         
+                self.hasDataFlag = True
             case "DUP":
                 self.topdir = self.cfg.application.testdirDUP
                 self.testFile = "perfDUP.csv"
+                self.upper = os.path.split(self.topdir)
+                self.topdir = self.upper[0] + "/" + self.testFile
+                if (os.path.exists(self.topdir) == True):
+                    self.hasDataFlag = True
+                else:
+                    self.hasDataFlag = False
+                    return
+                df = pd.read_csv(self.topdir)
+                if(len(df) <= 1):
+                    self.hasDataFlag = False
+                    return         
+                df = pd.read_csv(self.topdir)
+                if(len(df) <= 1):
+                    self.hasDataFlag = False
+                    return         
+                self.hasDataFlag = True
             case "CFB":
                 self.topdir = self.cfg.application.testdirCFB
                 self.testFile = "perfCFB.csv"
+                self.upper = os.path.split(self.topdir)
+                self.topdir = self.upper[0] + "/" + self.testFile
+                if (os.path.exists(self.topdir) == True):
+                    self.hasDataFlag = True
+                else:
+                    self.hasDataFlag = False
+                    return
+                df = pd.read_csv(self.topdir)
+                if(len(df) <= 1):
+                    self.hasDataFlag = False
+                    return         
+                if(len(df) <= 1):
+                    self.hasDataFlag = False
+                    return 
+                self.hasDataFlag = True
 
         self.upper = os.path.split(self.topdir)
         self.topdir = self.upper[0] + "/" + self.testFile
@@ -57,14 +114,21 @@ class PlotData:
         if(self.hasData == False):
             return
         match name:
+            # PQB
             case "fpsvn":
                 return self.plot_fpsvn()
+            # PQB
             case "spfvn":
                 return self.plot_spfvn()
+            # PQB
             case "lintot":
                 return self.plot_lintot()
+            # PCD 
             case "spfvside":
                 return self.plot_spfvside()
+            #CFB
+            case "spfvcollisions":
+                return self.plot_spfvcollsions()
 
 
     def new_path(self, dir):
@@ -94,7 +158,7 @@ class PlotData:
         plt.title(f"{os.path.basename(self.topdir)}: cpums vs loadedp")
         plt.legend()
         plt.grid(True)
-        plt.show()
+        #plt.show()
 
     # Plot B1
     def plot_spfvn(self):
@@ -134,8 +198,8 @@ class PlotData:
         plt.legend()
         plt.grid(True)
         buf = io.BytesIO()
-        fig = plt.gcf()
-        fig.savefig(buf, format='png')
+        self.spfvnfig = plt.gcf()
+        self.spfvnfig.savefig(buf, format='png')
         buf.seek(0)
 
         image = QImage()
@@ -266,6 +330,8 @@ class PlotData:
 
     def plot_fpsvn(self):
         df = pd.read_csv(self.topdir)
+        if(len(df.index) <= 1):
+            return QPixmap
 
         loadedp = df["loadedp"]
         fps = df["fps"]
@@ -280,10 +346,10 @@ class PlotData:
         plt.title(f"{os.path.basename(self.topdir)}: Frames Per Second vs Loaded Particles")
         plt.legend()
         plt.grid(True)
-        
+        self.fpsvnfig = plt
         buf = io.BytesIO()
-        fig = plt.gcf()
-        fig.savefig(buf, format='png')
+        self.fpsvnfig = plt.gcf()
+        self.fpsvnfig.savefig(buf, format='png')
         buf.seek(0)
 
         image = QImage()
@@ -321,18 +387,43 @@ class PlotData:
         plt.title(f"{os.path.basename(self.topdir)}: Seconds Per Frame vs Number of Collisions")
         plt.legend()
         plt.grid(True)
-        plt.show()
+        #plt.show()
 
         plt.figure(figsize=(8,5))
         plt.bar(["gms", "cms"], [var_gms, var_cms], color=["cornflowerblue", "mediumseagreen"])
         plt.ylabel("Variance")
         plt.title("Variance of gms and cms")
         plt.grid(True)
-        plt.show()
+        #plt.show()
 
         plt.figure(figsize=(8,5))
         plt.bar(["gms", "cms"], [sd_gms, sd_cms], color=["cornflowerblue", "mediumseagreen"])
         plt.ylabel("Standard Deviation")
         plt.title("Standard Deviation of gms and cms")
         plt.grid(True)
-        plt.show()
+        #plt.show()
+
+    def plot_spfvcollsions(self):
+        df = pd.read_csv(self.topdir)
+
+        shaderc = df["shaderc"].values.reshape(-1, 1)
+        cms = df['cms']
+
+        plt.figure(figsize=(8,5))
+        plt.scatter(shaderc, cms, marker='o', color = "cornflowerblue")
+        plt.plot(shaderc, cms, linestyle = "-", label="cms v shaderc", color = "cornflowerblue")
+        plt.xlabel("shaderc")
+        plt.ylabel("cms")
+        plt.title(f"{os.path.basename(self.topdir)}: cms v shaderc")
+        plt.legend()
+        plt.grid(True)
+        buf = io.BytesIO()
+        self.spfvcollision = plt.gcf()
+        self.spfvcollision.savefig(buf, format='png')
+        buf.seek(0)
+
+        image = QImage()
+        image.loadFromData(buf.getvalue())
+        pixmap = QPixmap.fromImage(image)
+        return pixmap
+
