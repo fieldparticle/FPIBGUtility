@@ -90,6 +90,14 @@ class TabRunSim(QTabWidget):
         self.bmpdata_ready.emit(1,text)
             
         while tcps.RecieveBMPFile() == 0:
+            if(self.imageRunning == 3):
+                self.tcpc.command = "stopcap"
+                self.imageRunning = 0
+                self.tcpc.Write()
+                print("Closing FPIBG app Server")
+                self.tcps.Close()
+
+                break
             text = self.greenText( self.tcps.Text)
             self.bmpdata_ready.emit(1,text)
             self.tcps.im = self.tcps.im.convert("RGBA")
@@ -98,13 +106,6 @@ class TabRunSim(QTabWidget):
             pix = QPixmap.fromImage(qim)
             self.bmp_image_ready.emit(pix)
             self.tcps.command = "next"
-            if(self.imageRunning == 3):
-                self.tcpc.command = "stopcap"
-                self.imageRunning = 0
-                self.tcps.Write()
-                print("Closing FPIBG app Server")
-                self.tcps.Close()
-                break
             self.tcps.Write()        
             
                 
@@ -153,7 +154,7 @@ class TabRunSim(QTabWidget):
                 self.tcpc.command = "stop"
             else:
                 self.tcpc.command = "cont"
-                self.stopFlag = False    
+                self.stopFlag = False
 
             if(self.tsRunFlag == True):    
                 self.tcpc.command = "tgrun"
@@ -170,6 +171,8 @@ class TabRunSim(QTabWidget):
                 self.tcpc.command = "startcap"
                 self.imageRunning = 2
 
+         
+          
            
 
             

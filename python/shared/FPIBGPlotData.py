@@ -127,7 +127,7 @@ class PlotData:
             case "spfvside":
                 return self.plot_spfvside()
             #CFB
-            case "spfvcollsions":
+            case "spfvcollisions":
                 return self.plot_spfvcollsions()
 
 
