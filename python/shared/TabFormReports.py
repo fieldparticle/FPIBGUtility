@@ -68,28 +68,31 @@ class TabReports(QTabWidget):
         if(self.dataPlot.hasData() == True):
             spfvside_pixmap = self.dataPlot.PlotData("spfvside")
             self.spfvside_image.setPixmap(spfvside_pixmap)
+        if(self.dataPlot.hasData() == True):
+            self.fpsvnltx = LatexPlot("LatexClass")
+            self.fpsvnltx.Create(self.bobj,"fpsvn")
+            caption = self.fpsvnltx.readCapFile()
+            self.fpsvn_text_edit.setText(caption)
+
+            self.spfvnltx = LatexPlot("LatexClass")
+            self.spfvnltx.Create(self.bobj,"spfvn")
+            caption = self.spfvnltx.readCapFile()
+            self.spfvn_text_edit.setText(caption)
+
+            ## Uodate Tables
+            self.data.Open("PQB")
+            header = self.data.query()
+            latexFile = ["fps", "cpums", "cms", "gms", "loadedp"]
             
-        self.fpsvnltx = LatexPlot("LatexClass")
-        self.fpsvnltx.Create(self.folderLineEdit.text(),"fpsvn")
-        caption = self.fpsvnltx.readCapFile()
-        self.fpsvn_text_edit.setText(caption)
+            tdata = self.data.return_table(latexFile)
+            self.model = PandasModel(self.bobj,tdata)
+            self.table001_image.setModel(self.model)
+            self.model.Latex.name = "perftable"
+            self.table001_text_edit.setText(self.model.Latex.readCapFile())
 
-        self.spfvnltx = LatexPlot("LatexClass")
-        self.spfvnltx.Create(self.folderLineEdit.text(),"spfvn")
-        caption = self.spfvnltx.readCapFile()
-        self.spfvn_text_edit.setText(caption)
+            self.table001_image.show()
 
-        ## Uodate Tables
-        self.data.Open("PQB")
-        header = self.data.query()
-        latexFile = ["fps", "cpums", "cms", "gms", "loadedp"]
-        
-        tdata = self.data.return_table(latexFile)
-        self.model = PandasModel(tdata)
-        self.table001_image.setModel(self.model)
-        self.table001_image.show()
-        
-        
+              
 
     
     def get_output_dir(self):
@@ -152,9 +155,10 @@ class TabReports(QTabWidget):
     def save_latex(self, widget):
         
         ## Latex stuff
-        latxheader = ["FPS","CPU Time(ms)","Commpute Time(ms)","Graphics Time(ms)","Number particles"]
+        latxheader = ["Total\\\\ \\maxfps{}","CPU \\\\ Time","Compute\\\\(Narrow) \\\\ \\mcpt{}","Graphics\\\\(Broad) \\\\ \\mgpt{}","Particles\\\\in\\\\Dataset"]
         self.model.Latex.setLatexHeaderArray(latxheader)
         self.model.Latex.name = "perftable"
+        self.model.Latex.saveCaption(self.table001_text_edit.toPlainText() )
         self.model.Latex.WriteLatexTable()
         return
 
@@ -162,7 +166,7 @@ class TabReports(QTabWidget):
         self.bobj = FPIBGBase
         self.cfg = self.bobj.cfg.config
         self.log = self.bobj.log.log
-        self.latexDir = self.cfg.latex_dir
+        #self.latexDir = self.cfg.latex_dir
 
      
         
@@ -186,7 +190,7 @@ class TabReports(QTabWidget):
         hbox.addWidget(self.folderLineEdit)
         hbox.addWidget(self.browseButton)
         hbox.addWidget(self.save_latex_all_button)
-        self.folderLineEdit.setText(self.latexDir)
+        #self.folderLineEdit.setText(self.latexDir)
         self.updateButton = QPushButton("Update Data")
         self.setSize(self.updateButton,30,150)
         self.updateButton.setStyleSheet("background-color:  #dddddd")

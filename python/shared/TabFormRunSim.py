@@ -110,7 +110,6 @@ class TabRunSim(QTabWidget):
                 
     def OpenImageServer(self):
         self.bmpthread = threading.Thread(target=self.openImageServerThread,args=(self.tcps,))
-       
         self.bmpthread.start()
 
     bmpdata_ready = QtCore.pyqtSignal(object,object)
@@ -122,11 +121,14 @@ class TabRunSim(QTabWidget):
           self.image.setPixmap(image)   
 
     def runSimThread(self,tcpc):
+        self.runButton.setEnabled(False)
+        self.stopButton.setEnabled(True)
+        self.ImagestopButton.setEnabled(True)
         if(tcpc.Open() == 0):
             self.greenText(self.tcpc.Text)
         else:
             self.redText( self.tcpc.Text)  
-        command = "runsim"
+        command = "runsim,ParticleCDNOZ.cfg"
         ret = tcpc.WriteCmd(command)
         ret = 0
         while ret == 0:
@@ -141,6 +143,10 @@ class TabRunSim(QTabWidget):
                     self.data_ready.emit(2,msg[2])
                 case "simdone":
                     print("simdone")
+                    self.runButton.setEnabled(True)
+                    self.stopButton.setEnabled(False)     
+                    self.stopButton.setEnabled(False)
+                    self.ImagestopButton.setEnabled(False)               
                     break
             
             if(self.stopFlag == True):
@@ -273,11 +279,13 @@ class TabRunSim(QTabWidget):
         self.stopButton.setStyleSheet("background-color:  #dddddd")
         ctrlgrid.addWidget(self.stopButton,4,1,1,1)
         self.stopButton.clicked.connect(self.stopSim)
+        self.stopButton.setEnabled(False)
         self.stopFlag = False
 
         self.ImagestopButton = QPushButton("Start Image Capure")
         self.setSize(self.ImagestopButton,30,150)
         self.ImagestopButton.setStyleSheet("background-color:  #dddddd")
+        self.ImagestopButton.setEnabled(False)
         ctrlgrid.addWidget(self.ImagestopButton,5,1,1,1)
         self.ImagestopButton.clicked.connect(self.startStopImage)
         self.ssImage = True

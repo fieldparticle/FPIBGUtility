@@ -48,7 +48,7 @@ class TabGenVPerf(QTabWidget):
             self.greenText( self.tcpc.Text)
         else:
             self.redText( self.tcpc.Text)  
-        command = "runseries"
+        command = "runseries,particleVP.cfg"
         ret = tcpc.WriteCmd(command)
         ret = 0
         while ret == 0:

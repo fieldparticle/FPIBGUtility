@@ -36,6 +36,7 @@ class LatexClass:
         f.write(Text)
 
     def readCapFile(self):
+        
         capname = self.outDirectory + "/" + self.name + ".cap"     
         if os.path.exists(capname):
             f = open(capname, "r")
@@ -49,6 +50,8 @@ class LatexClass:
             return "No Caption"
         
     def WritePre(self,mode):
+        if not os.path.exists(self.outDirectory):
+            os.makedirs(self.outDirectory)
         preoutname = self.outDirectory + "/" + "pre_tables.tex"
         p = open(preoutname, "w")
         w = "%%============================================= Plot %s\r"%(self.name)
@@ -60,28 +63,34 @@ class LatexClass:
         p.write(w)
         p.close()    
 
-    def Create(self,outDirectory,pltName):
-        self.outDirectory = outDirectory    
-        self.name = pltName
+   
       
 
 
 class LatexTable(LatexClass):
-    def __init__(self,data):
+    def __init__(self,BaseObj,data):
         super().__init__()   
         self.data = data
+        self.bobj = BaseObj
+        self.cfg = self.bobj.cfg.config
+        self.log = self.bobj.log 
         
-        self.outDirectory = "J:/FPIBGDATAPY/tables"
         
 
     header_arry = []
     
 
     def Create(self,rows,cols,fileName):
+        self.name = fileName
+       
+        # Assign this objects debug level
+        self.dlvl = 10000
+        self.outDirectory = self.cfg.plots_dir
         self.table_array  = [[0 for x in range(cols)] for y in range(rows)] 
         self.rows = rows
         self.cols = cols
         self.name = fileName
+        self.outDirectory = self.cfg.tables_dir
         self.setLatexData()
         
     
@@ -106,7 +115,7 @@ class LatexTable(LatexClass):
                 return "%.0f" % value
                 
             if (i == 1):
-                self.setTableItemArray(str("%.0f" % (1000*value)),i,j)
+                self.setTableItemArray(str("%.2f" % (1000*value)),i,j)
                 return "%.2f" % (1000*value)
             
             if (i == 2):
@@ -126,6 +135,9 @@ class LatexTable(LatexClass):
     def WriteLatexTable(self):
         self.readCapFile()
         #self.saveCaption(self.caption)
+        if not os.path.exists(self.outDirectory):
+            os.makedirs(self.outDirectory)
+           
         loutname = self.outDirectory + "/" + self.name + ".tex"
         f = open(loutname, "w")
         f.write("\\begin{table}[%s]\n" % self.placement)
@@ -185,14 +197,24 @@ class LatexPlot(LatexClass):
         self.title = ""
         self.scale = 0
         self.fontSize = 8
-        self.outDirectory = "X:/FPIBGDATAPY/plots"
         self.float = False
         self.placement = "h"
 
-   
+    def Create(self,BaseObj,Name):
+     
+        self.name = Name
+         ## bobj contains the global object.
+        self.bobj = BaseObj
+        self.cfg = self.bobj.cfg.config
+        self.log = self.bobj.log
+        # Assign this objects debug level
+        self.dlvl = 10000
+        self.outDirectory = self.cfg.plots_dir
  
     def Write(self,Plot):
         self.saveCaption(self.caption)
+        if not os.path.exists(self.outDirectory):
+            os.makedirs(self.outDirectory)
         outname = self.outDirectory + "/" + self.name + ".png"
         Plot.savefig(outname)
         loutname = self.outDirectory + "/" + self.name + ".tex"

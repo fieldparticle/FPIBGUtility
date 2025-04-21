@@ -7,10 +7,10 @@ import pandas as pd
 
 class PandasModel(QtCore.QAbstractTableModel):
 
-    def __init__(self, data):
+    def __init__(self, FBIBGBase,data):
         super().__init__()
         self._data = data
-        self.Latex = LatexTable(data)
+        self.Latex = LatexTable(FBIBGBase,data)
         self.Latex.Create(self._data.shape[0],self._data.shape[1],"PerfTable")
 
 

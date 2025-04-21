@@ -22,15 +22,70 @@ class PlotData:
             case "PQB":
                 self.topdir = self.cfg.application.testdirPQB
                 self.testFile = "perfPQB.csv"
+                self.upper = os.path.split(self.topdir)
+                self.topdir = self.upper[0] + "/" + self.testFile
+                if (os.path.exists(self.topdir) == True):
+                    self.hasDataFlag = True
+                else:
+                    self.hasDataFlag = False
+                    return
+                df = pd.read_csv(self.topdir)
+                if(len(df) <= 1):
+                    self.hasDataFlag = False
+                    return         
             case "PCD":
                 self.topdir = self.cfg.application.testdirPCD
                 self.testFile = "perfPCD.csv"
+                self.upper = os.path.split(self.topdir)
+                self.topdir = self.upper[0] + "/" + self.testFile
+                if (os.path.exists(self.topdir) == True):
+                    self.hasDataFlag = True
+                else:
+                    self.hasDataFlag = False
+                    return
+                df = pd.read_csv(self.topdir)
+                if(len(df) <= 1):
+                    self.hasDataFlag = False
+                    return         
+                if(len(df) <= 1):
+                    self.hasDataFlag = False
+                    return         
             case "DUP":
                 self.topdir = self.cfg.application.testdirDUP
                 self.testFile = "perfDUP.csv"
+                self.upper = os.path.split(self.topdir)
+                self.topdir = self.upper[0] + "/" + self.testFile
+                if (os.path.exists(self.topdir) == True):
+                    self.hasDataFlag = True
+                else:
+                    self.hasDataFlag = False
+                    return
+                df = pd.read_csv(self.topdir)
+                if(len(df) <= 1):
+                    self.hasDataFlag = False
+                    return         
+                df = pd.read_csv(self.topdir)
+                if(len(df) <= 1):
+                    self.hasDataFlag = False
+                    return         
             case "CFB":
                 self.topdir = self.cfg.application.testdirCFB
                 self.testFile = "perfCFB.csv"
+                df = pd.read_csv(self.topdir)
+                self.upper = os.path.split(self.topdir)
+                self.topdir = self.upper[0] + "/" + self.testFile
+                if (os.path.exists(self.topdir) == True):
+                    self.hasDataFlag = True
+                else:
+                    self.hasDataFlag = False
+                    return
+                df = pd.read_csv(self.topdir)
+                if(len(df) <= 1):
+                    self.hasDataFlag = False
+                    return         
+                if(len(df) <= 1):
+                    self.hasDataFlag = False
+                    return         
 
         self.upper = os.path.split(self.topdir)
         self.topdir = self.upper[0] + "/" + self.testFile
@@ -273,6 +328,8 @@ class PlotData:
 
     def plot_fpsvn(self):
         df = pd.read_csv(self.topdir)
+        if(len(df.index) <= 1):
+            return QPixmap
 
         loadedp = df["loadedp"]
         fps = df["fps"]
