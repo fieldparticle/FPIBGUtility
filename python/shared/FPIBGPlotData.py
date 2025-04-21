@@ -417,7 +417,6 @@ class PlotData:
         plt.title(f"{os.path.basename(self.topdir)}: cms v shaderc")
         plt.legend()
         plt.grid(True)
-        plt.show()
         buf = io.BytesIO()
         self.spfvcollision = plt.gcf()
         self.spfvcollision.savefig(buf, format='png')
