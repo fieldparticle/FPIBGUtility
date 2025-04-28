@@ -4,7 +4,7 @@ import libconf
 import io
 import inspect
 import shutil
-
+from collections import OrderedDict
 class FPIBGConfig:
     lvl = 100
     def Create(self,LogObj,CfgFileName):
@@ -50,6 +50,24 @@ class FPIBGConfig:
                             self.ObjName,
                             0,
                             f"Running:" + modName)
+            x = self.config.keys()
+            
+            for k ,v in self.config.items():
+                #print(k,v)
+                if type(v) == libconf.AttrDict:
+                    print("odict",k,len(v))
+                elif type(v) == list    :
+                    print("List",k,len(v))
+                elif type(v) == str    :
+                    print("Str",k,len(v))
+                elif type(v) == dict    :
+                    print("dict",k,len(v))
+                else:
+                    print("unk:",k)
+                if(k=="application"):
+                    print("app:",type(k),type(v))
+                #print(type(k) ,"\r")
+                
             # Please here print out every item indicidually
             print(self.config.application.window.title)
             print(self.config.application.window.size.w)
