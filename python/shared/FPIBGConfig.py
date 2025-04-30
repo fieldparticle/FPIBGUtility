@@ -5,6 +5,8 @@ import io
 import inspect
 import shutil
 from collections import OrderedDict
+import libconf
+
 class FPIBGConfig:
     lvl = 100
     def Create(self,LogObj,CfgFileName):
@@ -42,6 +44,8 @@ class FPIBGConfig:
     def Close():
         pass    
     
+    ObjArray = []
+
     def testObject(self,modName):
             print(f"Running Mod" , modName , " Test")
             self.log.log( 1, inspect.currentframe().f_lineno,
@@ -50,24 +54,7 @@ class FPIBGConfig:
                             self.ObjName,
                             0,
                             f"Running:" + modName)
-            x = self.config.keys()
             
-            for k ,v in self.config.items():
-                #print(k,v)
-                if type(v) == libconf.AttrDict:
-                    print("odict",k,len(v))
-                elif type(v) == list    :
-                    print("List",k,len(v))
-                elif type(v) == str    :
-                    print("Str",k,len(v))
-                elif type(v) == dict    :
-                    print("dict",k,len(v))
-                else:
-                    print("unk:",k)
-                if(k=="application"):
-                    print("app:",type(k),type(v))
-                #print(type(k) ,"\r")
-                
             # Please here print out every item indicidually
             print(self.config.application.window.title)
             print(self.config.application.window.size.w)
@@ -122,6 +109,8 @@ class FPIBGConfig:
         return self.config
     
 
+    def updateCfg(self):
+        self.WriteConfig(self.config);
 
     def WriteConfig(self, dict):
         if not os.path.exists(self.CfgFileName):
@@ -141,10 +130,10 @@ class FPIBGConfig:
         #Make the Changes
         dest_path = os.path.join(self.get_repo_root(), destination_filename)
         with io.open(dest_path, 'r+', encoding='utf-8') as f:
-            conf_copy = libconf.load(f)
+            conf_copy = {} #libconf.load(f)
 
             for key, value in dict.items():
-                conf_copy['application'][key] = value
+                conf_copy[key] = value
 
             # Clear the file and save the new contents
             f.seek(0)
