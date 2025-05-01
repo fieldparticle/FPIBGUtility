@@ -11,9 +11,11 @@ import datetime
 class TabFormConfig(QTabWidget):
     """ Object for the General Configuration Tab. This contains a form which allows the user to enter the specifications they would like to use for the simulation. """
 
+    tabs = []
     objArry = []
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+    
     
     def nested(self,cfg):
         for k ,v in cfg.items():
@@ -25,7 +27,8 @@ class TabFormConfig(QTabWidget):
             elif type(v) == str    :
                 print("Str",k,len(v))
                 label = CfgString(k,v)
-                self.main_layout.addWidget(label.Create(cfg))
+                self.flay.addWidget(label.Create(cfg))
+                
                 self.objArry.append(label)
             elif type(v) == dict    :
                 print("dict",k,len(v))
@@ -40,24 +43,40 @@ class TabFormConfig(QTabWidget):
         self.bobj = FPIBGBase
         self.cfg = self.bobj.cfg
         self.log = self.bobj.log.log
-        scroll_area = QScrollArea()
-        scroll_area.setWidgetResizable(True)
 
-        # Create a widget to hold your main layout
-        scroll_widget = QWidget()
-        self.main_layout = QVBoxLayout(scroll_widget)
-        scroll_area.setWidget(scroll_widget)
-        main_window_layout = QVBoxLayout(self)
-        main_window_layout.addWidget(scroll_area)
-        self.setLayout(main_window_layout)
-
+        self.layout = QVBoxLayout(self)
+        self.tabs = QTabWidget()
+        self.tab2 = QScrollArea()
+        self.tabs.addTab(self.tab2, 'Tab 2')
+       
+        content_widget = QWidget()
+        self.tab2.setWidget(content_widget)
+        self.flay = QVBoxLayout(content_widget)
+        self.tab2.setWidgetResizable(True)
         self.nested(self.cfg.config)
+        self.layout.addWidget(self.tabs)
         
 
-
+       
         
-        # self.setLayout(main_layout)
+        
 
-        #self.populate()
-
+    def top(self,cfg):
+      
+        for k ,v in cfg.items():
+            if type(v) == list    :
+                print("List",k,len(v))
+            elif type(v) == str    :
+                print("Str",k,len(v))
+                label = CfgString(k,v)
+                self.tablayout.addWidget(label.Create(cfg))
+                self.objArry.append(label)
+            elif type(v) == int    :
+                page = CfgInt(k,v)
+                self.tablayout.addWidget(page.Create(cfg))
+                self.objArry.append(page)
+            else:
+                print("unk:",k)
+            if(k=="application"):
+                print("app:",type(k),type(v))
    
