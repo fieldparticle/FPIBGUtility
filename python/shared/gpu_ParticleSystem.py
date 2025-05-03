@@ -1,5 +1,7 @@
 from dataclasses import dataclass,field
 from typing import List,ClassVar
+import threading
+from gpu_plotParticle import *
 
 # importing numpy 
 import numpy as np 
@@ -28,6 +30,7 @@ def allocListlstr(list):
 class Particle:
 
 	def __init__(self):
+		self.dt = 0
 		self.pnum =0
 		self.colFlg =0
 		self.MolarMatter =0.0
@@ -39,14 +42,43 @@ class Particle:
 		self.zlink = [int,int,int]*8
 		self.bcs =  [int]*4
 		self.ccs = [int,int]*12
+		self.color = (0.0, 0.0, 0.0)
+		
+	def setColor(self,color):
+		self.color = color
+		pass
+
+	def changePos(self, delVel,dt):
+		#self.VelRad[0] = self.VelRad[0] + delVel[0]
+		#self.VelRad[1] = self.VelRad[1] + delVel[1]
+		#self.VelRad[2] = self.VelRad[2] + delVel[2]
+
+		self.PosLoc[0] = self.PosLoc[0]+self.VelRad[0]*dt
+		self.PosLoc[1] = self.PosLoc[1]+self.VelRad[1]*dt
+		self.PosLoc[2] = self.PosLoc[2]+self.VelRad[2]*dt
+		if(self.pnum == 2):
+			print("P:",self.pnum," loc:",self.PosLoc," vel:",self.VelRad)
+			
+		
+
 
 
 	
-class VertexParticle(List) :
+class ParticleSystem(List) :
     	
 	totParts = 0
+	delt = 0.0
+	endFrame = 100
+	
 	def __init__ (self):
 		super().__init__(self)
+		self.plotParts = ParticlePlot2D(self)
+
+	def setTimeStep(self,delt):
+		self.dt= delt
+
+	def setEndFrame(self,endFrame):
+		self.endFrame = endFrame
 
 	def addParm(self,matter,temp_vel,posary,velary,radius):
 		particle = []
@@ -62,12 +94,30 @@ class VertexParticle(List) :
 		particle.VelRad[1] = velary[1]
 		particle.VelRad[2] = velary[2]
 		self.append(particle)
-
+		
 	def add(self,part):
 		part.pnum = self.totParts
-		
 		self.append(part)
 
+
+	def processVertex(self,pnum):
+		self[pnum].changePos([0.1,0.0,0.0],self.dt)
+		
+
+	def run(self):
+		self.plotParts.start()
+		self.update()
+
+		
+	def update(self):
+		for tt in range(self.endFrame):
+			#print("Frame:",tt)
+			for ii in range(self.totParts):
+				t =threading.Thread(target=self.processVertex,args=(ii,))
+				t.start()
+				t.join()
+			self.plotParts.plotParticle()
+		
 
 	def print(self):
 		for ii in self:
