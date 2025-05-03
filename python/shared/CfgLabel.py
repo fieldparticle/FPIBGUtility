@@ -1,5 +1,5 @@
 import sys
-from PyQt6.QtWidgets import QApplication, QWidget,  QFormLayout, QGridLayout, QTabWidget, QLineEdit,QListWidget
+from PyQt6.QtWidgets import QApplication, QWidget,  QFormLayout, QGridLayout, QTabWidget, QLineEdit,QListWidget,QComboBox
 from PyQt6.QtWidgets import QDateEdit, QPushButton,QLabel, QGroupBox,QVBoxLayout,QHBoxLayout, QTextEdit,QRadioButton,QFileDialog,QFontComboBox
 from PyQt6.QtCore import QThread, QObject, pyqtSignal as Signal, pyqtSlot as Slot
 from PyQt6 import QtCore
@@ -15,10 +15,7 @@ from pyqtLED import QtLed
 import math
 import libconf
 
-class CfgString():
-
-	key = ""
-	value = ""
+class CfgArray():
 	def __init__(self, key,value):
 		self.key = key
 		self.value = value
@@ -29,9 +26,66 @@ class CfgString():
 		control.setMaximumHeight(H)
 		control.setMaximumWidth(W)
 
-	def Create(self,FPIBConfig):
+	def Create(self,config,FPIBGConfig):
+		self.cfg = config
+		self.base = FPIBGConfig
 		
-		self.cfg = FPIBConfig
+			
+		self.font = QFont("Times", 12)
+		self.font.setBold(False)
+
+		metrics = QFontMetrics(self.font)
+
+		paramgrp = QGroupBox("")
+		paramlo = QGridLayout()
+		paramgrp.setLayout(paramlo)
+		paramgrp.setStyleSheet('background-color: 111111;')
+		
+		self.ListObj =  QListWidget()
+		self.ListObj.setFont(self.font)
+		self.ListObj.setStyleSheet("background-color:  #FFFFFF")
+		vcnt = 0
+		for v in self.value:
+			self.ListObj.insertItem(vcnt,self.value[vcnt])
+			vcnt+=1
+#			self.ListObj.editingFinished.connect(self.valueChange)
+			
+			#self.LabelObj.setFont(self.font)
+			#lwidth = metrics.horizontalAdvance(v)
+			#ewidth =  math.floor(metrics.horizontalAdvance(self.value)*1.25)
+			#self.setSize(self.ListObj,20,ewidth) 
+			paramlo.addWidget(self.ListObj,0,1,alignment= Qt.AlignmentFlag.AlignLeft)
+		
+		#self.EditObj.   valueChange.connect(self.valueChanged)
+		#self.setSize(paramgrp,50,25+ewidth+lwidth)
+		return paramgrp
+		
+	def valueChange(self):
+		if(self.value!=self.EditObj.text()):
+			print("Value Changed",self.key)
+			self.cfg[self.key]=self.EditObj.text()
+			self.base.updateCfg()
+		
+		
+class CfgString():
+
+	key = ""
+	value = ""
+	def __init__(self, key,value):
+		self.key = key
+		self.value = value
+		
+  	
+	def setSize(self,control,H,W):
+		control.setMinimumHeight(H)
+		control.setMinimumWidth(W)
+		control.setMaximumHeight(H)
+		control.setMaximumWidth(W)
+
+	def Create(self,config,FPIBGConfig):
+		
+		self.cfg = config
+		self.base = FPIBGConfig
 		
 		self.font = QFont("Times", 12)
 		self.font.setBold(False)
@@ -41,6 +95,7 @@ class CfgString():
 		paramgrp = QGroupBox("")
 		paramlo = QGridLayout()
 		paramgrp.setLayout(paramlo)
+		paramgrp.setStyleSheet('background-color: 111111;')
 		
 		text = self.key + ":"
 		self.LabelObj = QLabel(text)
@@ -51,7 +106,7 @@ class CfgString():
 		
 		self.EditObj =  QLineEdit()
 		self.EditObj.setFont(self.font)
-		self.EditObj.setStyleSheet("background-color:  #aaaaaa")
+		self.EditObj.setStyleSheet("background-color:  #FFFFFF")
 		self.EditObj.setText(self.value)
 		self.EditObj.editingFinished.connect(self.valueChange)
 		#self.EditObj.textChanged.connect(self.valueChange)
@@ -63,11 +118,69 @@ class CfgString():
 		return paramgrp
 		
 	def valueChange(self):
-		
 		if(self.value!=self.EditObj.text()):
 			print("Value Changed",self.key)
-			self.cfg.config[self.key]=self.EditObj.text()
-			#self.cfg.updateCfg()
+			self.cfg[self.key]=self.EditObj.text()
+			self.base.updateCfg()
+		
+		
+class CfgBool():
+
+	key = ""
+	value = ""
+	def __init__(self, key,value):
+		self.key = key
+		self.value = value
+		
+  	
+	def setSize(self,control,H,W):
+		control.setMinimumHeight(H)
+		control.setMinimumWidth(W)
+		control.setMaximumHeight(H)
+		control.setMaximumWidth(W)
+
+	def Create(self,config,FPIBGConfig):
+		
+		self.cfg = config
+		self.base = FPIBGConfig
+		
+		self.font = QFont("Times", 12)
+		self.font.setBold(False)
+
+		metrics = QFontMetrics(self.font)
+
+		paramgrp = QGroupBox("")
+		paramlo = QGridLayout()
+		paramgrp.setLayout(paramlo)
+		paramgrp.setStyleSheet('background-color: 111111;')
+		
+		text = self.key + ":"
+		self.LabelObj = QLabel(text)
+		self.LabelObj.setFont(self.font)
+		lwidth = metrics.horizontalAdvance(text)
+		self.setSize(self.LabelObj,20,lwidth) 
+		paramlo.addWidget(self.LabelObj,0,0,alignment= Qt.AlignmentFlag.AlignVCenter | Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignAbsolute)
+		
+		self.Combo =  QComboBox()
+		self.Combo.setFont(self.font)
+		self.Combo.setStyleSheet("background-color:  #FFFFFF")
+		
+		self.Combo.addItem("true")
+		self.Combo.addItem("false")
+		#self.Combo.editingFinished.connect(self.valueChange)
+		#self.Combo.textChanged.connect(self.valueChange)
+		#ewidth =  math.floor(metrics.horizontalAdvance(self.value)*1.25)
+		#self.setSize(self.Combo,20,ewidth) 
+		paramlo.addWidget(self.Combo,0,1,alignment= Qt.AlignmentFlag.AlignLeft)
+		#self.Combo.   valueChange.connect(self.valueChanged)
+		#self.setSize(paramgrp,50,25+ewidth+lwidth)
+		return paramgrp
+		
+	def valueChange(self):
+		if(self.value!=self.Combo.text()):
+			print("Value Changed",self.key)
+			self.cfg[self.key]=self.Combo.text()
+			self.base.updateCfg()
 		
 		
 
@@ -85,9 +198,10 @@ class CfgInt():
 		control.setMaximumHeight(H)
 		control.setMaximumWidth(W)
 
-	def Create(self,FPIBConfig):
+	def Create(self,config,FPIBGConfig):
 		
-		self.cfg = FPIBConfig
+		self.cfg = config
+		self.base = FPIBGConfig
 		
 		self.font = QFont("Times", 12)
 		self.font.setBold(False)
@@ -97,6 +211,7 @@ class CfgInt():
 		paramgrp = QGroupBox("")
 		paramlo = QGridLayout()
 		paramgrp.setLayout(paramlo)
+		paramgrp.setStyleSheet('background-color: 111111;')
 		
 		text = self.key + ":"
 		self.LabelObj = QLabel(text)
@@ -107,7 +222,7 @@ class CfgInt():
 		
 		self.EditObj =  QLineEdit()
 		self.EditObj.setFont(self.font)
-		self.EditObj.setStyleSheet("background-color:  #aaaaaa")
+		#self.EditObj.setStyleSheet('background-color: 222222;')
 		self.EditObj.setText(str(self.value))
 		self.EditObj.editingFinished.connect(self.valueChange)
 		#self.EditObj.textChanged.connect(self.valueChange)
@@ -122,8 +237,8 @@ class CfgInt():
 		
 		if(str(self.value)!=self.EditObj.text()):
 			print("Value Changed",self.key)
-			self.cfg.config[self.key]=self.EditObj.text()
-			#self.cfg.updateCfg()
+			self.cfg[self.key]=self.EditObj.text()
+			self.base.updateCfg()
 		
 		
 
