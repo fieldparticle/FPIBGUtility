@@ -56,9 +56,10 @@ class Particle:
 		self.PosLoc[0] = self.PosLoc[0]+self.VelRad[0]*dt
 		self.PosLoc[1] = self.PosLoc[1]+self.VelRad[1]*dt
 		self.PosLoc[2] = self.PosLoc[2]+self.VelRad[2]*dt
+		"""
 		if(self.pnum == 2):
 			print("P:",self.pnum," loc:",self.PosLoc," vel:",self.VelRad)
-			
+		"""	
 		
 
 
@@ -108,6 +109,8 @@ class ParticleSystem(List) :
 		self.plotParts.start()
 		self.update()
 
+	def getEndFrame(self):
+		return self.endFrame
 		
 	def update(self):
 		for tt in range(self.endFrame):
@@ -116,7 +119,7 @@ class ParticleSystem(List) :
 				t =threading.Thread(target=self.processVertex,args=(ii,))
 				t.start()
 				t.join()
-			self.plotParts.plotParticle()
+
 		
 
 	def print(self):
