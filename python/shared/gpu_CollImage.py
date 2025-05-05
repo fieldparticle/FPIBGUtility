@@ -1,25 +1,26 @@
 from dataclasses import dataclass,field
 from typing import List,ClassVar
+import atomics
 
-class CollImg:
+class CollImg():
       
+    def __init__ (self,xlen,ylen,zlen,maxOccupancy):
+        self.xlen = xlen
+        self.ylen = ylen
+        self.zlen = zlen
+        self.maxOccupancy = maxOccupancy
+        self.size = xlen*ylen*zlen
+        self.loc = [[int]*self.maxOccupancy]*self.size
+        print("cells is:",self.size, " long." )
+
+class LockIndex(List):
+
     def __init__ (self,xlen,ylen,zlen):
+        super().__init__(self)
         self.xlen = xlen
         self.ylen = ylen
         self.zlen = zlen
         self.size = xlen*ylen*zlen
-        self.maxOccupant = self.size
-        self.occupancy_array = [int]*self.maxOccupant
-        self.collImg = [self.occupancy_array]*self.size
-        print("cells is:",self.maxOccupant, " long." )
-
-class LockIndex:
-
-    def __init__ (self,xlen,ylen,zlen):
-        self.xlen = xlen
-        self.ylen = ylen
-        self.zlen = zlen
-        self.size = xlen*ylen*zlen
-        self.LockImg = [int]*self.size
+        self = [atomics.atomic(width=4, atype=atomics.INT)]*self.size
     
 
