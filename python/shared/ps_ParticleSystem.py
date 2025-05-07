@@ -5,83 +5,17 @@ from gpu_plotParticle import *
 from gpu_compute import *
 from gpu_vertex import *
 from gpu_graphics import *
-from gpu_ParticleSystem import *
+from ps_ParticleSystem import *
 from gpu_LockCellArray import *
 from subprocess import call
 from gpu_plotParticle import *
 from gpu_utility import *
+from gpu_particle import *
 import atomics
 
 
 # importing numpy 
 import numpy as np 
-
-@dataclass
-class lstr:
-    pindex : int=0
-    ploc : int=0
-    fill : int =0
-
-@dataclass
-class bcoll: 
-	clflg : int = 0
-	
-@dataclass
-class ccoll :
-	pindex : int = 0
-	clflg : int = 0 
-
-def allocListlstr(list):
-	for x in range(len):
-		LSTR = lstr()
-		list.zlink.append(LSTR)
-
-
-class Particle:
-
-	def __init__(self):
-		self.maxoccp = 8
-		self.dt = 0
-		self.pnum =0
-		self.colFlg = 0
-		self.MolarMatter =0.0
-		self.temp_vel = 0.0
-		self.PosLoc =  [0.0,0.0,0.0,0.0]
-		self.VelRad = [0.0,0.0,0.0,0.0]
-		self.prvvel = [0.0,0.0,0.0,0.0]
-		self.parms = [0.0,0.0,0.0,0.0]
-		self.zlink = [int]*self.maxoccp
-		self.bcs =  [int]*4
-		self.ccs = [int,int]*12
-		self.color = (0.0, 0.0, 0.0)
-		self.particleDead = False
-		self.initalPosition = [0.0,0.0,0.0,0.0]
-		self.rptVelPos= False
-		self.svCellAry = False
-
-	def setColor(self,color):
-		self.color = color
-		pass
-
-	def reportVelPos(self,flag):
-		self.rptVelPos = flag
-
-	def changePos(self, delVel,dt):
-		#self.VelRad[0] = self.VelRad[0] + delVel[0]
-		#self.VelRad[1] = self.VelRad[1] + delVel[1]
-		#self.VelRad[2] = self.VelRad[2] + delVel[2]
-
-		self.PosLoc[0] = self.PosLoc[0]+self.VelRad[0]*dt
-		self.PosLoc[1] = self.PosLoc[1]+self.VelRad[1]*dt
-		self.PosLoc[2] = self.PosLoc[2]+self.VelRad[2]*dt
-		
-		if(self.rptVelPos == True):
-			print("P:",self.pnum," loc:",self.PosLoc," vel:",self.VelRad)
-		
-		
-
-
-
 	
 class ParticleSystem(List) :
     	
@@ -272,6 +206,7 @@ class ParticleSystem(List) :
 		if self.locateCorners(pnum) > 0:
 			self[pnum].particleDead = True
 		
+		
 	def processCompute(self,pnum):
 		if(pnum == 0):
 			return
@@ -307,13 +242,14 @@ class ParticleSystem(List) :
 								break
 			
 					if(dupflg == False):
-						self.isParticleContact(pnum, Tindex)
-						dupflg = True
+						if(self.isParticleContact(pnum, Tindex) == True):
+							self[pnum].particlesIntersection(self[pnum],self[Tindex])
+							dupflg = True
 
 	def isParticleContact(self,pnum, opnum):
 
 		if(pnum == opnum):
-			return
+			return False
 		
 		if(self.rptCollison == True):
 			txt = "Comparing Particle {} with particle {}".format(pnum,opnum)
@@ -341,6 +277,9 @@ class ParticleSystem(List) :
 			if(self.rptCollison == True):
 				txt = "Collion Particle {} with particle {}".format(pnum,opnum)
 				print(txt)
+			return True
+		
+		return False
 		
 	def getEndFrame(self):
 		return self.endFrame

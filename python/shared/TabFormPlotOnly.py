@@ -15,6 +15,7 @@ from pyqtLED import QtLed
 import pyqtgraph as pg
 from random import randint
 from gpu_studies import *
+from gpu_particle import *
 
 class TabPlotOnly(QTabWidget):
     def __init__(self, *args, **kwargs):
@@ -233,34 +234,40 @@ class TabPlotOnly(QTabWidget):
 
         count = 0
         for ii in self.ps:
-            if(ii.colFlg == True):
-                self.collisonLED.changeColor("green")
-                ii.colFlg = False
-            else:
-                self.collisonLED.changeColor("red")
+            if ii.pnum != 0:
+                if(ii.colFlg == True):
+                    self.collisonLED.changeColor("green")
+                    ii.colFlg = False
+                else:
+                    self.collisonLED.changeColor("red")
 
-            r = ii.PosLoc[3]
-            angle = np.linspace( 0 , 2 * np.pi , 150 ) 
-            x = ii.PosLoc[0] + r * np.cos( angle ) 
-            y = ii.PosLoc[1] + r * np.sin( angle ) 
-            if count == 0:
-                pen = pg.mkPen(color=ii.color)
-                self.plot_graph.plot(
-                    x,
-                    y,
-                    pen=pen,
-                    clear = True                
-                )
-            else:
-                pen = pg.mkPen(color=ii.color)
-                self.plot_graph.plot(
-                    x,
-                    y,
-                    pen=pen,
-                    clear = False
-                )
-            
-            count +=1    
+                r = ii.PosLoc[3]
+                angle = np.linspace( 0 , 2 * np.pi , 150 ) 
+                vx,vy = ii.plotVelocityVector()
+                x = ii.PosLoc[0] + r * np.cos( angle ) 
+                y = ii.PosLoc[1] + r * np.sin( angle ) 
+                if count == 0:
+                    pen = pg.mkPen(color=ii.color)
+                    self.plot_graph.plot(
+                        x,
+                        y,
+                        pen=pen,
+                        clear = True                
+                    )
+                else:
+                    pen = pg.mkPen(color=ii.color)
+                    self.plot_graph.plot(
+                        x,
+                        y,
+                        pen=pen,
+                        clear = False
+                    )
+                ar = pg.ArrowItem(angle=0, tipAngle=20, pos=(0,0), headLen=20, tailLen=20, tailWidth=5,   brush='g')
+                ar.setPos(1.0,1.0)
+                self.plot_graph.addItem(ar)
+
+                
+                count +=1    
         self.ps.frameNum += 1            
         
         

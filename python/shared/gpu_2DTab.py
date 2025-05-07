@@ -15,7 +15,7 @@ from pyqtLED import QtLed
 from gpu_compute import *
 from gpu_vertex import *
 from gpu_graphics import *
-from gpu_ParticleSystem import *
+from ps_ParticleSystem import *
 from gpu_LockCellArray import *
 from gpu_plotParticle import *
 import pyqtgraph as pg
