@@ -16,7 +16,7 @@ from gpu_compute import *
 from gpu_vertex import *
 from gpu_graphics import *
 from gpu_ParticleSystem import *
-from gpu_CollImage import *
+from gpu_LockCellArray import *
 from gpu_plotParticle import *
 import pyqtgraph as pg
 from time import sleep

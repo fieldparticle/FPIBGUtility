@@ -82,9 +82,6 @@ class TabPlotOnly(QTabWidget):
         self.plot.setLabel("bottom", "X", **styles)
         self.plot.addLegend()
         self.plot.showGrid(x=True, y=True)
-        self.plot.setYRange(0.0, 3.0)
-        self.plot.setXRange(0.0, 3.0)
-        self.plot.plotItem.vb.setAspectLocked(True)
         plotlo.addWidget(self.plot,1,0,alignment= Qt.AlignmentFlag.AlignTop | Qt.AlignmentFlag.AlignLeft)
 
         
@@ -95,13 +92,13 @@ class TabPlotOnly(QTabWidget):
         
         studygrid = QGridLayout()
         studygrp.setLayout(studygrid)
-        self.processedComputeLED = QtLed("green")
-        self.ProcessedGraphicsLED = QtLed("green")
-        self.collisionsComputeLED = QtLed("green")
-        self.collisionsGraphicsLED = QtLed("green")
+        self.collisonLED = QtLed("red")
+        self.ProcessedGraphicsLED = QtLed("red")
+        self.collisionsComputeLED = QtLed("red")
+        self.collisionsGraphicsLED = QtLed("red")
         
         studygrid.addWidget(QLabel('Collision:'),0,0)
-        studygrid.addWidget(self.processedComputeLED,0,1)
+        studygrid.addWidget(self.collisonLED,0,1)
         
         studygrid.addWidget(QLabel('tbd:'),1,0)
         studygrid.addWidget(self.ProcessedGraphicsLED,1,1)
@@ -210,35 +207,42 @@ class TabPlotOnly(QTabWidget):
         self.timer.stop()
 #################- Start---------------------         
     def start(self):
+        self.ps.reset()
         # Add a timer to simulate new temperature measurements
         self.timer = QtCore.QTimer()
-        self.timer.setInterval(300)
+        self.timer.setInterval(self.ps.frameRate)
         self.timer.timeout.connect(self.timeStep)
         self.timer.start()
 
 #################- timeStep---------------------       
     def timeStep(self):
-        self.ps.frameNum += 1
-        
+        if self.ps.rptFrame == True:
+            print("Frame:",self.ps.frameNum)
+
         if self.ps.frameNum == self.ps.getEndFrame():
             self.timer.stop()
             self.ps.frameNum = 0
             self.ps.reset()
             return 
-        #print("plotting")
-       
-        self.ps.update()
         
+        self.ps.update()
+
+        self.plot_graph.setXRange(1, 2)
+        self.plot_graph.setYRange(1, 2)
+        self.plot.setAspectLocked(False)
+
         count = 0
         for ii in self.ps:
+            if(ii.colFlg == True):
+                self.collisonLED.changeColor("green")
+                ii.colFlg = False
+            else:
+                self.collisonLED.changeColor("red")
+
             r = ii.PosLoc[3]
             angle = np.linspace( 0 , 2 * np.pi , 150 ) 
             x = ii.PosLoc[0] + r * np.cos( angle ) 
             y = ii.PosLoc[1] + r * np.sin( angle ) 
-            
-            #self.plot_graph.getPlotItem().clear()    
-           
-            #if (ii.pnum == self.ps.totParts):
             if count == 0:
                 pen = pg.mkPen(color=ii.color)
                 self.plot_graph.plot(
@@ -257,8 +261,8 @@ class TabPlotOnly(QTabWidget):
                 )
             
             count +=1    
-            
-            #self.line.setData(self.x, self.y)
+        self.ps.frameNum += 1            
+        
         
     def plot_line(self,x, y, pen):
         self.plot_graph.plot(

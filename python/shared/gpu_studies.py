@@ -2,7 +2,7 @@ from gpu_compute import *
 from gpu_vertex import *
 from gpu_graphics import *
 from gpu_ParticleSystem import *
-from gpu_CollImage import *
+from gpu_LockCellArray import *
 from subprocess import call
 
 from gpu_plotParticle import *
@@ -20,25 +20,34 @@ class GPUStudies(ParticleSystem):
         YLen = 2
         ZLen = 2
         #coll = CollImg(10,10,10)
-        self.setTimeStep(0.001)
-
+        self.SetWHD(20,10,1,10)
+        # Time step for velocity
+        self.setTimeStep(0.01)
+        # Frame rate
+        self.setFrameRate(200)
         self.addParm(1.0,100,[1.0,1.5,1.5],[1.0,0.0,0.0],0.25)
+        self[0].reportVelPos(False)
         self[0].setColor((255, 0, 0))
 
         self.addParm(1.0,150,[2.0,1.5,1.5],[-1.0,0.0,0.0],0.25)
         self[1].setColor((0,0,255))
-        self.setEndFrame(20)
-        self.SetWHD(10,10,10,3)
+        self[1].reportVelPos(False)
+
+        self.setEndFrame(30)
+        self.setSaveCellArrayFrames([1,2])
+        self.saveCellArray(True)
+        self.reportDups(False)
+        self.reportAtomic(False)
+        self.reportCells(False)
+        self.reportFrame(False)
+        self.reportCollison(True)
 
     def reset(self):
-        self[0].PosLoc[0] = 1.0
-        self[0].PosLoc[1] = 1.5
-        self[0].PosLoc[2] = 1.5
+        for ii in range(len(self)):
+            self[ii].PosLoc = self[ii].initalPosition
 
-        self[1].PosLoc[0] = 2.0
-        self[1].PosLoc[1] = 1.5
-        self[1].PosLoc[2] = 1.5
 
+        
 
 
         

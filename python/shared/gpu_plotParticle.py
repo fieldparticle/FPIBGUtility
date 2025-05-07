@@ -78,8 +78,8 @@ class ParticlePlot2D:
     def plotParticle(self):
         self.fig.clf()
         self.ax.set_aspect( 1 ) 
-        plt.xlim( 0.0 , 3.5 ) 
-        plt.ylim( 0.0 , 3.5 ) 
+        plt.xlim( 1.0 , 3.0 ) 
+        plt.ylim( 1.0 , 3.0 ) 
         self.ax.set_aspect('equal', adjustable='box')
         plt.xlabel("X")
         plt.ylabel("Y")
