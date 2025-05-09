@@ -114,15 +114,6 @@ class GPU2DTab(QTabWidget):
         self.testfile = self.cfg.application.testfile
 
         self.ps = ParticleSystem()
-        self.ps.setTimeStep(0.01)
-
-        self.ps.addParm(1.0,100,[1.0,1.5,1.5],[1.0,0.0,0.0],0.25)
-        self.ps[0].setColor((0.1, 0.2, 0.5))
-
-        self.ps.addParm(1.0,150,[2.0,1.5,1.5],[-1.0,0.0,0.0],0.25)
-        self.ps[0].setColor((0.6, 0.2, 0.5))
-        self.ps.setEndFrame(20)
-
 
         self.setStyleSheet("background-color:  #eeeeee")
         tab_layout = QGridLayout()

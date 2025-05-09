@@ -17,15 +17,13 @@ class GPUTabs(QTabWidget):
         self.bobj = FPIBGBase
         ## Create the tabs
         self.tabFormWelcome = TabFormWelcome()
-        self.tabForm2D = GPU2DTab()
         self.tabPlot = TabPlotOnly()
        
         ## Add the tabs to tabs to this tab container.
+        self.addTab(self.tabPlot, 'Study Tab')
         self.addTab(self.tabFormWelcome, 'Welcome')
-        self.addTab(self.tabForm2D, '2dTests')
-        self.addTab(self.tabPlot, 'plt')
+        
 
         ## Call set form to 
         self.tabFormWelcome.Create()
-        self.tabForm2D.Create(FPIBGBase)
         self.tabPlot.Create(FPIBGBase)

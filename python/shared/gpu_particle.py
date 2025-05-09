@@ -41,8 +41,14 @@ class Particle:
         self.ups_i1 = []
         self.ups_i2 = []
         self.rptIntersectionPoints=False
+        self.pltVelVec = False
+        self.velAngr = 0.0
+        self.velAngd = 0.0
 
     from ps_particleIntersection import particlesIntersection
+
+    def plotVelVec(self,flag):
+        self.pltVelVec = flag
 
     def setColor(self,color):
         self.color = color
@@ -60,18 +66,29 @@ class Particle:
 
         if(self.rptVelPos == True):
             print("P:",self.pnum," loc:",self.PosLoc," vel:",self.VelRad)
+            
 		
     def plotVelocityVector(self):
-        ang = atan2fp(self.VelRad[0],self.VelRad[1])
+        #self.velAngr = calcAtan2(self.VelRad[0],self.VelRad[1])
+        self.velAngr = math.atan2(self.VelRad[1],self.VelRad[0])
+        self.velAngd = self.velAngr*180/math.pi
         
-        tx = self.PosLoc[0]+self.PosLoc[3]*math.cos(ang)
-        ty = self.PosLoc[1]+self.PosLoc[3]*math.sin(ang) 
-        x,y = [ self.PosLoc[0],self.PosLoc[1] ], [tx ,ty ]
-        if(self.rptVel == True):
-            print("velvec vel:<{},{}> sin(ang):{} cos:{}, p:{},ang:{:.4f} from <{:.4f},{:.4f}> to <{:.4f},{:.4f}>".format(self.VelRad[0],self.VelRad[1],
-                                                                                                                math.cos(ang),math.sin(ang),self.pnum,ang*180.00/math.pi,
-                                                                                                                self.PosLoc[0],self.PosLoc[1],tx,ty))
+        tx = self.PosLoc[0]+self.PosLoc[3]*math.cos(self.velAngr)
+        ty = self.PosLoc[1]+self.PosLoc[3]*math.sin(self.velAngr) 
+        x,y = [ self.PosLoc[0],tx], [self.PosLoc[1] ,ty ]
+        
+        print("velvec angr:{}, angd:{}, vel:<{},{}> sin(ang):{} cos:{}, p:{},ang:{:.4f} from <{:.4f},{:.4f}> to <{:.4f},{:.4f}>".format(self.velAngr, 
+                                                                                                                                    self.velAngd,
+                                                                                                                                    self.VelRad[0],
+                                                                                                                                    self.VelRad[1],
+                                                                                                                                    math.cos(self.velAngr),
+                                                                                                                                    math.sin(self.velAngr),
+                                                                                                                                    self.pnum,self.velAngd,
+                                                                                                                                     self.PosLoc[0],self.PosLoc[1],tx,ty))
+        R = [ [math.cos(self.velAngr), -math.sin(self.velAngr)],[math.sin(self.velAngr),math.cos(self.velAngr)] ]
+
         return x,y
+
 
     def reportVelocity(self,flag):
         self.rptVel == flag

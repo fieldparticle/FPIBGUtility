@@ -20,8 +20,10 @@ from gpu_particle import *
 class TabPlotOnly(QTabWidget):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        
         self.fig   = pg.PlotWidget().plotItem    
+
+    from gpu_timeStep import timeStep
+
 
     def setSize(self,control,H,W):
         control.setMinimumHeight(H)
@@ -215,70 +217,7 @@ class TabPlotOnly(QTabWidget):
         self.timer.timeout.connect(self.timeStep)
         self.timer.start()
 
-#################- timeStep---------------------       
-    def timeStep(self):
-        if self.ps.rptFrame == True:
-            print("Frame:",self.ps.frameNum)
 
-        if self.ps.frameNum == self.ps.getEndFrame():
-            self.timer.stop()
-            self.ps.frameNum = 0
-            self.ps.reset()
-            return 
-        
-        self.ps.update()
-
-        self.plot_graph.setXRange(1, 2)
-        self.plot_graph.setYRange(1, 2)
-        self.plot.setAspectLocked(False)
-
-        count = 0
-        for ii in self.ps:
-            if ii.pnum != 0:
-                if(ii.colFlg == True):
-                    self.collisonLED.changeColor("green")
-                    ii.colFlg = False
-                else:
-                    self.collisonLED.changeColor("red")
-
-                r = ii.PosLoc[3]
-                angle = np.linspace( 0 , 2 * np.pi , 150 ) 
-                vx,vy = ii.plotVelocityVector()
-                x = ii.PosLoc[0] + r * np.cos( angle ) 
-                y = ii.PosLoc[1] + r * np.sin( angle ) 
-                if count == 0:
-                    pen = pg.mkPen(color=ii.color)
-                    self.plot_graph.plot(
-                        x,
-                        y,
-                        pen=pen,
-                        clear = True                
-                    )
-                else:
-                    pen = pg.mkPen(color=ii.color)
-                    self.plot_graph.plot(
-                        x,
-                        y,
-                        pen=pen,
-                        clear = False
-                    )
-                ar = pg.ArrowItem(angle=0, tipAngle=20, pos=(0,0), headLen=20, tailLen=20, tailWidth=5,   brush='g')
-                ar.setPos(1.0,1.0)
-                self.plot_graph.addItem(ar)
-
-                
-                count +=1    
-        self.ps.frameNum += 1            
-        
-        
-    def plot_line(self,x, y, pen):
-        self.plot_graph.plot(
-            x,
-            y,
-            pen=pen
-        )
-
-       
 
 
       

@@ -27,17 +27,19 @@ class GPUStudies(ParticleSystem):
         # Frame rate
         self.setFrameRate(200)
         self.addParm(1.0,100,[1.0,1.5,1.5],[1.0,0.0,0.0],0.25)
-        self[0].setColor((255, 0, 0))
-        self[0].reportVelPos(False)
-        self[0].reportVelocity(False)
-        self[0].reportIntersectionPoints(True)
+        self[1].setColor((255, 0, 0))
+        self[1].reportVelPos(True)
+        self[1].reportVelocity(True)
+        self[1].reportIntersectionPoints(False)
+        self[1].plotVelVec(True)
         
 
         self.addParm(1.0,150,[2.0,1.5,1.5],[-1.0,0.0,0.0],0.25)
-        self[1].setColor((0,0,255))
-        self[1].reportVelPos(False)
-        self[1].reportVelocity(False)
-        self[1].reportIntersectionPoints(True)
+        self[2].setColor((0,0,255))
+        self[2].reportVelPos(True)
+        self[2].reportVelocity(True)
+        self[2].reportIntersectionPoints(False)
+        self[2].plotVelVec(True)
 	
 
         self.setEndFrame(30)

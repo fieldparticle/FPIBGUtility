@@ -62,6 +62,7 @@ def atan2o(dx,dy):
 
     return 
 import numpy as np 
+
 def calcAtan2():
     angle = np.linspace( 0 , 2 * np.pi , 150 ) 
     xary = np.cos( angle ) 
@@ -69,6 +70,7 @@ def calcAtan2():
     for ii in range(len(angle)):
         ang = atan2fp(xary[ii],yary[ii])
         deg = ang*180.00/math.pi
+    return ang
         #txt = "dx:{:.4f}/dy:{:.4f} = Angle radians:{:.4f}, angle degrees {:.4f}".format(xary[ii],yary[ii],ang,deg)
         #print(txt)
 
