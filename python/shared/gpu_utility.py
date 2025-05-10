@@ -1,6 +1,6 @@
 
-import math 
-
+import math
+import numpy as np 
 def IndexToArray(index, width, height):
 	
     c1=0
@@ -32,8 +32,15 @@ def ArrayToIndex(locary,width,height,maxLocation):
         return 0
     else:
         return indxLoc
-def atan2fp(dx,dy):
-    return math.atan2(dy,dx) % 2*math.pi
+    
+
+
+def angle_to(p1, p2, rotation=0, clockwise=False):
+    angle = math.radians(math.atan2(p2[1] - p1[1], p2[0] - p1[0])) - rotation
+    if not clockwise:
+        angle = -angle
+    return angle % 2*math.pi
+
 
 def atan2o(dx,dy):
     if dx==0:
@@ -60,19 +67,5 @@ def atan2o(dx,dy):
         else:
             theta=math.atan(dx/dy)-math.pi
 
-    return 
-import numpy as np 
+    return -theta+math.pi
 
-def calcAtan2():
-    angle = np.linspace( 0 , 2 * np.pi , 150 ) 
-    xary = np.cos( angle ) 
-    yary = np.sin( angle ) 
-    for ii in range(len(angle)):
-        ang = atan2fp(xary[ii],yary[ii])
-        deg = ang*180.00/math.pi
-    return ang
-        #txt = "dx:{:.4f}/dy:{:.4f} = Angle radians:{:.4f}, angle degrees {:.4f}".format(xary[ii],yary[ii],ang,deg)
-        #print(txt)
-
-
-    

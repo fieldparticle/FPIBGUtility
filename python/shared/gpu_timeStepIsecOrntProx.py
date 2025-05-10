@@ -16,10 +16,11 @@ import pyqtgraph as pg
 from random import randint
 from gpu_studyVelocityVector import *
 from gpu_particle import *
+import array
 
 
 #################- timeStep---------------------       
-def timeStepTestVelocityVector(self):
+def timeStepIsecOrntProx(self):
     
 
     if self.ps.rptFrame == True:
@@ -53,7 +54,7 @@ def timeStepTestVelocityVector(self):
 
             # Clear plot
             if count == 0:
-                self.plot_graph.plot(clear = True )
+               self.plot_graph.plot(clear = True )
 
             # Plot particle
             pltpart = pg.PlotDataItem(x,y,pen=pg.mkPen(color=ii.color,width=1), brush='k')                
@@ -70,6 +71,7 @@ def timeStepTestVelocityVector(self):
             if ii.pltVelVec == True:
                 ar = pg.PlotDataItem(ii.velvecx,ii.velvecy,pen=pg.mkPen(color='g',width=2), brush='g')
                 self.plot_graph.addItem(ar)
+
                 endPoints = pg.ScatterPlotItem(size=10, brush='g')
                 endPoints.addPoints(ii.velvecx, ii.velvecy)
                 endPoints.setSymbol('d')
@@ -81,37 +83,46 @@ def timeStepTestVelocityVector(self):
             if(ii.pltIntersectVec == True ):
                 if ii.colFlg == True:
                     intersetcPoints = pg.ScatterPlotItem(size=5, brush='g')
-                    ix.append(ii.ups_i1[0])
-                    ix.append(ii.ups_i2[0])
-                    iy.append(ii.ups_i1[1])
-                    iy.append(ii.ups_i2[1])
+                    intersetcPoints.addPoints([ii.isec1[0],ii.isec2[0]],[ii.isec1[1],ii.isec2[1]])
                     intersetcPoints.setSymbol('d')
-                    ix = []
-                    iy = []
-                    ix.append(ii.PosLoc[0])
-                    ix.append(ii.PosLoc[1])
-                    iy.append(ii.ups_i1[0])
-                    iy.append(ii.ups_i1[1])
-                    ar = pg.PlotDataItem(ix,iy,pen=pg.mkPen(color='g',width=2), brush='g')
+                    self.plot_graph.addItem(intersetcPoints)
+
+                    l1ix = []
+                    l1iy = []
+                    l1ix.append(ii.PosLoc[0])
+                    l1ix.append(ii.ups_i1[0])
+                    l1iy.append(ii.PosLoc[1])
+                    l1iy.append(ii.ups_i1[1])
+                    ar = pg.PlotDataItem(l1ix,l1iy,pen=pg.mkPen(color='g',width=2), brush='g')
                     self.plot_graph.addItem(ar)
 
-                    ix = []
-                    iy = []
-                    ix.append(ii.PosLoc[0])
-                    ix.append(ii.PosLoc[1])
-                    iy.append(ii.ups_i2[0])
-                    iy.append(ii.ups_i2[1])
-                    ar = pg.PlotDataItem(ix,iy,pen=pg.mkPen(color='g',width=2), brush='g')
+                    l2ix = []
+                    l2iy = []
+                    l2ix.append(ii.PosLoc[0])
+                    l2ix.append(ii.ups_i2[0])
+                    l2iy.append(ii.PosLoc[1])
+                    l2iy.append(ii.ups_i2[1])
+                    ar = pg.PlotDataItem(l2ix,l2iy,pen=pg.mkPen(color='g',width=2), brush='g')
                     self.plot_graph.addItem(ar)
-
+                    
 
             if(ii.pltOrientVec == True):
                 if ii.colFlg == True:
-                    ix = []
-                    iy = []
-                    orvec = pg.PlotDataItem(ii.ortVecx,ii.ortVecy,pen=pg.mkPen(color='g',width=2), brush='g')
+                    
+                    ovecPoints = pg.ScatterPlotItem(size=5, brush='g')
+                    ovecPoints.addPoints([ii.ortVec[0],ii.ortVec[0]],[ii.ortVec[1],ii.ortVec[1]])
+                    ovecPoints.setSymbol('d')
+                    self.plot_graph.addItem(ovecPoints)
+                    """
+                    ox = []
+                    oy = []
+                    ox.append(ii.PosLoc[0])
+                    ox.append(ii.ortVecx[1])
+                    oy.append(ii.PosLoc[1])
+                    oy.append(ii.ortVecy[1])
+                    orvec = pg.PlotDataItem(ii.ortVec[0],ii.ortVec[1],pen=pg.mkPen(color='g',width=2), brush='g')
                     self.plot_graph.addItem(orvec)
-
+                    """
 
             ii.colFlg = False
             

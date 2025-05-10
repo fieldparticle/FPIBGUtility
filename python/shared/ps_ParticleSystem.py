@@ -33,6 +33,10 @@ class ParticleSystem(List) :
 	count 		= 0
 	frames 		= []
 	rptCollison = False
+	svCellAry	= False
+
+
+
 	def __init__ (self):
 		super().__init__(self)
 		#self.plotParts = ParticlePlot2D(self)
@@ -102,9 +106,12 @@ class ParticleSystem(List) :
 		particle.VelRad[2] = velary[2]
 		self.append(particle)
 		self.totParts  = len(self)
+		self.velvecx = []
+		self.velvecy = []
 	
 	def incFrame(self):
 		self.frameNum += 1
+
 	
 	
 	def add(self,part):
@@ -194,26 +201,15 @@ class ParticleSystem(List) :
 				self.cellAry.loc[sltidx][slot] = pnum
 		return 0
 		
-	def processVertex(self,pnum):
-		if(pnum == 0):
-			return
-		if self[pnum].particleDead == True:
-			return
-		# Process corners
-		self[pnum].changePos([0.1,0.0,0.0],self.dt)
-		self.getCornerIndexes(pnum)
-		self.removeCornerDups(pnum)
-		if self.locateCorners(pnum) > 0:
-			self[pnum].particleDead = True
-		
-		
-	def processCompute(self,pnum):
+	
+	
+	def processComputeItem(self,pnum):
 		if(pnum == 0):
 			return
 		duplst = []
 		dupflg = False
 		for ii in range(8):
-	
+
 			# Set location to local variable.
 			loc =self[pnum].zlink[ii]
 			# If the lcation is not zero..
@@ -244,6 +240,8 @@ class ParticleSystem(List) :
 					if(dupflg == False):
 						if(self.isParticleContact(pnum, Tindex) == True):
 							self[pnum].particlesIntersection(self[pnum],self[Tindex])
+							self[pnum].calcOrientVec()
+							self[pnum].calcProximityVec()
 							dupflg = True
 
 	def isParticleContact(self,pnum, opnum):
@@ -284,23 +282,7 @@ class ParticleSystem(List) :
 	def getEndFrame(self):
 		return self.endFrame
 		
-	def update(self):
-		#print("Frame:",tt)
-		for ii in range(self.totParts):
-			t =threading.Thread(target=self.processVertex,args=(ii,))
-			t.start()
-			t.join()
-	 	
-		if self.svCellAry == True:
-			self.writeCellArray(self.frameNum)
-
-		for ii in range(self.totParts):
-			t =threading.Thread(target=self.processCompute,args=(ii,))
-			t.start()
-			t.join()
-	 		
-		self.frameReset()
-
+	
 		
 		#print("Thread {} complete.".format(ii))
 

@@ -14,15 +14,19 @@ from io import BytesIO
 from pyqtLED import QtLed
 import pyqtgraph as pg
 from random import randint
-from gpu_studies import *
+from gpu_studyVelocityVector import *
 from gpu_particle import *
+from gpu_studyPTHorzCollisionTest import *
+from gpu_studyIsecOrntProx import *
 
 class TabPlotOnly(QTabWidget):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fig   = pg.PlotWidget().plotItem    
 
-    from gpu_timeStep import timeStep
+    from gpu_timeStepPTHorzCollisionTest import timeStepPTHorzCollisionTest
+    from gpu_timeStepTestVelocityVector import timeStepTestVelocityVector
+    from gpu_timeStepIsecOrntProx import timeStepIsecOrntProx
 
 
     def setSize(self,control,H,W):
@@ -148,15 +152,16 @@ class TabPlotOnly(QTabWidget):
 
         self.typlist = QListWidget()
         self.typlist.setStyleSheet("background-color:  #ffffff")
-        self.typlist.insertItem(0, "2PTHorzCollisionTestHardDiscrete")
-        self.typlist.insertItem(1, "2PTHorzCollisionTestSoftDiscrete")
-        self.typlist.insertItem(2, "3PTHorzCollisionTestHardDiscrete")
+        self.typlist.insertItem(0, "TestVelocityVector")
+        self.typlist.insertItem(1, "IntersectionOrientProxVectors")
+        self.typlist.insertItem(2, "2PTHorzCollisionTestHardDiscrete")
         self.typlist.insertItem(3, "3PTHorzCollisionTestSoftDiscrete")
         self.row = 0
         self.typlist.setCurrentRow( self.row )
-        #self.typlist.itemClicked.connect(self.changeColor)
+        self.typlist.itemClicked.connect(self.changeStudy)
         StudyLayout.addWidget(self.typlist)
         self.changeColorFlag = False
+        self.changeStudy()
 
 ## -------------------------------------------------------------
         ## Performance output
@@ -192,29 +197,60 @@ class TabPlotOnly(QTabWidget):
         dirgrid.addWidget(self.np,2,1)
 
 ## -----Select Study--------------------------------------------------------        
+    def changeStudy(self):
+        # Add a timer to simulate new temperature measurements
+        self.timer = QtCore.QTimer()
         for ii in range(len(self.typlist)):
             match(self.typlist.currentItem().text()):
-                case "2PTHorzCollisionTestHardDiscrete":
-                    self.ps = GPUStudies()
+                case "TestVelocityVector":
+                    self.ps = TestVelocityVector()
                     self.ps.Create()
                     print(self.ps.desc)
+                    self.timer.timeout.connect(self.timeStepTestVelocityVector)
                     return
+                case "2PTHorzCollisionTestHardDiscrete":
+                    self.ps = PTHorzCollisionTest()
+                    self.ps.Create()
+                    print(self.ps.desc)
+                    self.timer.timeout.connect(self.timeStepPTHorzCollisionTest)
+                    return
+                case "IntersectionOrientProxVectors":
+                    self.ps = IsecOrntProx()
+                    self.ps.Create()
+                    print(self.ps.desc)
+                    self.timer.timeout.connect(self.timeStepIsecOrntProx)
+                    return
+                
                 case _:
                     print("Study not found.")
-        
-                
-        self.dt = float(self.fps.text())
-        self.ps.dt = self.dt
+
+
+    def update(self):
+        #print("Frame:",tt)
+        for ii in range(self.ps.totParts):
+            t =threading.Thread(target=self.ps.processVertex,args=(ii,))
+            t.start()
+            t.join()
+
+        if self.ps.svCellAry == True:
+            self.ps.writeCellArray(self.ps.frameNum)
+
+        for ii in range(self.ps.totParts):
+            t =threading.Thread(target=self.ps.processCompute,args=(ii,))
+            t.start()
+            t.join()
+            
+        self.ps.frameReset()
+
 
     def stop(self):
         self.timer.stop()
 #################- Start---------------------         
     def start(self):
         self.ps.reset()
-        # Add a timer to simulate new temperature measurements
-        self.timer = QtCore.QTimer()
         self.timer.setInterval(self.ps.frameRate)
-        self.timer.timeout.connect(self.timeStep)
+        self.dt = float(self.fps.text())
+        self.ps.dt = self.dt
         self.timer.start()
 
 

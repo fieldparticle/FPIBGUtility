@@ -44,8 +44,37 @@ class Particle:
         self.pltVelVec = False
         self.velAngr = 0.0
         self.velAngd = 0.0
-
+        self.pltIntersectVec = False
+        self.pltOrientVec = False
+        self.ovec = []
+        self.rptOrientVec = False
+        self.phi = 0.0
+        self.pltProxVec = False
+        self.rptProxVec =False
+        self.velvecx = []
+        self.velvecy =[]
+        self.isec1 = []
+        self.isec2 = []
     from ps_particleIntersection import particlesIntersection
+    from ps_calcOrientVec import calcOrientVec
+    from ps_calcProximityVec import calcProximityVec
+    from ps_CalcVelVec import calcVelocityVector
+
+    def repotProxVec(self,flag):
+        self.rptProxVec = flag
+
+    def plotProxVec(self,flag):
+        self.pltProxVec = flag
+    
+    def plotIntersectVec(self,flag):
+        self.pltIntersectVec = flag
+        
+    def plotOrientVec(self,flag):
+        self.pltOrientVec = flag
+
+    def repotOrientVec(self,flag):
+        self.rptOrientVec = flag
+        
 
     def plotVelVec(self,flag):
         self.pltVelVec = flag
@@ -68,26 +97,7 @@ class Particle:
             print("P:",self.pnum," loc:",self.PosLoc," vel:",self.VelRad)
             
 		
-    def plotVelocityVector(self):
-        #self.velAngr = calcAtan2(self.VelRad[0],self.VelRad[1])
-        self.velAngr = math.atan2(self.VelRad[1],self.VelRad[0])
-        self.velAngd = self.velAngr*180/math.pi
-        
-        tx = self.PosLoc[0]+self.PosLoc[3]*math.cos(self.velAngr)
-        ty = self.PosLoc[1]+self.PosLoc[3]*math.sin(self.velAngr) 
-        x,y = [ self.PosLoc[0],tx], [self.PosLoc[1] ,ty ]
-        
-        print("velvec angr:{}, angd:{}, vel:<{},{}> sin(ang):{} cos:{}, p:{},ang:{:.4f} from <{:.4f},{:.4f}> to <{:.4f},{:.4f}>".format(self.velAngr, 
-                                                                                                                                    self.velAngd,
-                                                                                                                                    self.VelRad[0],
-                                                                                                                                    self.VelRad[1],
-                                                                                                                                    math.cos(self.velAngr),
-                                                                                                                                    math.sin(self.velAngr),
-                                                                                                                                    self.pnum,self.velAngd,
-                                                                                                                                     self.PosLoc[0],self.PosLoc[1],tx,ty))
-        R = [ [math.cos(self.velAngr), -math.sin(self.velAngr)],[math.sin(self.velAngr),math.cos(self.velAngr)] ]
-
-        return x,y
+  
 
 
     def reportVelocity(self,flag):

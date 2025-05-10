@@ -16,10 +16,11 @@ import pyqtgraph as pg
 from random import randint
 from gpu_studyVelocityVector import *
 from gpu_particle import *
+import array
 
 
 #################- timeStep---------------------       
-def timeStepTestVelocityVector(self):
+def timeStepPTHorzCollisionTest(self):
     
 
     if self.ps.rptFrame == True:
@@ -70,6 +71,7 @@ def timeStepTestVelocityVector(self):
             if ii.pltVelVec == True:
                 ar = pg.PlotDataItem(ii.velvecx,ii.velvecy,pen=pg.mkPen(color='g',width=2), brush='g')
                 self.plot_graph.addItem(ar)
+
                 endPoints = pg.ScatterPlotItem(size=10, brush='g')
                 endPoints.addPoints(ii.velvecx, ii.velvecy)
                 endPoints.setSymbol('d')
@@ -81,11 +83,11 @@ def timeStepTestVelocityVector(self):
             if(ii.pltIntersectVec == True ):
                 if ii.colFlg == True:
                     intersetcPoints = pg.ScatterPlotItem(size=5, brush='g')
-                    ix.append(ii.ups_i1[0])
-                    ix.append(ii.ups_i2[0])
-                    iy.append(ii.ups_i1[1])
-                    iy.append(ii.ups_i2[1])
+                    intersetcPoints.addPoints([ii.isec1[0],ii.isec2[0]],[ii.isec1[1],ii.isec2[1]])
+                    #intersetcPoints.addPoints(ii.ups_i2)
                     intersetcPoints.setSymbol('d')
+                    self.plot_graph.addItem(intersetcPoints)
+                    """
                     ix = []
                     iy = []
                     ix.append(ii.PosLoc[0])
@@ -103,7 +105,7 @@ def timeStepTestVelocityVector(self):
                     iy.append(ii.ups_i2[1])
                     ar = pg.PlotDataItem(ix,iy,pen=pg.mkPen(color='g',width=2), brush='g')
                     self.plot_graph.addItem(ar)
-
+                    """
 
             if(ii.pltOrientVec == True):
                 if ii.colFlg == True:

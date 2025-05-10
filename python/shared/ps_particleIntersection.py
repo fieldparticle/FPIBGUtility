@@ -1,5 +1,6 @@
 import math
 import numpy as np 
+import array
 def particlesIntersection(self,F,T):
     
     
@@ -18,5 +19,7 @@ def particlesIntersection(self,F,T):
     # Calc points of intersection 
     self.ups_i1 = A + u_AB * (b*cosAlpha) + pu_AB * (b*math.sqrt(1-cosAlpha**2))
     self.ups_i2 = A + u_AB * (b*cosAlpha) - pu_AB * (b*math.sqrt(1-cosAlpha**2))
+    self.isec1 = np.asarray(self.ups_i1)
+    self.isec2 = np.asarray(self.ups_i2)
     if self.rptIntersectionPoints == True:
         print("Pt1:{},Pt2:{}".format(self.ups_i1, self.ups_i2))
