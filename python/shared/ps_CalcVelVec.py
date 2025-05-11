@@ -7,7 +7,7 @@ def calcVelocityVector(self):
     #self.velAngr = atanpy(self.VelRad[0],self.VelRad[1])
     #self.velAngr = atan2fp(self.VelRad[0],self.VelRad[1])
     #self.velAngr = atan2py(0.0,1.0,self.VelRad[0],self.VelRad[1])
-    self.velAngr = atan2o(self.VelRad[0],self.VelRad[1])-math.pi/2.0
+    self.velAngr = atan2o(self.VelRad[0],self.VelRad[1])
     #self.velAngr = math.atan2(self.VelRad[1],self.VelRad[0])
     #self.velAngr = atan360([0.0,1.0],[self.VelRad[1],self.VelRad[0]])
     self.velAngd = self.velAngr*180/math.pi

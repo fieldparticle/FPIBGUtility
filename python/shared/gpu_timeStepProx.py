@@ -137,7 +137,7 @@ def timeStepIsecOrntProx(self):
 
 
             ii.colFlg = False
-            #self.timer.stop()
+            
             count +=1    
     self.ps.frameNum += 1            
     

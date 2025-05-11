@@ -31,14 +31,14 @@ class IsecOrntProx(ParticleSystem):
         self[1].setColor((255, 0, 0))
         self[1].reportVelPos(False)
         self[1].reportVelocity(False)
-        self[1].reportIntersectionPoints(True)
-        self[1].repotOrientVec(False)
-        self[1].repotProxVec(False)
+        self[1].reportIntersectionPoints(False)
+        self[1].repotOrientVec(True)
+        self[1].repotProxVec(True)
 
         self[1].plotVelVec(False)
-        self[1].plotIntersectVec(True)
+        self[1].plotIntersectVec(False)
         self[1].plotOrientVec(True)
-        self[1].plotProxVec(False)
+        self[1].plotProxVec(True)
 
     
         self.addParm(1.0,150,[1.80,1.5,1.5],[-1.0,0.0,0.0],0.25)
@@ -50,7 +50,7 @@ class IsecOrntProx(ParticleSystem):
         self[2].repotProxVec(False)
 
         self[2].plotIntersectVec(False)
-        self[2].plotVelVec(True)
+        self[2].plotVelVec(False)
         self[2].plotOrientVec(False)
         self[2].plotProxVec(False)
 

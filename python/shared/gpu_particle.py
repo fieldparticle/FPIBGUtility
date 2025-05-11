@@ -55,6 +55,9 @@ class Particle:
         self.velvecy =[]
         self.isec1 = []
         self.isec2 = []
+        self.prxVec = []
+        self.prxVecx = []
+        self.prxVecy = []
     from ps_particleIntersection import particlesIntersection
     from ps_calcOrientVec import calcOrientVec
     from ps_calcProximityVec import calcProximityVec

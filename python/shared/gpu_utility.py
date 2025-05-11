@@ -67,5 +67,5 @@ def atan2o(dx,dy):
         else:
             theta=math.atan(dx/dy)-math.pi
 
-    return -theta+math.pi
+    return -theta+math.pi/2.0
 
