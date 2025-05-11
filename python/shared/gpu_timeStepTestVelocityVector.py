@@ -46,79 +46,20 @@ def timeStepTestVelocityVector(self):
             else:
                 self.collisonLED.changeColor("red")
 
-            r = ii.PosLoc[3]
-            angle = np.linspace( 0 , 2 * np.pi , 150 )
-            x = ii.PosLoc[0] + r * np.cos( angle ) 
-            y = ii.PosLoc[1] + r * np.sin( angle ) 
-
             # Clear plot
             if count == 0:
                 self.plot_graph.plot(clear = True )
 
-            # Plot particle
-            pltpart = pg.PlotDataItem(x,y,pen=pg.mkPen(color=ii.color,width=1), brush='k')                
-            self.plot_graph.addItem(pltpart)
-
-            # Center of particles   
-            centerPoints = pg.ScatterPlotItem(size=10, brush='k')
-            px = [ii.PosLoc[0],ii.PosLoc[0]]
-            py = [ii.PosLoc[1],ii.PosLoc[1]]
-            centerPoints.addPoints(px, py)
-            self.plot_graph.addItem(centerPoints)
-
-            # Velocity Vector
-            if ii.pltVelVec == True:
-                ar = pg.PlotDataItem(ii.velvecx,ii.velvecy,pen=pg.mkPen(color='g',width=2), brush='g')
-                self.plot_graph.addItem(ar)
-                endPoints = pg.ScatterPlotItem(size=10, brush='g')
-                endPoints.addPoints(ii.velvecx, ii.velvecy)
-                endPoints.setSymbol('d')
-                self.plot_graph.addItem(endPoints)
-        
-            # Intersection vectors
-            ix = []
-            iy = []
-            if(ii.pltIntersectVec == True ):
-                if ii.colFlg == True:
-                    intersetcPoints = pg.ScatterPlotItem(size=5, brush='g')
-                    ix.append(ii.ups_i1[0])
-                    ix.append(ii.ups_i2[0])
-                    iy.append(ii.ups_i1[1])
-                    iy.append(ii.ups_i2[1])
-                    intersetcPoints.setSymbol('d')
-                    ix = []
-                    iy = []
-                    ix.append(ii.PosLoc[0])
-                    ix.append(ii.PosLoc[1])
-                    iy.append(ii.ups_i1[0])
-                    iy.append(ii.ups_i1[1])
-                    ar = pg.PlotDataItem(ix,iy,pen=pg.mkPen(color='g',width=2), brush='g')
-                    self.plot_graph.addItem(ar)
-
-                    ix = []
-                    iy = []
-                    ix.append(ii.PosLoc[0])
-                    ix.append(ii.PosLoc[1])
-                    iy.append(ii.ups_i2[0])
-                    iy.append(ii.ups_i2[1])
-                    ar = pg.PlotDataItem(ix,iy,pen=pg.mkPen(color='g',width=2), brush='g')
-                    self.plot_graph.addItem(ar)
-
-
-            if(ii.pltOrientVec == True):
-                if ii.colFlg == True:
-                    ix = []
-                    iy = []
-                    orvec = pg.PlotDataItem(ii.ortVecx,ii.ortVecy,pen=pg.mkPen(color='g',width=2), brush='g')
-                    self.plot_graph.addItem(orvec)
-
-
-            ii.colFlg = False
+            self.plot_particle(ii)
+            self.plot_velocityVector(ii)
+            self.plot_orientationVector(ii)
+            self.plot_ProximityVector(ii)
             
+            ii.colFlg = False
+            #self.timer.stop()
             count +=1    
-    self.ps.frameNum += 1            
-    
-    
+    self.ps.frameNum += 1       
+
 def plot_line(self,x, y, pen):
     self.plot_graph.plot(
         x,

@@ -254,9 +254,97 @@ class TabPlotOnly(QTabWidget):
         self.timer.start()
 
 
+    def plot_particle(self,ii):
+        r = ii.PosLoc[3]
+        angle = np.linspace( 0 , 2 * np.pi , 150 )
+        x = ii.PosLoc[0] + r * np.cos( angle ) 
+        y = ii.PosLoc[1] + r * np.sin( angle ) 
+        # Plot particle
+        pltpart = pg.PlotDataItem(x,y,pen=pg.mkPen(color=ii.color,width=1), brush='k')                
+        self.plot_graph.addItem(pltpart)
 
+        # Center of particles   
+        centerPoints = pg.ScatterPlotItem(size=10, brush='k')
+        px = [ii.PosLoc[0],ii.PosLoc[0]]
+        py = [ii.PosLoc[1],ii.PosLoc[1]]
+        centerPoints.addPoints(px, py)
+        self.plot_graph.addItem(centerPoints)
 
-      
+    def plot_velocityVector(self,ii):
+        
+        # Velocity Vector
+        if ii.pltVelVec == True:
+            ar = pg.PlotDataItem(ii.velvecx,ii.velvecy,pen=pg.mkPen(color='g',width=2), brush='g')
+            self.plot_graph.addItem(ar)
 
+            endPoints = pg.ScatterPlotItem(size=10, brush='g')
+            endPoints.addPoints(ii.velvecx, ii.velvecy)
+            endPoints.setSymbol('d')
+            self.plot_graph.addItem(endPoints)
+    
+    def plot_intersectionVectors(self,ii):
+
+        # Intersection vectors
+        ix = []
+        iy = []
+        if(ii.pltIntersectVec == True ):
+            if ii.colFlg == True:
+                intersetcPoints = pg.ScatterPlotItem(size=5, brush='g')
+                intersetcPoints.addPoints([ii.isec1[0],ii.isec2[0]],[ii.isec1[1],ii.isec2[1]])
+                intersetcPoints.setSymbol('d')
+                self.plot_graph.addItem(intersetcPoints)
+
+                l1ix = []
+                l1iy = []
+                l1ix.append(ii.PosLoc[0])
+                l1ix.append(ii.ups_i1[0])
+                l1iy.append(ii.PosLoc[1])
+                l1iy.append(ii.ups_i1[1])
+                ar = pg.PlotDataItem(l1ix,l1iy,pen=pg.mkPen(color='g',width=2), brush='g')
+                self.plot_graph.addItem(ar)
+
+                l2ix = []
+                l2iy = []
+                l2ix.append(ii.PosLoc[0])
+                l2ix.append(ii.ups_i2[0])
+                l2iy.append(ii.PosLoc[1])
+                l2iy.append(ii.ups_i2[1])
+                ar = pg.PlotDataItem(l2ix,l2iy,pen=pg.mkPen(color='g',width=2), brush='g')
+                self.plot_graph.addItem(ar)
+                    
+    def plot_orientationVector(self,ii):
+        if(ii.pltOrientVec == True):
+            if ii.colFlg == True:
+                
+                ovecPoints = pg.ScatterPlotItem(size=5, brush='g')
+                ovecPoints.addPoints([ii.ortVec[0],ii.ortVec[0]],[ii.ortVec[1],ii.ortVec[1]])
+                ovecPoints.setSymbol('d')
+                self.plot_graph.addItem(ovecPoints)
+                
+                ox = []
+                oy = []
+                ox.append(ii.PosLoc[0])
+                ox.append(ii.ortVec[0])
+                oy.append(ii.PosLoc[1])
+                oy.append(ii.ortVec[1])
+                orvec = pg.PlotDataItem(ox,oy,pen=pg.mkPen(color='g',width=2), brush='g')
+                self.plot_graph.addItem(orvec)
+                
+    def plot_ProximityVector(self,ii):
+        if(ii.pltProxVec == True):
+            if ii.colFlg == True:
+                px = []
+                py = []
+                px.append(ii.PosLoc[0])
+                px.append(ii.prxVecx)
+                py.append(ii.PosLoc[1])
+                py.append(ii.prxVecy)
+                pxvec = pg.PlotDataItem(px,py,pen=pg.mkPen(color=(0,0,0),width=2), brush=(0,0,0))
+                self.plot_graph.addItem(pxvec)
+            
+
+        
+            
+        
 
    
