@@ -26,12 +26,15 @@ class PTHorzCollisionTest(ParticleSystem):
         # Frame rate
         self.setFrameRate(200)
         self.addParm(1.0,100,[1.20,1.5,1.5],[1.0,0.0,0.0],0.25)
+        self[1].setTempRange(250,1,400)
+        self[1].setSubstance("He",4.0026022,28,8.3145,-268.9+273.15)
         self[1].setColor((255, 0, 0))
         self[1].reportVelPos(True)
         self[1].reportVelocity(True)
         self[1].reportIntersectionPoints(False)
         self[1].repotOrientVec(False)
         self[1].repotProxVec(False)
+
 
         self[1].plotVelVec(True)
         self[1].plotIntersectVec(True)
@@ -40,6 +43,8 @@ class PTHorzCollisionTest(ParticleSystem):
 
     
         self.addParm(1.0,150,[1.80,1.5,1.5],[-1.0,0.0,0.0],0.25)
+        self[2].setTempRange(250,1,400)
+        self[2].setSubstance("He",4.0026022,28,8.3145,-268.9+273.15)
         self[2].setColor((0,0,255))
         self[2].reportVelPos(True)
         self[2].reportVelocity(True)

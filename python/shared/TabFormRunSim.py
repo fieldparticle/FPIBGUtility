@@ -219,7 +219,7 @@ class TabRunSim(QTabWidget):
                 self.changeColorFlag = False
         
     def Create(self,FPIBBase):
-        self.bobj = FPIBBase;
+        self.bobj = FPIBBase
         self.cfg = self.bobj.cfg.config
         self.log = self.bobj.log.log
         self.server_ip = self.cfg.server_ip

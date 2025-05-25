@@ -6,41 +6,54 @@ import numpy as np
 from scipy.optimize import curve_fit
 import matplotlib.pyplot as plt
 from PyQt6.QtGui import QPixmap, QImage
-from FPIBGData import *
+from FPIBGDataEXP import *
 
-class PlotData:
+class PlotData(DataClass):
 
-    dataPQB = DataClass("PQB")
-    dataPCD = DataClass("PCD")
-    dataDUP = DataClass("DUP")
-    dataCFB = DataClass("CFB")
+    
+    
+    def __init__(self, ObjName):
+        super().__init__(ObjName)
+        self.ObjName = ObjName
+
 
     def Create(self, BaseObj):
         self.bobj = BaseObj
         self.cfg = self.bobj.cfg.config
         self.testFile = ""
-        
+        self.bobj.lvl = 1000
+
+    def Open(self,typeFlag):    
+        self.typeFlag = typeFlag
+        pass
 
     def hasData(self):
         return self.hasDataFlag
     
-    def Open(self,file_end,typeFlag):
-        match(file_end):
+    def Update(self,test) -> bool:
+
+        match(test):
             case "PQB":
                 self.topdir = self.cfg.application.testdirPQB
                 self.testFile = "perfPQB.csv"
                 self.upper = os.path.split(self.topdir)
                 self.topdir = self.upper[0] + "/" + self.testFile
+                # See if the directory exists
                 if (os.path.exists(self.topdir) == True):
                     self.hasDataFlag = True
                 else:
                     self.hasDataFlag = False
-                    return
+                    return False
+                # Update summary
+                if self.UpdateSummary("PQB") == False:
+                    return False
+                # Read Summary File
                 df = pd.read_csv(self.topdir)
                 if(len(df) <= 1):
                     self.hasDataFlag = False
-                    return         
-            case "PCD":
+                    return False        
+                return True
+            case "CFB":
                 self.topdir = self.cfg.application.testdirPCD
                 self.testFile = "perfPCD.csv"
                 self.upper = os.path.split(self.topdir)
@@ -49,15 +62,16 @@ class PlotData:
                     self.hasDataFlag = True
                 else:
                     self.hasDataFlag = False
-                    return
+                    return False
                 df = pd.read_csv(self.topdir)
                 if(len(df) <= 1):
                     self.hasDataFlag = False
-                    return         
+                    return False
                 if(len(df) <= 1):
                     self.hasDataFlag = False
-                    return         
+                    return False
                 self.hasDataFlag = True
+                return True
             case "DUP":
                 self.topdir = self.cfg.application.testdirDUP
                 self.testFile = "perfDUP.csv"
@@ -67,17 +81,18 @@ class PlotData:
                     self.hasDataFlag = True
                 else:
                     self.hasDataFlag = False
-                    return
+                    return False
                 df = pd.read_csv(self.topdir)
                 if(len(df) <= 1):
                     self.hasDataFlag = False
-                    return         
+                    return False
                 df = pd.read_csv(self.topdir)
                 if(len(df) <= 1):
                     self.hasDataFlag = False
-                    return         
+                    return False
                 self.hasDataFlag = True
-            case "CFB":
+                return True
+            case "PCD":
                 self.topdir = self.cfg.application.testdirCFB
                 self.testFile = "perfCFB.csv"
                 self.upper = os.path.split(self.topdir)
@@ -86,22 +101,23 @@ class PlotData:
                     self.hasDataFlag = True
                 else:
                     self.hasDataFlag = False
-                    return
+                    return False
                 df = pd.read_csv(self.topdir)
                 if(len(df) <= 1):
                     self.hasDataFlag = False
-                    return         
+                    return False
                 if(len(df) <= 1):
                     self.hasDataFlag = False
-                    return 
+                    return False
                 self.hasDataFlag = True
+                return True
 
-        self.upper = os.path.split(self.topdir)
-        self.topdir = self.upper[0] + "/" + self.testFile
-        if (os.path.exists(self.topdir) == True):
-            self.hasDataFlag = True
-        else:
-            self.hasDataFlag = False
+        #self.upper = os.path.split(self.topdir)
+        ##self.topdir = self.upper[0] + "/" + self.testFile
+        #if (os.path.exists(self.topdir) == True):
+         #   self.hasDataFlag = True
+        #else:
+            #self.hasDataFlag = False
         print(self.topdir)
         pass
 
@@ -114,22 +130,19 @@ class PlotData:
     def Write(self):
         pass
 
-    def __init__(self, ObjName):
-        self.ObjName = ObjName
-
     def PlotData(self, name):
         if(self.hasData == False):
             return
         match name:
             # PQB
-            case "fpsvn":
-                return self.plot_fpsvn()
+            case "PQBfpsvn":
+                return self.plot_PQBfpsvn()
             # PQB
-            case "spfvn":
-                return self.plot_spfvn()
+            case "PQBspfvn":
+                return self.plot_PQBspfvn()
             # PQB
-            case "lintot":
-                return self.plot_lintot()
+            case "PQBlintot":
+                return self.plot_PQBlintot()
             # PCD 
             case "spfvside":
                 return self.plot_spfvside()
@@ -162,15 +175,16 @@ class PlotData:
         plt.plot(loadedp, y_pred, linestyle = "-", label="cpums vs loadedp", color = "cornflowerblue")
         plt.xlabel("loadedp")
         plt.ylabel("cpums")
-        plt.title(f"{os.path.basename(self.topdir)}: cpums vs loadedp")
+        #plt.title(f"{os.path.basename(self.topdir)}: cpums vs loadedp")
         plt.legend()
         plt.grid(True)
         #plt.show()
 
     # Plot B1
-    def plot_spfvn(self):
+    def plot_PQBspfvn(self,start):
         df = pd.read_csv(self.topdir)
-
+        dflen = len(df)
+        df = df[start:dflen]
         loadedp = df["loadedp"].values.reshape(-1, 1)
         gms = df["gms"]
         cms = df["cms"]
@@ -201,7 +215,7 @@ class PlotData:
 
         plt.xlabel("Number of Particles (q)")
         plt.ylabel("Seconds per frame, spf (ms)")
-        plt.title(f"{os.path.basename(self.topdir)}: B1 Plot")
+        #plt.title(f"{os.path.basename(self.topdir)}: B1 Plot")
         plt.legend()
         plt.grid(True)
         buf = io.BytesIO()
@@ -227,11 +241,42 @@ class PlotData:
         plt.title("Standard Deviation of gms, cms, and gms + cms")
         plt.grid(True)
         plt.show()
+        
+    def plot_PQBfpsvn(self,start):
+        df = pd.read_csv(self.topdir)
+        if(len(df.index) <= 1):
+            return QPixmap
+        dflen = len(df)
+        df = df[start:dflen]    
+        loadedp = df["loadedp"]
+        fps = df["fps"]
+
+        plt.figure(figsize=(8,5))
+        
+        plt.scatter(loadedp, fps, marker='o', color="cornflowerblue")
+        params, covariance = curve_fit(self.exponential, loadedp, fps, p0=[2500, -1e-6])
+        plt.plot(loadedp, self.exponential(loadedp, *params), linestyle='-', label="fps vs loadedp", color="cornflowerblue")
+        plt.xlabel("Number of Particles (q)")
+        plt.ylabel("Frames Per Second, fps")
+        #plt.title(f"{os.path.basename(self.topdir)}: Frames Per Second vs Loaded Particles")
+        plt.legend()
+        plt.grid(True)
+        self.fpsvnfig = plt
+        buf = io.BytesIO()
+        self.fpsvnfig = plt.gcf()
+        self.fpsvnfig.savefig(buf, format='png')
+        buf.seek(0)
+
+        image = QImage()
+        image.loadFromData(buf.getvalue())
+        pixmap = QPixmap.fromImage(image)
+        return pixmap
 
     # Plot Linearity
-    def plot_lintot(self):
+    def plot_PQBlintot(self,start):
         df = pd.read_csv(self.topdir)
-
+        dflen = len(df)
+        df = df[start:dflen]
         loadedp = df["loadedp"]
         indexes = loadedp >= 82944
         loadedp = loadedp[indexes].values.reshape(-1, 1)
@@ -265,7 +310,7 @@ class PlotData:
     
         plt.xlabel("Number of Particles")
         plt.ylabel("Linearity")
-        plt.title(f"{os.path.basename(self.topdir)}: Linearity")
+        #plt.title(f"{os.path.basename(self.topdir)}: Linearity")
         plt.legend()
         plt.grid(True)
 
@@ -295,8 +340,8 @@ class PlotData:
         plt.grid(True)
         plt.show()
 
-    # Plot Cell Fraction Benchmark
-    def plot_spfvside(self):
+    # Particle Cell Density
+    def plot_PCDspfvside(self):
         df = pd.read_csv(self.topdir)
 
         sidelen = df["sidelen"]
@@ -321,7 +366,7 @@ class PlotData:
 
         plt.xlabel("Side Length")
         plt.ylabel("Seconds per frame, spf (ms)")
-        plt.title(f"{os.path.basename(self.topdir)}: Cell Fraction Benchmark")
+        #plt.title(f"{os.path.basename(self.topdir)}: Cell Fraction Benchmark")
         plt.legend()
         plt.grid(True)
         
@@ -335,35 +380,7 @@ class PlotData:
         pixmap = QPixmap.fromImage(image)
         return pixmap
 
-    def plot_fpsvn(self):
-        df = pd.read_csv(self.topdir)
-        if(len(df.index) <= 1):
-            return QPixmap
-
-        loadedp = df["loadedp"]
-        fps = df["fps"]
-
-        plt.figure(figsize=(8,5))
-        
-        plt.scatter(loadedp, fps, marker='o', color="cornflowerblue")
-        params, covariance = curve_fit(self.exponential, loadedp, fps, p0=[2500, -1e-6])
-        plt.plot(loadedp, self.exponential(loadedp, *params), linestyle='-', label="fps vs loadedp", color="cornflowerblue")
-        plt.xlabel("Number of Particles (q)")
-        plt.ylabel("Frames Per Second, fps")
-        plt.title(f"{os.path.basename(self.topdir)}: Frames Per Second vs Loaded Particles")
-        plt.legend()
-        plt.grid(True)
-        self.fpsvnfig = plt
-        buf = io.BytesIO()
-        self.fpsvnfig = plt.gcf()
-        self.fpsvnfig.savefig(buf, format='png')
-        buf.seek(0)
-
-        image = QImage()
-        image.loadFromData(buf.getvalue())
-        pixmap = QPixmap.fromImage(image)
-        return pixmap
-
+    
     def plot_expectedc(self):
         df = pd.read_csv(self.topdir)
         
@@ -391,7 +408,7 @@ class PlotData:
         
         plt.xlabel("Number of Collisions (n)")
         plt.ylabel("Seconds Per Frame, spf(s)")
-        plt.title(f"{os.path.basename(self.topdir)}: Seconds Per Frame vs Number of Collisions")
+        #plt.title(f"{os.path.basename(self.topdir)}: Seconds Per Frame vs Number of Collisions")
         plt.legend()
         plt.grid(True)
         #plt.show()
@@ -399,7 +416,7 @@ class PlotData:
         plt.figure(figsize=(8,5))
         plt.bar(["gms", "cms"], [var_gms, var_cms], color=["cornflowerblue", "mediumseagreen"])
         plt.ylabel("Variance")
-        plt.title("Variance of gms and cms")
+        #plt.title("Variance of gms and cms")
         plt.grid(True)
         #plt.show()
 
@@ -410,6 +427,7 @@ class PlotData:
         plt.grid(True)
         #plt.show()
 
+    #Colisons fraction benchmark
     def plot_spfvcollsions(self):
         df = pd.read_csv(self.topdir)
 
@@ -421,7 +439,7 @@ class PlotData:
         plt.plot(shaderc, cms, linestyle = "-", label="cms v shaderc", color = "cornflowerblue")
         plt.xlabel("shaderc")
         plt.ylabel("cms")
-        plt.title(f"{os.path.basename(self.topdir)}: cms v shaderc")
+        #plt.title(f"{os.path.basename(self.topdir)}: cms v shaderc")
         plt.legend()
         plt.grid(True)
         buf = io.BytesIO()

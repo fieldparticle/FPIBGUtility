@@ -244,6 +244,9 @@ class ParticleSystem(List) :
 							self[pnum].calcProximityVec()
 							dupflg = True
 
+	
+	
+	
 	def isParticleContact(self,pnum, opnum):
 
 		if(pnum == opnum):

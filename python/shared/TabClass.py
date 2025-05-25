@@ -11,6 +11,7 @@ from TabFormWelcome import *
 from TabFormGenData import *
 from TabFormGenSimPlots import *
 from TabFormConfig import *
+from TabFormLatex import *
 ## Add all tabs
 class TabObj(QTabWidget):
     def __init__(self, *args, **kwargs):
@@ -32,27 +33,31 @@ class TabObj(QTabWidget):
         self.tabFormGenData = TabGenData()        
         self.tabFormSimPlots = TabSimPlots()       
         self.tabFormConfig = TabFormConfig()        
+        self.tabFormLatex = TabFormLatex()
 
         ## Add the tabs to tabs to this tab container.
-        self.addTab(self.tabFormWelcome, 'Welcome')
-        self.addTab(self.tabFormGenConfig, 'General Configuration')
-        self.addTab(self.tabFormGenVPerf, 'Verification and Performance Testing')
+        #self.addTab(self.tabFormWelcome, 'Welcome')
+        #self.addTab(self.tabFormGenConfig, 'General Configuration')
+        #self.addTab(self.tabFormGenVPerf, 'Verification and Performance Testing')
         self.addTab(self.tabFormReports, 'Reports')
-        self.addTab(self.tabFormRunSim, 'Run Simulation')
-        self.addTab(self.tabFormSimPlots, 'Simulation Plots')
-        self.addTab(self.tabFormRunRpt, 'Movie ')
-        self.addTab(self.tabFormGenData, 'Solution Suite')
-        self.addTab(self.tabFormSetup, 'Setup')
-        self.addTab(self.tabFormConfig,'Config File reader')
+        #self.addTab(self.tabFormRunSim, 'Run Simulation')
+        #self.addTab(self.tabFormSimPlots, 'Simulation Plots')
+        self.addTab(self.tabFormLatex, 'Latex Utility')
+
+        #self.addTab(self.tabFormRunRpt, 'Movie ')
+        #self.addTab(self.tabFormGenData, 'Solution Suite')
+        #self.addTab(self.tabFormSetup, 'Setup')
+        #self.addTab(self.tabFormConfig,'Config File reader')
 
         ## Call set form to 
-        self.tabFormWelcome.Create()
-        self.tabFormSetup.Create(FPIBGBase)
-        self.tabFormGenConfig.Create(FPIBGBase)
+        #self.tabFormWelcome.Create()
+        #self.tabFormSetup.Create(FPIBGBase)
+        #self.tabFormGenConfig.Create(FPIBGBase)
         self.tabFormReports.Create(FPIBGBase)
-        self.tabFormRunRpt.Create(FPIBGBase)
-        self.tabFormRunSim.Create(FPIBGBase)
-        self.tabFormGenData.Create(FPIBGBase)
-        self.tabFormGenVPerf.Create(FPIBGBase)
-        self.tabFormSimPlots.Create(FPIBGBase)
-        self.tabFormConfig.Create(FPIBGBase)
+        #self.tabFormRunRpt.Create(FPIBGBase)
+        #self.tabFormRunSim.Create(FPIBGBase)
+        #self.tabFormGenData.Create(FPIBGBase)
+        #self.tabFormGenVPerf.Create(FPIBGBase)
+        #self.tabFormSimPlots.Create(FPIBGBase)
+        self.tabFormLatex.Create(FPIBGBase)
+        #self.tabFormConfig.Create(FPIBGBase)

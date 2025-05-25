@@ -1,5 +1,5 @@
 import sys
-from FPIBGPlotData import *
+from FPIBGPlotDataEXP import *
 from FPIBGBase import *
 import getpass 
 from LatexClass import *
@@ -13,6 +13,10 @@ from FPIBGData import *
 from TableModel import *
 
 class TabReports(QTabWidget):
+
+    plotData = PlotData("PlotData")
+    cleanPRE = False
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
     
@@ -34,76 +38,51 @@ class TabReports(QTabWidget):
             return -1
 
     def updateData(self):
-        self.data = DataClass("DataClass")
-        self.data.Create(self.bobj)
-        self.data.Open("PQB")
-        if (self.data.check_data_files() != True):
-            return
-        self.data.create_summary()
-        self.data.get_averages()
+        self.plotData.Update("PQB")
+        self.fpsvn_image.setPixmap(self.plotData.plot_PQBfpsvn(0))
+        self.PQBfpsvnltx = LatexPlot("LatexClass")
+        self.PQBfpsvnltx.Create(self.bobj,"PQBfpsvn")
+        self.PQBfpsvnltx.outDirectory = self.cfg.py_plots_dir
+        self.PQBfpsvnltx.ltxDirectory = self.cfg.latex_plots_dir
+        caption = self.PQBfpsvnltx.readCapFile()
+        self.fpsvn_text_edit.setText(caption)
 
-        self.dataPlot = PlotData("Data Plot Class")
-        self.dataPlot.Create(self.bobj)
-        self.dataPlot.Open("PQB","r")
-       
-        if(self.dataPlot.hasData() == True):
-            self.fpsvnltx = LatexPlot("LatexClass")
-            self.fpsvnltx.Create(self.bobj,"fpsvn")
-            caption = self.fpsvnltx.readCapFile()
-            self.fpsvn_text_edit.setText(caption)
+        self.spfvn_image.setPixmap(self.plotData.plot_PQBspfvn(7))
+        self.PQBspfvnltx = LatexPlot("LatexClass")
+        self.PQBspfvnltx.Create(self.bobj,"PQBspfvn")
+        self.PQBspfvnltx.outDirectory = self.cfg.py_plots_dir
+        self.PQBspfvnltx.ltxDirectory = self.cfg.latex_plots_dir
+        caption = self.PQBspfvnltx.readCapFile()
+        self.spfvn_text_edit.setText(caption)
 
-            self.spfvnltx = LatexPlot("LatexClass")
-            self.spfvnltx.Create(self.bobj,"spfvn")
-            caption = self.spfvnltx.readCapFile()
-            self.spfvn_text_edit.setText(caption)
+        self.lintot_image.setPixmap(self.plotData.plot_PQBlintot(7))
+        self.PQBlinTotltx = LatexPlot("LatexClass")
+        self.PQBlinTotltx.Create(self.bobj,"PQBLinTot")
+        self.PQBlinTotltx.outDirectory = self.cfg.py_plots_dir
+        self.PQBlinTotltx.ltxDirectory = self.cfg.latex_plots_dir
+        caption = self.PQBlinTotltx.readCapFile()
+        self.lintot_text_edit.setText(caption)
 
-            ## Uodate Tables
-            self.data.Open("PQB")
-            header = self.data.query()
-            latexFile = ["fps", "cpums", "cms", "gms", "loadedp"]
-            
-            tdata = self.data.return_table(latexFile)
-            self.model = PandasModel(self.bobj,tdata)
-            self.table001_image.setModel(self.model)
-            self.model.Latex.name = "perftable"
-            self.table001_text_edit.setText(self.model.Latex.readCapFile())
+        ## Uodate Tables
+        header = self.plotData.query()
+        latexFile = ["fps", "cpums", "cms", "gms", "loadedp"]
+        tdata = self.plotData.return_table(latexFile)
+        self.PQBTablePerfAll = PandasModel(self.bobj,tdata)
+        self.PQBTablePerfAll.Latex.outDirectory = self.cfg.py_plots_dir
+        self.PQBTablePerfAll.Latex.ltxDirectory = self.cfg.latex_tables_dir
+        self.table001_image.setModel(self.PQBTablePerfAll)
+        self.PQBTablePerfAll.Latex.name = "PQBPerfTable"
+        self.table001_text_edit.setText(self.PQBTablePerfAll.Latex.readCapFile())
+        self.table001_image.show()
 
-            self.table001_image.show()
-
-        if(self.dataPlot.hasData() == True):
-            fpsvn_pixmap = self.dataPlot.PlotData("fpsvn")
-            self.fpsvn_image.setPixmap(fpsvn_pixmap)
-
-            spfvn_pixmap = self.dataPlot.PlotData("spfvn")
-            self.spfvn_image.setPixmap(spfvn_pixmap)
-
-            lintot_pixmap = self.dataPlot.PlotData("lintot")
-            self.lintot_image.setPixmap(lintot_pixmap)
-
-        
-        self.data.Open("CFB")
-        if (self.data.check_data_files() != True):
-            return
-        self.data.create_summary()
-        self.data.get_averages()
-        self.dataPlot.Open("CFB","r")
-        if(self.dataPlot.hasData() == True):
-            compspfvn_image = self.dataPlot.PlotData("spfvside")
-            self.compspfvn_image.setPixmap(compspfvn_image)
-        
-        
-        self.data.Open("PCD")
-        if (self.data.check_data_files() != True):
-            return 
-        self.data.create_summary()
-        self.data.get_averages()
-        self.dataPlot.Open("PCD","r")
-        if(self.dataPlot.hasData() == True):
-            spfvside_image = self.dataPlot.PlotData("spfvcollisions")
-            self.spfvside_image.setPixmap(spfvside_image)
-        
-              
-
+        self.plotData.Update("PCD")
+        self.PCDspfvside_image.setPixmap(self.plotData.plot_PCDspfvside())
+        self.PCDspfvside = LatexPlot("LatexClass")
+        self.PCDspfvside.Create(self.bobj,"PCDspfvside")
+        self.PCDspfvside.outDirectory = self.cfg.py_plots_dir
+        self.PCDspfvside.ltxDirectory = self.cfg.latex_plots_dir
+        caption = self.PCDspfvside.readCapFile()
+        self.spfvside_text_edit.setText(caption)
     
     def get_output_dir(self):
         return self.folderLineEdit.text()
@@ -114,42 +93,85 @@ class TabReports(QTabWidget):
         control.setMaximumHeight(H)
         control.setMaximumWidth(W)
 
-    def save_latex_pqb(self):
-        self.dataPlot.Open("PQB","r")
-        if(self.dataPlot.hasData() == True):
-            self.dataPlot.PlotData("fpsvn")
-            self.dataPlot.fpsvnfig
-            self.fpsvnltx = LatexPlot("LatexClass")
-            self.fpsvnltx.Create(self.folderLineEdit.text(),"fpsvn")
-            self.fpsvnltx.caption =  self.fpsvn_text_edit.toPlainText()
-            self.fpsvnltx.width = 0
-            self.fpsvnltx.height = 0
-            self.fpsvnltx.title = "TITLE:Plot of fps v loadedp"
-            self.fpsvnltx.scale = 0.50
-            self.fpsvnltx.fontSize = 10
-            self.fpsvnltx.outDirectory = self.cfg.latex_dir
-            self.fpsvnltx.float = False
-            self.fpsvnltx.placement = "h"
-            self.fpsvnltx.Write(plt)
+    def save_latex_PQBfpsvn(self):
+        self.plotData.Update("PQB")
+        if(self.plotData.hasData == True):
+            self.plotData.plot_PQBfpsvn(0)
+            self.PQBfpsvnltx.cleanPRE = self.cleanPRE                        
+            self.PQBfpsvnltx.caption =  self.fpsvn_text_edit.toPlainText()
+            self.PQBfpsvnltx.width = 0
+            self.PQBfpsvnltx.height = 0
+            self.PQBfpsvnltx.title = "TITLE:Plot of fps v loadedp"
+            self.PQBfpsvnltx.scale = 0.50
+            self.PQBfpsvnltx.fontSize = 10
+            self.PQBfpsvnltx.float = False
+            self.PQBfpsvnltx.placement = "h"
+            self.PQBfpsvnltx.Write(plt)
        
        
-       
-        if(self.dataPlot.hasData() == True):
-            self.dataPlot.PlotData("spfvn")
-            self.fpsvnltx = LatexPlot("LatexClass")
-            self.fpsvnltx.Create(self.folderLineEdit.text(),"spfvn")
-            self.fpsvnltx.caption =  self.spfvn_text_edit.toPlainText()
-            self.fpsvnltx.width = 0
-            self.fpsvnltx.height = 0
-            self.fpsvnltx.title = "TITLE:spf v loaded p"
-            self.fpsvnltx.scale = 0.50
-            self.fpsvnltx.fontSize = 10
-            self.fpsvnltx.outDirectory = self.cfg.latex_dir
-            self.fpsvnltx.float = False
-            self.fpsvnltx.placement = "h"
-            self.fpsvnltx.Write(self.dataPlot.spfvnfig)
+    def save_latex_PQBspfvn(self):
+        self.plotData.Update("PQB")
+        if(self.plotData.hasData == True):
+            self.plotData.plot_PQBspfvn(7)
+            self.PQBspfvnltx.cleanPRE = self.cleanPRE
+            self.PQBspfvnltx.caption =  self.spfvn_text_edit.toPlainText()
+            self.PQBspfvnltx.width = 0
+            self.PQBspfvnltx.height = 0
+            self.PQBspfvnltx.title = "TITLE:spf v loaded p"
+            self.PQBspfvnltx.scale = 0.50
+            self.PQBspfvnltx.fontSize = 10
+            self.PQBspfvnltx.float = False
+            self.PQBspfvnltx.placement = "h"
+            self.PQBspfvnltx.Write(plt)
             
-      
+    def save_latex_PQBLinearityAll(self):
+        self.plotData.Update("PQB")
+        if(self.plotData.hasData == True):
+            self.plotData.plot_PQBlintot(7)
+            self.PQBlinTotltx.cleanPRE = self.cleanPRE
+            self.PQBlinTotltx.caption =  self.lintot_text_edit.toPlainText()
+            self.PQBlinTotltx.width = 0
+            self.PQBlinTotltx.height = 0
+            self.PQBlinTotltx.title = "TITLE:spf v loaded p"
+            self.PQBlinTotltx.scale = 0.50
+            self.PQBlinTotltx.fontSize = 10
+            self.PQBlinTotltx.float = False
+            self.PQBlinTotltx.placement = "h"
+            self.PQBlinTotltx.Write(plt)
+
+    def save_latex_PQBTable(self):
+
+        latxheader = ["Total\\\\ \\maxfps{}","CPU \\\\ Time","Compute\\\\(Narrow) \\\\ \\mcpt{}","Graphics\\\\(Broad) \\\\ \\mgpt{}","Particles\\\\in\\\\Dataset"]
+        self.PQBTablePerfAll.Latex.cleanPRE = self.cleanPRE
+        self.PQBTablePerfAll.Latex.setLatexHeaderArray(latxheader)
+        self.PQBTablePerfAll.Latex.saveCaption(self.table001_text_edit.toPlainText() )
+        self.PQBTablePerfAll.Latex.WriteLatexTable(2)
+        return
+    
+
+    def save_PCDspfvside(self):
+        self.plotData.Update("PCD")
+        if(self.plotData.hasData == True):
+            self.plotData.plot_PCDspfvside()
+            self.PCDspfvside.cleanPRE = self.cleanPRE
+            self.PCDspfvside.caption =  self.spfvside_text_edit.toPlainText()
+            self.PCDspfvside.width = 0
+            self.PCDspfvside.height = 0
+            self.PCDspfvside.title = "TITLE:spf v loaded p"
+            self.PCDspfvside.scale = 0.50
+            self.PCDspfvside.fontSize = 10
+            self.PCDspfvside.float = False
+            self.PCDspfvside.placement = "h"
+            self.PCDspfvside.Write(plt)
+
+
+    def save_latex_PQBAll(self):
+        self.cleanPRE = True    
+        self.save_latex_PQBfpsvn()
+        self.save_latex_PQBspfvn()
+        self.save_latex_PQBLinearityAll()
+        self.cleanPRE = False
+
     def save_latex_pcd(self):
         print("pqb")
         return
@@ -162,15 +184,7 @@ class TabReports(QTabWidget):
     def save_image(self, widget):
         #TODO
         return
-    def save_latex(self, widget):
-        
-        ## Latex stuff
-        latxheader = ["Total\\\\ \\maxfps{}","CPU \\\\ Time","Compute\\\\(Narrow) \\\\ \\mcpt{}","Graphics\\\\(Broad) \\\\ \\mgpt{}","Particles\\\\in\\\\Dataset"]
-        self.model.Latex.setLatexHeaderArray(latxheader)
-        self.model.Latex.name = "perftable"
-        self.model.Latex.saveCaption(self.table001_text_edit.toPlainText() )
-        self.model.Latex.WriteLatexTable()
-        return
+    
 
     def Create(self, FPIBGBase):
         self.bobj = FPIBGBase
@@ -178,7 +192,8 @@ class TabReports(QTabWidget):
         self.log = self.bobj.log.log
         #self.latexDir = self.cfg.latex_dir
 
-     
+        self.plotData.Create(FPIBGBase)
+      
         
         scroll_area = QScrollArea()
         scroll_area.setWidgetResizable(True)
@@ -200,7 +215,7 @@ class TabReports(QTabWidget):
         hbox.addWidget(self.folderLineEdit)
         hbox.addWidget(self.browseButton)
         hbox.addWidget(self.save_latex_all_button)
-        #self.folderLineEdit.setText(self.latexDir)
+        self.folderLineEdit.setText(self.cfg.tex_out_dir)
         self.updateButton = QPushButton("Update Data")
         self.setSize(self.updateButton,30,150)
         self.updateButton.setStyleSheet("background-color:  #dddddd")
@@ -230,22 +245,19 @@ class TabReports(QTabWidget):
         #########################
         self.pqb_tab = QWidget()
         pqb_layout = QVBoxLayout(self.pqb_tab)
-        self.save_latex_pqb_button = QPushButton("Save Latex PQB")
-        self.save_latex_pqb_button.clicked.connect(self.save_latex_pqb)
+        self.save_latex_pqb_button = QPushButton("Save Latex PQB All")
+        self.save_latex_pqb_button.clicked.connect(self.save_latex_PQBAll)
         self.save_latex_pqb_button.setMaximumWidth(150)
         self.pqb_subreports = QTabWidget()
 
         ####### FPS v N #######
         self.fpsvn_tab = QWidget()
         fpsvn_layout = QVBoxLayout(self.fpsvn_tab)
-
         self.fpsvn_image = QLabel()
-       
-
         fpsvn_buttons = QHBoxLayout()
         spacer = QSpacerItem(40, 2, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
         self.save_latex_fpsvn_button = QPushButton("Save Latex")
-        self.save_latex_fpsvn_button.clicked.connect(lambda: self.save_latex(self.fpsvn_image))
+        self.save_latex_fpsvn_button.clicked.connect(lambda: self.save_latex_PQBfpsvn())
         self.save_latex_fpsvn_button.setMaximumWidth(150)
         self.save_image_fpsvn_button = QPushButton("Save Image")
         self.save_image_fpsvn_button.clicked.connect(lambda: self.save_image(self.fpsvn_image))
@@ -278,7 +290,7 @@ class TabReports(QTabWidget):
 
         spfvn_buttons = QHBoxLayout()
         self.save_latex_spfvn_button = QPushButton("Save Latex")
-        self.save_latex_spfvn_button.clicked.connect(lambda: self.save_latex(self.spfvn_image))
+        self.save_latex_spfvn_button.clicked.connect(lambda: self.save_latex_PQBspfvn())
         self.save_latex_spfvn_button.setMaximumWidth(150)
         self.save_image_spfvn_button = QPushButton("Save Image")
         self.save_image_spfvn_button.clicked.connect(lambda: self.save_image(self.spfvn_image))
@@ -309,7 +321,7 @@ class TabReports(QTabWidget):
 
         table001_buttons = QHBoxLayout()
         self.save_latex_table001_button = QPushButton("Save Latex")
-        self.save_latex_table001_button.clicked.connect(lambda: self.save_latex(self.table001_image))
+        self.save_latex_table001_button.clicked.connect(lambda: self.save_latex_PQBTable())
         self.save_latex_table001_button.setMaximumWidth(150)
         table001_buttons.addItem(spacer)
         table001_buttons.addWidget(self.save_latex_table001_button)
@@ -338,7 +350,7 @@ class TabReports(QTabWidget):
 
         lintot_buttons = QHBoxLayout()
         self.save_latex_lintot_button = QPushButton("Save Latex")
-        self.save_latex_lintot_button.clicked.connect(lambda: self.save_latex(self.lintot_image))
+        self.save_latex_lintot_button.clicked.connect(lambda: self.save_latex_PQBLinearityAll())
         self.save_latex_lintot_button.setMaximumWidth(150)
         self.save_image_lintot_button = QPushButton("Save Image")
         self.save_image_lintot_button.clicked.connect(lambda: self.save_image(self.lintot_image))
@@ -381,14 +393,14 @@ class TabReports(QTabWidget):
         self.spfvside_tab = QWidget()
         spfvside_layout = QVBoxLayout(self.spfvside_tab)
 
-        self.spfvside_image = QLabel()
+        self.PCDspfvside_image = QLabel()
         
         spfvside_buttons = QHBoxLayout()
         self.save_latex_spfvside_button = QPushButton("Save Latex")
-        self.save_latex_spfvside_button.clicked.connect(lambda: self.save_latex(self.spfvside_image))
+        self.save_latex_spfvside_button.clicked.connect(lambda: self.save_PCDspfvside())
         self.save_latex_spfvside_button.setMaximumWidth(150)
         self.save_image_spfvside_button = QPushButton("Save Image")
-        self.save_image_spfvside_button.clicked.connect(lambda: self.save_image(self.spfvside_image))
+        self.save_image_spfvside_button.clicked.connect(lambda: self.save_image())
         self.save_image_spfvside_button.setMaximumWidth(150)
         spfvside_buttons.addItem(spacer)
         spfvside_buttons.addWidget(self.save_latex_spfvside_button)
@@ -402,7 +414,7 @@ class TabReports(QTabWidget):
         spfvside_caption_container.addWidget(self.spfvside_text_edit)
 
         spfvside_layout.addLayout(spfvside_buttons)
-        spfvside_layout.addWidget(self.spfvside_image)
+        spfvside_layout.addWidget(self.PCDspfvside_image)
         spfvside_layout.addLayout(spfvside_caption_container)
 
         self.spfvside_tab.setLayout(spfvside_layout)
@@ -464,7 +476,7 @@ class TabReports(QTabWidget):
 
         compspfvn_buttons = QHBoxLayout()
         self.save_latex_compspfvn_button = QPushButton("Save Latex")
-        self.save_latex_compspfvn_button.clicked.connect(lambda: self.save_latex(self.compspfvn_image))
+        #self.save_latex_compspfvn_button.clicked.connect(lambda: self.save_latex(self.compspfvn_image))
         self.save_latex_compspfvn_button.setMaximumWidth(150)
         self.save_image_compspfvn_button = QPushButton("Save Image")
         self.save_image_compspfvn_button.clicked.connect(lambda: self.save_image(self.compspfvn_image))

@@ -12,14 +12,10 @@ class DataClass:
         
 
 
-    def Create(self, BaseObj):
+    def Create(self, BaseObj,testType):
         self.bobj = BaseObj
         self.cfg = self.bobj.cfg.config
         self.bobj.lvl = 1000
-        
-        
-      
-                
 
     def Open(self,file_end):
         match(file_end):

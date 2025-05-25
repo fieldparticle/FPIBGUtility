@@ -20,6 +20,10 @@ class LatexClass:
         self.float = False
         self.placement = "h"
         self.arrayStretch = 1.60
+        self.outDirectory = ""
+        self.ltxDirectory = ""
+        self.cleanPRE = True
+        self.caption = ""
 
     def setPlacment(self,pl):
         self.placement = pl
@@ -31,6 +35,8 @@ class LatexClass:
         self.arrayStretch = st
 
     def saveCaption(self,Text):
+        if not os.path.exists(self.outDirectory):
+            os.makedirs(self.outDirectory)
         capname = self.outDirectory + "/" + self.name + ".cap"     
         f = open(capname, "w")
         f.write(Text)
@@ -50,16 +56,23 @@ class LatexClass:
             # f.close()            
             return "No Caption"
         
-    def WritePre(self,mode):
+    
+    def WritePre(self,pre_name):
         if not os.path.exists(self.outDirectory):
             os.makedirs(self.outDirectory)
-        preoutname = self.outDirectory + "/" + "pre_tables.tex"
-        p = open(preoutname, "w")
+        preoutname = self.outDirectory + "/" + pre_name +".tex"
+        if self.cleanPRE == True:
+            p = open(preoutname, "w")
+        else:
+            p = open(preoutname, "a")
         w = "%%============================================= Plot %s\r"%(self.name)
         p.write(w)
         w = "Fig. \\ref{fig:%s}\r"%(self.name)
         p.write(w)
-        loutname = self.outDirectory + "/" + self.name + ".tex"
+        if len(self.ltxDirectory) == 0:
+            loutname = self.name + ".tex"
+        else:
+            loutname = self.ltxDirectory + "/" + self.name + ".tex"
         w = "\\input{%s}\r"%(loutname)
         p.write(w)
         p.close()    
@@ -86,12 +99,10 @@ class LatexTable(LatexClass):
        
         # Assign this objects debug level
         self.dlvl = 10000
-        self.outDirectory = self.cfg.plots_dir
         self.table_array  = [[0 for x in range(cols)] for y in range(rows)] 
         self.rows = rows
         self.cols = cols
         self.name = fileName
-        self.outDirectory = self.cfg.tables_dir
         self.setLatexData()
         
     
@@ -133,7 +144,7 @@ class LatexTable(LatexClass):
 
                     
 
-    def WriteLatexTable(self):
+    def WriteLatexTable(self,skip):
         self.readCapFile()
         #self.saveCaption(self.caption)
         if not os.path.exists(self.outDirectory):
@@ -168,7 +179,7 @@ class LatexTable(LatexClass):
         
         f.write("\\\\ \\hline\n")
 
-        for i in range(self.rows):
+        for i in range(0,self.rows,skip):
             for j in range(self.cols):
                 if(j < self.cols-1):
                     txt = str(self.table_array[i][j]) + "&"
@@ -178,7 +189,7 @@ class LatexTable(LatexClass):
                     f.write(txt)
         f.write("\\hline\n\\end{tabular}\n\\end{center}\n\\end{table}\n")
         f.close()
-        self.WritePre("append")
+        self.WritePre("pre_tables")
 
 
     
@@ -210,7 +221,7 @@ class LatexPlot(LatexClass):
         self.log = self.bobj.log
         # Assign this objects debug level
         self.dlvl = 10000
-        self.outDirectory = self.cfg.plots_dir
+      
  
     def Write(self,Plot):
         self.saveCaption(self.caption)
@@ -224,7 +235,11 @@ class LatexPlot(LatexClass):
         f.write(w)
         w = "\\centering\r"
         f.write(w)
-        w = "\\includegraphics[width=%0.2fin]{%s}\r"%(8.5*self.scale,outname)
+        if len(self.ltxDirectory) == 0:
+            loutname = self.name + ".png"
+        else:
+            loutname = self.ltxDirectory + "/" + self.name + ".png"
+        w = "\\includegraphics[width=%0.2fin]{%s}\r"%(8.5*self.scale,loutname)
         f.write(w)
         w = "\\captionof{figure}[%s]{\\textit{%s}}\r"%(self.title,self.caption)
         f.write(w)
@@ -233,9 +248,67 @@ class LatexPlot(LatexClass):
         w = "\\end{figure*}\r"
         f.write(w)
         f.close()
+        self.WritePre("pre_plots")
+     
+      
+
+class LatexImage(LatexClass):
+
+   ##  Constructor for the LatexClass object.
+    # @param   ObjName --  (string) Saves the name of the object.
+    def __init__(self,ObjName):
+        ## ObjName contains the name of this object.
+        self.ObjName = ObjName
+        super().__init__()
+        self.caption = ""
+        self.name = ""
+        self.width = 0
+        self.height = 0
+        self.title = ""
+        self.scale = 0
+        self.fontSize = 8
+        self.float = False
+        self.placement = "h"
+
+    def Create(self,BaseObj,Name):
+     
+        self.name = Name
+         ## bobj contains the global object.
+        self.bobj = BaseObj
+        self.cfg = self.bobj.cfg.config
+        self.log = self.bobj.log
+        # Assign this objects debug level
+        self.dlvl = 10000
+      
+ 
+    def Write(self):
+        self.saveCaption(self.caption)
+        if not os.path.exists(self.outDirectory):
+            os.makedirs(self.outDirectory)
+        outname = self.outDirectory + "/" + self.name + ".png"
+        loutname = self.outDirectory + "/" + self.name + ".tex"
+        f = open(loutname, "w")
+        w = "\\begin{figure*}[" + self.placement + "]\r"
+        f.write(w)
+        w = "\\centering\r"
+        f.write(w)
+        if len(self.ltxDirectory) == 0:
+            loutname = self.name + ".png"
+        else:
+            loutname = self.ltxDirectory + "/" + self.name + ".png"
+        w = "\\includegraphics[width=%0.2fin]{%s}\r"%(8.5*self.scale,loutname)
+        f.write(w)
+        w = "\\captionof{figure}[%s]{\\textit{%s}}\r"%(self.title,self.caption)
+        f.write(w)
+        w = "\\label{fig:%s}\r"%(self.name)
+        f.write(w)
+        w = "\\end{figure*}\r"
+        f.write(w)
+        f.close()
+        self.WritePre("pre_plots")
+     
       
         pass
-
 
 
 
