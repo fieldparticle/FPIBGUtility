@@ -1,24 +1,25 @@
 import sys
-from PyQt6.QtWidgets import QFileDialog, QVBoxLayout, QGroupBox, QCheckBox, QSpinBox, QMessageBox, QListWidgetItem, QScrollArea
-from PyQt6.QtWidgets import QApplication, QWidget,  QFormLayout, QGridLayout, QTabWidget, QLineEdit,QListWidget
-from PyQt6.QtWidgets import QDateEdit, QPushButton,QLabel, QGroupBox,QVBoxLayout,QHBoxLayout, QTextEdit,QRadioButton,QFileDialog
-from PyQt6.QtCore import QThread, QObject, pyqtSignal as Signal, pyqtSlot as Slot
+from PyQt6.QtWidgets import QFileDialog, QGroupBox,QMessageBox
+from PyQt6.QtWidgets import QGridLayout, QTabWidget, QLineEdit,QListWidget
+from PyQt6.QtWidgets import QPushButton, QGroupBox
+#from PyQt6.QtCore import pyqtSignal as Signal, pyqtSlot as Slot
 from PyQt6 import QtCore
-from PyQt6.QtGui import QPixmap,QImage
-from PIL import Image,ImageFile
+#from PyQt6.QtGui import QPixmap,QImage
+#rom PIL import Image,ImageFile
 from FPIBGclient import *
 from FPIBGServer import *
 from _thread import *
-from PIL.ImageQt import ImageQt
-import threading
-from io import BytesIO
-from pyqtLED import QtLed
+#from PIL.ImageQt import ImageQt
+#import threading
+#from io import BytesIO
+#from pyqtLED import QtLed
 from FPIBGConfig import FPIBGConfig
 from FPIBGPlotDataEXP import *
 from LatexClass import *
 from CfgLabel import *
 from FPIBGException import *
 from LatexSingleImage import *
+from LatexMultiImage import *
 
 class TabFormLatex(QTabWidget):
     
@@ -27,6 +28,7 @@ class TabFormLatex(QTabWidget):
     texFileName = ""
     hasConfig = False
     itemcfg = FPIBGConfig("Latex Class")
+    
     
     ObjName = ""
     ltxObj = None
@@ -46,9 +48,10 @@ class TabFormLatex(QTabWidget):
         control.setMaximumWidth(W)
 
     def save_latex_Image(self):
-       # self.ltxObj.save_latex_Image()
-        self.ltxObj.clearConfigGrp()
-            
+        self.ltxObj.save_latex_Image()
+        #self.ltxObj.clearConfigGrp()
+
+  
     def browseFolder(self):
         """ Opens a dialog window for the user to select a folder in the file system. """
         #folder = QFileDialog.getExistingDirectory(self, "Select Folder")
@@ -66,18 +69,28 @@ class TabFormLatex(QTabWidget):
             self.type = self.itemcfg.config.type_text 
             if self.hasConfig == True:
                 self.ltxObj.clearConfigGrp()
-            if "image" in self.type:
+            if "multiimage" in self.type:
+                self.ltxObj = LatexMultiImage(self.bobj,"SingleImage",self)
+                self.ltxObj.setConfigGroup(self.tab_layout)
+                self.ltxObj.setImgGroup(self.tab_layout)
+                self.ltxObj.OpenLatxCFG()
+                self.ListObj.setEnabled(False)
+                self.hasConfig = True
+            elif "image" in self.type:
                 self.ltxObj = LatexSingleImage(self.bobj,"SingleImage",self)
                 self.ltxObj.setConfigGroup(self.tab_layout)
                 self.ltxObj.setImgGroup(self.tab_layout)
                 self.ltxObj.OpenLatxCFG()
                 self.hasConfig = True
-                
+            elif "type" in self.type:
+                self.ltxObj = LatexSingleImage(self.bobj,"SingleImage",self)
+                self.ltxObj.setConfigGroup(self.tab_layout)
+                self.ltxObj.setImgGroup(self.tab_layout)
+                self.ltxObj.OpenLatxCFG()
+                self.hasConfig = True
             else:
                 print("InvalidType")
                 return
-                
-            self.ltxObj.OpenLatxCFG()
     
     def browseNewItem(self):
         """ Opens a dialog window for the user to select a folder in the file system. """
@@ -156,10 +169,8 @@ class TabFormLatex(QTabWidget):
         self.ListObj.insertItem(1, "plot")
         self.ListObj.insertItem(2, "multiplot")
         self.ListObj.insertItem(3, "multiimage")
+        self.ListObj.itemSelectionChanged.connect(lambda: self.valueChangeArray(self.ListObj))
         dirgrid.addWidget(self.ListObj,3,0,1,2)
-
-      
-
         self.log.logs(self,"TabFormLatex finished Create.")
        # except Exception as inst:
        #     print(f"{self.ObjName}: Error: {inst.args}")
@@ -168,7 +179,6 @@ class TabFormLatex(QTabWidget):
     def valueChangeArray(self,listObj):  
         selected_items = listObj.selectedItems()
         if selected_items:
-            print("Value Changed",selected_items[0].text())
-            self.type_text.setText( selected_items[0].text())
-
+            print("List object Value Changed",selected_items[0].text())
+            self.ltxObj.setTypeText(selected_items[0].text())         
    

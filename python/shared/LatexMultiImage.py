@@ -1,17 +1,15 @@
-from PyQt6.QtCore import Qt
-from PyQt6.QtWidgets import QWidget,QScrollArea,QVBoxLayout,QTabWidget,QFileDialog
+from PyQt6.QtWidgets import QWidget,QScrollArea,QVBoxLayout
 from PyQt6.QtGui import QPixmap
+from FPIBGConfig import FPIBGConfig
 from CfgLabel import *
 from LatexClass import *
-
-class LatexSingleImage():
+class LatexMultiImage():
     objArry = []
     dictTab = []
     tabCount = 0
     layouts = []
     lyCount = 0
     LatexFileImage = LatexImage("LatexClass")
-
 
     def __init__(self, FPIBGBase, ObjName,Parent):
         self.ObjName = ObjName
@@ -32,47 +30,31 @@ class LatexSingleImage():
         control.setMaximumWidth(W)
 
     
-    def filesChanged(self,path):
-        #self.images_name_text.setText(os.path.splitext(os.path.basename(path))[0])
-        self.images_name_text.setText(os.path.basename(path))
-        self.name_text.setText(os.path.splitext(os.path.basename(path))[0])
-    
     def save_latex_Image(self):
         self.itemcfg.updateCfg()
+        self.LatexFileImage.type = "image"
         self.LatexFileImage.Create(self.bobj,self.itemcfg.config.name_text)
         self.LatexFileImage.cleanPRE = True
+        self.LatexFileImage.caption =  self.itemcfg.config.caption_box
         self.LatexFileImage.width = 0
         self.LatexFileImage.height = 0
-
-        for oob in self.objArry:
-            if "type_text" in oob.key:
-                self.LatexFileImage.type = oob.value
-            if "caption_box" in oob.key:
-                self.LatexFileImage.caption = oob.value
-            if "title_text" in oob.key:
-                self.LatexFileImage.title = oob.value
-            if "scale_text" in oob.key:
-                self.LatexFileImage.scale = oob.value
-            if "font_size" in oob.key:
-                self.LatexFileImage.fontSize = oob.value
-            if "floating_bool" in oob.key:
-                self.LatexFileImage.float = oob.value
-            if "placement_text" in oob.key:                
-                self.LatexFileImage.placement = oob.value
-
+        self.LatexFileImage.title = "TITLE:spf v loaded p"
+        self.LatexFileImage.scale = 0.3
+        self.LatexFileImage.fontSize = 10
+        self.LatexFileImage.float = False
+        self.LatexFileImage.placement = "h"
         self.LatexFileImage.Write(self.itemcfg.config) 
     
     def OpenLatxCFG(self):
-        print(self.itemcfg)
-        self.ImageName = self.itemcfg.config.images_name_text
-        self.ImagePath = self.itemcfg.config.tex_dir + "/" + self.ImageName
-        self.pixmap = QPixmap(self.ImagePath)
-        self.setSize(self.imgmgrp,self.pixmap.height()+20,self.pixmap.width()) 
-        self.setSize(self.image,self.pixmap.height()+20,self.pixmap.width()) 
-        self.image.setPixmap(self.pixmap)
+        #print(self.itemcfg)
+        #self.ImageName = self.itemcfg.config.images_name_text
+        #self.ImagePath = self.itemcfg.config.tex_dir + "/" + self.ImageName
+        #self.pixmap = QPixmap(self.ImagePath)
+        #self.setSize(self.imgmgrp,self.pixmap.height()+20,self.pixmap.width()) 
+        #self.setSize(self.image,self.pixmap.height()+20,self.pixmap.width()) 
+        #self.image.setPixmap(self.pixmap)
         self.LatexFileImage.outDirectory = self.itemcfg.config.tex_dir
         self.LatexFileImage.ltxDirectory = self.itemcfg.config.tex_image_dir
-        
         self.doItems(self.itemcfg.config)
     
     def clearLayout(self,layout):
@@ -103,26 +85,23 @@ class LatexSingleImage():
         self.ConfigGroup = QGroupBox("Latex File Configuration")
         layout.addWidget(self.ConfigGroup,1,0,1,1,alignment= Qt.AlignmentFlag.AlignLeft)
         self.cfglayout = QVBoxLayout()
-        self.setSize(self.ConfigGroup,400,400) 
         self.ConfigGroup.setLayout(self.cfglayout)
         self.tabs = QTabWidget()
-       
         self.cfglayout.addWidget(self.tabs)
         self.scrollArea = QScrollArea()
-       
         self.dictTab.append(self.scrollArea)
         content_widget = QWidget()
-        
         content_widget.setStyleSheet('background-color: 111111;')
         self.dictTab[self.tabCount].setWidget(content_widget)
         self.layouts.append(QVBoxLayout(content_widget))
         self.dictTab[self.tabCount].setWidgetResizable(True)
-        
+        self.setSize(self.ConfigGroup,100,100)
         #tab_layout.addWidget(self.ConfigGroup)
 
     def setImgGroup(self,layout):
             # -------------------------------------------------------------
             ## Image Interface
+            pass
             self.imgmgrp = QGroupBox("Image Interface")
             self.setSize(self.imgmgrp,20,20)
             #tab_layout.addWidget(self.imgmgrp,0,3,2,2)
@@ -148,7 +127,7 @@ class LatexSingleImage():
         self.dictTab[self.tabCount].setWidgetResizable(True)
         self.cfgHeight = 0
         for k ,v in cfg.items():
-            if type(v) == list :
+            if type(v) == list    :
                 print("List",k,len(v))
             elif type(v) == str:
                 H,W = self.doString(cfg,k,v)
@@ -168,15 +147,44 @@ class LatexSingleImage():
             elif type(v) == tuple   :
                H,W = self.doArray(cfg,k,v)
                self.cfgHeight += H
-        #self.setSize(self.ConfigGroup,self.cfgHeight,450)
+        self.setSize(self.ConfigGroup,self.cfgHeight,450)
              
     def doArray(self,cfg,k,v):
         print("tuple",k,len(v))
-        widget = CfgArray(k,v)
-        self.layouts[self.lyCount].addWidget(widget.Create(cfg,self.itemcfg,self))    
-        #H,W = widget.setHW(30,250)
-        H,W = widget.getHW()
+        if "images_name_array" in k:
+            H,W = self.DoImageList(cfg,k,v)
+        else:
+            widget = CfgArray(k,v)
+            self.layouts[self.lyCount].addWidget(widget.Create(cfg,self.itemcfg,self))    
+            H,W = widget.getHW()
         return H,W
+    
+    def DoImageList(self,cfg,k,v):
+        self.ImagesList = CfgArray(k,v)
+        self.layouts[self.lyCount].addWidget(self.ImagesList.Create(cfg,self.itemcfg,self))    
+        
+        self.dirButton = QPushButton("Add")
+        self.setSize(self.dirButton,30,100)
+        self.dirButton.setStyleSheet("background-color:  #dddddd")
+        #self.dirButton.clicked.connect(self.browseFolder)
+        lyt = self.ImagesList.getLayout()
+        lyt.addWidget(self.dirButton)
+
+
+        self.delButton = QPushButton("Remove")
+        self.setSize(self.delButton,30,100)
+        self.delButton.setStyleSheet("background-color:  #dddddd")
+        #self.delButton.clicked.connect(self.browseFolder)
+        lyt.addWidget(self.delButton)
+
+        return self.ImagesList.getHW()
+        
+    def RemoveImageItem(self):
+        print("remove")
+
+    def ImageItem(self):
+        print("add")
+
     
     def doString(self,cfg,k,v):
         print("Str",k,len(v))
@@ -188,47 +196,19 @@ class LatexSingleImage():
             H,W = widget.setHW(100,250)
             self.objArry.append(widget)
         elif "type_text" in k:
-            self.type_text = CfgString(k,v,self)
+            self.type_text = CfgString(k,v)
             self.layouts[self.lyCount].addWidget(self.type_text.Create(cfg,self.itemcfg))
             H,W = self.type_text.setHW(30,250)     
             self.objArry.append(self.type_text)
-        elif "images_name_text" in k:
-            self.images_name_text = CfgString(k,v,self)
-            self.layouts[self.lyCount].addWidget(self.images_name_text.Create(cfg,self.itemcfg))
-            H,W = self.images_name_text.setHW(30,250)     
-            self.objArry.append(self.images_name_text)
-        elif "name_text" in k:
-            self.name_text = CfgString(k,v,self)
-            self.layouts[self.lyCount].addWidget(self.name_text.Create(cfg,self.itemcfg))
-            H,W = self.name_text.setHW(30,250)     
-            self.objArry.append(self.name_text)
-        elif "tex_dir" in k:
-            self.tex_dir = CfgString(k,v,self)
-            self.tex_dir.setAsDir()
-            self.layouts[self.lyCount].addWidget(self.tex_dir.Create(cfg,self.itemcfg))
-            H,W = self.tex_dir.setHW(100,250)
-            self.objArry.append(self.tex_dir)  
-        elif "dir" in k:
-            widget = CfgString(k,v,self)
-            widget.setAsDir()
-            self.layouts[self.lyCount].addWidget(widget.Create(cfg,self.itemcfg))
-            H,W = widget.setHW(100,250)
-            self.objArry.append(widget)
-        elif "file" in k:
-            widget = CfgString(k,v,self)
-            widget.setAsFile()
-            self.layouts[self.lyCount].addWidget(widget.Create(cfg,self.itemcfg))
-            H,W = widget.setHW(100,250)
-            self.objArry.append(widget)
-        else:
-            widget = CfgString(k,v,self)
+        else:            
+            widget = CfgString(k,v)
             self.layouts[self.lyCount].addWidget(widget.Create(cfg,self.itemcfg))
             H,W = widget.setHW(30,250)
             self.objArry.append(widget)
         
         return H,W
     
-    
- 
-
-   
+    def valueChangeArray(self,ListObj):
+        selected_items = ListObj.selectedItems()
+        if selected_items:
+            print("Value Changed",selected_items[0].text())
