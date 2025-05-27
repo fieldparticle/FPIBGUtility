@@ -17,22 +17,27 @@ from FPIBGConfig import FPIBGConfig
 from FPIBGPlotDataEXP import *
 from LatexClass import *
 from CfgLabel import *
+from FPIBGException import *
+from LatexSingleImage import *
 
 class TabFormLatex(QTabWidget):
     
     texFolder = ""
     CfgFile = ""
     texFileName = ""
-    LatexFileImage = LatexImage("LatexClass")
+    hasConfig = False
     itemcfg = FPIBGConfig("Latex Class")
-    dictTab = []
-    tabCount = 0
-    layouts = []
-    lyCount = 0
-    objArry = []
+    
+    ObjName = ""
+    ltxObj = None
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, FPIBGBase, ObjName, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        self.ObjName = ObjName
+        self.bobj = FPIBGBase
+        self.cfg = self.bobj.cfg.config
+        self.log = self.bobj.log
+        self.log.logs(self,"TabFormLatex finished init.")
     
     def setSize(self,control,H,W):
         control.setMinimumHeight(H)
@@ -40,57 +45,9 @@ class TabFormLatex(QTabWidget):
         control.setMaximumHeight(H)
         control.setMaximumWidth(W)
 
-    def OpenLatxCFG(self,cfgFile):
-        self.itemcfg = FPIBGConfig(cfgFile)
-        self.itemcfg.Create(self.bobj.log,cfgFile)
-        print(self.itemcfg)
-        self.ImageName = self.itemcfg.config.images
-        self.ImagePath = self.texFolder + "/" + self.ImageName
-        self.pixmap = QPixmap(self.ImagePath)
-        self.setSize(self.imgmgrp,self.pixmap.height()+20,self.pixmap.width()) 
-        self.setSize(self.image,self.pixmap.height()+20,self.pixmap.width()) 
-        self.image.setPixmap(self.pixmap)
-        self.LatexFileImage.outDirectory = self.itemcfg.config.py_plots_dir
-        self.LatexFileImage.ltxDirectory = self.itemcfg.config.latex_plots_dir
-        self.Type = self.itemcfg.config.type
-        self.doItems(self.itemcfg.config)
-        
-
-    def doItems(self,cfg):
-        self.tabCount+=1
-        self.lyCount +=1
-        self.dictTab.append(QScrollArea())
-        self.tabs.addTab(self.dictTab[self.tabCount],"Config Items")
-        content_widget = QWidget()
-        content_widget.setStyleSheet('background-color: 111111;')
-        self.dictTab[self.tabCount].setWidget(content_widget)
-        self.layouts.append(QVBoxLayout(content_widget))
-        self.dictTab[self.tabCount].setWidgetResizable(True)
-        
-        for k ,v in cfg.items():
-            if type(v) == list    :
-                print("List",k,len(v))
-            elif type(v) == str    :
-                print("Str",k,len(v))
-                widget = CfgString(k,v)
-                self.layouts[self.lyCount].addWidget(widget.Create(cfg,self.itemcfg.config))
-                self.objArry.append(widget)
-            elif type(v) == bool    :
-                print("Str",k,v)
-                widget = CfgBool(k,v)
-                self.layouts[self.lyCount].addWidget(widget.Create(cfg,self.itemcfg.config))
-                self.objArry.append(widget)
-            elif type(v) == int    :
-                print("int",k,v)
-                widget = CfgInt(k,v)
-                self.layouts[self.lyCount].addWidget(widget.Create(cfg,self.itemcfg.config))
-                self.objArry.append(widget)    
-            elif type(v) == tuple   :
-                print("tuple",k,len(v))
-                widget = CfgArray(k,v)
-                self.layouts[self.lyCount].addWidget(widget.Create(cfg,self.itemcfg.config))
-
-        
+    def save_latex_Image(self):
+       # self.ltxObj.save_latex_Image()
+        self.ltxObj.clearConfigGrp()
             
     def browseFolder(self):
         """ Opens a dialog window for the user to select a folder in the file system. """
@@ -104,37 +61,66 @@ class TabFormLatex(QTabWidget):
             self.texFolder = os.path.dirname(self.CfgFile)
             self.texFileName = os.path.splitext(os.path.basename(self.CfgFile))[0]
             self.dirEdit.setText(self.CfgFile)
-            self.OpenLatxCFG(self.CfgFile)
-            
-            
-    def save_latex_Image(self):
-        self.LatexFileImage.Create(self.bobj,self.texFileName)
-        self.LatexFileImage.cleanPRE = True
-        self.LatexFileImage.caption =  self.itemcfg.config.caption
-        self.LatexFileImage.width = 0
-        self.LatexFileImage.height = 0
-        self.LatexFileImage.title = "TITLE:spf v loaded p"
-        self.LatexFileImage.scale = 0.3
-        self.LatexFileImage.fontSize = 10
-        self.LatexFileImage.float = False
-        self.LatexFileImage.placement = "h"
-        self.LatexFileImage.Write() 
+            self.itemcfg = FPIBGConfig(self.CfgFile)
+            self.itemcfg.Create(self.bobj.log,self.CfgFile)
+            self.type = self.itemcfg.config.type_text 
+            if self.hasConfig == True:
+                self.ltxObj.clearConfigGrp()
+            if "image" in self.type:
+                self.ltxObj = LatexSingleImage(self.bobj,"SingleImage",self)
+                self.ltxObj.setConfigGroup(self.tab_layout)
+                self.ltxObj.setImgGroup(self.tab_layout)
+                self.ltxObj.OpenLatxCFG()
+                self.hasConfig = True
+                
+            else:
+                print("InvalidType")
+                return
+                
+            self.ltxObj.OpenLatxCFG()
+    
+    def browseNewItem(self):
+        """ Opens a dialog window for the user to select a folder in the file system. """
+        #folder = QFileDialog.getExistingDirectory(self, "Select Folder")
 
-    def Create(self,FPIBGBase):
-        self.bobj = FPIBGBase
-        self.cfg = self.bobj.cfg.config
-        self.log = self.bobj.log.log
+        if(self.ListObj.currentRow() < 0):
+            print("Must select type first.")
+            return
+        else:
+            print(f"Opening Row {self.ListObj.currentRow()}")
+
+        folder = QFileDialog.getSaveFileName(self, ("Open File"),
+                                       "J:/FPIBGJournalStaticV2/rpt",
+                                       ("Images (*.cfg)"))
+        cfg_cnt = ""
+        if folder[0]:
+            self.CfgFile = folder[0]
+            with open(self.cfg.single_template, 'r') as file:
+                cfg_cnt = file.read()
+            print(cfg_cnt)
+            file.close()
+            with open(folder[0], 'w') as file:
+                file.write(cfg_cnt)
+                file.close()
+            self.texFolder = os.path.dirname(self.CfgFile)
+            self.texFileName = os.path.splitext(os.path.basename(self.CfgFile))[0]
+            self.dirEdit.setText(self.CfgFile)
+            self.OpenLatxCFG(self.CfgFile)
+   
+    def Create(self):
+        self.log.logs(self,"TabFormLatex started Create.")
+        #try:
         self.setStyleSheet("background-color:  #eeeeee")
-        tab_layout = QGridLayout()
-        tab_layout.setAlignment(Qt.AlignmentFlag.AlignLeft)
-        tab_layout.setAlignment(Qt.AlignmentFlag.AlignTop)
-        self.setLayout(tab_layout)
+        self.tab_layout = QGridLayout()
+        self.tab_layout.setAlignment(Qt.AlignmentFlag.AlignLeft)
+        self.tab_layout.setAlignment(Qt.AlignmentFlag.AlignTop)
+        self.setLayout(self.tab_layout)
 
         ## -------------------------------------------------------------
         ## Set parent directory
         LatexcfgFile = QGroupBox("Latex File Configuration")
-        self.setSize(LatexcfgFile,500,600)
-        tab_layout.addWidget(LatexcfgFile,0,0,1,1,alignment= Qt.AlignmentFlag.AlignLeft)
+        self.setSize(LatexcfgFile,200,300)
+        self.tab_layout.addWidget(LatexcfgFile,0,0,1,1,alignment= Qt.AlignmentFlag.AlignLeft)
         
         dirgrid = QGridLayout()
         LatexcfgFile.setLayout(dirgrid)
@@ -155,21 +141,34 @@ class TabFormLatex(QTabWidget):
         self.SaveButton.setStyleSheet("background-color:  #dddddd")
         self.SaveButton.clicked.connect(self.save_latex_Image)
         dirgrid.addWidget(self.SaveButton,2,0)
-        
 
-    
+        self.newButton = QPushButton("New")
+        self.setSize(self.SaveButton,30,100)
+        self.newButton.setStyleSheet("background-color:  #dddddd")
+        self.newButton.clicked.connect(self.browseNewItem)
+        dirgrid.addWidget(self.newButton,2,1)
 
-         ## -------------------------------------------------------------
-        ## Image Interface
-        self.imgmgrp = QGroupBox("Image Interface")
-        self.setSize(self.imgmgrp,20,20)
-        tab_layout.addWidget(self.imgmgrp,0,3,2,2)
-        
-        imagelo = QGridLayout()
-        self.imgmgrp.setLayout(imagelo)
+        self.ListObj =  QListWidget()
+        #self.ListObj.setFont(self.font)
+        self.ListObj.setStyleSheet("background-color:  #FFFFFF")
+        self.vcnt = 0            
+        self.ListObj.insertItem(0, "image")
+        self.ListObj.insertItem(1, "plot")
+        self.ListObj.insertItem(2, "multiplot")
+        self.ListObj.insertItem(3, "multiimage")
+        dirgrid.addWidget(self.ListObj,3,0,1,2)
 
-        self.image = QLabel()
-        self.image.setStyleSheet("background-color:  #ffffff")
-        self.setSize(self.image,15,15)
-        imagelo.addWidget(self.image,1,0,alignment= Qt.AlignmentFlag.AlignTop | Qt.AlignmentFlag.AlignLeft)
-        #self.changeImage()
+      
+
+        self.log.logs(self,"TabFormLatex finished Create.")
+       # except Exception as inst:
+       #     print(f"{self.ObjName}: Error: {inst.args}")
+       #     self.log.logs(self,"error")
+
+    def valueChangeArray(self,listObj):  
+        selected_items = listObj.selectedItems()
+        if selected_items:
+            print("Value Changed",selected_items[0].text())
+            self.type_text.setText( selected_items[0].text())
+
+   

@@ -33,13 +33,20 @@ class FPIBGBase:
             self : this.
        
         """
+
+        
+        
         self.log = FPIBGLog("GlobalLoggingObject")   
         self.log.Create(LogName)
         self.log.Open()
+        self.log.logs(self,"FPIBGBase Create Start.")
+        self.log.logs(self,"FPIBGBase Create Start FPIBGConfig.")
         self.cfg = FPIBGConfig("GlobalConfigObject")
         self.cfg.Create(self.log,CfgFileName)
+        self.log.logs(self,"FPIBGBase Create end FPIBGConfig.")
         #Added by Ben
         self.cfgname = CfgFileName
+        
     
     #Added by Ben
     def WriteConfig(self, dict):

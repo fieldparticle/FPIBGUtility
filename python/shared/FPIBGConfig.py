@@ -10,21 +10,31 @@ import libconf
 class FPIBGConfig:
     lvl = 100
     def Create(self,LogObj,CfgFileName):
+        self.log = LogObj
+        self.log.logs(self,"FPIBG into Create.");
         self.CfgFileName = CfgFileName
-        self.configPath = os.path.join(self.get_repo_root(), self.CfgFileName)
-        with io.open(self.configPath) as f:
-            self.config = libconf.load(f)
-            self.log = LogObj
-            self.log.log( 1,  inspect.currentframe().f_lineno,
-                            __file__,
-                            inspect.currentframe().f_code.co_name,
-                            self.ObjName,
-                            0,
-                            "Successfully Loaded Config File.")       
+        self.configPath = self.CfgFileName
+        try:
+            with io.open(self.configPath) as f:
+                self.log.logs(self,"FPIBG into Open config file.")
+                self.config = libconf.load(f)
+        except IOError as e:
+            print(f"Config File Open error {e}")    
+            self.log.logs(self,f"Config File Open error {e}")
+            exit()
 
+        self.log.log( 1,  inspect.currentframe().f_lineno,
+                        __file__,
+                        inspect.currentframe().f_code.co_name,
+                        self.ObjName,
+                        0,
+                        "Successfully Loaded Config File.")       
+            
+            
     def get_repo_root(self):
         """Gets the absolute path of the project root directory."""
         current_dir = os.path.dirname(os.path.abspath(__file__))
+        print("Cuurent Dirgetreporoot:", current_dir)
         while not os.path.exists(os.path.join(current_dir, ".git")):
             current_dir = os.path.dirname(current_dir)
             if current_dir == "/":
@@ -38,6 +48,7 @@ class FPIBGConfig:
         Saves the configuration information as a dictionary.
         """
         self.ObjName = ObjName
+        
 
     def Open():
         pass
@@ -110,7 +121,7 @@ class FPIBGConfig:
     
 
     def updateCfg(self):
-        self.WriteConfig(self.config);
+        self.WriteConfig(self.config)
 
     def WriteConfig(self, dict):
         if not os.path.exists(self.CfgFileName):
@@ -118,7 +129,7 @@ class FPIBGConfig:
             return None
 
         name, ext = os.path.splitext(self.CfgFileName)
-        destination_filename = f"{name}_copy{ext}"
+        destination_filename = f"{name}_bak{ext}"
 
         try:
             shutil.copy2(self.CfgFileName, destination_filename)
@@ -127,6 +138,7 @@ class FPIBGConfig:
             print(f"Error creating copy: {e}")
             return None
         
+        destination_filename = f"{name}{ext}"
         #Make the Changes
         dest_path = os.path.join(self.get_repo_root(), destination_filename)
         with io.open(dest_path, 'r+', encoding='utf-8') as f:

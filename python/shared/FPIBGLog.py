@@ -60,7 +60,13 @@ class FPIBGLog:
                             "Opened Logfile success")
         print("Opened Log File for FPIBG.log")
         
-        
+    def logs(self,classObj,ErrString):
+        current_time = datetime.now()       
+        timestr = "{}_{}_{}:{}:{}".format( current_time.year, current_time.month, current_time.day, current_time.hour, current_time.minute)
+        logstring = "{},{}\n".format(classObj.ObjName,ErrString)
+        self.fileObj.write(str(logstring))  
+        self.fileObj.flush()
+
     ## Write the log item to the log file.
     # @param Line number from import inspect.currentframe().f_lineno
     # @param ClassName from the "__file__" reserved python keyword.

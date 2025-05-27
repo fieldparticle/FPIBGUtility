@@ -269,6 +269,7 @@ class LatexImage(LatexClass):
         self.fontSize = 8
         self.float = False
         self.placement = "h"
+        self.type = ""
 
     def Create(self,BaseObj,Name):
      
@@ -281,26 +282,26 @@ class LatexImage(LatexClass):
         self.dlvl = 10000
       
  
-    def Write(self):
+    def Write(self,cfg):
         self.saveCaption(self.caption)
         if not os.path.exists(self.outDirectory):
             os.makedirs(self.outDirectory)
-        outname = self.outDirectory + "/" + self.name + ".png"
-        loutname = self.outDirectory + "/" + self.name + ".tex"
+        outname = self.outDirectory + "/" + cfg.name_text + ".png"
+        loutname = self.outDirectory + "/" + cfg.name_text + ".tex"
         f = open(loutname, "w")
         w = "\\begin{figure*}[" + self.placement + "]\r"
         f.write(w)
         w = "\\centering\r"
         f.write(w)
         if len(self.ltxDirectory) == 0:
-            loutname = self.name + ".png"
+            loutname = cfg.images_name_text 
         else:
-            loutname = self.ltxDirectory + "/" + self.name + ".png"
+            loutname = self.ltxDirectory + "/" + cfg.images_name_text
         w = "\\includegraphics[width=%0.2fin]{%s}\r"%(8.5*self.scale,loutname)
         f.write(w)
         w = "\\captionof{figure}[%s]{\\textit{%s}}\r"%(self.title,self.caption)
         f.write(w)
-        w = "\\label{fig:%s}\r"%(self.name)
+        w = "\\label{fig:%s}\r"%(cfg.name_text)
         f.write(w)
         w = "\\end{figure*}\r"
         f.write(w)
