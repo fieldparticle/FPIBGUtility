@@ -59,7 +59,8 @@ class LatexSingleImage():
                 self.LatexFileImage.float = oob.value
             if "placement_text" in oob.key:                
                 self.LatexFileImage.placement = oob.value
-
+            if "scale_text" in oob.key:                
+                self.LatexFileImage.scale = oob.value
         self.LatexFileImage.Write(self.itemcfg.config) 
     
     def OpenLatxCFG(self):

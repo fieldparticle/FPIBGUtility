@@ -1,7 +1,7 @@
 import sys
 import os
 from PyQt6.QtCore import Qt
-from PyQt6.QtWidgets import QGridLayout, QLineEdit,QListWidget,QComboBox
+from PyQt6.QtWidgets import QGridLayout, QLineEdit,QListWidget,QComboBox,QInputDialog,QMessageBox
 from PyQt6.QtWidgets import QPushButton,QLabel, QGroupBox, QTextEdit, QRadioButton,QFileDialog
 from PyQt6 import QtCore
 from PyQt6.QtGui import QImage,QFontMetrics,QFont
@@ -9,9 +9,11 @@ from _thread import *
 from PIL.ImageQt import ImageQt
 from pyqtLED import QtLed
 import math
+#############################################################################################
+# 						class CfgImageArray():
+#############################################################################################
 
-
-class CfgArray():
+class CfgImageArray():
 	def __init__(self, key,value):
 		self.key = key
 		self.value = value
@@ -22,13 +24,35 @@ class CfgArray():
 		control.setMaximumHeight(H)
 		control.setMaximumWidth(W)
 
+	def updateCFGData(self):
+		items = [self.ListObj.item(x).text() for x in range(self.ListObj.count())]
+		self.cfg[self.key] = items
+
 	def getListItemText(self):
 		selected_items = self.ListObj.selectedItems()
 		if selected_items:
 			print(f"returning {selected_items[0].text()}\n")
 			return selected_items[0].text()
 			
+	def RemoveItem(self):
+		selected_items = self.ListObj.currentRow()
+		if selected_items < 0:
+			return
+		self.ListObj.takeItem(selected_items)
 		
+	def AddImageItemFile(self):
+		folder = QFileDialog.getOpenFileName(self.paramgrp, ("Open File"),
+                                       "J:/FPIBGJournalStaticV2/rpt",
+                                       ("Images (*.png)"))
+		
+		if folder[0]:
+			self.ListObj.addItem(folder[0])
+			if(self.ListObj.count() == 1):
+				self.texFolder = os.path.dirname(folder[0])
+				self.texFileName = os.path.splitext(os.path.basename(folder[0]))[0]
+			self.Parent.filesChangedArray(folder[0])
+
+	
 
 	def Create(self,config,FPIBGConfig,parent):
 		self.cfg = config
@@ -55,29 +79,41 @@ class CfgArray():
 		self.ListObj.setFont(self.font)
 		self.ListObj.setStyleSheet("background-color:  #FFFFFF")
 		self.vcnt = 0
+
 		for v in self.value:
 			self.ListObj.insertItem(self.vcnt,self.value[self.vcnt])
 			self.vcnt+=1
-#			self.ListObj.editingFinished.connect(self.valueChange)
-			
-			#self.LabelObj.setFont(self.font)
-			#lwidth = metrics.horizontalAdvance(v)
-			#ewidth =  math.floor(metrics.horizontalAdvance(self.value)*1.25)
-			#self.setSize(self.ListObj,20,ewidth) 
-			self.paramlo.addWidget(self.ListObj,0,1,alignment= Qt.AlignmentFlag.AlignLeft)
 
-		self.ListObj.itemSelectionChanged.connect(lambda: parent.valueChangeArray(self.ListObj))
-		#self.setSize(paramgrp,50,25+ewidth+lwidth)
+		self.paramlo.addWidget(self.ListObj,0,1,alignment= Qt.AlignmentFlag.AlignLeft)
+		
+
+		self.dirButton = QPushButton("Add")
+		self.setSize(self.dirButton,30,100)
+		self.dirButton.setStyleSheet("background-color:  #dddddd")
+		self.dirButton.clicked.connect(self.AddImageItemFile)
+		self.paramlo.addWidget(self.dirButton)
+
+
+		self.delButton = QPushButton("Remove")
+		self.setSize(self.delButton,30,100)
+		self.delButton.setStyleSheet("background-color:  #dddddd")
+		self.delButton.clicked.connect(self.RemoveItem)
+		self.paramlo.addWidget(self.delButton)
+		self.ListObj.itemSelectionChanged.connect(self.valueChangeArray)
 		return self.paramgrp
 		
 	def getLayout(self):
 		return self.paramlo
 	
+	def getListObj(self):
+		return self.ListObj 
+
 	def valueChangeArray(self):
 		selected_items = self.ListObj.selectedItems()
 		if selected_items:
 			print("Value Changed",selected_items[0].text())
-	#		self.cfg[self.key]=self.EditObj.text()
+			#self.cfg[self.key] = ("newitem","newiutem1")
+			#self.cfg[self.key]=self.EditObj.text()
 			#self.base.updateCfg()
 
 	def getHW(self):
@@ -92,8 +128,154 @@ class CfgArray():
 		self.setSize(self.paramgrp,Hg,Wg)
 		return Hg,Wg
 		
+#############################################################################################
+# 						class CfgArray():
+#############################################################################################
+class CfgArray():
+	def __init__(self, key,value):
+		self.key = key
+		self.value = value
+  	
+	def setSize(self,control,H,W):
+		control.setMinimumHeight(H)
+		control.setMinimumWidth(W)
+		control.setMaximumHeight(H)
+		control.setMaximumWidth(W)
+
+	def updateCFGData(self):
+		items = [self.ListObj.item(x).text() for x in range(self.ListObj.count())]
+		self.cfg[self.key] = items
+
+
+
+	def getListItemText(self):
+		selected_items = self.ListObj.selectedItems()
+		if selected_items:
+			print(f"returning {selected_items[0].text()}\n")
+			return selected_items[0].text()
+
+	def RemoveItem(self):
+		selected_items = self.ListObj.currentRow()
+		if selected_items < 0:
+			return
+		self.ListObj.takeItem(selected_items)
 		
+
+	def AddItem(self):
+		text, ok = QInputDialog.getText(
+            None, 
+            "Add SubPlot Caption", 
+            "Enter caption:"
+        )
+		if ok and text:
+			self.ListObj.addItem(text)
+
+	def EditItem(self):
+		selected_items = self.ListObj.selectedItems()
+		if selected_items:
+			inputd = QInputDialog()
+			item_text = selected_items[0].text()
+			text, ok = inputd.getText(
+            	None, 
+            	"Edit SubPlot Caption", 
+            	"Edit caption:",
+				QLineEdit.EchoMode.Normal,
+				item_text
+				
+        	)
+			if ok and text:
+				selected_items[0].setText(text)
+		else:
+			QMessageBox.information(
+									None,
+									'Information',
+									'You need to select an item.',
+									QMessageBox.StandardButton.Ok
+								)
+	
+	def Create(self,config,FPIBGConfig,parent):
+		self.cfg = config
+		self.base = FPIBGConfig
+		self.Parent = parent
+			
+		self.font = QFont("Times", 10)
+		self.font.setBold(False)
+
+		metrics = QFontMetrics(self.font)
+
+		self.paramgrp = QGroupBox("")
+		self.paramlo = QGridLayout()
+		self.paramgrp.setLayout(self.paramlo)
+		self.paramgrp.setStyleSheet('background-color: 111111;')
+		text = self.key + ":"
+		self.LabelObj = QLabel(text)
+		self.LabelObj.setFont(self.font)
+		self.lwidth = metrics.horizontalAdvance(text)
+		self.setSize(self.LabelObj,20,self.lwidth) 
+		self.paramlo.addWidget(self.LabelObj,0,0,alignment= Qt.AlignmentFlag.AlignVCenter | Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignAbsolute)
+
+		self.ListObj =  QListWidget()
+		self.ListObj.setFont(self.font)
+		self.ListObj.setStyleSheet("background-color:  #FFFFFF")
+		self.vcnt = 0
+
+		for v in self.value:
+			self.ListObj.insertItem(self.vcnt,self.value[self.vcnt])
+			self.vcnt+=1
+
+		self.paramlo.addWidget(self.ListObj,0,1,alignment= Qt.AlignmentFlag.AlignLeft)
 		
+
+		self.dirButton = QPushButton("Add")
+		self.setSize(self.dirButton,30,100)
+		self.dirButton.setStyleSheet("background-color:  #dddddd")
+		self.dirButton.clicked.connect(self.AddItem)
+		self.paramlo.addWidget(self.dirButton)
+
+
+		self.delButton = QPushButton("Remove")
+		self.setSize(self.delButton,30,100)
+		self.delButton.setStyleSheet("background-color:  #dddddd")
+		self.delButton.clicked.connect(self.RemoveItem)
+		self.paramlo.addWidget(self.delButton)
+		
+
+		self.editButton = QPushButton("Edit")
+		self.setSize(self.editButton,30,100)
+		self.editButton.setStyleSheet("background-color:  #dddddd")
+		self.editButton.clicked.connect(self.EditItem)
+		self.paramlo.addWidget(self.editButton)
+		
+
+		return self.paramgrp
+		
+	def getLayout(self):
+		return self.paramlo
+	
+	def getListObj(self):
+		return self.ListObj 
+
+	def valueChangeArray(self):
+		selected_items = self.ListObj.selectedItems()
+		if selected_items:
+			print("Value Changed",selected_items[0].text())
+			
+			
+	def getHW(self):
+		H = self.vcnt*20
+		W = 300
+		return H,W
+
+	def setHW(self,H,W):
+		self.setSize(self.ListObj,H,W)
+		Hg = H+20
+		Wg = W+20+self.lwidth
+		self.setSize(self.paramgrp,Hg,Wg)
+		return Hg,Wg
+		
+#############################################################################################
+# 						class CfgArray():
+#############################################################################################
 class CfgString():
 
 	key = ""
@@ -120,6 +302,9 @@ class CfgString():
 		control.setMinimumWidth(W)
 		control.setMaximumHeight(H)
 		control.setMaximumWidth(W)
+	
+	def updateCFGData(self):
+		self.cfg[self.key] = self.EditObj.text()
 
 	def Create(self,config,FPIBGConfig):
 		
@@ -210,12 +395,13 @@ class CfgString():
 
 
 	def AddImageItemDir(self):
-		folder = QFileDialog.getExistingDirectory(self.paramgrp, ("Select Directory"),
+		self.folder = QFileDialog.getExistingDirectory(self.paramgrp, ("Select Directory"),
                                        "J:/FPIBGJournalStaticV2/rpt")
 
 		
-		if folder:
-			self.EditObj.setText(folder)
+		if self.folder:
+			self.EditObj.setText(self.folder)
+			
 			
 
 
@@ -238,6 +424,10 @@ class CfgString():
 			self.cfg[self.key]=self.EditObj.text()
 			#self.base.updateCfg()
 
+
+#############################################################################################
+# 						class CfgTextBox():
+#############################################################################################
 class CfgTextBox():
 
 	key = ""
@@ -252,6 +442,9 @@ class CfgTextBox():
 		control.setMinimumWidth(W)
 		control.setMaximumHeight(H)
 		control.setMaximumWidth(W)
+	
+	def updateCFGData(self):
+		self.cfg[self.key]=self.EditObj.toPlainText()
 
 	def Create(self,config,FPIBGConfig):
 		
@@ -303,19 +496,20 @@ class CfgTextBox():
 	def valueChange(self):
 		if(self.value!=self.EditObj.toPlainText()):
 			print("Value Changed",self.key)
-			self.cfg[self.key]=self.EditObj.toPlainText()
-			#self.base.updateCfg()
 		
 		
-
-
+		
+#############################################################################################
+# 						class CfgBool():
+#############################################################################################
 class CfgBool():
 
 	key = ""
 	value = ""
-	def __init__(self, key,value):
+	def __init__(self, key,value,structName):
 		self.key = key
 		self.value = value
+		self.structName = structName
 		
   	
 	def setSize(self,control,H,W):
@@ -323,6 +517,10 @@ class CfgBool():
 		control.setMinimumWidth(W)
 		control.setMaximumHeight(H)
 		control.setMaximumWidth(W)
+
+	def updateCFGData(self):
+		ans = self.Combo.currentText()
+		self.cfg[self.key]=self.Combo.currentText()
 
 	def Create(self,config,FPIBGConfig):
 		
@@ -353,7 +551,7 @@ class CfgBool():
 		self.Combo.addItem("true")
 		self.Combo.addItem("false")
 		#self.Combo.editingFinished.connect(self.valueChange)
-		#self.Combo.textChanged.connect(self.valueChange)
+		self.Combo.currentIndexChanged.connect(self.valueChange)
 		#ewidth =  math.floor(metrics.horizontalAdvance(self.value)*1.25)
 		#self.setSize(self.Combo,20,ewidth) 
 		paramlo.addWidget(self.Combo,0,1,alignment= Qt.AlignmentFlag.AlignLeft)
@@ -365,10 +563,12 @@ class CfgBool():
 		if(self.value!=self.Combo.text()):
 			print("Value Changed",self.key)
 			self.cfg[self.key]=self.Combo.text()
-			#self.base.updateCfg()
+			
 		
 		
-
+#############################################################################################
+# 						class CfgInt():
+#############################################################################################
 class CfgInt():
 
 	key = ""
@@ -382,6 +582,11 @@ class CfgInt():
 		control.setMinimumWidth(W)
 		control.setMaximumHeight(H)
 		control.setMaximumWidth(W)
+
+	def updateCFGData(self):
+		if(str(self.value)!=self.EditObj.text()):
+			self.cfg[self.key]=self.EditObj.text()
+		
 
 	def Create(self,config,FPIBGConfig):
 		
@@ -419,11 +624,9 @@ class CfgInt():
 		return paramgrp
 		
 	def valueChange(self):
+		pass
 		
-		if(str(self.value)!=self.EditObj.text()):
-			print("Value Changed",self.key)
-			self.cfg[self.key]=self.EditObj.text()
-			self.base.updateCfg()
+			
 		
 		
 

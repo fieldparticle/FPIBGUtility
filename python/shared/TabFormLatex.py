@@ -47,8 +47,8 @@ class TabFormLatex(QTabWidget):
         control.setMaximumHeight(H)
         control.setMaximumWidth(W)
 
-    def save_latex_Image(self):
-        self.ltxObj.save_latex_Image()
+    def SaveConfigurationFile(self):
+        self.ltxObj.updateCfgData()
         #self.ltxObj.clearConfigGrp()
 
   
@@ -72,8 +72,9 @@ class TabFormLatex(QTabWidget):
             if "multiimage" in self.type:
                 self.ltxObj = LatexMultiImage(self.bobj,"SingleImage",self)
                 self.ltxObj.setConfigGroup(self.tab_layout)
-                self.ltxObj.setImgGroup(self.tab_layout)
                 self.ltxObj.OpenLatxCFG()
+                self.ltxObj.setImgGroup(self.tab_layout)
+                
                 self.ListObj.setEnabled(False)
                 self.hasConfig = True
             elif "image" in self.type:
@@ -133,7 +134,7 @@ class TabFormLatex(QTabWidget):
         ## Set parent directory
         LatexcfgFile = QGroupBox("Latex File Configuration")
         self.setSize(LatexcfgFile,200,300)
-        self.tab_layout.addWidget(LatexcfgFile,0,0,1,1,alignment= Qt.AlignmentFlag.AlignLeft)
+        self.tab_layout.addWidget(LatexcfgFile,0,0,1,2,alignment= Qt.AlignmentFlag.AlignLeft)
         
         dirgrid = QGridLayout()
         LatexcfgFile.setLayout(dirgrid)
@@ -152,7 +153,7 @@ class TabFormLatex(QTabWidget):
         self.SaveButton = QPushButton("Save")
         self.setSize(self.SaveButton,30,100)
         self.SaveButton.setStyleSheet("background-color:  #dddddd")
-        self.SaveButton.clicked.connect(self.save_latex_Image)
+        self.SaveButton.clicked.connect(self.SaveConfigurationFile)
         dirgrid.addWidget(self.SaveButton,2,0)
 
         self.newButton = QPushButton("New")
@@ -181,4 +182,4 @@ class TabFormLatex(QTabWidget):
         if selected_items:
             print("List object Value Changed",selected_items[0].text())
             self.ltxObj.setTypeText(selected_items[0].text())         
-   
+    

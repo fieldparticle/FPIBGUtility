@@ -24,7 +24,7 @@ class FPIBGLatexWin(QWidget):
                             "Test 1 Main Window Success")
         self.ObjName = ObjName
         self.setWindowTitle('FPIBG Utility Main Window')
-        self.setGeometry(100, 100, 1024, 768)
+        self.setGeometry(100, 100, 1200, 768)
         self.setWindowIcon(QIcon("Logo.png"))
         main_layout = QGridLayout(self)
         ## Create a tab widget

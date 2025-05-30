@@ -297,7 +297,7 @@ class LatexImage(LatexClass):
             loutname = cfg.images_name_text 
         else:
             loutname = self.ltxDirectory + "/" + cfg.images_name_text
-        w = "\\includegraphics[width=%0.2fin]{%s}\r"%(8.5*self.scale,loutname)
+        w = "\\includegraphics[width=%0.2fin]{%s}\r"%(8.5*float(self.scale),loutname)
         f.write(w)
         w = "\\captionof{figure}[%s]{\\textit{%s}}\r"%(self.title,self.caption)
         f.write(w)
@@ -307,6 +307,69 @@ class LatexImage(LatexClass):
         f.write(w)
         f.close()
         self.WritePre("pre_plots")
+     
+      
+        pass
+
+
+
+class LatexMultiImage(LatexClass):
+
+
+    
+   ##  Constructor for the LatexClass object.
+    # @param   ObjName --  (string) Saves the name of the object.
+    def __init__(self,ObjName):
+        ## ObjName contains the name of this object.
+        self.ObjName = ObjName
+        super().__init__()
+        self.caption = ""
+        self.name = ""
+        self.width = 0
+        self.height = 0
+        self.title = ""
+        self.scale = 0
+        self.fontSize = 8
+        self.float = False
+        self.placement = "h"
+        self.type = ""
+        self.images = []
+        
+
+    def Create(self,BaseObj,Name):
+        self.name = Name
+         ## bobj contains the global object.
+        self.bobj = BaseObj
+        self.cfg = self.bobj.cfg.config
+        self.log = self.bobj.log
+        # Assign this objects debug level
+        self.dlvl = 10000
+
+    def Update(self,cfg):
+        pass
+
+ 
+    def Write(self,cfg):
+        pass
+        self.saveCaption(self.caption)
+        if not os.path.exists(self.outDirectory):
+            os.makedirs(self.outDirectory)
+        f = open(loutname, "w")
+        w = "\\begin{figure*}[" + self.placement + "]\r"
+        f.write(w)
+        w = "\\centering\r"
+        f.write(w)
+        loutname = self.ltxDirectory + "/" + cfg.images_name_text
+        w = "\\includegraphics[width=%0.2fin]{%s}\r"%(8.5*float(self.scale),loutname)
+        f.write(w)
+        w = "\\captionof{figure}[%s]{\\textit{%s}}\r"%(self.title,self.caption)
+        f.write(w)
+        w = "\\label{fig:%s}\r"%(cfg.name_text)
+        f.write(w)
+        w = "\\end{figure*}\r"
+        f.write(w)
+        f.close()
+        #self.WritePre("pre_plots")
      
       
         pass
