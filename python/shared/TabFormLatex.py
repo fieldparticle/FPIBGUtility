@@ -20,6 +20,7 @@ from CfgLabel import *
 from FPIBGException import *
 from LatexSingleImage import *
 from LatexMultiImage import *
+from LatexSinglePlot import *
 
 class TabFormLatex(QTabWidget):
     
@@ -28,8 +29,9 @@ class TabFormLatex(QTabWidget):
     texFileName = ""
     hasConfig = False
     itemcfg = FPIBGConfig("Latex Class")
-    
-    
+    startDir = "J:/MOD\FPIBGUtility/Latex"
+    startDir = "J:/FPIBGJournalStaticV2/rpt"
+
     ObjName = ""
     ltxObj = None
 
@@ -49,6 +51,7 @@ class TabFormLatex(QTabWidget):
 
     def SaveConfigurationFile(self):
         self.ltxObj.updateCfgData()
+        
         #self.ltxObj.clearConfigGrp()
 
   
@@ -56,8 +59,8 @@ class TabFormLatex(QTabWidget):
         """ Opens a dialog window for the user to select a folder in the file system. """
         #folder = QFileDialog.getExistingDirectory(self, "Select Folder")
         folder = QFileDialog.getOpenFileName(self, ("Open File"),
-                                       "J:/FPIBGJournalStaticV2/rpt",
-                                       ("Images (*.cfg)"))
+                                       self.startDir,
+                                       ("Configuration File (*.cfg)"))
         
         if folder[0]:
             self.CfgFile = folder[0]
@@ -70,17 +73,21 @@ class TabFormLatex(QTabWidget):
             if self.hasConfig == True:
                 self.ltxObj.clearConfigGrp()
             if "multiimage" in self.type:
-                self.ltxObj = LatexMultiImage(self.bobj,"SingleImage",self)
+                self.ltxObj = LatexMultiImage(self)
                 self.ltxObj.setConfigGroup(self.tab_layout)
                 self.ltxObj.OpenLatxCFG()
-                self.ltxObj.setImgGroup(self.tab_layout)
-                
+                self.ltxObj.setImgGroup()
                 self.ListObj.setEnabled(False)
                 self.hasConfig = True
             elif "image" in self.type:
                 self.ltxObj = LatexSingleImage(self.bobj,"SingleImage",self)
                 self.ltxObj.setConfigGroup(self.tab_layout)
                 self.ltxObj.setImgGroup(self.tab_layout)
+                self.ltxObj.OpenLatxCFG()
+                self.hasConfig = True
+            elif "singleplot" in self.type:
+                self.ltxObj = LatexSinglePlot(self.bobj,"SingleImage",self)
+                self.ltxObj.setConfigGroup(self.tab_layout)
                 self.ltxObj.OpenLatxCFG()
                 self.hasConfig = True
             elif "type" in self.type:

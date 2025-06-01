@@ -3,7 +3,7 @@ from FPIBGConfig import FPIBGConfig
 #from TableModel import *
 import os
 import inspect
-
+import matplotlib.pyplot as plt
 
 class LatexClass:
 
@@ -81,7 +81,7 @@ class LatexClass:
       
 
 
-class LatexTable(LatexClass):
+class LatexTableWriter(LatexClass):
     def __init__(self,BaseObj,data):
         super().__init__()   
         self.data = data
@@ -194,7 +194,7 @@ class LatexTable(LatexClass):
 
     
 
-class LatexPlot(LatexClass):
+class LatexPlotWriter(LatexClass):
 
    ##  Constructor for the LatexClass object.
     # @param   ObjName --  (string) Saves the name of the object.
@@ -223,36 +223,34 @@ class LatexPlot(LatexClass):
         self.dlvl = 10000
       
  
-    def Write(self,Plot):
-        self.saveCaption(self.caption)
-        if not os.path.exists(self.outDirectory):
-            os.makedirs(self.outDirectory)
-        outname = self.outDirectory + "/" + self.name + ".png"
-        Plot.savefig(outname)
-        loutname = self.outDirectory + "/" + self.name + ".tex"
+    def Write(self,cfg,Plot):
+
+        outname = cfg.tex_dir + "/" + cfg.name_text + ".png"
+        plt.savefig(outname)
+        loutname = cfg.tex_dir + "/" + cfg.name_text + ".tex"
         f = open(loutname, "w")
-        w = "\\begin{figure*}[" + self.placement + "]\r"
+        w = "\\begin{figure*}[" + cfg.placement_text + "]\r"
         f.write(w)
         w = "\\centering\r"
         f.write(w)
-        if len(self.ltxDirectory) == 0:
-            loutname = self.name + ".png"
+        if len(cfg.tex_dir) == 0:
+            loutname = cfg.name_text 
         else:
-            loutname = self.ltxDirectory + "/" + self.name + ".png"
-        w = "\\includegraphics[width=%0.2fin]{%s}\r"%(8.5*self.scale,loutname)
+            loutname = cfg.tex_dir + "/" + cfg.name_text
+        w = "\\includegraphics[width=%0.2fin]{%s}\r"%(8.5*float(cfg.scale_text),loutname)
         f.write(w)
-        w = "\\captionof{figure}[%s]{\\textit{%s}}\r"%(self.title,self.caption)
+        w = "\\captionof{figure}[%s]{\\textit{%s}}\r"%(cfg.title_text,cfg.caption_box)
         f.write(w)
-        w = "\\label{fig:%s}\r"%(self.name)
+        w = "\\label{fig:%s}\r"%(cfg.name_text)
         f.write(w)
         w = "\\end{figure*}\r"
         f.write(w)
         f.close()
         self.WritePre("pre_plots")
+        
      
-      
-
-class LatexImage(LatexClass):
+ 
+class LatexImageWriter(LatexClass):
 
    ##  Constructor for the LatexClass object.
     # @param   ObjName --  (string) Saves the name of the object.
@@ -313,7 +311,7 @@ class LatexImage(LatexClass):
 
 
 
-class LatexMultiImage(LatexClass):
+class LatexMultiImageWriter(LatexClass):
 
 
     
@@ -350,29 +348,47 @@ class LatexMultiImage(LatexClass):
 
  
     def Write(self,cfg):
-        pass
-        self.saveCaption(self.caption)
+        self.outDirectory = cfg.tex_dir
         if not os.path.exists(self.outDirectory):
             os.makedirs(self.outDirectory)
-        f = open(loutname, "w")
-        w = "\\begin{figure*}[" + self.placement + "]\r"
+        outfile = self.outDirectory + "/" + cfg.name_text + ".tex"
+        try:
+            f = open(outfile, "w")
+        except IOError as e:
+            print(f"Couldn't write to file ({e})")
+        w = "\\begin{figure*}[" + cfg.placement_text + "]\n"
         f.write(w)
-        w = "\\centering\r"
+        w = "\\centering\n"
         f.write(w)
-        loutname = self.ltxDirectory + "/" + cfg.images_name_text
-        w = "\\includegraphics[width=%0.2fin]{%s}\r"%(8.5*float(self.scale),loutname)
-        f.write(w)
-        w = "\\captionof{figure}[%s]{\\textit{%s}}\r"%(self.title,self.caption)
-        f.write(w)
-        w = "\\label{fig:%s}\r"%(cfg.name_text)
-        f.write(w)
-        w = "\\end{figure*}\r"
-        f.write(w)
+        try:
+            for ii in range(len(cfg.images_name_array)):    
+                w = "\t\\begin{subfigure}[b]{" + cfg.scale_text + "\\textwidth}\n"
+                f.write(w)
+                gdir = "".join(cfg.images_name_array[ii].rsplit(cfg.tex_dir))
+                sgdir = ''.join( c for c in gdir if  c not in '/' )
+                print(sgdir)    
+                w = "\t\t\\includegraphics[width=\\textwidth]{" + sgdir + "}\n"
+                f.write(w)
+                w = "\t\t\\subcaption[" + "" +"]{" + cfg.caption_array[ii] + "}\n"
+                f.write(w)
+                refname = os.path.splitext(os.path.basename(gdir))[0]
+                w = "\t\t\\label{fig:" + refname + "}\n"
+                f.write(w)
+                w = "\t\\end{subfigure}\n"
+                f.write(w)
+            w = "\\captionof{figure}[TITLE:" + cfg.title_text + "]{\\textit{" + cfg.caption_box + "}}\n"
+            f.write(w)
+            w = "\\end{figure*}\n"
+            f.write(w)
+        except IOError as e:
+            print(f"Couldn't write to file ({e})")
+            f.close()
+            return
         f.close()
-        #self.WritePre("pre_plots")
+
      
       
-        pass
+        
 
 
 

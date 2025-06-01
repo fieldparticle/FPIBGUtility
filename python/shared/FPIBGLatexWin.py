@@ -39,8 +39,12 @@ class FPIBGLatexWin(QWidget):
         self.show()
         
         
-    
-        
+    def closeEvent(self, event):
+        plt.close("all")  
+        event.accept()
+
+    def __exit__(self):
+        plt.close("all")        
 
     def on_clicked(self) :
         exit()

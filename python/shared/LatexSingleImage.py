@@ -10,7 +10,7 @@ class LatexSingleImage():
     tabCount = 0
     layouts = []
     lyCount = 0
-    LatexFileImage = LatexImage("LatexClass")
+    LatexFileImage = LatexImageWriter("LatexClass")
 
 
     def __init__(self, FPIBGBase, ObjName,Parent):
@@ -30,6 +30,12 @@ class LatexSingleImage():
         control.setMinimumWidth(W)
         control.setMaximumHeight(H)
         control.setMaximumWidth(W)
+
+    def updateCfgData(self):
+        for oob in self.objArry:
+            oob.updateCFGData()
+        self.itemcfg.updateCfg()
+        self.LatexFileImage.Write(self.itemcfg.config) 
 
     
     def filesChanged(self,path):
@@ -62,18 +68,11 @@ class LatexSingleImage():
             if "scale_text" in oob.key:                
                 self.LatexFileImage.scale = oob.value
         self.LatexFileImage.Write(self.itemcfg.config) 
-    
+
     def OpenLatxCFG(self):
         print(self.itemcfg)
-        self.ImageName = self.itemcfg.config.images_name_text
-        self.ImagePath = self.itemcfg.config.tex_dir + "/" + self.ImageName
-        self.pixmap = QPixmap(self.ImagePath)
-        self.setSize(self.imgmgrp,self.pixmap.height()+20,self.pixmap.width()) 
-        self.setSize(self.image,self.pixmap.height()+20,self.pixmap.width()) 
-        self.image.setPixmap(self.pixmap)
         self.LatexFileImage.outDirectory = self.itemcfg.config.tex_dir
         self.LatexFileImage.ltxDirectory = self.itemcfg.config.tex_image_dir
-        
         self.doItems(self.itemcfg.config)
     
     def clearLayout(self,layout):
@@ -104,38 +103,43 @@ class LatexSingleImage():
         self.ConfigGroup = QGroupBox("Latex File Configuration")
         layout.addWidget(self.ConfigGroup,1,0,1,1,alignment= Qt.AlignmentFlag.AlignLeft)
         self.cfglayout = QVBoxLayout()
-        self.setSize(self.ConfigGroup,400,400) 
+        self.setSize(self.ConfigGroup,400,500) 
         self.ConfigGroup.setLayout(self.cfglayout)
         self.tabs = QTabWidget()
-       
         self.cfglayout.addWidget(self.tabs)
         self.scrollArea = QScrollArea()
-       
         self.dictTab.append(self.scrollArea)
         content_widget = QWidget()
-        
         content_widget.setStyleSheet('background-color: 111111;')
         self.dictTab[self.tabCount].setWidget(content_widget)
         self.layouts.append(QVBoxLayout(content_widget))
         self.dictTab[self.tabCount].setWidgetResizable(True)
         
-        #tab_layout.addWidget(self.ConfigGroup)
 
     def setImgGroup(self,layout):
-            # -------------------------------------------------------------
-            ## Image Interface
-            self.imgmgrp = QGroupBox("Image Interface")
-            self.setSize(self.imgmgrp,20,20)
-            #tab_layout.addWidget(self.imgmgrp,0,3,2,2)
-            layout.addWidget(self.imgmgrp,0,3,2,2)
-            imagelo = QGridLayout()
-            self.imgmgrp.setLayout(imagelo)
+        ## Image Interface
+        self.imgmgrp = QGroupBox("Image Interface")
+        self.setSize(self.imgmgrp,20,20)
+        #tab_layout.addWidget(self.imgmgrp,0,3,2,2)
+        layout.addWidget(self.imgmgrp,0,3,2,2)
+        imagelo = QGridLayout()
+        self.imgmgrp.setLayout(imagelo)
 
-            self.image = QLabel()
-            self.image.setStyleSheet("background-color:  #ffffff")
-            self.setSize(self.image,15,15)
-            imagelo.addWidget(self.image,1,0,alignment= Qt.AlignmentFlag.AlignTop | Qt.AlignmentFlag.AlignLeft)
-            return self.imgmgrp
+        self.image = QLabel()
+        self.image.setStyleSheet("background-color:  #ffffff")
+        self.setSize(self.image,15,15)
+        imagelo.addWidget(self.image,1,0,alignment= Qt.AlignmentFlag.AlignTop | Qt.AlignmentFlag.AlignLeft)
+        self.ImageName = self.itemcfg.config.images_name_text
+        self.ImagePath = self.itemcfg.config.tex_dir + "/" + self.ImageName
+        self.pixmap = QPixmap(self.ImagePath)
+        self.setSize(self.imgmgrp,self.pixmap.height()+20,self.pixmap.width()) 
+        self.setSize(self.image,self.pixmap.height()+20,self.pixmap.width()) 
+        self.image.setPixmap(self.pixmap)
+        self.LatexFileImage.outDirectory = self.itemcfg.config.tex_dir
+        self.LatexFileImage.ltxDirectory = self.itemcfg.config.tex_image_dir
+        return self.imgmgrp
+    
+        
 
     def doItems(self,cfg):
         self.tabCount+=1
