@@ -7,6 +7,9 @@ from LatexConfigurationClass import *
 
 class LatexMultiImage(LatexConfigurationClass):
 
+
+    LatexFileImage = LatexMultiImageWriter("LatexClass")
+
     def __init__(self,Parent):
         self.Parent = Parent
         self.bobj = self.Parent.bobj

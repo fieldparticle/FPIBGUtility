@@ -4,7 +4,9 @@ from FPIBGConfig import FPIBGConfig
 import os
 import inspect
 import matplotlib.pyplot as plt
-
+#############################################################################################
+# 						base class LatexClass
+#############################################################################################
 class LatexClass:
 
     ##  Constructor for the LatexClass object.
@@ -78,9 +80,9 @@ class LatexClass:
         p.close()    
 
    
-      
-
-
+#############################################################################################
+# 						class LatexTableWriter
+#############################################################################################
 class LatexTableWriter(LatexClass):
     def __init__(self,BaseObj,data):
         super().__init__()   
@@ -144,7 +146,7 @@ class LatexTableWriter(LatexClass):
 
                     
 
-    def WriteLatexTable(self,skip):
+    def WriteLatexTable(self):
         self.readCapFile()
         #self.saveCaption(self.caption)
         if not os.path.exists(self.outDirectory):
@@ -192,8 +194,9 @@ class LatexTableWriter(LatexClass):
         self.WritePre("pre_tables")
 
 
-    
-
+#############################################################################################
+# 						class LatexPlotWriter
+#############################################################################################
 class LatexPlotWriter(LatexClass):
 
    ##  Constructor for the LatexClass object.
@@ -249,7 +252,9 @@ class LatexPlotWriter(LatexClass):
         self.WritePre("pre_plots")
         
      
- 
+#############################################################################################
+# 						class LatexImageWriter
+#############################################################################################
 class LatexImageWriter(LatexClass):
 
    ##  Constructor for the LatexClass object.
@@ -295,9 +300,9 @@ class LatexImageWriter(LatexClass):
             loutname = cfg.images_name_text 
         else:
             loutname = self.ltxDirectory + "/" + cfg.images_name_text
-        w = "\\includegraphics[width=%0.2fin]{%s}\r"%(8.5*float(self.scale),loutname)
+        w = "\\includegraphics[width=%0.2fin]{%s}\r"%(8.5*float(cfg.scale_text),loutname)
         f.write(w)
-        w = "\\captionof{figure}[%s]{\\textit{%s}}\r"%(self.title,self.caption)
+        w = "\\captionof{figure}[%s]{\\textit{%s}}\r"%(cfg.title_text,cfg.caption_box)
         f.write(w)
         w = "\\label{fig:%s}\r"%(cfg.name_text)
         f.write(w)
@@ -310,7 +315,9 @@ class LatexImageWriter(LatexClass):
         pass
 
 
-
+#############################################################################################
+# 						class LatexMultiImageWriter
+#############################################################################################
 class LatexMultiImageWriter(LatexClass):
 
 

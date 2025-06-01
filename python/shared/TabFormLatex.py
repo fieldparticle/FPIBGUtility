@@ -80,18 +80,18 @@ class TabFormLatex(QTabWidget):
                 self.ListObj.setEnabled(False)
                 self.hasConfig = True
             elif "image" in self.type:
-                self.ltxObj = LatexSingleImage(self.bobj,"SingleImage",self)
+                self.ltxObj = LatexSingleImage(self)
                 self.ltxObj.setConfigGroup(self.tab_layout)
                 self.ltxObj.setImgGroup(self.tab_layout)
                 self.ltxObj.OpenLatxCFG()
                 self.hasConfig = True
             elif "singleplot" in self.type:
-                self.ltxObj = LatexSinglePlot(self.bobj,"SingleImage",self)
+                self.ltxObj = LatexSinglePlot(self)
                 self.ltxObj.setConfigGroup(self.tab_layout)
                 self.ltxObj.OpenLatxCFG()
                 self.hasConfig = True
             elif "type" in self.type:
-                self.ltxObj = LatexSingleImage(self.bobj,"SingleImage",self)
+                self.ltxObj = LatexSingleImage(self)
                 self.ltxObj.setConfigGroup(self.tab_layout)
                 self.ltxObj.setImgGroup(self.tab_layout)
                 self.ltxObj.OpenLatxCFG()
