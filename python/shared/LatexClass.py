@@ -14,9 +14,11 @@ class LatexClass:
     def __init__(self,Parent):
         self.Parent = Parent
         self.bobj = self.Parent.bobj
-        self.cfg = self.bobj.cfg.config
         self.log = self.bobj.log
+        self.cfg = Parent.itemcfg.config 
+        self.itemcfg = Parent.itemcfg 
         self.cleanPRE = True
+
 
     def setCleanPre(self, flg):
         self.cleanPRE = flg
@@ -28,7 +30,7 @@ class LatexClass:
             p = open(preoutname, "w")
         else:
             p = open(preoutname, "a")
-        w = "%%============================================= Plot %s\r"%(self.name)
+        w = "%%============================================= Plot %s\r"%(cfg.name_text )
         p.write(w)
         w = "Fig. \\ref{fig:%s}\r"%(cfg.name_text)
         p.write(w)
@@ -45,28 +47,26 @@ class LatexClass:
 # 						class LatexTableWriter
 #############################################################################################
 class LatexTableWriter(LatexClass):
-    def __init__(self,BaseObj,data):
-        super().__init__()   
-        self.data = data
-        self.bobj = BaseObj
-        self.cfg = self.bobj.cfg.config
-        self.log = self.bobj.log 
-        
-        
-
-    header_arry = []
     
+    def __init__(self,Parent):
+        super().__init__(Parent)
 
+    def Create(self,data):
+        self.data = data
+        self.cols = self.data.shape[1]
+        self.rows = self.data.shape[0]
+        self.table_array  = [[0 for x in range(self.cols)] for y in range(self.rows)] 
+        self.setLatexData()
+        
+    header_arry = []
     
     def setLatexHeaderArray(self, header):
         self.header_arry = header
 
     def setTableItemArray(self, cellstr,col, row):
         self.table_array[row][col] = cellstr
-        
 
     def setLatexData(self):
-        
         for i in range(self.cols):
             for j in range(self.rows):
                 self.loadItem(i,j)
@@ -74,10 +74,9 @@ class LatexTableWriter(LatexClass):
     def loadItem(self,i,j):
             cellstr = ""
             value =  self.data.values[j][i]
-            if (i == 0):
-                self.setTableItemArray(str("%.0f" % value),i,j)
-                return "%.0f" % value
-                
+            self.setTableItemArray(str(value),i,j)
+            return str(value)
+            return 
             if (i == 1):
                 self.setTableItemArray(str("%.2f" % (1000*value)),i,j)
                 return "%.2f" % (1000*value)
@@ -96,42 +95,41 @@ class LatexTableWriter(LatexClass):
 
                     
 
-    def WriteLatexTable(self):
-        self.readCapFile()
-        #self.saveCaption(self.caption)
-        if not os.path.exists(self.outDirectory):
-            os.makedirs(self.outDirectory)
-           
-        loutname = self.outDirectory + "/" + self.name + ".tex"
-        f = open(loutname, "w")
-        f.write("\\begin{table}[%s]\n" % self.placement)
-        f.write("\\fontsize{%d}{%d}\\selectfont\n" % (self.fontSize,self.fontSize))
-        f.write("\\renewcommand{\\arraystretch}{%0.2f}\n" % (self.arrayStretch))
+    def Write(self):
+        loutname = self.cfg.tex_dir + "/" + self.cfg.name_text + ".tex"
+        try:
+            f = open(loutname, "w")
+        except IOError as e:
+            print(f"Couldn't write to file ({e})")
+            return
+        f.write("\\begin{table}[%s]\n" % self.cfg.placement_text)
+        f.write("\\fontsize{%s}{%s}\\selectfont\n" % (self.cfg.font_size,self.cfg.font_size))
+        f.write("\\renewcommand{\\arraystretch}{%s}\n" % (self.cfg.arystretch_text))
         f.write("\\caption{\\textit{")
-        f.write(self.readCapFile())
+        f.write(self.cfg.caption_box)
         f.write("}}\n")
-        f.write("\\label{tab:%s}\n"%self.name)
+        f.write("\\label{tab:%s}\n"%self.cfg.name_text)
         f.write("\\begin{center}\n")
         f.write("\\begin{tabular}\n{")
         for k in range(self.cols):
             f.write("l ")
         f.write("}\n")
         f.write("\\hline \\\\ \n")
-        lsz = len(self.header_arry)
+        lsz = len(self.cfg.header_array)
         if (self.cols != lsz):
             f.close()
             print("No Latex Headers")    
         for k in range(lsz):
             if(k < lsz-1):
                 txt = ""
-                txt = "\\makecell{" + self.header_arry[k] + "}&"
+                txt = "\\makecell{" + self.cfg.header_array[k] + "}&"
             else:
-                txt = "\\makecell{" + self.header_arry[k] + "}"
+                txt = "\\makecell{" + self.cfg.header_array[k] + "}"
             f.write(txt)
         
         f.write("\\\\ \\hline\n")
 
-        for i in range(0,self.rows,skip):
+        for i in range(0,self.rows): #,skip):
             for j in range(self.cols):
                 if(j < self.cols-1):
                     txt = str(self.table_array[i][j]) + "&"
@@ -154,15 +152,7 @@ class LatexPlotWriter(LatexClass):
     def __init__(self,Parent):
         ## ObjName contains the name of this object.
         super().__init__(Parent)
-        self.caption = ""
-        self.name = ""
-        self.width = 0
-        self.height = 0
-        self.title = ""
-        self.scale = 0
-        self.fontSize = 8
-        self.float = False
-        self.placement = "h"
+       
 
    
       
@@ -198,21 +188,12 @@ class LatexPlotWriter(LatexClass):
 #############################################################################################
 class LatexImageWriter(LatexClass):
 
-   ##  Constructor for the LatexClass object.
+  ##  Constructor for the LatexClass object.
     # @param   ObjName --  (string) Saves the name of the object.
     def __init__(self,Parent):
         ## ObjName contains the name of this object.
         super().__init__(Parent)
-        self.caption = ""
-        self.name = ""
-        self.width = 0
-        self.height = 0
-        self.title = ""
-        self.scale = 0
-        self.fontSize = 8
-        self.float = False
-        self.placement = "h"
-        self.type = ""
+       
     
  
     def Write(self):

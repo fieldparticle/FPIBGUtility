@@ -8,12 +8,7 @@ from LatexConfigurationClass import *
 class LatexMultiImage(LatexConfigurationClass):
 
     def __init__(self,Parent):
-        self.Parent = Parent
-        self.bobj = self.Parent.bobj
-        self.cfg = self.bobj.cfg.config
-        self.log = self.bobj.log
-        self.itemcfg = Parent.itemcfg
-        self.tab_layout =  Parent.tab_layout
+        super().__init__(Parent)
         self.LatexFileImage = LatexMultiImageWriter(Parent)
 
     def setImgGroup(self):

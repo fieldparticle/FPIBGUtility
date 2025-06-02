@@ -21,10 +21,12 @@ class LatexConfigurationClass():
     def __init__(self,Parent):
         self.Parent = Parent
         self.bobj = self.Parent.bobj
-        self.cfg = self.bobj.cfg.config
+        self.gcfg = self.bobj.cfg.config
         self.log = self.bobj.log
+        # So we can pass a diffenrent item conf when parent does not own just one
         self.itemcfg = Parent.itemcfg 
-        self.LatexFileImage = LatexMultiImageWriter(self.Parent)
+        self.cfg = Parent.itemcfg .config
+        
 
     def setTypeText(self,Text):
         self.type_text.setTypeText(Text)
@@ -41,60 +43,9 @@ class LatexConfigurationClass():
         control.setMaximumHeight(H)
         control.setMaximumWidth(W)
 
-    def filesChangedArray(self,path):
-        self.name_text.setText(os.path.splitext(os.path.basename(path))[0])
-        self.images_dir.setText(os.path.dirname(path))
-        self.imageList.append(path)
-        self.updateImageGroup()
-
-        
-    def updatePlot(self):
-        if(self.fignum != 0):
-            plt.close("all")
-        self.fignum += 1
-        self.fig = plt.figure(self.fignum)
-        self.ax = self.fig.gca()
-        if self.hasPlot == True:
-            for oob in self.objArry:
-                cmd_lst = oob.key.split('_')
-                matches = ["plt","ax","fig"]
-                class_major = None
-                if any(x in cmd_lst[0] for x in matches):
-                    match(cmd_lst[0]):
-                        case "ax":
-                            class_major = self.ax
-                        case "plt":
-                            class_major = plt
-                        case "fig":
-                            class_major = self.fig
-                    if type(oob) == CfgBool:
-                        print(cmd_lst)
-                        funct = getattr(class_major,cmd_lst[1])
-                        funct(oob.cfg[oob.key])
-                    if type(oob) == CfgCmd:
-                        cmd_lst = oob.key.split('_')
-                        print(cmd_lst)
-                        funct = getattr(class_major,oob.value)
-                        funct(self.npdata[0,:],self.npdata[1,:])
-                    if type(oob) == CfgString:
-                        cmd_lst = oob.key.split('_')
-                        print(cmd_lst)
-                        funct = getattr(class_major,cmd_lst[1])
-                        funct(oob.cfg[oob.key])
-            plt.savefig("img.png")
-            self.pixmap = QPixmap().load("img.png")
-            self.setImgGroup(self.Parent.tab_layout)
-            os.remove("img.png")
-
-   
-
-   
-    
-    def filesChanged(self,path):
-        #self.images_name_text.setText(os.path.splitext(os.path.basename(path))[0])
-        self.images_name_text.setText(os.path.basename(path))
-        self.name_text.setText(os.path.splitext(os.path.basename(path))[0])
-    
+    def itemChanged(self,key,val):
+        return   
+ 
     def SaveConfigurationFile(self):
         self.itemcfg.updateCfg()
         self.LatexFileImage.Create(self.bobj,self.itemcfg.config.name_text)
@@ -198,6 +149,7 @@ class LatexConfigurationClass():
 
     def DoArray(self):
         pass
+
     def doList(self,cfg,k,v):
         print("tuple",k,len(v))
         if "images_name_array" in k:

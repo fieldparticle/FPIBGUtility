@@ -1,10 +1,8 @@
-from PyQt6.QtCore import Qt,QByteArray
-from PyQt6.QtWidgets import QWidget,QScrollArea,QVBoxLayout,QTabWidget
-from PyQt6.QtGui import QPixmap,QImage
+from PyQt6.QtCore import Qt
+from PyQt6.QtGui import QPixmap
 from CfgLabel import *
 from LatexClass import *
 import pandas as pd
-import csv
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_qtagg import FigureCanvasAgg as FigureCanvas
 from matplotlib.backends.qt_compat import QtWidgets
@@ -21,37 +19,60 @@ class LatexSinglePlot(LatexConfigurationClass):
     ax = None
     pixmap = None
 
-    def __init__(self,Parent):
+    def __init__(self,Parent,itemCFG=None):
         super().__init__(Parent)
-        self.Parent = Parent
-        self.bobj = self.Parent.bobj
-        self.cfg = self.bobj.cfg.config
-        self.log = self.bobj.log
-        self.itemcfg = Parent.itemcfg 
         self.LatexFileImage = LatexPlotWriter(self.Parent)
 
 
     def __exit__(self):
         plt.close("all")
   
+    def updatePlot(self):
+        if(self.fignum != 0):
+            plt.close("all")
+        self.fignum += 1
+        self.fig = plt.figure(self.fignum)
+        self.ax = self.fig.gca()
+        if self.hasPlot == True:
+            for oob in self.objArry:
+                cmd_lst = oob.key.split('_')
+                matches = ["plt","ax","fig"]
+                class_major = None
+                if any(x in cmd_lst[0] for x in matches):
+                    match(cmd_lst[0]):
+                        case "ax":
+                            class_major = self.ax
+                        case "plt":
+                            class_major = plt
+                        case "fig":
+                            class_major = self.fig
+                    if type(oob) == CfgBool:
+                        print(cmd_lst)
+                        funct = getattr(class_major,cmd_lst[1])
+                        funct(oob.cfg[oob.key])
+                    if type(oob) == CfgCmd:
+                        cmd_lst = oob.key.split('_')
+                        print(cmd_lst)
+                        funct = getattr(class_major,oob.value)
+                        funct(self.npdata[0,:],self.npdata[1,:])
+                    if type(oob) == CfgString:
+                        cmd_lst = oob.key.split('_')
+                        print(cmd_lst)
+                        funct = getattr(class_major,cmd_lst[1])
+                        funct(oob.cfg[oob.key])
+            plt.savefig("img.png")
+            self.pixmap = QPixmap().load("img.png")
+            self.setImgGroup(self.Parent.tab_layout)
+            os.remove("img.png")
 
+   
     def updatePlotData(self):
-        self.colcount = 0
-        self.linecount = 0
-        
-        try:
-            self.rows = []
-            with open(self.itemcfg.config.data_file, mode ='r')as file:
-                self.csvFile = csv.reader(file)
-                for lines in self.csvFile:
-                    if len(lines) != 0:
-                        rws = [float(ele) for ele in lines]
-                        self.rows.append(rws)
-        except BaseException as e:
-            print("Error with csv file:",e)
-            return
+        temp_ary = []
+        self.data = pd.read_csv(self.cfg.data_file,header=0)  
+        for ii in range(len(self.cfg.fields_array)):
+            temp_ary.append(self.data[self.cfg.fields_array[ii]].values)
+        self.npdata = np.array(temp_ary)  
         self.hasPlot = True
-        self.npdata = np.array(self.rows)
         self.updatePlot()
             
 

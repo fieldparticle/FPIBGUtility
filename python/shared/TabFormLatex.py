@@ -2,25 +2,19 @@ import sys
 from PyQt6.QtWidgets import QFileDialog, QGroupBox,QMessageBox
 from PyQt6.QtWidgets import QGridLayout, QTabWidget, QLineEdit,QListWidget
 from PyQt6.QtWidgets import QPushButton, QGroupBox
-#from PyQt6.QtCore import pyqtSignal as Signal, pyqtSlot as Slot
 from PyQt6 import QtCore
-#from PyQt6.QtGui import QPixmap,QImage
-#rom PIL import Image,ImageFile
 from FPIBGclient import *
 from FPIBGServer import *
 from _thread import *
-#from PIL.ImageQt import ImageQt
-#import threading
-#from io import BytesIO
-#from pyqtLED import QtLed
 from FPIBGConfig import FPIBGConfig
-from FPIBGPlotDataEXP import *
 from LatexClass import *
 from CfgLabel import *
 from FPIBGException import *
 from LatexSingleImage import *
 from LatexMultiImage import *
 from LatexSinglePlot import *
+from LatexSinglePlotParticle import *
+from LatexSingleTable import *
 
 class TabFormLatex(QTabWidget):
     
@@ -29,7 +23,7 @@ class TabFormLatex(QTabWidget):
     texFileName = ""
     hasConfig = False
     itemcfg = FPIBGConfig("Latex Class")
-    startDir = "J:/MOD\FPIBGUtility/Latex"
+    startDir = "J:/MOD/FPIBGUtility/Latex"
     startDir = "J:/FPIBGJournalStaticV2/rpt"
     startDir = "J:/FPIBGJournalStaticV2/cfg"
 
@@ -83,10 +77,22 @@ class TabFormLatex(QTabWidget):
                 self.ltxObj.setImgGroup()
                 self.ListObj.setEnabled(False)
                 self.hasConfig = True
+                
             elif "image" in self.type:
                 self.ltxObj = LatexSingleImage(self)
                 self.ltxObj.setConfigGroup(self.tab_layout)
                 self.ltxObj.setImgGroup(self.tab_layout)
+                self.ltxObj.OpenLatxCFG()
+                self.hasConfig = True
+            elif "singletable" in self.type:
+                self.ltxObj = LatexSingleTable(self)
+                self.ltxObj.setConfigGroup(self.tab_layout)
+                self.ltxObj.setImgGroup(self.tab_layout)
+                self.ltxObj.OpenLatxCFG()
+                self.hasConfig = True
+            elif "singleplotparticle" in self.type:
+                self.ltxObj = LatexSinglePlotParicle(self)
+                self.ltxObj.setConfigGroup(self.tab_layout)
                 self.ltxObj.OpenLatxCFG()
                 self.hasConfig = True
             elif "singleplot" in self.type:

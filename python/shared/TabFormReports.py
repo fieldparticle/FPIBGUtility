@@ -10,7 +10,14 @@ from PyQt6.QtWidgets import (
 from PyQt6.QtCore import Qt
 from PyQt6.QtGui import QPixmap
 from FPIBGData import *
-from TableModel import *
+from LatexClass import *
+from CfgLabel import *
+from FPIBGException import *
+from LatexSingleImage import *
+from LatexMultiImage import *
+from LatexSinglePlot import *
+from LatexSingleTable import *
+
 
 class TabReports(QTabWidget):
 
@@ -40,7 +47,7 @@ class TabReports(QTabWidget):
     def updateData(self):
         self.plotData.Update("PQB")
         self.fpsvn_image.setPixmap(self.plotData.plot_PQBfpsvn(0))
-        self.PQBfpsvnltx = LatexPlot("LatexClass")
+        self.PQBfpsvnltx = LatexSinglePlot(self)
         self.PQBfpsvnltx.Create(self.bobj,"PQBfpsvn")
         self.PQBfpsvnltx.outDirectory = self.cfg.py_plots_dir
         self.PQBfpsvnltx.ltxDirectory = self.cfg.latex_plots_dir
@@ -48,7 +55,7 @@ class TabReports(QTabWidget):
         self.fpsvn_text_edit.setText(caption)
 
         self.spfvn_image.setPixmap(self.plotData.plot_PQBspfvn(7))
-        self.PQBspfvnltx = LatexPlot("LatexClass")
+        self.PQBspfvnltx = LatexSinglePlot(self)
         self.PQBspfvnltx.Create(self.bobj,"PQBspfvn")
         self.PQBspfvnltx.outDirectory = self.cfg.py_plots_dir
         self.PQBspfvnltx.ltxDirectory = self.cfg.latex_plots_dir
@@ -56,7 +63,7 @@ class TabReports(QTabWidget):
         self.spfvn_text_edit.setText(caption)
 
         self.lintot_image.setPixmap(self.plotData.plot_PQBlintot(7))
-        self.PQBlinTotltx = LatexPlot("LatexClass")
+        self.PQBlinTotltx = LatexSinglePlot(self)
         self.PQBlinTotltx.Create(self.bobj,"PQBLinTot")
         self.PQBlinTotltx.outDirectory = self.cfg.py_plots_dir
         self.PQBlinTotltx.ltxDirectory = self.cfg.latex_plots_dir
@@ -67,7 +74,7 @@ class TabReports(QTabWidget):
         header = self.plotData.query()
         latexFile = ["fps", "cpums", "cms", "gms", "loadedp"]
         tdata = self.plotData.return_table(latexFile)
-        self.PQBTablePerfAll = PandasModel(self.bobj,tdata)
+        self.PQBTablePerfAll = LatexSingleTable(self)
         self.PQBTablePerfAll.Latex.outDirectory = self.cfg.py_plots_dir
         self.PQBTablePerfAll.Latex.ltxDirectory = self.cfg.latex_tables_dir
         self.table001_image.setModel(self.PQBTablePerfAll)
@@ -77,7 +84,7 @@ class TabReports(QTabWidget):
 
         self.plotData.Update("PCD")
         self.PCDspfvside_image.setPixmap(self.plotData.plot_PCDspfvside())
-        self.PCDspfvside = LatexPlot("LatexClass")
+        self.PCDspfvside = LatexSinglePlot(self)
         self.PCDspfvside.Create(self.bobj,"PCDspfvside")
         self.PCDspfvside.outDirectory = self.cfg.py_plots_dir
         self.PCDspfvside.ltxDirectory = self.cfg.latex_plots_dir

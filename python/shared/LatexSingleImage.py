@@ -14,11 +14,7 @@ class LatexSingleImage(LatexConfigurationClass):
 
 
     def __init__(self,Parent):
-        self.Parent = Parent
-        self.bobj = self.Parent.bobj
-        self.cfg = self.bobj.cfg.config
-        self.log = self.bobj.log
-        self.itemcfg = Parent.itemcfg 
+        super().__init__(Parent)
         self.LatexFileImage = LatexImageWriter(self.Parent)
 
    

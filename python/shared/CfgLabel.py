@@ -6,8 +6,6 @@ from PyQt6.QtWidgets import QPushButton,QLabel, QGroupBox, QTextEdit, QRadioButt
 from PyQt6 import QtCore
 from PyQt6.QtGui import QImage,QFontMetrics,QFont
 from _thread import *
-from PIL.ImageQt import ImageQt
-from pyqtLED import QtLed
 import math
 #############################################################################################
 # 						class CfgImageArray():
