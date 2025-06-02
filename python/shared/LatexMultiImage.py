@@ -7,9 +7,6 @@ from LatexConfigurationClass import *
 
 class LatexMultiImage(LatexConfigurationClass):
 
-
-    LatexFileImage = LatexMultiImageWriter("LatexClass")
-
     def __init__(self,Parent):
         self.Parent = Parent
         self.bobj = self.Parent.bobj
@@ -17,5 +14,42 @@ class LatexMultiImage(LatexConfigurationClass):
         self.log = self.bobj.log
         self.itemcfg = Parent.itemcfg
         self.tab_layout =  Parent.tab_layout
+        self.LatexFileImage = LatexMultiImageWriter(Parent)
+
+    def setImgGroup(self):
+        
+        # -------------------------------------------------------------
+        ## Image Interface
+        for ii in self.itemcfg.config.images_name_array:
+            self.imageList.append(ii)
+            self.name_text.setText(os.path.splitext(os.path.basename(ii))[0])
+            self.images_dir.setText(os.path.dirname(ii))
+
+        self.itemcfg.config.images_name_array
+        #self.imgmgrp = QGroupBox("Image Interface")
+        #self.setSize(self.imgmgrp,100,100)
+        #self.tab_layout.addWidget(self.imgmgrp,0,4,2,2)
+        self.imageGroupLayout = QGridLayout()
+        self.Parent.imgmgrp.setLayout(self.imageGroupLayout)
+        self.updateImageGroup()
+        return self.Parent.imgmgrp
+    
+
+    def updateImageGroup(self):
+        row = 0
+        col = 0
+        self.setSize(self.Parent.imgmgrp,500,500)
+        self.clearLayout(self.imageGroupLayout)
+        
+        for ii in self.imageList:
+            image = QLabel()
+            image.setStyleSheet("background-color:  #ffffff")
+            pixmap = QPixmap(ii)
+            pix = pixmap.scaled(250,250)
+            self.setSize(image,250,250) 
+            image.setPixmap(pix)
+            self.imageGroupLayout.addWidget(image,row,col,alignment= Qt.AlignmentFlag.AlignTop | Qt.AlignmentFlag.AlignLeft)
+            col +=1
+        
 
    

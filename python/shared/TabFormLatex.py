@@ -31,6 +31,7 @@ class TabFormLatex(QTabWidget):
     itemcfg = FPIBGConfig("Latex Class")
     startDir = "J:/MOD\FPIBGUtility/Latex"
     startDir = "J:/FPIBGJournalStaticV2/rpt"
+    startDir = "J:/FPIBGJournalStaticV2/cfg"
 
     ObjName = ""
     ltxObj = None
@@ -70,6 +71,9 @@ class TabFormLatex(QTabWidget):
             self.itemcfg = FPIBGConfig(self.CfgFile)
             self.itemcfg.Create(self.bobj.log,self.CfgFile)
             self.type = self.itemcfg.config.type_text 
+            self.imgmgrp = QGroupBox("Image Interface")
+            self.setSize(self.imgmgrp,20,20)
+            self.tab_layout.addWidget(self.imgmgrp,0,3,2,2)
             if self.hasConfig == True:
                 self.ltxObj.clearConfigGrp()
             if "multiimage" in self.type:

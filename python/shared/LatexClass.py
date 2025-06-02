@@ -11,70 +11,31 @@ class LatexClass:
 
     ##  Constructor for the LatexClass object.
     # @param   ObjName --  (string) Saves the name of the object.
-    def __init__(self):
-        self.caption = ""
-        self.name = ""
-        self.width = 0
-        self.height = 0
-        self.title = ""
-        self.scale = 0
-        self.fontSize = 8
-        self.float = False
-        self.placement = "h"
-        self.arrayStretch = 1.60
-        self.outDirectory = ""
-        self.ltxDirectory = ""
+    def __init__(self,Parent):
+        self.Parent = Parent
+        self.bobj = self.Parent.bobj
+        self.cfg = self.bobj.cfg.config
+        self.log = self.bobj.log
         self.cleanPRE = True
-        self.caption = ""
 
-    def setPlacment(self,pl):
-        self.placement = pl
+    def setCleanPre(self, flg):
+        self.cleanPRE = flg
 
-    def setFontSize(self,fsz):
-        self.fontSize = fsz
-
-    def setArrayStretch(self,st):
-        self.arrayStretch = st
-
-    def saveCaption(self,Text):
-        if not os.path.exists(self.outDirectory):
-            os.makedirs(self.outDirectory)
-        capname = self.outDirectory + "/" + self.name + ".cap"     
-        f = open(capname, "w")
-        f.write(Text)
-
-    def readCapFile(self):
-        
-        capname = self.outDirectory + "/" + self.name + ".cap"     
-        if os.path.exists(capname):
-            f = open(capname, "r")
-            buf= f.read()    
-            f.close()
-            return buf
-        else:
-            # Commented this out to prevent errors trying to open a file that doesn't exist
-            # f = open(capname, "w")
-            # f.write("No caption")
-            # f.close()            
-            return "No Caption"
-        
-    
     def WritePre(self,pre_name):
-        if not os.path.exists(self.outDirectory):
-            os.makedirs(self.outDirectory)
-        preoutname = self.outDirectory + "/" + pre_name +".tex"
+        cfg = self.Parent.itemcfg.config
+        preoutname = cfg.tex_dir + "/" + pre_name +".tex"
         if self.cleanPRE == True:
             p = open(preoutname, "w")
         else:
             p = open(preoutname, "a")
         w = "%%============================================= Plot %s\r"%(self.name)
         p.write(w)
-        w = "Fig. \\ref{fig:%s}\r"%(self.name)
+        w = "Fig. \\ref{fig:%s}\r"%(cfg.name_text)
         p.write(w)
-        if len(self.ltxDirectory) == 0:
-            loutname = self.name + ".tex"
+        if len(cfg.tex_dir) == 0:
+            loutname = cfg.name_text + ".tex"
         else:
-            loutname = self.ltxDirectory + "/" + self.name + ".tex"
+            loutname =  cfg.tex_dir + "/" + cfg.name_text + ".tex"
         w = "\\input{%s}\r"%(loutname)
         p.write(w)
         p.close()    
@@ -96,17 +57,6 @@ class LatexTableWriter(LatexClass):
     header_arry = []
     
 
-    def Create(self,rows,cols,fileName):
-        self.name = fileName
-       
-        # Assign this objects debug level
-        self.dlvl = 10000
-        self.table_array  = [[0 for x in range(cols)] for y in range(rows)] 
-        self.rows = rows
-        self.cols = cols
-        self.name = fileName
-        self.setLatexData()
-        
     
     def setLatexHeaderArray(self, header):
         self.header_arry = header
@@ -201,10 +151,9 @@ class LatexPlotWriter(LatexClass):
 
    ##  Constructor for the LatexClass object.
     # @param   ObjName --  (string) Saves the name of the object.
-    def __init__(self,ObjName):
+    def __init__(self,Parent):
         ## ObjName contains the name of this object.
-        self.ObjName = ObjName
-        super().__init__()
+        super().__init__(Parent)
         self.caption = ""
         self.name = ""
         self.width = 0
@@ -215,19 +164,11 @@ class LatexPlotWriter(LatexClass):
         self.float = False
         self.placement = "h"
 
-    def Create(self,BaseObj,Name):
-     
-        self.name = Name
-         ## bobj contains the global object.
-        self.bobj = BaseObj
-        self.cfg = self.bobj.cfg.config
-        self.log = self.bobj.log
-        # Assign this objects debug level
-        self.dlvl = 10000
+   
       
  
-    def Write(self,cfg,Plot):
-
+    def Write(self):
+        cfg = self.Parent.itemcfg.config    
         outname = cfg.tex_dir + "/" + cfg.name_text + ".png"
         plt.savefig(outname)
         loutname = cfg.tex_dir + "/" + cfg.name_text + ".tex"
@@ -259,10 +200,9 @@ class LatexImageWriter(LatexClass):
 
    ##  Constructor for the LatexClass object.
     # @param   ObjName --  (string) Saves the name of the object.
-    def __init__(self,ObjName):
+    def __init__(self,Parent):
         ## ObjName contains the name of this object.
-        self.ObjName = ObjName
-        super().__init__()
+        super().__init__(Parent)
         self.caption = ""
         self.name = ""
         self.width = 0
@@ -273,33 +213,20 @@ class LatexImageWriter(LatexClass):
         self.float = False
         self.placement = "h"
         self.type = ""
-
-    def Create(self,BaseObj,Name):
-     
-        self.name = Name
-         ## bobj contains the global object.
-        self.bobj = BaseObj
-        self.cfg = self.bobj.cfg.config
-        self.log = self.bobj.log
-        # Assign this objects debug level
-        self.dlvl = 10000
-      
+    
  
-    def Write(self,cfg):
-        self.saveCaption(self.caption)
-        if not os.path.exists(self.outDirectory):
-            os.makedirs(self.outDirectory)
-        outname = self.outDirectory + "/" + cfg.name_text + ".png"
-        loutname = self.outDirectory + "/" + cfg.name_text + ".tex"
+    def Write(self):
+        cfg = self.Parent.itemcfg.config
+        loutname = cfg.tex_dir + "/" + cfg.name_text + ".tex"
         f = open(loutname, "w")
-        w = "\\begin{figure*}[" + self.placement + "]\r"
+        w = "\\begin{figure*}[" + cfg.placement_text + "]\r"
         f.write(w)
         w = "\\centering\r"
         f.write(w)
-        if len(self.ltxDirectory) == 0:
-            loutname = cfg.images_name_text 
+        if len(cfg.tex_dir) == 0:
+            loutname = cfg.name_text 
         else:
-            loutname = self.ltxDirectory + "/" + cfg.images_name_text
+            loutname = cfg.tex_dir + "/" + cfg.name_text
         w = "\\includegraphics[width=%0.2fin]{%s}\r"%(8.5*float(cfg.scale_text),loutname)
         f.write(w)
         w = "\\captionof{figure}[%s]{\\textit{%s}}\r"%(cfg.title_text,cfg.caption_box)
@@ -324,41 +251,14 @@ class LatexMultiImageWriter(LatexClass):
     
    ##  Constructor for the LatexClass object.
     # @param   ObjName --  (string) Saves the name of the object.
-    def __init__(self,ObjName):
+    def __init__(self,Parent):
         ## ObjName contains the name of this object.
-        self.ObjName = ObjName
-        super().__init__()
-        self.caption = ""
-        self.name = ""
-        self.width = 0
-        self.height = 0
-        self.title = ""
-        self.scale = 0
-        self.fontSize = 8
-        self.float = False
-        self.placement = "h"
-        self.type = ""
+        super().__init__(Parent)
         self.images = []
-        
-
-    def Create(self,BaseObj,Name):
-        self.name = Name
-         ## bobj contains the global object.
-        self.bobj = BaseObj
-        self.cfg = self.bobj.cfg.config
-        self.log = self.bobj.log
-        # Assign this objects debug level
-        self.dlvl = 10000
-
-    def Update(self,cfg):
-        pass
-
  
-    def Write(self,cfg):
-        self.outDirectory = cfg.tex_dir
-        if not os.path.exists(self.outDirectory):
-            os.makedirs(self.outDirectory)
-        outfile = self.outDirectory + "/" + cfg.name_text + ".tex"
+    def Write(self):
+        cfg = self.Parent.itemcfg.config
+        outfile = cfg.tex_dir + "/" + cfg.name_text + ".tex"
         try:
             f = open(outfile, "w")
         except IOError as e:
