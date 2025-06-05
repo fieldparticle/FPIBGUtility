@@ -17,13 +17,11 @@ class LatexMultiImage(LatexConfigurationClass):
         ## Image Interface
         for ii in self.itemcfg.config.images_name_array:
             self.imageList.append(ii)
-            self.name_text.setText(os.path.splitext(os.path.basename(ii))[0])
+            if self.name_text == "" : 
+                self.name_text.setText(os.path.splitext(os.path.basename(ii))[0])
             self.images_dir.setText(os.path.dirname(ii))
 
         self.itemcfg.config.images_name_array
-        #self.imgmgrp = QGroupBox("Image Interface")
-        #self.setSize(self.imgmgrp,100,100)
-        #self.tab_layout.addWidget(self.imgmgrp,0,4,2,2)
         self.imageGroupLayout = QGridLayout()
         self.Parent.imgmgrp.setLayout(self.imageGroupLayout)
         self.updateImageGroup()

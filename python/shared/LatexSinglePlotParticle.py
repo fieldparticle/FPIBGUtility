@@ -4,6 +4,7 @@ from PyQt6.QtWidgets import QFileDialog, QGroupBox,QMessageBox,QDialog
 from CfgLabel import *
 from LatexClass import *
 import pandas as pd
+import cycler
 import csv
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_qtagg import FigureCanvasAgg as FigureCanvas
@@ -11,7 +12,7 @@ from matplotlib.backends.qt_compat import QtWidgets
 import numpy as np
 from LatexConfigurationClass import *
 from LatexSinglePlot import * 
-
+from FPIBGConfig import *
 class LatexSinglePlotParicle(LatexSinglePlot):
     fignum = 0
     
@@ -41,10 +42,11 @@ class LatexSinglePlotParicle(LatexSinglePlot):
         self.fignum += 1
         self.fig = plt.figure(self.fignum)
         self.ax = self.fig.gca()
+        
         if self.hasPlot == True:
             for oob in self.objArry:
                 cmd_lst = oob.key.split('_')
-                matches = ["plt","ax","fig"]
+                matches = ["plt","ax","fig","command"]
                 class_major = None
                 if any(x in cmd_lst[0] for x in matches):
                     match(cmd_lst[0]):
@@ -54,15 +56,19 @@ class LatexSinglePlotParicle(LatexSinglePlot):
                             class_major = plt
                         case "fig":
                             class_major = self.fig
+                    if type(oob) == CfgDict:
+                        self.doDictionary(oob,class_major)
                     if type(oob) == CfgBool:
                         print(cmd_lst)
                         funct = getattr(class_major,cmd_lst[1])
                         funct(oob.cfg[oob.key])
                     if type(oob) == CfgCmd:
-                        cmd_lst = oob.key.split('_')
-                        print(cmd_lst)
-                        funct = getattr(class_major,oob.value)
-                        funct(self.npdata[0,:],self.npdata[1,:])
+                        if("plot" or "scatter" or "bar" in oob.key):
+                            cmd_lst = oob.key.split('_')
+                            print(cmd_lst)
+                            funct = getattr(class_major,oob.value)
+                            for ii in range(len(self.cfg.fields_array)-1):
+                                self.line = funct(self.onpdata[0,:],self.onpdata[ii+1,:])
                     if type(oob) == CfgString:
                         cmd_lst = oob.key.split('_')
                         print(cmd_lst)
@@ -74,6 +80,46 @@ class LatexSinglePlotParicle(LatexSinglePlot):
             os.remove("img.png")
 
    
+    def doDictionary(self,oob,class_major):
+        dict = oob
+        for k,v in oob.dict.items():
+            if "prop_cycle" in k:
+                try : 
+                    colors = list(v.split(","))
+                    
+                    color_cycle = cycler.cycler(color=colors)
+                    self.ax.set_prop_cycle(color_cycle)
+                    continue
+                except BaseException as e:
+                    print(e)
+                    continue
+            if("*" in k):
+                cmd = k.replace('*',".")
+            else:
+                cmd = k
+            try :
+                if self.isfloat(v) == True:
+                    plt.rcParams[cmd]= float(v)
+                elif self.isInt(v) == True:
+                    plt.rcParams[cmd] = int(v)
+                else:
+                    plt.rcParams[cmd] = str(v)
+            except BaseException as e:
+                print(e)
+                continue
+        
+    def isfloat(self,value):
+        try:
+            return isinstance(float(value), float) and '.' in value
+        except ValueError:
+            return False
+   
+    def isInt(self,val):
+        if val.isdigit():
+            return True
+        else:
+            return False
+
     def updatePlotData(self):
         self.Open()
         self.check_data_files()
@@ -81,11 +127,23 @@ class LatexSinglePlotParicle(LatexSinglePlot):
         temp_ary = []
         self.data = pd.read_csv(self.sumFile,header=0)  
         for ii in range(len(self.cfg.fields_array)):
-            temp_ary.append(self.data[self.cfg.fields_array[ii]].values)
+            if ("+" or "-" or "/" or "*") in self.cfg.fields_array[ii]:
+                opplt = self.cfg.fields_array[ii].split("+" or "-" or "/" or "*")
+                if "+" in self.cfg.fields_array[ii]:
+                    list_val = self.data[opplt[0]] + self.data[opplt[1]]
+                elif "-" in self.cfg.fields_array[ii]:
+                    list_val = self.data[opplt[0]] - self.data[opplt[1]]
+                elif "*" in self.cfg.fields_array[ii]:
+                    list_val= self.data[opplt[0]] * self.data[opplt[1]]
+                elif "/" in self.cfg.fields_array[ii]:
+                    list_val = self.data[opplt[0]] / self.data[opplt[1]]
+                temp_ary.append(list_val)
+            else:
+                temp_ary.append(self.data[self.cfg.fields_array[ii]].values)
         self.onpdata = np.array(temp_ary) 
         
         #for ii in range(len(self.cfg.fields_array)):
-        self.npdata = self.onpdata[:2,7:20]
+        #self.npdata = self.onpdata[:2,7:20]
          
         self.hasPlot = True
         self.updatePlot()
@@ -121,20 +179,12 @@ class LatexSinglePlotParicle(LatexSinglePlot):
           
     
     def Open(self):
-        match(self.cfg.dataType_text):
-            case "PQB":
-                self.topdir = self.cfg.data_dir + "/perfdataPQB"
-                self.sumFile = self.topdir + "/perfdataPQB.csv"
-            case "PCD":
-                self.topdir = self.cfg.data_dir + "/perfdataPCD"
-                self.sumFile = self.topdir + "/perfdataPCD.csv"
-            case "DUP":
-                self.topdir = self.cfg.data_dir + "/perfdataDUP"
-                self.sumFile = self.topdir + "/perfdataDUP.csv"
-            case "CFB":
-                self.topdir = self.cfg.data_dir + "/perfdataCFB"
-                self.sumFile = self.topdir + "/perfdataCFB.csv"
-    
+        if ("PQB" or "PCD" or "CFB") in self.cfg.dataType_text:
+            self.topdir = self.cfg.data_dir + "/perfdata" + self.cfg.dataType_text
+            self.sumFile = self.topdir + "/perfdata" + self.cfg.dataType_text + ".csv"
+        else:
+            print("Unrecognized Data Type")
+            
     # Returns true if number of .tst files equal to number of R or D files
     def check_data_files(self) -> bool:
         if(os.path.exists(self.sumFile) == False):

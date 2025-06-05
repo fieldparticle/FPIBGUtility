@@ -1,4 +1,4 @@
-from PyQt6.QtCore import Qt
+from PyQt6.QtCore import Qt,QAbstractTableModel
 from PyQt6.QtWidgets import QTableView
 from CfgLabel import *
 from LatexClass import *
@@ -54,7 +54,7 @@ class LatexSingleTable(LatexConfigurationClass):
         self.setSize(self.image,700,650) 
         return self.Parent.imgmgrp
 
-class SingleTableWidget(QtCore.QAbstractTableModel):
+class SingleTableWidget(QAbstractTableModel):
     
     def __init__(self, data):
         super().__init__()

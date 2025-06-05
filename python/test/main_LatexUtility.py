@@ -19,12 +19,15 @@ from PyQt6.QtWidgets import QApplication, QWidget,  QFormLayout, QGridLayout, QT
 from PyQt6.QtCore import Qt
 from FPIBGLatexWin import *
 from FPIBGBase import *
+import matplotlib
 ## Create a base class.
 bc = FPIBGBase("FPIBGFrontEnd")
 print("Hello World\n", file=sys.stdout)
 bc.Create("ParticleJB.cfg",'FPIBGJB.log')
 
 if __name__ == '__main__':
+    f = matplotlib.matplotlib_fname()
+    print(f)
     app = QApplication(sys.argv)
     screens = app.screens()
     window = FPIBGLatexWin(bc,"FPIBGMainWin")

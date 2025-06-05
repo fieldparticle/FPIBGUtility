@@ -266,6 +266,8 @@ class LatexMultiImageWriter(LatexClass):
                 f.write(w)
             w = "\\captionof{figure}[TITLE:" + cfg.title_text + "]{\\textit{" + cfg.caption_box + "}}\n"
             f.write(w)
+            w = "\t\t\\label{fig:" + cfg.name_text + "}\n"
+            f.write(w)
             w = "\\end{figure*}\n"
             f.write(w)
         except IOError as e:

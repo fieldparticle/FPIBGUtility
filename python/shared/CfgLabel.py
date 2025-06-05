@@ -1,12 +1,218 @@
 import sys
 import os
-from PyQt6.QtCore import Qt
-from PyQt6.QtWidgets import QGridLayout, QLineEdit,QListWidget,QComboBox,QInputDialog,QMessageBox
-from PyQt6.QtWidgets import QPushButton,QLabel, QGroupBox, QTextEdit, QRadioButton,QFileDialog
-from PyQt6 import QtCore
+from PyQt6.QtCore import Qt,pyqtSignal, pyqtSlot,QObject
+from PyQt6.QtWidgets import QGridLayout, QLineEdit,QListWidget,QComboBox,QInputDialog,QMessageBox,QWidget
+from PyQt6.QtWidgets import QPushButton,QLabel, QGroupBox, QTextEdit, QRadioButton,QFileDialog,QDialog
 from PyQt6.QtGui import QImage,QFontMetrics,QFont
-from _thread import *
+from threading import Thread
 import math
+
+class KeyValDialog(QDialog):
+	key_data = ""
+	value_datq = ""
+	key = ""
+	value = ""
+
+	def __init__(self,key,value):
+		super().__init__()
+		self.key = key
+		self.value = value
+		self.setWindowTitle('Data Passing Dialog')
+		self.setGeometry(100, 100, 300, 150)
+
+		layout = QGridLayout()
+
+		self.key_label = QLabel('Key:')
+		layout.addWidget(self.key_label,0,0)
+
+		self.key_edit = QLineEdit()
+		self.key_edit.setText(self.key)
+		layout.addWidget(self.key_edit,0,1)
+
+		self.value_label = QLabel('Value:')
+		
+		layout.addWidget(self.value_label,1,0)
+
+		self.value_edit = QLineEdit()
+		self.value_edit.setText(self.value)
+		layout.addWidget(self.value_edit,1,1)
+
+		self.submit_button = QPushButton('Submit')
+		self.submit_button.clicked.connect(self.submit_data)
+		layout.addWidget(self.submit_button)
+
+		self.setLayout(layout)
+
+	
+	
+	def submit_data(self):
+		self.key_data = self.key_edit.text()
+		self.val_data = self.value_edit.text()
+		self.accept()
+
+#############################################################################################
+# 						class CfgDict():
+#############################################################################################
+class CfgDict():
+
+	dict = {}
+	def __init__(self, key,value):
+		self.key = key
+		self.value = value
+  	
+	def setSize(self,control,H,W):
+		control.setMinimumHeight(H)
+		control.setMinimumWidth(W)
+		control.setMaximumHeight(H)
+		control.setMaximumWidth(W)
+
+	def updateCFGData(self):
+		pass
+		#items = [self.ListObj.item(x).text() for x in range(self.ListObj.count())]
+		#self.cfg[self.key] = items
+
+
+	def moveItem(self):
+		currentRow = self.ListObj.currentRow()
+		currentItem = self.ListObj.takeItem(currentRow)
+		self.ListObj.insertItem(currentRow - 1, currentItem)
+	
+	def getListItemText(self):
+		selected_items = self.ListObj.selectedItems()
+		if selected_items:
+			print(f"returning {selected_items[0].text()}\n")
+			return selected_items[0].text()
+
+	def RemoveItem(self):
+		selected_items = self.ListObj.currentRow()
+		if selected_items < 0:
+			return
+		self.ListObj.takeItem(selected_items)
+	
+	
+	def AddItem(self):
+		dialog = KeyValDialog()
+		dialog.data_submitted.connect(self.handle_data)
+		dialog.exec()
+
+
+
+	def EditItem(self):
+		selected_items = self.ListObj.selectedItems()
+		if selected_items:
+			cmd_lst = selected_items[0].text().split("=")
+
+			dialog = KeyValDialog(cmd_lst[0],cmd_lst[1])
+			dialog.exec()
+			txt = f"{dialog.key_data}={dialog.val_data}"
+			print(txt)
+			self.dict[dialog.key_data] = dialog.val_data
+			selected_items = self.ListObj.selectedItems()
+			selected_items[0].setText(txt)
+
+		else:
+			QMessageBox.information(
+									None,
+									'Information',
+									'You need to select an item.',
+									QMessageBox.StandardButton.Ok
+								)
+	#@pyqtSlot(str,str)
+	#def handle_data(self,key_data,val_data):
+#		print(f'Key: {key_data} Val: {val_data}')
+		#self.dict[key_data] = val_data
+		#selected_items = self.ListObj.selectedItems()
+		#txt = f"{key_data}={val_data}"
+		#selected_items[0].setText(txt)
+
+	def Create(self,config,FPIBGConfig,parent):
+		self.cfg = config
+		self.base = FPIBGConfig
+		self.Parent = parent
+			
+		self.font = QFont("Times", 10)
+		self.font.setBold(False)
+
+		metrics = QFontMetrics(self.font)
+
+		self.paramgrp = QGroupBox("")
+		self.paramlo = QGridLayout()
+		self.paramgrp.setLayout(self.paramlo)
+		self.paramgrp.setStyleSheet('background-color: 111111;')
+		text = self.key + ":"
+		self.LabelObj = QLabel(text)
+		self.LabelObj.setFont(self.font)
+		self.lwidth = metrics.horizontalAdvance(text)
+		self.setSize(self.LabelObj,20,self.lwidth) 
+		self.paramlo.addWidget(self.LabelObj,0,0,alignment= Qt.AlignmentFlag.AlignVCenter | Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignAbsolute)
+
+		self.ListObj =  QListWidget()
+		self.ListObj.setFont(self.font)
+		self.ListObj.setStyleSheet("background-color:  #FFFFFF")
+		self.vcnt = 0
+
+		self.dict = self.value
+		for k,v in self.dict.items():
+			txt = f"{k}={v}"
+			self.ListObj.insertItem(self.vcnt,txt)
+			self.vcnt+=1
+			print(txt)
+
+		self.paramlo.addWidget(self.ListObj,0,1,alignment= Qt.AlignmentFlag.AlignLeft)
+		
+
+		self.dirButton = QPushButton("Add")
+		self.setSize(self.dirButton,30,100)
+		self.dirButton.setStyleSheet("background-color:  #dddddd")
+		self.dirButton.clicked.connect(self.AddItem)
+		self.paramlo.addWidget(self.dirButton)
+
+
+		self.delButton = QPushButton("Remove")
+		self.setSize(self.delButton,30,100)
+		self.delButton.setStyleSheet("background-color:  #dddddd")
+		self.delButton.clicked.connect(self.RemoveItem)
+		self.paramlo.addWidget(self.delButton)
+		
+
+		self.editButton = QPushButton("Edit")
+		self.setSize(self.editButton,30,100)
+		self.editButton.setStyleSheet("background-color:  #dddddd")
+		self.editButton.clicked.connect(self.EditItem)
+		self.paramlo.addWidget(self.editButton)
+		
+		self.upButton = QPushButton("Up")
+		self.setSize(self.upButton,30,100)
+		self.upButton.setStyleSheet("background-color:  #dddddd")
+		self.upButton.clicked.connect(self.moveItem)
+		self.paramlo.addWidget(self.upButton)
+		return self.paramgrp
+		
+	def getLayout(self):
+		return self.paramlo
+	
+	def getListObj(self):
+		return self.ListObj 
+
+	def valueChangeArray(self):
+		selected_items = self.ListObj.selectedItems()
+		if selected_items:
+			print("Value Changed",selected_items[0].text())
+			self.Parent.itemChanged(self.key,self.value)
+			
+			
+	def getHW(self):
+		H = self.vcnt*20
+		W = 300
+		return H,W
+
+	def setHW(self,H,W):
+		self.setSize(self.ListObj,H,W)
+		Hg = H+20
+		Wg = W+20+self.lwidth
+		self.setSize(self.paramgrp,Hg,Wg)
+		return Hg,Wg
+
 #############################################################################################
 # 						class CfgImageArray():
 #############################################################################################
@@ -138,7 +344,7 @@ class CfgImageArray():
 		Wg = W+20+self.lwidth
 		self.setSize(self.paramgrp,Hg,Wg)
 		return Hg,Wg
-		
+
 #############################################################################################
 # 						class CfgArray():
 #############################################################################################
@@ -292,7 +498,7 @@ class CfgArray():
 		Wg = W+20+self.lwidth
 		self.setSize(self.paramgrp,Hg,Wg)
 		return Hg,Wg
-		
+
 #############################################################################################
 # 						class CfgString():
 #############################################################################################
@@ -395,7 +601,7 @@ class CfgString():
 
 	def AddImageItemDir(self):
 		folder = QFileDialog.getOpenFileName(self.paramgrp, ("Open File"),
-                                       "J:\MOD\FPIBGUtility\Latex",
+                                       "J:/MOD/FPIBGUtility/Latex",
                                        ("Images (*.png)"))
 		
 		if folder[0]:

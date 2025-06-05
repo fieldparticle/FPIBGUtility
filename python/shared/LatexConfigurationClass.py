@@ -4,7 +4,7 @@ from PyQt6.QtWidgets import QWidget,QScrollArea,QVBoxLayout,QTabWidget,QFileDial
 from PyQt6.QtGui import QPixmap
 from CfgLabel import *
 from LatexClass import *
-
+from FPIBGConfig import *
 
 class LatexConfigurationClass():
     objArry = []
@@ -118,9 +118,16 @@ class LatexConfigurationClass():
         self.dictTab[self.tabCount].setWidgetResizable(True)
         self.cfgHeight = 0
         for k ,v in cfg.items():
+            if "command" in k:
+                print("Dictionary",k, "=" , type(v))
             if type(v) == list :
                 H,W =self.doList(cfg,k,v)
                 print("List",k,len(v))
+            elif type(v) == libconf.AttrDict:
+                widget = CfgDict(k,v)
+                self.layouts[self.lyCount].addWidget(widget.Create(cfg,self.itemcfg,self))
+                self.objArry.append(widget)    
+                self.cfgHeight += 70
             elif type(v) == str:
                 H,W = self.doString(cfg,k,v)
                 self.cfgHeight += H

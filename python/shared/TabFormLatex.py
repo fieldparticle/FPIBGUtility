@@ -109,7 +109,7 @@ class TabFormLatex(QTabWidget):
             else:
                 print("InvalidType")
                 return
-    
+            self.SaveButton.setEnabled(True)
     def browseNewItem(self):
         """ Opens a dialog window for the user to select a folder in the file system. """
         #folder = QFileDialog.getExistingDirectory(self, "Select Folder")
@@ -171,6 +171,7 @@ class TabFormLatex(QTabWidget):
         self.setSize(self.SaveButton,30,100)
         self.SaveButton.setStyleSheet("background-color:  #dddddd")
         self.SaveButton.clicked.connect(self.SaveConfigurationFile)
+        self.SaveButton.setEnabled(False)
         dirgrid.addWidget(self.SaveButton,2,0)
 
         self.newButton = QPushButton("New")
