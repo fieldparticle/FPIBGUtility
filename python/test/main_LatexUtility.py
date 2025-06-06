@@ -22,7 +22,7 @@ from FPIBGBase import *
 import matplotlib
 ## Create a base class.
 bc = FPIBGBase("FPIBGFrontEnd")
-print("Hello World\n", file=sys.stdout)
+#print("Hello World\n", file=sys.stdout)
 bc.Create("ParticleJB.cfg",'FPIBGJB.log')
 
 if __name__ == '__main__':

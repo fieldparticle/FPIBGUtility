@@ -482,14 +482,14 @@ def load(f, filename=None, includedir=''):
         >>> config.window.title
         'libconfig example'
     '''
-    print("TRead")
+    #print("TRead")
     if isinstance(f.read(0), bytes):
         raise TypeError("libconf.load() input file must by unicode")
-    print("Tokenize")
+    #print("Tokenize")
     tokenstream = TokenStream.from_file(f,
                                         filename=filename,
                                         includedir=includedir)
-    print("Tokenized")
+    #print("Tokenized")
     return Parser(tokenstream).parse()
 
 

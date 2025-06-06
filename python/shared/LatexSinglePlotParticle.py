@@ -13,6 +13,7 @@ import numpy as np
 from LatexConfigurationClass import *
 from LatexSinglePlot import * 
 from FPIBGConfig import *
+from AttrDictFields import *
 class LatexSinglePlotParicle(LatexSinglePlot):
     fignum = 0
     
@@ -29,8 +30,10 @@ class LatexSinglePlotParicle(LatexSinglePlot):
     data_files = []
     average_list = []
 
+
     def __init__(self,Parent):
         super().__init__(Parent)
+        self.Parent = Parent
         
 
     def __exit__(self):
@@ -59,19 +62,19 @@ class LatexSinglePlotParicle(LatexSinglePlot):
                     if type(oob) == CfgDict:
                         self.doDictionary(oob,class_major)
                     if type(oob) == CfgBool:
-                        print(cmd_lst)
+                        #print(cmd_lst)
                         funct = getattr(class_major,cmd_lst[1])
                         funct(oob.cfg[oob.key])
                     if type(oob) == CfgCmd:
                         if("plot" or "scatter" or "bar" in oob.key):
                             cmd_lst = oob.key.split('_')
-                            print(cmd_lst)
+                            #print(cmd_lst)
                             funct = getattr(class_major,oob.value)
                             for ii in range(len(self.cfg.fields_array)-1):
                                 self.line = funct(self.onpdata[0,:],self.onpdata[ii+1,:])
                     if type(oob) == CfgString:
                         cmd_lst = oob.key.split('_')
-                        print(cmd_lst)
+                        #print(cmd_lst)
                         funct = getattr(class_major,cmd_lst[1])
                         funct(oob.cfg[oob.key])
             plt.savefig("img.png")
@@ -79,31 +82,27 @@ class LatexSinglePlotParicle(LatexSinglePlot):
             self.setImgGroup(self.Parent.tab_layout)
             os.remove("img.png")
 
-   
+    # Decode plot rcParams to configure the plot
     def doDictionary(self,oob,class_major):
-        dict = oob
-        for k,v in oob.dict.items():
-            if "prop_cycle" in k:
+        for k,v in oob.dict.items():       
+            cmd_item = k
+            val_item = v
+            if "prop.prop_cycle" in cmd_item:
                 try : 
-                    colors = list(v.split(","))
-                    
+                    colors = list(val_item.split(","))
                     color_cycle = cycler.cycler(color=colors)
                     self.ax.set_prop_cycle(color_cycle)
                     continue
                 except BaseException as e:
                     print(e)
                     continue
-            if("*" in k):
-                cmd = k.replace('*',".")
-            else:
-                cmd = k
             try :
-                if self.isfloat(v) == True:
-                    plt.rcParams[cmd]= float(v)
-                elif self.isInt(v) == True:
-                    plt.rcParams[cmd] = int(v)
+                if self.isfloat(val_item) == True:
+                    plt.rcParams[cmd_item]= float(v)
+                elif self.isInt(val_item) == True:
+                    plt.rcParams[cmd_item] = int(v)
                 else:
-                    plt.rcParams[cmd] = str(v)
+                    plt.rcParams[cmd_item] = str(v)
             except BaseException as e:
                 print(e)
                 continue
@@ -121,30 +120,33 @@ class LatexSinglePlotParicle(LatexSinglePlot):
             return False
 
     def updatePlotData(self):
+        return
         self.Open()
         self.check_data_files()
         self.get_averages()
         temp_ary = []
+        # allocate a attribute dictionary
+        fld = AttrDictFields()
         self.data = pd.read_csv(self.sumFile,header=0)  
+       # For all items in the data set, reassign them to the attribute dict v
+        for name, df in self.data.items():
+            fld[name] = self.data[name]
+  
+        # Iterate the fields_array for headers of the data 
+        # and assign those arrays to a temporary list
         for ii in range(len(self.cfg.fields_array)):
-            if ("+" or "-" or "/" or "*") in self.cfg.fields_array[ii]:
-                opplt = self.cfg.fields_array[ii].split("+" or "-" or "/" or "*")
-                if "+" in self.cfg.fields_array[ii]:
-                    list_val = self.data[opplt[0]] + self.data[opplt[1]]
-                elif "-" in self.cfg.fields_array[ii]:
-                    list_val = self.data[opplt[0]] - self.data[opplt[1]]
-                elif "*" in self.cfg.fields_array[ii]:
-                    list_val= self.data[opplt[0]] * self.data[opplt[1]]
-                elif "/" in self.cfg.fields_array[ii]:
-                    list_val = self.data[opplt[0]] / self.data[opplt[1]]
-                temp_ary.append(list_val)
+            # If this is an equation perform an eval on it
+            if any(map(lambda char: char in self.cfg.fields_array[ii], "+-/*")):
+                # Here is why you cannot just rename the fields. It will be hard to rename everythin in the
+                field = eval(self.cfg.fields_array[ii])
+                temp_ary.append(field)
             else:
-                temp_ary.append(self.data[self.cfg.fields_array[ii]].values)
-        self.onpdata = np.array(temp_ary) 
+                # Else strip the fld. from the field and get the array at that column name
+                fldtxt = self.cfg.fields_array[ii].split('.')
+                temp_ary.append(self.data[fldtxt[1]])
+
+            self.onpdata = np.array(temp_ary)   
         
-        #for ii in range(len(self.cfg.fields_array)):
-        #self.npdata = self.onpdata[:2,7:20]
-         
         self.hasPlot = True
         self.updatePlot()
             
@@ -158,7 +160,7 @@ class LatexSinglePlotParicle(LatexSinglePlot):
         
 
     def OpenLatxCFG(self):
-        print(self.itemcfg)
+        #print(self.itemcfg)
         self.doItems(self.itemcfg.config)
         self.updatePlotData()
     

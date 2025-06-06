@@ -36,6 +36,9 @@ class FPIBGLatexWin(QWidget):
                         alignment=Qt.AlignmentFlag.AlignRight)
         self.quitBtn.clicked.connect(self.on_clicked)
         self.setLayout(main_layout)
+        self.orig_stdout = sys.stdout
+        #self.f = open('log.txt', 'w')
+        #sys.stdout = self.f
         self.show()
         
         
@@ -44,6 +47,8 @@ class FPIBGLatexWin(QWidget):
         event.accept()
 
     def __exit__(self):
+        #sys.stdout = self.orig_stdout
+        #self.f.close()
         plt.close("all")        
 
     def on_clicked(self) :

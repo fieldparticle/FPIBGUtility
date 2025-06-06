@@ -6,6 +6,7 @@ from PyQt6.QtWidgets import QPushButton,QLabel, QGroupBox, QTextEdit, QRadioButt
 from PyQt6.QtGui import QImage,QFontMetrics,QFont
 from threading import Thread
 import math
+from AttrDictFields import *
 
 class KeyValDialog(QDialog):
 	key_data = ""
@@ -56,6 +57,8 @@ class KeyValDialog(QDialog):
 class CfgDict():
 
 	dict = {}
+	currentListObj = None
+
 	def __init__(self, key,value):
 		self.key = key
 		self.value = value
@@ -73,22 +76,26 @@ class CfgDict():
 
 
 	def moveItem(self):
-		currentRow = self.ListObj.currentRow()
-		currentItem = self.ListObj.takeItem(currentRow)
-		self.ListObj.insertItem(currentRow - 1, currentItem)
+		currentRow = self.self.currentListObj.currentRow()
+		currentItem = self.self.currentListObj.takeItem(currentRow)
+		self.self.currentListObj.insertItem(currentRow - 1, currentItem)
 	
 	def getListItemText(self):
-		selected_items = self.ListObj.selectedItems()
+		selected_items = self.self.currentListObj.selectedItems()
 		if selected_items:
-			print(f"returning {selected_items[0].text()}\n")
+			#print(f"returning {selected_items[0].text()}\n")
 			return selected_items[0].text()
 
 	def RemoveItem(self):
-		selected_items = self.ListObj.currentRow()
+		selected_items = self.self.currentListObj.currentRow()
 		if selected_items < 0:
 			return
-		self.ListObj.takeItem(selected_items)
+		self.currentListObj.takeItem(selected_items)
 	
+	def Clicked(self):
+		self.currentListObj = self.Parent.sender()
+		self.currentIndex = self.currentListObj.currentRow()
+		print("Clicked by:",self.currentListObj)
 	
 	def AddItem(self):
 		dialog = KeyValDialog()
@@ -98,16 +105,15 @@ class CfgDict():
 
 
 	def EditItem(self):
-		selected_items = self.ListObj.selectedItems()
+		selected_items = self.currentListObj.selectedItems()
 		if selected_items:
 			cmd_lst = selected_items[0].text().split("=")
 
 			dialog = KeyValDialog(cmd_lst[0],cmd_lst[1])
 			dialog.exec()
 			txt = f"{dialog.key_data}={dialog.val_data}"
-			print(txt)
 			self.dict[dialog.key_data] = dialog.val_data
-			selected_items = self.ListObj.selectedItems()
+			selected_items = self.currentListObj.selectedItems()
 			selected_items[0].setText(txt)
 
 		else:
@@ -124,6 +130,8 @@ class CfgDict():
 		#selected_items = self.ListObj.selectedItems()
 		#txt = f"{key_data}={val_data}"
 		#selected_items[0].setText(txt)
+	def changedFocus(self):
+		print("Changed Focus")
 
 	def Create(self,config,FPIBGConfig,parent):
 		self.cfg = config
@@ -140,26 +148,36 @@ class CfgDict():
 		self.paramgrp.setLayout(self.paramlo)
 		self.paramgrp.setStyleSheet('background-color: 111111;')
 		text = self.key + ":"
-		self.LabelObj = QLabel(text)
-		self.LabelObj.setFont(self.font)
-		self.lwidth = metrics.horizontalAdvance(text)
-		self.setSize(self.LabelObj,20,self.lwidth) 
-		self.paramlo.addWidget(self.LabelObj,0,0,alignment= Qt.AlignmentFlag.AlignVCenter | Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignAbsolute)
+		#self.LabelObj = QLabel(text)
+		#self.LabelObj.setFont(self.font)
+		#self.lwidth = metrics.horizontalAdvance(text)
+		#self.setSize(self.LabelObj,20,self.lwidth) 
+		#self.paramlo.addWidget(self.LabelObj,0,0,alignment= Qt.AlignmentFlag.AlignVCenter | Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignAbsolute)
 
-		self.ListObj =  QListWidget()
-		self.ListObj.setFont(self.font)
-		self.ListObj.setStyleSheet("background-color:  #FFFFFF")
+		self.ListObj = []
 		self.vcnt = 0
-
-		self.dict = self.value
-		for k,v in self.dict.items():
-			txt = f"{k}={v}"
-			self.ListObj.insertItem(self.vcnt,txt)
+		row = 0
+		self.dict = AttrDictFields()
+		for k,v in self.value.items():
+			self.dict[k] = v
+			widget = None
+			widget = QListWidget()
+			self.ListObj.append(widget)
+			widget.setFont(self.font)
+			widget.setStyleSheet("background-color:  #FFFFFF")
+			widget.clicked.connect(self.Clicked)
+			for ii in range(len(v)):
+				widget.insertItem(self.vcnt,v[ii])
+			self.paramlo.addWidget(widget,row,1,alignment= Qt.AlignmentFlag.AlignLeft)
 			self.vcnt+=1
-			print(txt)
-
-		self.paramlo.addWidget(self.ListObj,0,1,alignment= Qt.AlignmentFlag.AlignLeft)
+			#print("Label:",k)
+			LabelObj = QLabel(k)
+			LabelObj.setFont(self.font)#all_lst = ii.split("=")
+			self.paramlo.addWidget(LabelObj,row,0,alignment= Qt.AlignmentFlag.AlignVCenter | Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignAbsolute)
+			row +=1
+		self.vcnt = 0
 		
+	
 
 		self.dirButton = QPushButton("Add")
 		self.setSize(self.dirButton,30,100)
@@ -192,12 +210,12 @@ class CfgDict():
 		return self.paramlo
 	
 	def getListObj(self):
-		return self.ListObj 
+		return self.currentListObj 
 
 	def valueChangeArray(self):
-		selected_items = self.ListObj.selectedItems()
+		selected_items = self.currentListObj.selectedItems()
 		if selected_items:
-			print("Value Changed",selected_items[0].text())
+			#print("Value Changed",selected_items[0].text())
 			self.Parent.itemChanged(self.key,self.value)
 			
 			
@@ -207,7 +225,7 @@ class CfgDict():
 		return H,W
 
 	def setHW(self,H,W):
-		self.setSize(self.ListObj,H,W)
+		self.setSize(self.currentListObj,H,W)
 		Hg = H+20
 		Wg = W+20+self.lwidth
 		self.setSize(self.paramgrp,Hg,Wg)
@@ -235,7 +253,7 @@ class CfgImageArray():
 	def getListItemText(self):
 		selected_items = self.ListObj.selectedItems()
 		if selected_items:
-			print(f"returning {selected_items[0].text()}\n")
+			#print(f"returning {selected_items[0].text()}\n")
 			return selected_items[0].text()
 			
 	def moveItem(self):
@@ -327,7 +345,7 @@ class CfgImageArray():
 	def valueChangeArray(self):
 		selected_items = self.ListObj.selectedItems()
 		if selected_items:
-			print("Value Changed",selected_items[0].text())
+			#print("Value Changed",selected_items[0].text())
 			self.Parent.itemChanged(self.key,self.value)
 			#self.cfg[self.key] = ("newitem","newiutem1")
 			#self.cfg[self.key]=self.EditObj.text()
@@ -372,7 +390,7 @@ class CfgArray():
 	def getListItemText(self):
 		selected_items = self.ListObj.selectedItems()
 		if selected_items:
-			print(f"returning {selected_items[0].text()}\n")
+			#print(f"returning {selected_items[0].text()}\n")
 			return selected_items[0].text()
 
 	def RemoveItem(self):
@@ -483,7 +501,7 @@ class CfgArray():
 	def valueChangeArray(self):
 		selected_items = self.ListObj.selectedItems()
 		if selected_items:
-			print("Value Changed",selected_items[0].text())
+			#print("Value Changed",selected_items[0].text())
 			self.Parent.itemChanged(self.key,self.value)
 			
 			
@@ -597,7 +615,8 @@ class CfgString():
 		return self.paramgrp
   	
 	def RemoveImageItem(self):
-		print("remove")
+		#print("remove")
+		pass
 
 	def AddImageItemDir(self):
 		folder = QFileDialog.getOpenFileName(self.paramgrp, ("Open File"),
@@ -648,7 +667,7 @@ class CfgString():
 
 	def valueChange(self):
 		if(self.value!=self.EditObj.text()):
-			print("Value Changed",self.key)
+			#print("Value Changed",self.key)
 			self.cfg[self.key]=self.EditObj.text()
 			self.Parent.itemChanged(self.key,self.value)
 
@@ -668,7 +687,7 @@ class CfgDataString():
 	W = 0
 	hasData = False
 	startDir = "J:/MOD/FPIBGUtility/Latex"
-	startDir = "J:\FPIBGJournalStaticV2\rpt"
+	startDir = "J:/FPIBGJournalStaticV2/rpt"
 	dataFile = ""
 
 	def __init__(self, key,value,parent):
@@ -738,7 +757,8 @@ class CfgDataString():
 		return self.paramgrp
   	
 	def RemoveImageItem(self):
-		print("remove")
+		#print("remove")
+		pass
 
 	def SelectDataFile(self):
 		folder = QFileDialog.getOpenFileName(self.paramgrp, ("Open Data File"),
@@ -764,7 +784,7 @@ class CfgDataString():
 
 	def valueChange(self):
 		if(self.value!=self.EditObj.text()):
-			print("Value Changed",self.key)
+			#print("Value Changed",self.key)
 			self.cfg[self.key]=self.EditObj.text()
 			self.Parent.itemChanged(self.key,self.value)
 			#self.base.updateCfg()
@@ -840,8 +860,8 @@ class CfgTextBox():
 		return Hg,Wg
 
 	def valueChange(self):
-		if(self.value!=self.EditObj.toPlainText()):
-			print("Value Changed",self.key)
+		#if(self.value!=self.EditObj.toPlainText()):
+		#	print("Value Changed",self.key)
 		self.Parent.itemChanged(self.key,self.value)
 		
 		
@@ -920,7 +940,7 @@ class CfgBool():
 			self.cfg[self.key]=False
 			self.value = False
 		self.Parent.itemChanged(self.key,self.value)
-		print("Index Changed",index)
+		#print("Index Changed",index)
 		
 			
 		

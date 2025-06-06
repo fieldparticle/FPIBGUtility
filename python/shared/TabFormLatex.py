@@ -62,8 +62,13 @@ class TabFormLatex(QTabWidget):
             self.texFolder = os.path.dirname(self.CfgFile)
             self.texFileName = os.path.splitext(os.path.basename(self.CfgFile))[0]
             self.dirEdit.setText(self.CfgFile)
-            self.itemcfg = FPIBGConfig(self.CfgFile)
-            self.itemcfg.Create(self.bobj.log,self.CfgFile)
+            try :
+                self.itemcfg = FPIBGConfig(self.CfgFile)
+                self.itemcfg.Create(self.bobj.log,self.CfgFile)
+            except BaseException as e:
+                print(f"Unable to open item configurations file:{e}")
+                self.hasConfig = False
+                return 
             self.type = self.itemcfg.config.type_text 
             self.imgmgrp = QGroupBox("Image Interface")
             self.setSize(self.imgmgrp,20,20)
@@ -128,7 +133,7 @@ class TabFormLatex(QTabWidget):
             self.CfgFile = folder[0]
             with open(self.cfg.single_template, 'r') as file:
                 cfg_cnt = file.read()
-            print(cfg_cnt)
+            #print(cfg_cnt)
             file.close()
             with open(folder[0], 'w') as file:
                 file.write(cfg_cnt)
@@ -198,6 +203,6 @@ class TabFormLatex(QTabWidget):
     def valueChangeArray(self,listObj):  
         selected_items = listObj.selectedItems()
         if selected_items:
-            print("List object Value Changed",selected_items[0].text())
+            #print("List object Value Changed",selected_items[0].text())
             self.ltxObj.setTypeText(selected_items[0].text())         
     

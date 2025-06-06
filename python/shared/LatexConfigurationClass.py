@@ -55,25 +55,26 @@ class LatexConfigurationClass():
         self.LatexFileImage.Write(self.itemcfg.config,plt) 
     
     def OpenLatxCFG(self):
-        print(self.itemcfg)
+        #print(self.itemcfg)
         #self.LatexFileImage.outDirectory = self.itemcfg.config.tex_dir
         #self.LatexFileImage.ltxDirectory = self.itemcfg.config.tex_image_dir
         self.doItems(self.itemcfg.config)
     
     def clearLayout(self,layout):
-        print("-- -- input layout: "+str(layout))
+     #   print("-- -- input layout: "+str(layout))
         for i in reversed(range(layout.count())):
             layoutItem = layout.itemAt(i)
             if layoutItem.widget() is not None:
                 widgetToRemove = layoutItem.widget()
-                print("found widget: " + str(widgetToRemove))
+      #          print("found widget: " + str(widgetToRemove))
                 widgetToRemove.setParent(None)
                 layout.removeWidget(widgetToRemove)
             elif layoutItem.spacerItem() is not None:
-                print("found spacer: " + str(layoutItem.spacerItem()))
+                continue
+       #         print("found spacer: " + str(layoutItem.spacerItem()))
             else:
                 layoutToRemove = layout.itemAt(i)
-                print("-- found Layout: "+str(layoutToRemove))
+                #        print("-- found Layout: "+str(layoutToRemove))
                 self.clearLayout(layoutToRemove)
 
     def clearConfigGrp(self):
@@ -118,27 +119,25 @@ class LatexConfigurationClass():
         self.dictTab[self.tabCount].setWidgetResizable(True)
         self.cfgHeight = 0
         for k ,v in cfg.items():
-            if "command" in k:
-                print("Dictionary",k, "=" , type(v))
             if type(v) == list :
                 H,W =self.doList(cfg,k,v)
-                print("List",k,len(v))
+                #print("List",k,len(v))
             elif type(v) == libconf.AttrDict:
                 widget = CfgDict(k,v)
-                self.layouts[self.lyCount].addWidget(widget.Create(cfg,self.itemcfg,self))
+                self.layouts[self.lyCount].addWidget(widget.Create(cfg,self.itemcfg,self.Parent))
                 self.objArry.append(widget)    
                 self.cfgHeight += 70
             elif type(v) == str:
                 H,W = self.doString(cfg,k,v)
                 self.cfgHeight += H
             elif type(v) == bool:
-                print("Str",k,v)
+                #print("Str",k,v)
                 widget = CfgBool(k,v)
                 self.layouts[self.lyCount].addWidget(widget.Create(cfg,self.itemcfg,self))
                 self.objArry.append(widget)
                 self.cfgHeight += 70
             elif type(v) == int:
-                print("int",k,v)
+                #print("int",k,v)
                 widget = CfgInt(k,v)
                 self.layouts[self.lyCount].addWidget(widget.Create(cfg,self.itemcfg,self))
                 self.objArry.append(widget)    
@@ -158,13 +157,18 @@ class LatexConfigurationClass():
         pass
 
     def doList(self,cfg,k,v):
-        print("tuple",k,len(v))
+        #print("tuple",k,len(v))
         if "images_name_array" in k:
             H,W = self.DoImageList(cfg,k,v)
         elif "caption_array" in k:
             widget = CfgArray(k,v)
             self.layouts[self.lyCount].addWidget(widget.Create(cfg,self.itemcfg,self))    
             self.objArry.append(widget) 
+            H,W = widget.getHW()
+        elif "command_dict" in k:
+            widget = CfgDict(k,v)
+            self.layouts[self.lyCount].addWidget(widget.Create(cfg,self.itemcfg,self))
+            self.objArry.append(widget)                 
             H,W = widget.getHW()
         else:
             widget = CfgArray(k,v)
@@ -175,7 +179,7 @@ class LatexConfigurationClass():
         
     
     def doString(self,cfg,k,v):
-        print("Str",k,len(v))
+        #print("Str",k,len(v))
         H = 0
         W = 0
         if "caption_box" == k:
