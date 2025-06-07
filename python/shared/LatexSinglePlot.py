@@ -21,7 +21,7 @@ class LatexSinglePlot(LatexConfigurationClass):
 
     def __init__(self,Parent,itemCFG=None):
         super().__init__(Parent)
-        self.LatexFileImage = LatexPlotWriter(self.Parent)
+        self.LatexFileImage = LatexMultiImageWriter(self.Parent)
 
 
     def __exit__(self):
@@ -91,18 +91,7 @@ class LatexSinglePlot(LatexConfigurationClass):
     
     
     def setImgGroup(self,layout):
-        ## Image Interface
-        self.imageGroupLayout = QGridLayout()
-        self.Parent.imgmgrp.setLayout(self.imageGroupLayout)
-        self.image = QLabel()
-        self.image.setStyleSheet("background-color:  #ffffff")
-        self.setSize(self.image,15,15)
-        self.imageGroupLayout.addWidget(self.image,1,0,alignment= Qt.AlignmentFlag.AlignTop | Qt.AlignmentFlag.AlignLeft)
-        self.pixmap = QPixmap("img.png")
-        self.setSize(self.Parent.imgmgrp,self.pixmap.height()+50,self.pixmap.width()) 
-        self.setSize(self.image,self.pixmap.height()+50,self.pixmap.width()) 
-        self.image.setPixmap(self.pixmap)
-        return self.Parent.imgmgrp
+       pass
           
     
     

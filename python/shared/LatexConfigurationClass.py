@@ -88,9 +88,9 @@ class LatexConfigurationClass():
 
     def setConfigGroup(self,layout):
         self.ConfigGroup = QGroupBox("Latex File Configuration")
-        layout.addWidget(self.ConfigGroup,1,0,1,1,alignment= Qt.AlignmentFlag.AlignLeft)
+        layout.addWidget(self.ConfigGroup,0,2,1,1,alignment= Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignTop)
         self.cfglayout = QVBoxLayout()
-        self.setSize(self.ConfigGroup,400,500) 
+        self.setSize(self.ConfigGroup,400,700) 
         self.ConfigGroup.setLayout(self.cfglayout)
         self.tabs = QTabWidget()
         self.cfglayout.addWidget(self.tabs)

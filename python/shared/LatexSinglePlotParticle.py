@@ -14,6 +14,9 @@ from LatexConfigurationClass import *
 from LatexSinglePlot import * 
 from FPIBGConfig import *
 from AttrDictFields import *
+from LatexPreview import *
+from LatexDialogs import *
+
 class LatexSinglePlotParicle(LatexSinglePlot):
     fignum = 0
     
@@ -34,79 +37,9 @@ class LatexSinglePlotParicle(LatexSinglePlot):
     def __init__(self,Parent):
         super().__init__(Parent)
         self.Parent = Parent
-        
+        self.LatexFileImage = LatexMultiImageWriter(self.Parent)
+    
 
-    def __exit__(self):
-        plt.close("all")
-  
-    def updatePlot(self):
-        if(self.fignum != 0):
-            plt.close("all")
-        self.fignum += 1
-        self.fig = plt.figure(self.fignum)
-        self.ax = self.fig.gca()
-        
-        if self.hasPlot == True:
-            for oob in self.objArry:
-                cmd_lst = oob.key.split('_')
-                matches = ["plt","ax","fig","command"]
-                class_major = None
-                if any(x in cmd_lst[0] for x in matches):
-                    match(cmd_lst[0]):
-                        case "ax":
-                            class_major = self.ax
-                        case "plt":
-                            class_major = plt
-                        case "fig":
-                            class_major = self.fig
-                    if type(oob) == CfgDict:
-                        self.doDictionary(oob,class_major)
-                    if type(oob) == CfgBool:
-                        #print(cmd_lst)
-                        funct = getattr(class_major,cmd_lst[1])
-                        funct(oob.cfg[oob.key])
-                    if type(oob) == CfgCmd:
-                        if("plot" or "scatter" or "bar" in oob.key):
-                            cmd_lst = oob.key.split('_')
-                            #print(cmd_lst)
-                            funct = getattr(class_major,oob.value)
-                            for ii in range(len(self.cfg.fields_array)-1):
-                                self.line = funct(self.onpdata[0,:],self.onpdata[ii+1,:])
-                    if type(oob) == CfgString:
-                        cmd_lst = oob.key.split('_')
-                        #print(cmd_lst)
-                        funct = getattr(class_major,cmd_lst[1])
-                        funct(oob.cfg[oob.key])
-            plt.savefig("img.png")
-            self.pixmap = QPixmap().load("img.png")
-            self.setImgGroup(self.Parent.tab_layout)
-            os.remove("img.png")
-
-    # Decode plot rcParams to configure the plot
-    def doDictionary(self,oob,class_major):
-        for k,v in oob.dict.items():       
-            cmd_item = k
-            val_item = v
-            if "prop.prop_cycle" in cmd_item:
-                try : 
-                    colors = list(val_item.split(","))
-                    color_cycle = cycler.cycler(color=colors)
-                    self.ax.set_prop_cycle(color_cycle)
-                    continue
-                except BaseException as e:
-                    print(e)
-                    continue
-            try :
-                if self.isfloat(val_item) == True:
-                    plt.rcParams[cmd_item]= float(v)
-                elif self.isInt(val_item) == True:
-                    plt.rcParams[cmd_item] = int(v)
-                else:
-                    plt.rcParams[cmd_item] = str(v)
-            except BaseException as e:
-                print(e)
-                continue
-        
     def isfloat(self,value):
         try:
             return isinstance(float(value), float) and '.' in value
@@ -118,39 +51,61 @@ class LatexSinglePlotParicle(LatexSinglePlot):
             return True
         else:
             return False
-
-    def updatePlotData(self):
-        return
-        self.Open()
-        self.check_data_files()
-        self.get_averages()
-        temp_ary = []
-        # allocate a attribute dictionary
-        fld = AttrDictFields()
-        self.data = pd.read_csv(self.sumFile,header=0)  
-       # For all items in the data set, reassign them to the attribute dict v
-        for name, df in self.data.items():
-            fld[name] = self.data[name]
-  
-        # Iterate the fields_array for headers of the data 
-        # and assign those arrays to a temporary list
-        for ii in range(len(self.cfg.fields_array)):
-            # If this is an equation perform an eval on it
-            if any(map(lambda char: char in self.cfg.fields_array[ii], "+-/*")):
-                # Here is why you cannot just rename the fields. It will be hard to rename everythin in the
-                field = eval(self.cfg.fields_array[ii])
-                temp_ary.append(field)
-            else:
-                # Else strip the fld. from the field and get the array at that column name
-                fldtxt = self.cfg.fields_array[ii].split('.')
-                temp_ary.append(self.data[fldtxt[1]])
-
-            self.onpdata = np.array(temp_ary)   
+    
+    def preview(self):
+      pass
         
-        self.hasPlot = True
-        self.updatePlot()
-            
+    def getClassMajor(self,ClasStr):
+        match(ClasStr):
+            case "ax":
+                return self.ax
+            case "plt":
+                return plt
+            case "fig":
+                return self.fig
 
+    def __exit__(self):
+        plt.close("all")
+      
+   
+    # Decode plot rcParams to configure the plot
+    def doDictionary(self,oob,class_major,PlotNum):
+        formatString = f"plotFormat{PlotNum}"
+        axisString = f"axes{PlotNum}"
+        for k,v in oob.dict.items():
+            if formatString in k:
+                for ii in range(len(v)):
+                    all_item = v[ii].split("=")
+                    cmd_item = all_item[0]
+                    val_item = all_item[1]
+                    if "prop.prop_cycle" in v[ii]:
+                        try : 
+                            colors = list(v[ii].split(","))
+                            color_cycle = cycler.cycler(color=colors)
+                            self.ax.set_prop_cycle(color_cycle)
+                            continue
+                        except BaseException as e:
+                            print(e)
+                            continue
+                    try :
+                        if self.isfloat(val_item) == True:
+                            plt.rcParams[cmd_item]= float(val_item)
+                        elif self.isInt(val_item) == True:
+                            plt.rcParams[cmd_item] = int(val_item)
+                        else:
+                            plt.rcParams[cmd_item] = str(val_item)
+                    except BaseException as e:
+                        print(e)
+                        continue
+            if axisString in k:
+                for ii in range(len(v)):
+                    all_item = v[ii].split("=")
+                    cmd_list = all_item[0]
+                    cmd_item = cmd_list.split(".")
+                    val_item = all_item[1]
+                    funct = getattr(self.getClassMajor(cmd_item[0]),cmd_item[1].strip())
+                    funct(val_item)
+            
     def updateCfgData(self):
         for oob in self.objArry:
             oob.updateCFGData()
@@ -163,21 +118,83 @@ class LatexSinglePlotParicle(LatexSinglePlot):
         #print(self.itemcfg)
         self.doItems(self.itemcfg.config)
         self.updatePlotData()
-    
+
+    def updatePlotData(self):
+        self.Open()
+        self.check_data_files()
+        self.get_averages()
+        temp_ary = []
+        # allocate a attribute dictionary
+        fld = AttrDictFields()
+        self.data = pd.read_csv(self.sumFile,header=0)  
+        for name, df in self.data.items():
+            fld[name] = self.data[name]
+        pltNum = 1
+        for k,v in self.cfg.command_dict.items():
+            #print(k,v)
+            if "DataFields" in k:
+                print("datafiel")
+                for ii in range(len(v)):
+                    if any(map(lambda char: char in v[ii], "+-/*")):
+                        field = eval(v[ii])
+                        temp_ary.append(field)
+                    else:
+                        # Else strip the fld. from the field and get the array at that column name
+                        fldtxt = v[ii].split('.')
+                        temp_ary.append(self.data[fldtxt[1]])
+                    self.onpdata = np.array(temp_ary)   
+                self.hasPlot = True
+                self.updatePlot(pltNum)
+                temp_ary = []
+                pltNum+=1
+
+    def updatePlot(self,PlotNum):
+        if(self.fignum != 0):
+            plt.close("all")
+        self.fignum += 1
+        self.fig = plt.figure(self.fignum)
+        self.ax = self.fig.gca()
+        if self.hasPlot == True:
+            plot_obj = None
+            for oob in self.objArry:
+                cmd_lst = oob.key.split('_')
+                matches = ["plt","ax","fig","command"]
+                class_major = None
+                class_major = self.getClassMajor(cmd_lst[0])
+                if any(x in cmd_lst[0] for x in matches):
+                    if type(oob) == CfgDict:
+                        plot_obj = oob
+                        self.doDictionary(oob,class_major,PlotNum)
+                    if type(oob) == CfgBool:
+                        #print(cmd_lst)
+                        funct = getattr(class_major,cmd_lst[1])
+                        funct(oob.cfg[oob.key])
+                    if type(oob) == CfgString:
+                        cmd_lst = oob.key.split('_')
+                        #print(cmd_lst)
+                        funct = getattr(class_major,cmd_lst[1])
+                        funct(oob.cfg[oob.key])
+            
+            self.doPlot(plot_obj,PlotNum)
+
+    def doPlot(self,plot_obj,plot_num):
+        plotString = f"axes{plot_num}"
+        fieldsString = f"DataFields{plot_num}"
+        plot_cmds = plot_obj.dict["PlotCommands"]
+        plot_list = plot_cmds[plot_num-1].split(".")
+        class_major = self.getClassMajor(plot_list[0])
+        funct = getattr(class_major,(plot_list[1]))
+        lines_cmds = plot_obj.dict[fieldsString]
+        for ii in range(len(lines_cmds)-1):
+            self.line = funct(self.onpdata[0,:],self.onpdata[ii+1,:])
+        pltTempImg = f"{self.itemcfg.config.plots_dir}/{self.itemcfg.config.name_text}{plot_num}.png"
+        plt.savefig(pltTempImg)
+        plt.close("all")          
+
+   
     
     def setImgGroup(self,layout):
-        ## Image Interface
-        self.imageGroupLayout = QGridLayout()
-        self.Parent.imgmgrp.setLayout(self.imageGroupLayout)
-        self.image = QLabel()
-        self.image.setStyleSheet("background-color:  #ffffff")
-        self.setSize(self.image,15,15)
-        self.imageGroupLayout.addWidget(self.image,1,0,alignment= Qt.AlignmentFlag.AlignTop | Qt.AlignmentFlag.AlignLeft)
-        self.pixmap = QPixmap("img.png")
-        self.setSize(self.Parent.imgmgrp,self.pixmap.height()+50,self.pixmap.width()) 
-        self.setSize(self.image,self.pixmap.height()+50,self.pixmap.width()) 
-        self.image.setPixmap(self.pixmap)
-        return self.Parent.imgmgrp
+        pass
           
     
     def Open(self):

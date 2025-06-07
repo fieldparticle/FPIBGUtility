@@ -5,11 +5,12 @@ from PyQt6.QtGui import QIcon
 from TabClassLatex import *
 from FPIBGException import *
 
-
+GlobalPrintbuffer =  None
 
 import inspect
 ## The main window object that contains the tabs for the utility
 class FPIBGLatexWin(QWidget):
+    
     def __init__(self, FPIBGBase, ObjName,*args, **kwargs):
         super().__init__(*args, **kwargs)
         self.ObjName = ObjName
@@ -36,9 +37,6 @@ class FPIBGLatexWin(QWidget):
                         alignment=Qt.AlignmentFlag.AlignRight)
         self.quitBtn.clicked.connect(self.on_clicked)
         self.setLayout(main_layout)
-        self.orig_stdout = sys.stdout
-        #self.f = open('log.txt', 'w')
-        #sys.stdout = self.f
         self.show()
         
         

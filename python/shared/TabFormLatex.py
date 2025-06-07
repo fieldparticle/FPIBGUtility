@@ -1,4 +1,7 @@
 import sys
+from contextlib import redirect_stdout
+from io import StringIO
+from sys import stderr, stdout
 from PyQt6.QtWidgets import QFileDialog, QGroupBox,QMessageBox
 from PyQt6.QtWidgets import QGridLayout, QTabWidget, QLineEdit,QListWidget
 from PyQt6.QtWidgets import QPushButton, QGroupBox
@@ -15,6 +18,40 @@ from LatexMultiImage import *
 from LatexSinglePlot import *
 from LatexSinglePlotParticle import *
 from LatexSingleTable import *
+
+def p(x):
+    print (x)
+class EmbeddedTerminal(QTextEdit):
+    def __init__(self, parent):
+        super(EmbeddedTerminal, self).__init__(parent)
+
+    def run_func(self, func, *args, **kwargs):
+        self.thread = QThread()
+        self.worker = TerminalWorker(func, args, kwargs)
+        self.worker.moveToThread(self.thread)
+        self.thread.started.connect(self.worker.run)
+        self.worker.progress.connect(self.update_terminal)
+        self.thread.start()
+
+    def update_terminal(self, text):
+        self.setText(text)
+
+
+class TerminalWorker(QObject):
+    finished = pyqtSignal()
+    progress = pyqtSignal(str)
+
+    def __init__(self, func, args, kwargs):
+        QObject.__init__(self)
+        self.func = func
+        self.args = args
+        self.kwargs = kwargs
+
+    def run(self):
+        with redirect_stdout(StringIO()) as f:
+            self.func(*self.args, **self.kwargs)
+        output = f.getvalue()
+        self.progress.emit(output)
 
 class TabFormLatex(QTabWidget):
     
@@ -65,21 +102,18 @@ class TabFormLatex(QTabWidget):
             try :
                 self.itemcfg = FPIBGConfig(self.CfgFile)
                 self.itemcfg.Create(self.bobj.log,self.CfgFile)
+                
             except BaseException as e:
                 print(f"Unable to open item configurations file:{e}")
                 self.hasConfig = False
                 return 
             self.type = self.itemcfg.config.type_text 
-            self.imgmgrp = QGroupBox("Image Interface")
-            self.setSize(self.imgmgrp,20,20)
-            self.tab_layout.addWidget(self.imgmgrp,0,3,2,2)
             if self.hasConfig == True:
                 self.ltxObj.clearConfigGrp()
             if "multiimage" in self.type:
                 self.ltxObj = LatexMultiImage(self)
                 self.ltxObj.setConfigGroup(self.tab_layout)
                 self.ltxObj.OpenLatxCFG()
-                self.ltxObj.setImgGroup()
                 self.ListObj.setEnabled(False)
                 self.hasConfig = True
                 
@@ -115,6 +149,9 @@ class TabFormLatex(QTabWidget):
                 print("InvalidType")
                 return
             self.SaveButton.setEnabled(True)
+            self.PreviewButton.setEnabled(True)
+
+
     def browseNewItem(self):
         """ Opens a dialog window for the user to select a folder in the file system. """
         #folder = QFileDialog.getExistingDirectory(self, "Select Folder")
@@ -143,63 +180,96 @@ class TabFormLatex(QTabWidget):
             self.dirEdit.setText(self.CfgFile)
             self.OpenLatxCFG(self.CfgFile)
    
+    def preview(self):
+        previewFile = f"{self.itemcfg.config.tex_dir}/preview.tex"
+        previewPdf =  f"{self.itemcfg.config.tex_dir}/preview.pdf"
+        previewTex = f"{self.itemcfg.config.tex_dir}/{self.itemcfg.config.name_text}.tex"
+        prviewWorkingDir = self.itemcfg.config.tex_dir
+        prvCls = LatexPreview(previewFile,previewTex,prviewWorkingDir)
+        prvCls.ProcessLatxCode()
+        prvCls.Run()
+        with open('termPreview.log', "r") as infile:  
+            txt_line = infile.readline().strip("\n")
+            self.terminal.append(txt_line)
+            while txt_line:
+                txt_line = infile.readline().strip("\n")
+                self.terminal.append(txt_line)
+        prv = PreviewDialog(previewPdf)
+        prv.exec()
+        
+
+        
+
     def Create(self):
         self.log.logs(self,"TabFormLatex started Create.")
-        #try:
-        self.setStyleSheet("background-color:  #eeeeee")
-        self.tab_layout = QGridLayout()
-        self.tab_layout.setAlignment(Qt.AlignmentFlag.AlignLeft)
-        self.tab_layout.setAlignment(Qt.AlignmentFlag.AlignTop)
-        self.setLayout(self.tab_layout)
+        try:
+            self.setStyleSheet("background-color:  #eeeeee")
+            self.tab_layout = QGridLayout()
+            self.tab_layout.setAlignment(Qt.AlignmentFlag.AlignLeft)
+            self.tab_layout.setAlignment(Qt.AlignmentFlag.AlignTop)
+            self.setLayout(self.tab_layout)
 
-        ## -------------------------------------------------------------
-        ## Set parent directory
-        LatexcfgFile = QGroupBox("Latex File Configuration")
-        self.setSize(LatexcfgFile,200,300)
-        self.tab_layout.addWidget(LatexcfgFile,0,0,1,2,alignment= Qt.AlignmentFlag.AlignLeft)
-        
-        dirgrid = QGridLayout()
-        LatexcfgFile.setLayout(dirgrid)
+            ## -------------------------------------------------------------
+            ## Set parent directory
+            LatexcfgFile = QGroupBox("Latex File Configuration")
+            self.setSize(LatexcfgFile,200,300)
+            self.tab_layout.addWidget(LatexcfgFile,0,0,1,2,alignment= Qt.AlignmentFlag.AlignLeft)
+            
+            dirgrid = QGridLayout()
+            LatexcfgFile.setLayout(dirgrid)
 
-        self.dirEdit =  QLineEdit()
-        self.dirEdit.setStyleSheet("background-color:  #ffffff")
-        self.dirEdit.setText("")
+            self.dirEdit =  QLineEdit()
+            self.dirEdit.setStyleSheet("background-color:  #ffffff")
+            self.dirEdit.setText("")
 
-        self.dirButton = QPushButton("Browse")
-        self.setSize(self.dirButton,30,100)
-        self.dirButton.setStyleSheet("background-color:  #dddddd")
-        self.dirButton.clicked.connect(self.browseFolder)
-        dirgrid.addWidget(self.dirButton,0,0)
-        dirgrid.addWidget(self.dirEdit,0,1)
+            self.dirButton = QPushButton("Browse")
+            self.setSize(self.dirButton,30,100)
+            self.dirButton.setStyleSheet("background-color:  #dddddd")
+            self.dirButton.clicked.connect(self.browseFolder)
+            dirgrid.addWidget(self.dirButton,0,0)
+            dirgrid.addWidget(self.dirEdit,0,1)
 
-        self.SaveButton = QPushButton("Save")
-        self.setSize(self.SaveButton,30,100)
-        self.SaveButton.setStyleSheet("background-color:  #dddddd")
-        self.SaveButton.clicked.connect(self.SaveConfigurationFile)
-        self.SaveButton.setEnabled(False)
-        dirgrid.addWidget(self.SaveButton,2,0)
+            self.SaveButton = QPushButton("Save")
+            self.setSize(self.SaveButton,30,100)
+            self.SaveButton.setStyleSheet("background-color:  #dddddd")
+            self.SaveButton.clicked.connect(self.SaveConfigurationFile)
+            self.SaveButton.setEnabled(False)
+            dirgrid.addWidget(self.SaveButton,2,0)
 
-        self.newButton = QPushButton("New")
-        self.setSize(self.SaveButton,30,100)
-        self.newButton.setStyleSheet("background-color:  #dddddd")
-        self.newButton.clicked.connect(self.browseNewItem)
-        dirgrid.addWidget(self.newButton,2,1)
+            self.newButton = QPushButton("New")
+            self.setSize(self.newButton,30,100)
+            self.newButton.setStyleSheet("background-color:  #dddddd")
+            self.newButton.clicked.connect(self.browseNewItem)
+            dirgrid.addWidget(self.newButton,2,1)
 
-        self.ListObj =  QListWidget()
-        #self.ListObj.setFont(self.font)
-        self.ListObj.setStyleSheet("background-color:  #FFFFFF")
-        self.vcnt = 0            
-        self.ListObj.insertItem(0, "image")
-        self.ListObj.insertItem(1, "plot")
-        self.ListObj.insertItem(2, "multiplot")
-        self.ListObj.insertItem(3, "multiimage")
-        self.ListObj.itemSelectionChanged.connect(lambda: self.valueChangeArray(self.ListObj))
-        dirgrid.addWidget(self.ListObj,3,0,1,2)
-        self.log.logs(self,"TabFormLatex finished Create.")
-       # except Exception as inst:
-       #     print(f"{self.ObjName}: Error: {inst.args}")
-       #     self.log.logs(self,"error")
+            self.PreviewButton = QPushButton("Preview")
+            self.setSize(self.PreviewButton,30,100)
+            self.PreviewButton.setStyleSheet("background-color:  #dddddd")
+            self.PreviewButton.clicked.connect(self.preview)
+            self.PreviewButton.setEnabled(False)
+            dirgrid.addWidget(self.PreviewButton,2,2)
 
+            self.ListObj =  QListWidget()
+            #self.ListObj.setFont(self.font)
+            self.ListObj.setStyleSheet("background-color:  #FFFFFF")
+            self.vcnt = 0            
+            self.ListObj.insertItem(0, "image")
+            self.ListObj.insertItem(1, "plot")
+            self.ListObj.insertItem(2, "multiplot")
+            self.ListObj.insertItem(3, "multiimage")
+            self.ListObj.itemSelectionChanged.connect(lambda: self.valueChangeArray(self.ListObj))
+            dirgrid.addWidget(self.ListObj,3,0,1,2)
+            self.log.logs(self,"TabFormLatex finished Create.")
+
+            ## -------------------------------------------------------------
+            ## Comunications Interface
+            self.terminal =  QTextEdit(self)
+            self.terminal.setStyleSheet("background-color:  #ffffff; color: green")
+            self.setSize(self.terminal,225,900)
+            self.tab_layout.addWidget(self.terminal,4,0,1,3,alignment= Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignBottom)
+        except BaseException as e:
+            print(e)
+   
     def valueChangeArray(self,listObj):  
         selected_items = listObj.selectedItems()
         if selected_items:

@@ -7,49 +7,9 @@ from PyQt6.QtGui import QImage,QFontMetrics,QFont
 from threading import Thread
 import math
 from AttrDictFields import *
-
-class KeyValDialog(QDialog):
-	key_data = ""
-	value_datq = ""
-	key = ""
-	value = ""
-
-	def __init__(self,key,value):
-		super().__init__()
-		self.key = key
-		self.value = value
-		self.setWindowTitle('Data Passing Dialog')
-		self.setGeometry(100, 100, 300, 150)
-
-		layout = QGridLayout()
-
-		self.key_label = QLabel('Key:')
-		layout.addWidget(self.key_label,0,0)
-
-		self.key_edit = QLineEdit()
-		self.key_edit.setText(self.key)
-		layout.addWidget(self.key_edit,0,1)
-
-		self.value_label = QLabel('Value:')
-		
-		layout.addWidget(self.value_label,1,0)
-
-		self.value_edit = QLineEdit()
-		self.value_edit.setText(self.value)
-		layout.addWidget(self.value_edit,1,1)
-
-		self.submit_button = QPushButton('Submit')
-		self.submit_button.clicked.connect(self.submit_data)
-		layout.addWidget(self.submit_button)
-
-		self.setLayout(layout)
-
+from LatexDialogs import *
 	
 	
-	def submit_data(self):
-		self.key_data = self.key_edit.text()
-		self.val_data = self.value_edit.text()
-		self.accept()
 
 #############################################################################################
 # 						class CfgDict():
@@ -58,7 +18,8 @@ class CfgDict():
 
 	dict = {}
 	currentListObj = None
-
+	
+	
 	def __init__(self, key,value):
 		self.key = key
 		self.value = value
@@ -70,9 +31,10 @@ class CfgDict():
 		control.setMaximumWidth(W)
 
 	def updateCFGData(self):
-		pass
-		#items = [self.ListObj.item(x).text() for x in range(self.ListObj.count())]
-		#self.cfg[self.key] = items
+		for ii in range(len(self.ListObj)):
+			items = [self.ListObj[ii].item(x).text() for x in range(self.ListObj[ii].count())]
+			oob = self.cfg["command_dict"]
+			oob[self.keyList[ii]] = items
 
 
 	def moveItem(self):
@@ -155,6 +117,7 @@ class CfgDict():
 		#self.paramlo.addWidget(self.LabelObj,0,0,alignment= Qt.AlignmentFlag.AlignVCenter | Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignAbsolute)
 
 		self.ListObj = []
+		self.keyList = []
 		self.vcnt = 0
 		row = 0
 		self.dict = AttrDictFields()
@@ -163,6 +126,8 @@ class CfgDict():
 			widget = None
 			widget = QListWidget()
 			self.ListObj.append(widget)
+			keyval = f"{self.key}.{k}"
+			self.keyList.append(k)
 			widget.setFont(self.font)
 			widget.setStyleSheet("background-color:  #FFFFFF")
 			widget.clicked.connect(self.Clicked)

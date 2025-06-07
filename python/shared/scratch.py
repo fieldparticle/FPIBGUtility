@@ -1,47 +1,58 @@
+import os
 import sys
-from PyQt6.QtWidgets import (QApplication, QMainWindow, QPushButton, 
-                           QLabel, QVBoxLayout, QWidget, QHBoxLayout)
 
-class MainWindow(QMainWindow):
-    def __init__(self):
-        super().__init__()
-        self.setWindowTitle("Multiple Buttons Example")
-        self.setGeometry(100, 100, 500, 200)
+from PyQt6 import QtCore, QtWidgets, QtNetwork
 
-        # Create central widget and layouts
-        central_widget = QWidget()
-        main_layout = QVBoxLayout(central_widget)
+import QTermWidget
 
-        # Create a label to display results
-        self.result_label = QLabel("Select a city by clicking a button:")
-        main_layout.addWidget(self.result_label)
 
-        # Create a horizontal layout for buttons
-        button_layout = QHBoxLayout()
+class RemoteTerm(QTermWidget.QTermWidget):
+    def __init__(self, ipaddr, port, parent=None):
+        super().__init__(0, parent)
 
-        # Create multiple buttons for different cities
-        cities = ["New York", "Los Angeles", "Chicago", "Houston", "Miami"]
-        self.buttons = []
+        self.socket = QtNetwork.QTcpSocket(self)
 
-        for city in cities:
-            button = QPushButton(city)
-            # Connect each button to the same slot
-            button.clicked.connect(self.city_button_clicked)
-            button_layout.addWidget(button)
-            self.buttons.append(button)
+        self.socket.error.connect(self.atError)
+        self.socket.readyRead.connect(self.on_readyRead)
+        self.sendData.connect(self.socket.write)
 
-        main_layout.addLayout(button_layout)
-        self.setCentralWidget(central_widget)
+        self.startTerminalTeletype()
+        self.socket.connectToHost(ipaddr, port)
 
-    # Define the slot to handle all button clicks
-    def city_button_clicked(self):
-        # sender() returns the button that was clicked
-        button = self.sender()
-        if button:
-            self.result_label.setText(f"You selected: {button.text()}")
+    @QtCore.pyqtSlot()
+    def on_readyRead(self):
+        data = self.socket.readAll().data()
+        os.write(self.getPtySlaveFd(), data)
+
+    @QtCore.pyqtSlot()
+    def atError(self):
+        print(self.socket.errorString())
+
 
 if __name__ == "__main__":
-    app = QApplication(sys.argv)
-    window = MainWindow()
-    window.show()
-    sys.exit(app.exec())
+    app = QtWidgets.QApplication(sys.argv)
+
+    QtCore.QCoreApplication.setApplicationName("QTermWidget Test")
+    QtCore.QCoreApplication.setApplicationVersion("1.0")
+
+    parser = QtCore.QCommandLineParser()
+    parser.addHelpOption()
+    parser.addVersionOption()
+    parser.setApplicationDescription(
+        "Example(client-side) for remote terminal of QTermWidget"
+    )
+    parser.addPositionalArgument("ipaddr", "adrress of host")
+    parser.addPositionalArgument("port", "port of host")
+
+    parser.process(QtCore.QCoreApplication.arguments())
+
+    requiredArguments = parser.positionalArguments()
+    if len(requiredArguments) != 2:
+        parser.showHelp(1)
+        sys.exit(-1)
+
+    address, port = requiredArguments
+    w = RemoteTerm(QtNetwork.QHostAddress(address), int(port))
+    w.resize(640, 480)
+    w.show()
+    sys.exit(app.exec_())

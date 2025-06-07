@@ -152,10 +152,6 @@ class LatexPlotWriter(LatexClass):
     def __init__(self,Parent):
         ## ObjName contains the name of this object.
         super().__init__(Parent)
-       
-
-   
-      
  
     def Write(self):
         cfg = self.Parent.itemcfg.config    
@@ -183,6 +179,7 @@ class LatexPlotWriter(LatexClass):
         self.WritePre("pre_plots")
         
      
+
 #############################################################################################
 # 						class LatexImageWriter
 #############################################################################################
@@ -249,10 +246,11 @@ class LatexMultiImageWriter(LatexClass):
         w = "\\centering\n"
         f.write(w)
         try:
-            for ii in range(len(cfg.images_name_array)):    
+            for ii in range(len(cfg.command_dict.PlotCommands)):    
                 w = "\t\\begin{subfigure}[b]{" + cfg.scale_text + "\\textwidth}\n"
                 f.write(w)
-                gdir = "".join(cfg.images_name_array[ii].rsplit(cfg.tex_dir))
+                previewTex = f"{cfg.plots_dir}/{cfg.name_text}{ii+1}.png"
+                gdir = "".join(previewTex.rsplit(cfg.tex_dir))
                 sgdir = ''.join( c for c in gdir if  c not in '/' )
                 print(sgdir)    
                 w = "\t\t\\includegraphics[width=\\textwidth]{" + sgdir + "}\n"
