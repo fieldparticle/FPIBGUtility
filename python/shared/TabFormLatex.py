@@ -19,6 +19,7 @@ from LatexSinglePlot import *
 from LatexSinglePlotParticle import *
 from LatexSingleTable import *
 
+
 def p(x):
     print (x)
 class EmbeddedTerminal(QTextEdit):
@@ -74,6 +75,7 @@ class TabFormLatex(QTabWidget):
         self.cfg = self.bobj.cfg.config
         self.log = self.bobj.log
         self.log.logs(self,"TabFormLatex finished init.")
+        
     
     def setSize(self,control,H,W):
         control.setMinimumHeight(H)
@@ -116,7 +118,6 @@ class TabFormLatex(QTabWidget):
                 self.ltxObj.OpenLatxCFG()
                 self.ListObj.setEnabled(False)
                 self.hasConfig = True
-                
             elif "image" in self.type:
                 self.ltxObj = LatexSingleImage(self)
                 self.ltxObj.setConfigGroup(self.tab_layout)
@@ -148,6 +149,8 @@ class TabFormLatex(QTabWidget):
             else:
                 print("InvalidType")
                 return
+            
+           
             self.SaveButton.setEnabled(True)
             self.PreviewButton.setEnabled(True)
 
@@ -181,11 +184,12 @@ class TabFormLatex(QTabWidget):
             self.OpenLatxCFG(self.CfgFile)
    
     def preview(self):
+        self.SaveConfigurationFile()
         previewFile = f"{self.itemcfg.config.tex_dir}/preview.tex"
         previewPdf =  f"{self.itemcfg.config.tex_dir}/preview.pdf"
         previewTex = f"{self.itemcfg.config.tex_dir}/{self.itemcfg.config.name_text}.tex"
         prviewWorkingDir = self.itemcfg.config.tex_dir
-        prvCls = LatexPreview(previewFile,previewTex,prviewWorkingDir)
+        prvCls = LatexPreview(previewFile,previewTex,prviewWorkingDir,self.itemcfg.config.values_file_text)
         prvCls.ProcessLatxCode()
         prvCls.Run()
         with open('termPreview.log', "r") as infile:  

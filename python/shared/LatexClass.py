@@ -241,19 +241,22 @@ class LatexMultiImageWriter(LatexClass):
             f = open(outfile, "w")
         except IOError as e:
             print(f"Couldn't write to file ({e})")
-        w = "\\begin{figure*}[" + cfg.placement_text + "]\n"
+        w ="\\begingroup\n"
         f.write(w)
         w = "\\centering\n"
         f.write(w)
+        w = "\\begin{figure*}[" + cfg.placement_text + "]\n"
+        f.write(w)
+        
         try:
-            for ii in range(len(cfg.command_dict.PlotCommands)):    
-                w = "\t\\begin{subfigure}[b]{" + cfg.scale_text + "\\textwidth}\n"
+            for ii in range(0,int(self.cfg.num_plots_text)):
+                w = "\t\\begin{subfigure}[b]{" + cfg.plot_width_text + "in}\n"
                 f.write(w)
                 previewTex = f"{cfg.plots_dir}/{cfg.name_text}{ii+1}.png"
                 gdir = "".join(previewTex.rsplit(cfg.tex_dir))
                 sgdir = ''.join( c for c in gdir if  c not in '/' )
                 print(sgdir)    
-                w = "\t\t\\includegraphics[width=\\textwidth]{" + sgdir + "}\n"
+                w = "\t\t\\includegraphics[width=" +  cfg.plot_width_text +  "in]{" + sgdir + "}\n"
                 f.write(w)
                 w = "\t\t\\subcaption[" + "" +"]{" + cfg.caption_array[ii] + "}\n"
                 f.write(w)
@@ -262,11 +265,15 @@ class LatexMultiImageWriter(LatexClass):
                 f.write(w)
                 w = "\t\\end{subfigure}\n"
                 f.write(w)
+                w = "\\hspace{" + cfg.hspace_text + "in}\n"
+                f.write(w)
             w = "\\captionof{figure}[TITLE:" + cfg.title_text + "]{\\textit{" + cfg.caption_box + "}}\n"
             f.write(w)
             w = "\t\t\\label{fig:" + cfg.name_text + "}\n"
             f.write(w)
             w = "\\end{figure*}\n"
+            f.write(w)
+            w = "\\endgroup"
             f.write(w)
         except IOError as e:
             print(f"Couldn't write to file ({e})")

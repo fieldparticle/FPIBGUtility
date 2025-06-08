@@ -16,7 +16,8 @@ from FPIBGConfig import *
 from AttrDictFields import *
 from LatexPreview import *
 from LatexDialogs import *
-
+from TrendLine import *
+from ValHandler import *
 class LatexSinglePlotParicle(LatexSinglePlot):
     fignum = 0
     
@@ -38,6 +39,7 @@ class LatexSinglePlotParicle(LatexSinglePlot):
         super().__init__(Parent)
         self.Parent = Parent
         self.LatexFileImage = LatexMultiImageWriter(self.Parent)
+        self.valHandler = ValHandler()
     
 
     def isfloat(self,value):
@@ -120,33 +122,34 @@ class LatexSinglePlotParicle(LatexSinglePlot):
         self.updatePlotData()
 
     def updatePlotData(self):
-        self.Open()
-        self.check_data_files()
-        self.get_averages()
-        temp_ary = []
-        # allocate a attribute dictionary
-        fld = AttrDictFields()
-        self.data = pd.read_csv(self.sumFile,header=0)  
-        for name, df in self.data.items():
-            fld[name] = self.data[name]
-        pltNum = 1
-        for k,v in self.cfg.command_dict.items():
-            #print(k,v)
-            if "DataFields" in k:
-                print("datafiel")
-                for ii in range(len(v)):
-                    if any(map(lambda char: char in v[ii], "+-/*")):
-                        field = eval(v[ii])
-                        temp_ary.append(field)
-                    else:
-                        # Else strip the fld. from the field and get the array at that column name
-                        fldtxt = v[ii].split('.')
-                        temp_ary.append(self.data[fldtxt[1]])
-                    self.onpdata = np.array(temp_ary)   
-                self.hasPlot = True
-                self.updatePlot(pltNum)
-                temp_ary = []
-                pltNum+=1
+        self.valHandler.doValues(f"{self.itemcfg.config.tex_dir}/vals.tex")            
+        # for each plot line
+        for plotNum in range(1,int(self.cfg.num_plots_text)+1):
+            self.Open(plotNum)
+            self.check_data_files()
+            self.get_averages()
+            temp_ary = []
+            # allocate a attribute dictionary
+            fld = AttrDictFields()
+            self.data = pd.read_csv(self.sumFile,header=0)  
+            for name, df in self.data.items():
+                fld[name] = self.data[name]
+            for k,v in self.cfg.command_dict.items():
+                plotGrouptxt = "DataFields" + str(plotNum)
+                if plotGrouptxt in k:
+                    for ii in range(len(v)):
+                        if any(map(lambda char: char in v[ii], "+-/*")):
+                            field = eval(v[ii])
+                            temp_ary.append(field)
+                        else:
+                            # Else strip the fld. from the field and get the array at that column name
+                            fldtxt = v[ii].split('.')
+                            temp_ary.append(self.data[fldtxt[1]])
+                        self.onpdata = np.array(temp_ary)   
+                    self.hasPlot = True
+                    self.updatePlot(plotNum)
+                    temp_ary = []
+                  
 
     def updatePlot(self,PlotNum):
         if(self.fignum != 0):
@@ -174,21 +177,56 @@ class LatexSinglePlotParicle(LatexSinglePlot):
                         #print(cmd_lst)
                         funct = getattr(class_major,cmd_lst[1])
                         funct(oob.cfg[oob.key])
-            
+
             self.doPlot(plot_obj,PlotNum)
 
+    # Plot and save temp image
     def doPlot(self,plot_obj,plot_num):
+        sslice = self.itemcfg.config.data_start_text
+        if self.isInt(sslice) == True:
+            sslice = int(sslice)
+        eslice = self.itemcfg.config.data_end_text
+        if self.isInt(eslice) == True:
+            eslice = int(eslice)
         plotString = f"axes{plot_num}"
         fieldsString = f"DataFields{plot_num}"
-        plot_cmds = plot_obj.dict["PlotCommands"]
+
+        # Convert text plot command to function
+        cmd_txt = f"PlotCommands{plot_num}"
+        plot_cmds = plot_obj.dict[cmd_txt]
         plot_list = plot_cmds[plot_num-1].split(".")
         class_major = self.getClassMajor(plot_list[0])
         funct = getattr(class_major,(plot_list[1]))
         lines_cmds = plot_obj.dict[fieldsString]
+
+        # Get color. Its special becasue it has no rcParams
+        line_key = f"LineColors{plot_num}"
+        line_colors = plot_obj.dict[line_key]
+
+        # Do the plot
         for ii in range(len(lines_cmds)-1):
-            self.line = funct(self.onpdata[0,:],self.onpdata[ii+1,:])
+            self.line = funct(self.onpdata[0,sslice:],self.onpdata[ii+1,sslice:],color=line_colors[ii])
+        
+        # Do trendline
+        trendString = f"Trendline{plot_num}"
+        trendcmd = plot_obj.dict[trendString][plot_num-1]
+        nameKey = f"PlotNames{plot_num}"
+        pltname = plot_obj.dict[nameKey]
+        if not "none" in trendcmd:
+            for zz in range(len(lines_cmds)-1):
+                trend  = TrendLine(self.onpdata[0,sslice:],self.onpdata[zz+1,sslice:],trendcmd,pltname[zz],self.valHandler)
+                trend.doTrendLine(plt,line_colors[zz])
+                
+
+
+        # Do the Legend
+        legendtxt = "Legend" + str(plot_num)
+        leggroup = self.cfg.command_dict[legendtxt]
+        self.ax.legend(leggroup)
+
+        # Save temp image 
         pltTempImg = f"{self.itemcfg.config.plots_dir}/{self.itemcfg.config.name_text}{plot_num}.png"
-        plt.savefig(pltTempImg)
+        plt.savefig(pltTempImg, bbox_inches='tight')
         plt.close("all")          
 
    
@@ -197,13 +235,14 @@ class LatexSinglePlotParicle(LatexSinglePlot):
         pass
           
     
-    def Open(self):
-        if ("PQB" or "PCD" or "CFB") in self.cfg.dataType_text:
-            self.topdir = self.cfg.data_dir + "/perfdata" + self.cfg.dataType_text
-            self.sumFile = self.topdir + "/perfdata" + self.cfg.dataType_text + ".csv"
-        else:
-            print("Unrecognized Data Type")
-            
+    def Open(self,plotNum):
+        try :
+            if ("PQB" or "PCD" or "CFB") in self.cfg.command_dict.DataSource[plotNum-1]:
+                self.topdir = self.cfg.data_dir + "/perfdata" + self.cfg.command_dict.DataSource[plotNum-1]
+                self.sumFile = self.topdir + "/perfdata" + self.cfg.command_dict.DataSource[plotNum-1]+ ".csv"
+        except BaseException as e:
+            print(e)
+
     # Returns true if number of .tst files equal to number of R or D files
     def check_data_files(self) -> bool:
         if(os.path.exists(self.sumFile) == False):

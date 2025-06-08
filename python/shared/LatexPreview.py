@@ -1,11 +1,13 @@
 import subprocess, os
 
+
 class LatexPreview():
     fileName = ''
-    def __init__(self,fileName,texName,wkdir):
+    def __init__(self,fileName,texName,wkdir,valsFile):
         self.fileName = fileName
         self.texName = texName
         self.wkdir = wkdir
+        self.valsFile = valsFile
         pass
 
     def ProcessLatxCode(self):
@@ -14,6 +16,7 @@ class LatexPreview():
         fl.write('\\usepackage{graphicx}')
         fl.write('\\usepackage{subcaption}')
         fl.write('\\begin{document}\n')
+        fl.write("\\input{"  +  self.valsFile  + "}\n")
         texname = "\\input {" + self.texName + "}\n" 
         fl.write(texname)
         fl.write('\\end{document}\n')

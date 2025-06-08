@@ -69,12 +69,13 @@ class CfgDict():
 	def EditItem(self):
 		selected_items = self.currentListObj.selectedItems()
 		if selected_items:
-			cmd_lst = selected_items[0].text().split("=")
-
-			dialog = KeyValDialog(cmd_lst[0],cmd_lst[1])
-			dialog.exec()
-			txt = f"{dialog.key_data}={dialog.val_data}"
-			self.dict[dialog.key_data] = dialog.val_data
+			if "=" in selected_items[0].text():
+				cmd_lst = selected_items[0].text().split("=")
+				dialog = KeyValDialog(cmd_lst[0],cmd_lst[1])
+				dialog.exec()
+				txt = f"{dialog.key_data}={dialog.val_data}"
+				self.dict[dialog.key_data] = dialog.val_data
+			
 			selected_items = self.currentListObj.selectedItems()
 			selected_items[0].setText(txt)
 

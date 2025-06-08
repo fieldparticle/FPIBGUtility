@@ -84,7 +84,7 @@ class LatexConfigurationClass():
         del self.layouts[:]
         self.lyCount = 0
         self.clearLayout(self.cfglayout)
-        self.clearLayout(self.imageGroupLayout)
+        
 
     def setConfigGroup(self,layout):
         self.ConfigGroup = QGroupBox("Latex File Configuration")
