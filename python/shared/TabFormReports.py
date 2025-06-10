@@ -15,7 +15,7 @@ from CfgLabel import *
 from FPIBGException import *
 from LatexSingleImage import *
 from LatexMultiImage import *
-from LatexSinglePlot import *
+from LatexPlotBase import *
 from LatexSingleTable import *
 
 

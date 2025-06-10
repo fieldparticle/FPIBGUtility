@@ -15,8 +15,9 @@ from CfgLabel import *
 from FPIBGException import *
 from LatexSingleImage import *
 from LatexMultiImage import *
-from LatexSinglePlot import *
-from LatexSinglePlotParticle import *
+from LatexPlotBase import *
+from LatexPlotParticle import *
+from LatexPlot import *
 from LatexSingleTable import *
 
 
@@ -129,13 +130,13 @@ class TabFormLatex(QTabWidget):
                 self.ltxObj.setConfigGroup(self.tab_layout)
                 self.ltxObj.OpenLatxCFG()
                 self.hasConfig = True
-            elif "singleplotparticle" in self.type:
-                self.ltxObj = LatexSinglePlotParicle(self)
+            elif "plotparticle" in self.type:
+                self.ltxObj = LatexPlotParicle(self)
                 self.ltxObj.setConfigGroup(self.tab_layout)
                 self.ltxObj.OpenLatxCFG()
                 self.hasConfig = True
-            elif "singleplot" in self.type:
-                self.ltxObj = LatexSinglePlot(self)
+            elif "plot" in self.type:
+                self.ltxObj = LatexPlot(self)
                 self.ltxObj.setConfigGroup(self.tab_layout)
                 self.ltxObj.OpenLatxCFG()
                 self.hasConfig = True

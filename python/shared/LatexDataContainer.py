@@ -1,5 +1,5 @@
 
-
+from LatexDataCSV import *
 from LatexDataParticle import *
 class LatexDataContainer():
 
@@ -13,17 +13,17 @@ class LatexDataContainer():
         self.data_base = None
 
 
-    def Create(self, data_type,data_dir):
+    def Create(self, data_type,data_dir,data_file=None):
         self.data_type = data_type.lower()
         matches = ["pqb","pcd","cfb"]
         if "csv" in self.data_type:
-            #self.data_base = DataCSV()
-            pass
-        if any(x in self.data_type for x in matches):
+            self.data_base = LatexDataCSV(self.bobj,"CSV Data")
+            self.data_base.Create(data_type,data_dir,data_file) 
+        elif any(x in self.data_type for x in matches):
             self.data_base = LatexDataParticle(self.bobj,"Particle Data")
             self.data_base.Create(data_type,data_dir) 
         else:
-            print("Invalisd data type LatexDataParticle")  
+            print("Invaid data type at line 26 in Create in LatexDataContainer()")  
 
     def getData(self):
         return self.data_base.getData()

@@ -11,8 +11,16 @@ class LatexPreview():
         pass
 
     def ProcessLatxCode(self):
+        dirname = os.path.dirname(self.fileName)
+        hdr_file = dirname + "/LatexUtilityBaseHeader.tex"
+        hdr_lst = []
+        with open(hdr_file,"r") as hfile:
+            hdr_lst.append(hfile.readlines())
+
         fl = open(self.fileName,'w')
-        fl.write('\\documentclass{article}\n')
+        for ii in range(len(hdr_lst)):
+            res = ' '.join(hdr_lst[ii])
+            fl.write(res)    
         fl.write('\\usepackage{graphicx}\n')
         fl.write('\\usepackage{subcaption}\n')
         fl.write('\\usepackage{makecell}\n')
@@ -29,3 +37,4 @@ class LatexPreview():
             x = subprocess.call(f"pdflatex -halt-on-error {self.fileName}",cwd= self.wkdir,stdout=outFile)
             if x != 0:
                 print('Exit-code not 0, check result!')
+                

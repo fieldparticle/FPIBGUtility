@@ -86,13 +86,7 @@ class CfgDict():
 									'You need to select an item.',
 									QMessageBox.StandardButton.Ok
 								)
-	#@pyqtSlot(str,str)
-	#def handle_data(self,key_data,val_data):
-#		print(f'Key: {key_data} Val: {val_data}')
-		#self.dict[key_data] = val_data
-		#selected_items = self.ListObj.selectedItems()
-		#txt = f"{key_data}={val_data}"
-		#selected_items[0].setText(txt)
+	
 	def changedFocus(self):
 		print("Changed Focus")
 
@@ -111,11 +105,7 @@ class CfgDict():
 		self.paramgrp.setLayout(self.paramlo)
 		self.paramgrp.setStyleSheet('background-color: 111111;')
 		text = self.key + ":"
-		#self.LabelObj = QLabel(text)
-		#self.LabelObj.setFont(self.font)
-		#self.lwidth = metrics.horizontalAdvance(text)
-		#self.setSize(self.LabelObj,20,self.lwidth) 
-		#self.paramlo.addWidget(self.LabelObj,0,0,alignment= Qt.AlignmentFlag.AlignVCenter | Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignAbsolute)
+		
 
 		self.ListObj = []
 		self.keyList = []
@@ -123,9 +113,16 @@ class CfgDict():
 		row = 0
 		self.dict = AttrDictFields()
 		for k,v in self.value.items():
+			widget = CfgArray(k,v)
+			self.paramlo.addWidget(widget.Create(self.value,self.base,self))    
+			self.ListObj.append(widget) 
+			H,W = widget.getHW()
+		"""
+		for k,v in self.value.items():
 			self.dict[k] = v
 			widget = None
-			widget = QListWidget()
+			widget = CfgArray(k,v)
+			widget.Create(cfg,self.itemcfg,self)
 			self.ListObj.append(widget)
 			keyval = f"{self.key}.{k}"
 			self.keyList.append(k)
@@ -141,6 +138,7 @@ class CfgDict():
 			LabelObj.setFont(self.font)#all_lst = ii.split("=")
 			self.paramlo.addWidget(LabelObj,row,0,alignment= Qt.AlignmentFlag.AlignVCenter | Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignAbsolute)
 			row +=1
+		"""
 		self.vcnt = 0
 		
 	
@@ -333,7 +331,7 @@ class CfgImageArray():
 # 						class CfgArray():
 #############################################################################################
 class CfgArray():
-	def __init__(self, key,value):
+	def __init__(self,key,value):
 		self.key = key
 		self.value = value
   	

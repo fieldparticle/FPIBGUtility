@@ -45,14 +45,14 @@ class TrendLine():
         #print(f'The slope = {slope}, with uncertainty {d_slope}')
         #print(f'The intercept = {inter}, with uncertainty {d_inter}')
 
-    def doTrendLine(self,plt,line_color):
+    def doTrendLine(self,plt,line_color,label):
         match(self.fitType):
             case "linear":
                 self.doLinear()
-                plt.plot(self.xvalue, self.linearFunc(self.xvalue, *self.params), linestyle='-', label="cms vs sidelen", color=line_color)
+                plt.plot(self.xvalue, self.linearFunc(self.xvalue, *self.params), linestyle='-',  color=line_color)
             case "exponential":
                 self.params, self.covariance = curve_fit(self.exponential_model, self.xvalue, self.yvalue)                          
-                plt.plot(self.xvalue, self.exponential_model(self.xvalue, *self.params), linestyle='-', label="cms vs sidelen", color=line_color)
+                plt.plot(self.xvalue, self.exponential_model(self.xvalue, *self.params), linestyle='-', color=line_color)
 
 
     def linearFunc(self,x,intercept,slope):
