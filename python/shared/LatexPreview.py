@@ -13,8 +13,9 @@ class LatexPreview():
     def ProcessLatxCode(self):
         fl = open(self.fileName,'w')
         fl.write('\\documentclass{article}\n')
-        fl.write('\\usepackage{graphicx}')
-        fl.write('\\usepackage{subcaption}')
+        fl.write('\\usepackage{graphicx}\n')
+        fl.write('\\usepackage{subcaption}\n')
+        fl.write('\\usepackage{makecell}\n')
         fl.write('\\begin{document}\n')
         fl.write("\\input{"  +  self.valsFile  + "}\n")
         texname = "\\input {" + self.texName + "}\n" 
@@ -24,9 +25,7 @@ class LatexPreview():
         fl.close()
     
     def Run(self):
-            with open("termPreview.log","w") as outFile:
-                x = subprocess.call(f"pdflatex -halt-on-error {self.fileName}",cwd= self.wkdir,stdout=outFile)
-                if x != 0:
-                    print('Exit-code not 0, check result!')
-
-        
+        with open("termPreview.log","w") as outFile:
+            x = subprocess.call(f"pdflatex -halt-on-error {self.fileName}",cwd= self.wkdir,stdout=outFile)
+            if x != 0:
+                print('Exit-code not 0, check result!')

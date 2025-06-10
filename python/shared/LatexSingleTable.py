@@ -15,13 +15,13 @@ class LatexSingleTable(LatexConfigurationClass):
         self.log = self.bobj.log
         self.cfg = Parent.itemcfg.config 
         self.itemcfg = Parent.itemcfg 
-        self.LatexFileImage = LatexTableWriter(self.Parent)
+        self.LatexTable = LatexTableWriter(self.Parent)
 
     def updateCfgData(self):
         for oob in self.objArry:
             oob.updateCFGData()
         self.itemcfg.updateCfg()
-        self.LatexFileImage.Write() 
+        self.LatexTable.Write() 
 
     def itemChanged(self,key,value):
         pass
@@ -34,10 +34,26 @@ class LatexSingleTable(LatexConfigurationClass):
     def updateTableData(self):
         temp_ary = []
         self.data = pd.read_csv(self.cfg.data_file,header=0)  
-        self.LatexFileImage.Create(self.data)
-        self.tableModel = SingleTableWidget(self.data )
-        self.image.setModel(self.tableModel)
-        #self.image.setCentralWidget(self.table)
+        temp_ary = []
+        # allocate a attribute dictionary
+        fld = AttrDictFields()
+        for name, df in self.data.items():
+            fld[name] = self.data[name]
+        for k,v in self.cfg.command_dict.items():
+            plotGrouptxt = "DataFields" + str(1)
+            if plotGrouptxt in k:
+                for ii in range(len(v)):
+                    if any(map(lambda char: char in v[ii], "+-/*")):
+                        field = eval(v[ii])
+                        temp_ary.append(field)
+                    else:
+                        # Else strip the fld. from the field and get the array at that column name
+                        fldtxt = v[ii].split('.')
+                        temp_ary.append(self.data[fldtxt[1]])
+                    self.onpdata = np.array(temp_ary)   
+                temp_ary = []
+                  
+        self.LatexTable.Create(self.onpdata)
         self.hasPlot = True
 
    
@@ -84,4 +100,3 @@ class SingleTableWidget(QAbstractTableModel):
 
             #if orientation == Qt.Orientation.Vertical:
               #  return str(self._data.index[section])
-

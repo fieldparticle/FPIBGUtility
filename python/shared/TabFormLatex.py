@@ -127,7 +127,6 @@ class TabFormLatex(QTabWidget):
             elif "singletable" in self.type:
                 self.ltxObj = LatexSingleTable(self)
                 self.ltxObj.setConfigGroup(self.tab_layout)
-                self.ltxObj.setImgGroup(self.tab_layout)
                 self.ltxObj.OpenLatxCFG()
                 self.hasConfig = True
             elif "singleplotparticle" in self.type:

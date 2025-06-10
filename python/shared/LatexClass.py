@@ -4,6 +4,7 @@ from FPIBGConfig import FPIBGConfig
 import os
 import inspect
 import matplotlib.pyplot as plt
+from ValHandler import *
 #############################################################################################
 # 						base class LatexClass
 #############################################################################################
@@ -18,7 +19,7 @@ class LatexClass:
         self.cfg = Parent.itemcfg.config 
         self.itemcfg = Parent.itemcfg 
         self.cleanPRE = True
-
+        self.valHandler = ValHandler()
 
     def setCleanPre(self, flg):
         self.cleanPRE = flg
@@ -53,8 +54,8 @@ class LatexTableWriter(LatexClass):
 
     def Create(self,data):
         self.data = data
-        self.cols = self.data.shape[1]
-        self.rows = self.data.shape[0]
+        self.cols = self.data.shape[0]
+        self.rows = self.data.shape[1]
         self.table_array  = [[0 for x in range(self.cols)] for y in range(self.rows)] 
         self.setLatexData()
         
@@ -73,7 +74,7 @@ class LatexTableWriter(LatexClass):
 
     def loadItem(self,i,j):
             cellstr = ""
-            value =  self.data.values[j][i]
+            value =  self.data[i][j]
             self.setTableItemArray(str(value),i,j)
             return str(value)
             return 
@@ -94,14 +95,7 @@ class LatexTableWriter(LatexClass):
                 return "%d" % (value)
 
                     
-
-    def Write(self):
-        loutname = self.cfg.tex_dir + "/" + self.cfg.name_text + ".tex"
-        try:
-            f = open(loutname, "w")
-        except IOError as e:
-            print(f"Couldn't write to file ({e})")
-            return
+    def SingleTable(self,f):
         f.write("\\begin{table}[%s]\n" % self.cfg.placement_text)
         f.write("\\fontsize{%s}{%s}\\selectfont\n" % (self.cfg.font_size,self.cfg.font_size))
         f.write("\\renewcommand{\\arraystretch}{%s}\n" % (self.cfg.arystretch_text))
@@ -115,16 +109,19 @@ class LatexTableWriter(LatexClass):
             f.write("l ")
         f.write("}\n")
         f.write("\\hline \\\\ \n")
-        lsz = len(self.cfg.header_array)
+        header_key = f"header_array1"
+        lsz = len(self.cfg.command_dict[header_key])
+        headers = self.cfg.command_dict[header_key]
         if (self.cols != lsz):
             f.close()
-            print("No Latex Headers")    
+            print("No Latex Headers")   
+            return 
         for k in range(lsz):
             if(k < lsz-1):
                 txt = ""
-                txt = "\\makecell{" + self.cfg.header_array[k] + "}&"
+                txt = "\\makecell{" + headers[k] + "}&"
             else:
-                txt = "\\makecell{" + self.cfg.header_array[k] + "}"
+                txt = "\\makecell{" + headers[k] + "}"
             f.write(txt)
         
         f.write("\\\\ \\hline\n")
@@ -142,6 +139,18 @@ class LatexTableWriter(LatexClass):
         self.WritePre("pre_tables")
 
 
+
+        
+    def Write(self):
+        loutname = self.cfg.tex_dir + "/" + self.cfg.name_text + ".tex"
+        try:
+            f = open(loutname, "w")
+        except IOError as e:
+            print(f"Couldn't write to file ({e})")
+            return
+        self.SingleTable(f)
+
+        
 #############################################################################################
 # 						class LatexPlotWriter
 #############################################################################################

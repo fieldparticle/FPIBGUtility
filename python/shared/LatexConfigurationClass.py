@@ -5,7 +5,7 @@ from PyQt6.QtGui import QPixmap
 from CfgLabel import *
 from LatexClass import *
 from FPIBGConfig import *
-
+import csv
 class LatexConfigurationClass():
     objArry = []
     dictTab = []
@@ -13,6 +13,12 @@ class LatexConfigurationClass():
     layouts = []
     lyCount = 0
     imageList = []
+    hasRawData = False
+    hasSummaryData = False
+    topdir = ""
+    sumFile = ""
+    data_files = []
+    average_list = []
        
 
     #LatexFileImage = None
@@ -245,6 +251,7 @@ class LatexConfigurationClass():
         return H,W
     
     
- 
+  
+   
 
    

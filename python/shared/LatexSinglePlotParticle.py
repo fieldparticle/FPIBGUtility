@@ -18,10 +18,11 @@ from LatexPreview import *
 from LatexDialogs import *
 from TrendLine import *
 from ValHandler import *
+from LatexDataContainer import *
 class LatexSinglePlotParicle(LatexSinglePlot):
     fignum = 0
     
-    data = None
+    
     hasPlot = False
     npdata = None
     fig = None
@@ -125,30 +126,31 @@ class LatexSinglePlotParicle(LatexSinglePlot):
         self.valHandler.doValues(f"{self.itemcfg.config.tex_dir}/vals.tex")            
         # for each plot line
         for plotNum in range(1,int(self.cfg.num_plots_text)+1):
-            self.Open(plotNum)
-            self.check_data_files()
-            self.get_averages()
             temp_ary = []
             # allocate a attribute dictionary
             fld = AttrDictFields()
-            self.data = pd.read_csv(self.sumFile,header=0)  
-            for name, df in self.data.items():
-                fld[name] = self.data[name]
-            for k,v in self.cfg.command_dict.items():
-                plotGrouptxt = "DataFields" + str(plotNum)
-                if plotGrouptxt in k:
-                    for ii in range(len(v)):
-                        if any(map(lambda char: char in v[ii], "+-/*")):
-                            field = eval(v[ii])
-                            temp_ary.append(field)
-                        else:
-                            # Else strip the fld. from the field and get the array at that column name
-                            fldtxt = v[ii].split('.')
-                            temp_ary.append(self.data[fldtxt[1]])
-                        self.onpdata = np.array(temp_ary)   
-                    self.hasPlot = True
-                    self.updatePlot(plotNum)
-                    temp_ary = []
+            dataObj = LatexDataContainer(self.bobj,"LatexDataContainer")
+            data_src = self.cfg.command_dict.DataSource[plotNum-1]
+            dataObj.Create(data_src,self.cfg.data_dir)
+            data = dataObj.getData()
+            print(data_src)
+            print(data)
+            for name, df in data.items():
+                fld[name] = data[name]
+            plotGrouptxt = "DataFields" + str(plotNum)
+            data_fields = self.cfg.command_dict[plotGrouptxt]
+            for ii in range(len(data_fields)):
+                if any(map(lambda char: char in data_fields[ii], "+-/*")):
+                    field = eval(data_fields[ii])
+                    temp_ary.append(field)
+                else:
+                    # Else strip the fld. from the field and get the array at that column name
+                    fldtxt = data_fields[ii].split('.')
+                    temp_ary.append(data[fldtxt[1]])
+                self.onpdata = np.array(temp_ary)   
+            self.hasPlot = True
+            self.updatePlot(plotNum)
+            temp_ary = []
                   
 
     def updatePlot(self,PlotNum):
@@ -177,7 +179,6 @@ class LatexSinglePlotParicle(LatexSinglePlot):
                         #print(cmd_lst)
                         funct = getattr(class_major,cmd_lst[1])
                         funct(oob.cfg[oob.key])
-
             self.doPlot(plot_obj,PlotNum)
 
     # Plot and save temp image
@@ -234,77 +235,4 @@ class LatexSinglePlotParicle(LatexSinglePlot):
     def setImgGroup(self,layout):
         pass
           
-    
-    def Open(self,plotNum):
-        try :
-            if ("PQB" or "PCD" or "CFB") in self.cfg.command_dict.DataSource[plotNum-1]:
-                self.topdir = self.cfg.data_dir + "/perfdata" + self.cfg.command_dict.DataSource[plotNum-1]
-                self.sumFile = self.topdir + "/perfdata" + self.cfg.command_dict.DataSource[plotNum-1]+ ".csv"
-        except BaseException as e:
-            print(e)
-
-    # Returns true if number of .tst files equal to number of R or D files
-    def check_data_files(self) -> bool:
-        if(os.path.exists(self.sumFile) == False):
-            print ("Data Direcoptries not available" )
-            self.hasRawData = False
-            return False
-        tst_files = [i for i in os.listdir(self.topdir) if i.endswith(".tst")]
-        self.data_files = [i[:-5] for i in os.listdir(self.topdir) if i.endswith("R.csv")]
-        self.hasRawData = len(tst_files) == len(self.data_files)
-        if(self.hasRawData == False):
-            print("Raw data file count error")
-        return self.hasRawData
-    
-    def create_summary(self):
-        data = ['Name', 'fps', 'cpums', 'cms', 'gms', 'expectedp', 'loadedp',
-                'shaderp_comp', 'shaderp_grph', 'expectedc', 'shaderc', 'sidelen']
-        with open(self.sumFile, mode= 'w', newline='') as file:
-            writer = csv.writer(file)
-            writer.writerow(data)
-    
-
-    def get_averages(self):
-        if(self.hasRawData == False):
-            return
-        self.create_summary()
-        for i in self.data_files:
-            file_path_debug = self.topdir + "/" + i + "D.csv"
-            file_path_release = self.topdir + "/" + i + "R.csv"
-            fps = cpums = cms = gms = expectedp = loadedp = shaderp_comp = shaderp_grph = expectedc = shaderc = sidelen = count = 0
-            with open(file_path_debug, 'r') as filename:
-                file = csv.DictReader(filename)
-                for col in file:
-                    count += 1
-                    expectedp += float(col['expectedp'])
-                    loadedp += float(col['loadedp'])
-                    shaderp_comp += float(col['shaderp_comp'])
-                    shaderp_grph += float(col['shaderp_grph'])
-                    expectedc += float(col[' expectedc'])
-                    shaderc += float(col['shaderc'])
-                    sidelen += float(col[' sidelen'])
-            with open(file_path_release, 'r') as filename:
-                file = csv.DictReader(filename)
-                for col in file:
-                    fps += float(col['fps'])
-                    cpums += float(col['cpums'])
-                    cms += float(col['cms'])
-                    gms += float(col['gms'])
-            fps = fps / count
-            cpums = cpums / count
-            cms = cms / count
-            gms = gms / count
-            expectedp = expectedp / count
-            loadedp = loadedp / count
-            shaderp_comp = shaderp_comp / count
-            shaderp_grph = shaderp_grph / count
-            expectedc = expectedc / count
-            shaderc = shaderc / count
-            sidelen = sidelen / count
-            avg_list = [i, fps, cpums, cms, gms, expectedp, loadedp, shaderp_comp,
-                        shaderp_grph, expectedc, shaderc, sidelen]
-            with open(self.sumFile, 'a', newline='') as file:
-                writer = csv.writer(file)
-                writer.writerow(avg_list)
-            self.average_list.append(avg_list)
-        file.close()
+   
