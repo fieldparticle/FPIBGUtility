@@ -82,6 +82,9 @@ class TabGenData(QTabWidget):
                  self.ListObj.addItem(ii)
             self.SaveButton.setEnabled(True)
             self.GenDataButton.setEnabled(True)
+            gen_class = self.load_class(f"{self.itemcfg.config.import_text}.{self.itemcfg.config.import_text}")
+            self.gen_obj = None
+            self.gen_obj = gen_class(self.bobj,"BaseGenClass",self.itemcfg)
 
 
     def browseNewItem(self):
@@ -115,9 +118,7 @@ class TabGenData(QTabWidget):
 
 
     def gen_data(self):
-        gen_class = self.load_class(f"{self.itemcfg.config.import_text}.{self.itemcfg.config.import_text}")
-        gen_obj = gen_class(self.bobj,"BaseGenClass",self.itemcfg)
-        gen_obj.run()
+        self.gen_obj.gen_data()
 
     def load_class(self,class_name):
         module_name, class_name = class_name.rsplit('.', 1)
