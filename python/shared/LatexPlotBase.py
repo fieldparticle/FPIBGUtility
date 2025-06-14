@@ -17,9 +17,11 @@ from LatexDialogs import *
 from TrendLine import *
 from ValHandler import *
 from LatexDataContainer import *
+import matplotlib.ticker
 from matplotlib.ticker import (MultipleLocator,
                                FormatStrFormatter,
-                               AutoMinorLocator)
+                               AutoMinorLocator,
+                               FuncFormatter)
 
 class LatexPlotBase(LatexConfigurationClass):
     fignum = 0
@@ -57,20 +59,31 @@ class LatexPlotBase(LatexConfigurationClass):
     
     def splitCommandLinks(self,stringIn):
         parmString = ""
-        cmdsOnly = ""
+        parmsList = []
+        cmdsList = []
+        cmdsOnlyString = ""
         endFlg = False
+        multicmd = []
         stringIn = stringIn.strip()
-        for i in range(0, len(stringIn)): 
-            if  stringIn[i] != '=' and endFlg == False: 
-                cmdsOnly = cmdsOnly + stringIn[i] 
-            elif endFlg == False:
-                endFlg = True
-            else:
-                parmString  = parmString + stringIn[i] 
-        cmdsOnly = cmdsOnly.strip()
-        parmString = parmString.strip()
-        cmds = cmdsOnly.split('.')
-        return cmds,parmString
+        if ':' in stringIn:
+            multicmd = stringIn.split(':')
+        else:
+            multicmd.append(stringIn)
+        for jj in range(len(multicmd)):
+            parmString = ""
+            cmdsOnlyString = ""
+            for i in range(0, len(multicmd[jj])): 
+                if  multicmd[jj][i] != '=' and endFlg == False: 
+                    cmdsOnlyString = cmdsOnlyString + multicmd[jj][i] 
+                elif endFlg == False:
+                    endFlg = True
+                else:
+                    parmString  = parmString + multicmd[jj][i]
+            parmsList.append(parmString.strip())   
+            cmdsList.append(cmdsOnlyString.strip())
+            
+            
+        return cmdsList,parmsList
         
         
     def OpenLatxCFG(self):
@@ -82,7 +95,7 @@ class LatexPlotBase(LatexConfigurationClass):
         if(self.fignum != 0):
             plt.close("all")
         self.fignum += 1
-        self.valHandler.doValues(f"{self.itemcfg.config.tex_dir}/vals.tex")            
+        self.valHandler.doValues(f"{self.itemcfg.config.tex_dir}/_vals_{self.itemcfg.config.name_text}.tex")          
         # for each plot line
         for plotNum in range(1,int(self.cfg.num_plots_text)+1):
             self.fig = plt.figure(plotNum)
@@ -98,8 +111,8 @@ class LatexPlotBase(LatexConfigurationClass):
             data_fields = self.doDataFields(plotNum)
             data_src    = self.doDataSource(plotNum)
             data_file   = self.doDataFile(plotNum)
-            grid        = self.doGrid(plotNum)
-            axisFormat   = self.doAxisFormat(plotNum)
+            #grid        = self.doGrid(plotNum)
+            #axisFormat   = self.doAxisFormat(plotNum)
             self.doGeneralCommands(plotNum)
            # axex        = self.doAxesLabel(plotNum)
             temp_ary = []
@@ -149,48 +162,34 @@ class LatexPlotBase(LatexConfigurationClass):
 
             # Do trendline
             if not "none" in trendlines[plotNum-1]:
+                
                 for zz in range(len(plot_cmds)):
                     trendtxt = f"{legends[zz]} {trendlines[plotNum]} trendline" 
-                    trend  = TrendLine(self.onpdata[0,start:],self.onpdata[zz+1,start:],trendlines[zz-1],plotNames[zz-1],self.valHandler)
+
+                    trend  = TrendLine(self.onpdata[0,start:],self.onpdata[zz+1,start:],trendlines[zz-1],plotNames[zz-1],self.valHandler,self.itemcfg.config.tex_dir)
                     trend.doTrendLine(plt,lineColors[zz],trendtxt)
             
             self.ax.legend()
-            self.ax.grid(grid)
+            #self.ax.grid(grid)
             # Save temp image 
             pltTempImg = f"{self.itemcfg.config.plots_dir}/{self.itemcfg.config.name_text}{plotNum}.png"
             plt.savefig(pltTempImg, bbox_inches='tight')
             plt.close("all")        
-    
+                            
     def doGeneralCommands(self,plotNum):
-        matches = ["plt","ax","fig"]
-        class_major = None
-        for k,v in self.itemcfg.config.items():
-            if 'cmd' in k:
-                print(k)
-                for ii in range(len(v)):
-                    cmds,params = self.splitCommandLinks(v[ii])
-                    if any(x in cmds for x in matches):
-                        cmdnum = f"_{plotNum}"
-                        if cmdnum in k:
-                            match(cmds[0]):
-                                case "ax":
-                                    class_major = self.ax
-                                    
-                                case "plt":
-                                    class_major = plt
-                                    
-                                case "fig":
-                                    class_major = self.fig    
-                            ofunct = None
-                            for jj in range(len(cmds)-1):
-                                print(cmds)
-                                if jj == 0:
-                                    ofunct = getattr(class_major,cmds[jj+1],)
-                                else:
-                                    ofunct = getattr(ofunct,cmds[jj+1])
-                                
-                            ofunct(params)
-        return 
+        fig = plt.figure(plotNum)
+        ax = self.fig.gca()
+        plotGrouptxt = f"commands{plotNum}"
+        oob = self.itemcfg.config[plotGrouptxt]
+        for func_str in oob:
+             
+            print(func_str)
+            try:
+                exec(func_str)     
+            except BaseException as e:
+                print(f"Command {func_str} is invalid or ill formed")
+        
+
                            
             
     def doAxesLabel(self,plotNum):
@@ -199,20 +198,15 @@ class LatexPlotBase(LatexConfigurationClass):
         return oob
 
     def doAxisFormat(self,plotNum):
+
         # Get color. Its special becasue it has no rcParams
         plotGrouptxt = f"AxesFormat{plotNum}"
         oob = self.itemcfg.config[plotGrouptxt]
         return oob
 
     def doGrid(self,plotNum):
-        plotGrouptxt = f"GridCmd"
-        oob = self.itemcfg.config[plotGrouptxt][plotNum-1]
-        if "on" in oob:
-            return True
-        else:
-            return False 
-    
-   
+        pass
+        
     def doDataFields(self,plotNum):
         # Get color. Its special becasue it has no rcParams
         plotGrouptxt = f"DataFields{plotNum}"

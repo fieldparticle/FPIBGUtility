@@ -41,6 +41,7 @@ class LatexPlotParicle(LatexPlotBase):
         self.Parent = Parent
         self.LatexFileImage = LatexMultiImageWriter(self.Parent)
         self.valHandler = ValHandler()
+          
     
 
     def isfloat(self,value):

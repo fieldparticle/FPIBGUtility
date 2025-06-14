@@ -6,7 +6,6 @@ class ValHandler:
 
     def appendValues(self,macro,val):
         valstr = "\\newcommand{\\" + macro + "}{" + val + "}\n"
-
         fl = open(self.fileName,'a')
         fl.write(valstr)
         fl.close()

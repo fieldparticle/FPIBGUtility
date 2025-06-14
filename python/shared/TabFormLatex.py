@@ -189,7 +189,8 @@ class TabFormLatex(QTabWidget):
         previewPdf =  f"{self.itemcfg.config.tex_dir}/preview.pdf"
         previewTex = f"{self.itemcfg.config.tex_dir}/{self.itemcfg.config.name_text}.tex"
         prviewWorkingDir = self.itemcfg.config.tex_dir
-        prvCls = LatexPreview(previewFile,previewTex,prviewWorkingDir,self.itemcfg.config.values_file_text)
+        valFile = f"{self.itemcfg.config.tex_dir}/_vals_{self.itemcfg.config.name_text}.tex"
+        prvCls = LatexPreview(previewFile,previewTex,prviewWorkingDir,valFile)
         prvCls.ProcessLatxCode()
         prvCls.Run()
         with open('termPreview.log', "r") as infile:  

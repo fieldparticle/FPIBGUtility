@@ -3,12 +3,13 @@ from scipy.optimize import curve_fit
 from ValHandler import *
 class TrendLine():
 
-    def __init__(self, xvalue,yvalue,fitType,plotName,valHandler):
+    def __init__(self, xvalue,yvalue,fitType,plotName,valHandler,valDir):
         self.xvalue = xvalue
         self.yvalue = yvalue
         self.fitType = fitType
         self.plotname = plotName
         self.valHandler = valHandler
+        self.valDir = valDir
 
     def exponential_model(self, x, a, b):
         return a * np.exp(b*x)
@@ -33,7 +34,7 @@ class TrendLine():
         self.slope = np.sqrt(cov[1][1])
         # Compute a best fit line from the fit intercept and slope.
         yfit = inter + slope*self.xvalue
-
+        
         slp_str = f"{self.slope:10.3E}"
         key_str = f"{self.plotname}slope"
         self.valHandler.appendValues(key_str,slp_str)
