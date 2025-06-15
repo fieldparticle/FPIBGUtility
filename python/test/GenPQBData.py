@@ -10,10 +10,12 @@ class GenPQBData(BaseGenData):
 
     def gen_data(self):
         self.gen_data_base()
+        self.open_bin_file()
         self.do_cells()
+        self.bin_file.close()
 
-    def plot_particle_cell(self):
-        self.plot_particle_cell()
+    def plot_particle_cell(self,file_name):
+        self.plot_particle_cell_base(file_name)
     
     
     def place_particles(self,xx,yy,zz,layer,row,col,w_list):
@@ -38,13 +40,14 @@ class GenPQBData(BaseGenData):
         rz = single_particle_length*layer + zz
         print(f"Particle Loc: <{rx:2f},{ry:2f},{rz:2f})>")
 
-        particle_struct = pdata
+        particle_struct = pdata()
         particle_struct.pnum = self.particle_count
         particle_struct.rx = rx
         particle_struct.ry = ry
         particle_struct.rz = rz
         particle_struct.radius = rx
-        w_list.append(particle_struct)
+        packed_struct = bytearray(particle_struct)
+        w_list.append(packed_struct)
         self.particle_count+=1
         self.particles_in_cell_count +=1
         return 0
@@ -54,7 +57,7 @@ class GenPQBData(BaseGenData):
         ret = 0
         self.w_list = []
         self.particle_count = 0
-        self.open_bin_file()
+        
         for xx in range(self.cell_x_len):
             for yy in range(self.cell_y_len):
                 for zz in range(self.cell_z_len):
@@ -67,12 +70,13 @@ class GenPQBData(BaseGenData):
                                 for row in range(self.particles_in_row):
                                     ret = self.place_particles(xx,yy,zz,layer,row,col,self.w_list)
                                     if ret == 3:
+                                        self.write_bin_file(self.w_list)
                                         return 0
                                     if len(self.w_list) >= int(self.cfg.write_block_len_text):
                                         self.write_bin_file(self.w_list)
                                         self.w_list.clear()
         self.write_bin_file(self.w_list)
-        self.bin_file.close()
+        
                                     
         
     

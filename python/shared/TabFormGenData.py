@@ -120,6 +120,13 @@ class TabGenData(QTabWidget):
     def gen_data(self):
         self.gen_obj.gen_data()
 
+    def plot_particles(self):
+        selected_items = self.ListObj.selectedItems()
+        if selected_items:
+            self.gen_obj.plot_particle_cell(selected_items[0].text())
+        else:
+            print("no item selected")
+
     def load_class(self,class_name):
         module_name, class_name = class_name.rsplit('.', 1)
         module = importlib.import_module(module_name)
@@ -198,7 +205,7 @@ class TabGenData(QTabWidget):
             self.newButton = QPushButton("Plot")
             self.setSize(self.newButton,30,100)
             self.newButton.setStyleSheet("background-color:  #dddddd")
-            self.newButton.clicked.connect(self.browseNewItem)
+            self.newButton.clicked.connect(self.plot_particles)
             dirgrid.addWidget(self.newButton,2,1)
 
             self.GenDataButton = QPushButton("GenData")

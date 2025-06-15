@@ -1,11 +1,13 @@
 import struct
 import os
 import csv
+from mpl_interactions import ioff, panhandler, zoom_factory
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d.art3d import Poly3DCollection
 import numpy as np
 import ctypes
 import math
+from FPIBGConfig import *
 from abc import ABC, abstractmethod
 	#double rx;
 	#double ry;
@@ -40,6 +42,7 @@ class pdata(ctypes.Structure):
 
 class BaseGenData:
 
+    tst_file_cfg = FPIBGConfig("tstFIleCfg")
     particle_list = []
     particle_count = 0
     collision_count = 0
@@ -78,7 +81,7 @@ class BaseGenData:
 
     def write_bin_file(self,w_lst):
         for ii in w_lst:
-            self.bin_file.write(w_lst)
+            self.bin_file.write(ii)
         
 
     def write_test_file(self):
@@ -146,41 +149,41 @@ class BaseGenData:
         with open(self.test_file_name,'w') as f:
             fstr = f"index = {index}\n"     
             f.write(fstr)
-            fstr = f"CellAryW = {self.cell_x_len+1}\n"     
+            fstr = f"CellAryW = {self.cell_x_len+1};\n"     
             f.write(fstr)
-            fstr = f"CellAryH = {self.cell_y_len+1}\n"     
+            fstr = f"CellAryH = {self.cell_y_len+1};\n"     
             f.write(fstr)
-            fstr = f"CellAryL = {self.cell_z_len+1}\n"     
+            fstr = f"CellAryL = {self.cell_z_len+1};\n"     
             f.write(fstr)
-            fstr = f"radius = {self.radius}\n"
+            fstr = f"radius = {self.radius};\n"
             f.write(fstr)
-            fstr = f"PartPerCell = {self.particles_in_space}\n"
+            fstr = f"PartPerCell = {self.particles_in_space};\n"
             f.write(fstr)
-            fstr = f"pcount = {self.number_particles}\n"
+            fstr = f"pcount = {self.number_particles};\n"
             f.write(fstr)
-            fstr = f"colcount = {self.tot_num_collsions}\n"
+            fstr = f"colcount = {self.tot_num_collsions};\n"
             f.write(fstr)
-            fstr = f"dataFile = {self.test_bin_name}\n"
+            fstr = f"dataFile = \"{self.test_bin_name};\"\n"
             f.write(fstr)
-            fstr = f"aprFile = { self.report_file}\n"
+            fstr = f"aprFile = \"{ self.report_file};\"\n"
             f.write(fstr)
-            fstr = f"density = {sel_dict['cdens']}\n"
+            fstr = f"density = {sel_dict['cdens']};\n"
             f.write(fstr)
-            fstr = f"pdensity = 0\n"
+            fstr = f"pdensity = 0;\n"
             f.write(fstr)
-            fstr = f"dispatchx = {sel_dict['wx']}\n"
+            fstr = f"dispatchx = {sel_dict['wx']};\n"
             f.write(fstr)
-            fstr = f"dispatchx = {sel_dict['wy']}\n"
+            fstr = f"dispatchx = {sel_dict['wy']};\n"
             f.write(fstr)
-            fstr = f"dispatchx = {sel_dict['wz']}\n"
+            fstr = f"dispatchx = {sel_dict['wz']};\n"
             f.write(fstr)
-            fstr = f"dispatchx = {sel_dict['dx']}\n"
+            fstr = f"dispatchx = {sel_dict['dx']};\n"
             f.write(fstr)
-            fstr = f"dispatchx = {sel_dict['dx']}\n"
+            fstr = f"dispatchx = {sel_dict['dx']};\n"
             f.write(fstr)
-            fstr = f"dispatchx = {sel_dict['dz']}\n"
+            fstr = f"dispatchx = {sel_dict['dz']};\n"
             f.write(fstr)
-            fstr = f"ColArySize = {self.cell_array_size}\n"
+            fstr = f"ColArySize = {self.cell_array_size};\n"
             f.write(fstr)
 
 
@@ -197,16 +200,36 @@ class BaseGenData:
             self.write_test_file(index,ii)
             index+=1
         self.select_list.clear()
+        # Define the event handling function
+    def on_press(self,event):
+        if event.button != 1:
+            return
+        x, y = event.xdata, event.ydata
+        self.ax.set_xlim(x - 0.01, x + 0.01)
+        self.ax.set_ylim(y - 0.01, y + 0.01)
+        plt.show()
+        #self.ax.canvas.draw()
 
-    def plot_particle_cell_base(self):
-        file_name = "J:/FPIBGDATAPY/perfdataPQB/0000CollisionDataSet32X16X3.bin"
-        plist = self.read_particle_data(file_name)
+# Connect the event handler to the source figure
+
+####################################################################################################
+    def plot_particle_cell_base(self,file_name):
+        
         self.fig = plt.figure()
         self.ax = plt.axes(projection='3d')
-        self.plotParticleArray(plist,aspoints=False)
-        for ii in range(1,10):
-            for jj in range(1,10):
-                for kk in range(1,10):
+        self.fig.canvas.mpl_connect('button_press_event', self.on_press)
+        self.fig.canvas.mpl_connect('scroll_event',self.zoom_fun)
+
+        file_prefix = os.path.splitext(file_name)[0]
+        
+        self.test_file_name = file_prefix + ".tst"
+        self.tst_file_cfg.Create(self.bobj.log,self.test_file_name)
+        side_length = int(self.tst_file_cfg.config.CellAryW)
+        plist = self.read_particle_data(file_name)
+        self.plotParticleArray(plist,aspoints=False,sidelen=side_length)
+        for ii in range(side_length):
+            for jj in range(side_length):
+                for kk in range(side_length):
                     self.plot_cells(ii,jj,kk)
         
 
@@ -228,7 +251,8 @@ class BaseGenData:
         z = pt_lst[:,2]
         # Face IDs
         vertices = [[0,1,2,3],[1,5,6,2],[3,2,6,7],[4,0,3,7],[5,4,7,6],[4,5,1,0]]
-        face_color = [1.0/cx,1.0/cy,1.0/cz]
+        #face_color = [1.0/cx,1.0/cy,1.0/cz]
+        face_color = 'y'
         tupleList = list(zip(x, y, z))
         poly3d = [[tupleList[vertices[ix][iy]] for iy in range(len(vertices[0]))] for ix in range(len(vertices))]
         #ax.plot(pt_lst[0][0],pt_lst[1][0],pt_lst[2][0])
@@ -261,9 +285,26 @@ class BaseGenData:
         return np.array(results)
     
     
+    def plotSphere(plist,ax,scolor=None,aspoints=True,start=0,end=None):
+        
+        theta = np.linspace(0, 2 * np.pi, 10)
+        phi = np.linspace(0, np.pi, 10)
+        theta, phi = np.meshgrid(theta, phi)
+        if aspoints == True:    
+            ax.scatter(plist[:,1],plist[:,2],plist[:,3])
+        else:
+            for ii in plist:
+                # Convert to Cartesian coordinates
+                x = ii[1] + ii[4] * np.sin(phi) * np.cos(theta)
+                y = ii[2] + ii[4] * np.sin(phi) * np.sin(theta)
+                z = ii[3] + ii[4] * np.cos(phi)
+                if scolor == None:
+                    ax.plot_surface(x, y, z, alpha=0.8)
+                else:
+                    ax.plot_surface(x, y, z, color=scolor,alpha=0.8)
+                
     def plotParticleArray(self,npplist,scolor=None,aspoints=True,start=0,end=None,sidelen=None):
     
-        self.plotSphere(npplist,scolor,aspoints,start,end)
         self.ax.set_title('3D Line Plot')
         self.ax.set_xlabel('X')
         self.ax.set_ylabel('Y')
@@ -284,3 +325,28 @@ class BaseGenData:
         self.ax.set_title('3D Sphere')
         plt.gca().set_aspect('equal')
         
+    def zoom_factory(self,ax,base_scale = 2.):
+        def zoom_fun(self,event):
+            # get the current x and y limits
+            cur_xlim = ax.get_xlim()
+            cur_ylim = ax.get_ylim()
+            cur_xrange = (cur_xlim[1] - cur_xlim[0])*.5
+            cur_yrange = (cur_ylim[1] - cur_ylim[0])*.5
+            xdata = event.xdata # get event x location
+            ydata = event.ydata # get event y location
+            if event.button == 'up':
+                # deal with zoom in
+                scale_factor = 1/base_scale
+            elif event.button == 'down':
+                # deal with zoom out
+                scale_factor = base_scale
+            else:
+                # deal with something that should never happen
+                scale_factor = 1
+                #print event.button
+            # set new limits
+            ax.set_xlim([xdata - cur_xrange*scale_factor,
+                        xdata + cur_xrange*scale_factor])
+            ax.set_ylim([ydata - cur_yrange*scale_factor,
+                        ydata + cur_yrange*scale_factor])
+            plt.draw() # force re-draw
