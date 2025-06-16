@@ -13,10 +13,10 @@ class TabObjLatex(QTabWidget):
     def Create(self,FPIBGBase):
         self.bobj = FPIBGBase
         ## Create the tabs
-        self.tabFormGenData = TabGenData(self.bobj,"Gen Particle Data Utilty Tab")        
-        self.tabFormLatex = TabFormLatex(self.bobj,"Latex Utilty Tab")
+        self.tabFormGenData = TabGenData()        
+        self.tabFormLatex = TabFormLatex()
         self.addTab(self.tabFormGenData, 'Solution Suite')
         self.addTab(self.tabFormLatex, 'Latex Utility')
-        self.tabFormGenData.Create()
-        self.tabFormLatex.Create()
+        self.tabFormGenData.Create(self.bobj)
+        self.tabFormLatex.Create(self.bobj,)
       

@@ -69,13 +69,9 @@ class TabFormLatex(QTabWidget):
     ObjName = ""
     ltxObj = None
 
-    def __init__(self, FPIBGBase, ObjName, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.ObjName = ObjName
-        self.bobj = FPIBGBase
-        self.cfg = self.bobj.cfg.config
-        self.log = self.bobj.log
-        self.log.logs(self,"TabFormLatex finished init.")
+       
         
     
     def setSize(self,control,H,W):
@@ -205,7 +201,12 @@ class TabFormLatex(QTabWidget):
 
         
 
-    def Create(self):
+    def Create(self,FPIBGBase):
+        
+        self.bobj = FPIBGBase
+        self.cfg = self.bobj.cfg.config
+        self.log = self.bobj.log
+        self.log.logs(self,"TabFormLatex finished init.")
         self.log.logs(self,"TabFormLatex started Create.")
         try:
             self.setStyleSheet("background-color:  #eeeeee")

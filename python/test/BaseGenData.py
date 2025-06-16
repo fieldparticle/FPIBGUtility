@@ -2,6 +2,7 @@ import struct
 import os
 import csv
 from mpl_interactions import ioff, panhandler, zoom_factory
+import plotly.express as px
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d.art3d import Poly3DCollection
 import numpy as np
@@ -9,6 +10,8 @@ import ctypes
 import math
 from FPIBGConfig import *
 from abc import ABC, abstractmethod
+
+
 	#double rx;
 	#double ry;
 	#double rz;
@@ -51,15 +54,41 @@ class BaseGenData:
     select_list = []
     sepdist = 0.05
     bin_file = None
-    def __init__(self, FPIBGBase, ObjName,itemcfg):
+    start_cell = 0
+    end_cell = 0
+    plt_exists  = False
+    toggle_flag = False
+    cur_view_num = 0
+    cur_file = ""
+    cell_face_flag = True
+
+    views = [('XY',   (90, -90, 0)),
+        ('XZ',    (0, -90, 0)),
+        ('YZ',    (0,   0, 0)),
+        ('-XY', (-90,  90, 0)),
+        ('-XZ',   (0,  90, 0)),
+        ('-YZ',   (0, 180, 0))]   
+    
+    def __init__(self):
+       pass
+
+    def Create(self, FPIBGBase, ObjName,itemcfg,parent):
+        self.parent = parent
         self.ObjName = ObjName
         self.bobj = FPIBGBase
         self.cfg = self.bobj.cfg.config
         self.log = self.bobj.log
         self.log.logs(self,"TabFormLatex finished init.")
         self.itemcfg = itemcfg
-        self.cfg = self.itemcfg.config
+        self.cfg = self.itemcfg
+        self.cur_view_num = int(self.cfg.default_view_text)
+        self.toggle_flag = False
+      
 
+    def on_close(self,event):
+        pass
+
+        
     @abstractmethod
     def gen_data(self):
         pass
@@ -104,9 +133,7 @@ class BaseGenData:
         except BaseException as e:
             print(e)
 
-
-
-        
+       
     def calulate_cell_properties(self,index,sel_dict):
         self.collision_density           = float(sel_dict['cdens'])
         self.number_particles       =  int(sel_dict['tot'])
@@ -201,40 +228,102 @@ class BaseGenData:
             index+=1
         self.select_list.clear()
         # Define the event handling function
-    def on_press(self,event):
-        if event.button != 1:
-            return
-        x, y = event.xdata, event.ydata
-        self.ax.set_xlim(x - 0.01, x + 0.01)
-        self.ax.set_ylim(y - 0.01, y + 0.01)
-        plt.show()
-        #self.ax.canvas.draw()
-
+    
 # Connect the event handler to the source figure
-
 ####################################################################################################
-    def plot_particle_cell_base(self,file_name):
-        
-        self.fig = plt.figure()
-        self.ax = plt.axes(projection='3d')
-        self.fig.canvas.mpl_connect('button_press_event', self.on_press)
-        self.fig.canvas.mpl_connect('scroll_event',self.zoom_fun)
+    def toggle_cell_face(self):
+        if self.cell_face_flag == True:
+            self.cell_face_flag = False
+        else:
+            self.cell_face_flag = False
+        self.update_plot()
 
-        file_prefix = os.path.splitext(file_name)[0]
-        
+    def set_view_num(self,viewnum):
+        self.cur_view_num = viewnum
+
+    def set_cell_toggle_flag(self, flag):
+        self.toggle_flag = flag
+
+    def set_up_plot(self):
+        self.fig = plt.figure(1)
+        plt.figure(1, clear=True) 
+        self.ax = plt.axes(projection='3d')
+        self.fig.canvas.mpl_connect('close_event', self.on_close)
+
+    def do_plot(self,view_num=None,cells_on=True):
+        #if self.plt_exists == True:
+        plt.cla()
+        #self.plt_exists = True
+        print("do_plot: cells_on = ", cells_on)
+        self.plotParticleArray(self.plist,aspoints=False,sidelen=self.tst_side_length)
+        if self.toggle_flag == True:
+            for ii in range(self.tst_side_length):
+                for jj in range(self.tst_side_length):
+                    for kk in range(self.tst_side_length):
+                        self.plot_cells(ii,jj,kk)
+
+        disconnect_zoom = zoom_factory(self.ax)
+        pan_handler = panhandler(self.fig)
+        self.end_plot()
+
+    def update_plot(self):  
+        plt.close()
+        self.set_up_plot()
+        file_prefix = os.path.splitext(self.cur_file)[0]
         self.test_file_name = file_prefix + ".tst"
         self.tst_file_cfg.Create(self.bobj.log,self.test_file_name)
-        side_length = int(self.tst_file_cfg.config.CellAryW)
-        plist = self.read_particle_data(file_name)
-        self.plotParticleArray(plist,aspoints=False,sidelen=side_length)
-        for ii in range(side_length):
-            for jj in range(side_length):
-                for kk in range(side_length):
-                    self.plot_cells(ii,jj,kk)
+        self.tst_side_length = int(self.tst_file_cfg.config.CellAryW)
+        self.plist = self.read_particle_data(self.cur_file)
+        self.do_plot()
         
+    def plot_base(self,file_name,view_num=None,cells_on=True):
+        self.cur_file = file_name        
+        self.set_up_plot()
+        file_prefix = os.path.splitext(file_name)[0]
+        self.test_file_name = file_prefix + ".tst"
+        self.tst_file_cfg.Create(self.bobj.log,self.test_file_name)
+        self.tst_side_length = int(self.tst_file_cfg.config.CellAryW)
+        self.plist = self.read_particle_data(file_name)
+        self.do_plot()
+        
+    def side_value_changed(self,side_txt):
+        if len(side_txt) < 2:
+            return None
+        self.start_cell = int(side_txt[0])
+        self.end_cell = int(side_txt[1])
+        
+    def plot_view_changed(self,view):
+        self.fig.canvas.draw()
 
-        plt.show(block=True)
+    def end_plot(self,sidelen = None):
+        view_num=self.cur_view_num
+        self.ax.view_init(elev=self.views[view_num][1][0], azim=self.views[view_num][1][1], roll=self.views[view_num][1][2])
+        self.ax.set_title('3D Line Plot')
+        self.ax.set_xlabel('X')
+        self.ax.set_ylabel('Y')
+        self.ax.set_zlabel('Z')
+        if sidelen != None:
+            lims = [0,sidelen+1]
+            self.ax.set_xlim(lims)
+            self.ax.set_ylim(lims)
+            self.ax.set_zlim(lims)
+        else:
+            mxlims =[0,4]
+            #ylims = max(npplist[:,2])
+            #mzlims = max(npplist[:,3])
+            lims = [0,5]
+            self.ax.set_xlim(lims)
+            self.ax.set_ylim(lims)
+            self.ax.set_zlim(lims)
+        self.ax.set_title('3D Sphere')
+        plt.gca().set_aspect('equal')
+        #plt.get_current_fig_manager().full_screen_toggle()
+        plt.show(block=False)
 
+
+    def get_side_length_txt(self):
+        side_txt = f"{self.tst_side_length}:{self.tst_side_length}"
+        
     def plot_cells(self,cx,cy,cz):
         R = 0.5
         pt_lst = np.zeros((8,3))
@@ -252,11 +341,17 @@ class BaseGenData:
         # Face IDs
         vertices = [[0,1,2,3],[1,5,6,2],[3,2,6,7],[4,0,3,7],[5,4,7,6],[4,5,1,0]]
         #face_color = [1.0/cx,1.0/cy,1.0/cz]
-        face_color = 'y'
+        
         tupleList = list(zip(x, y, z))
         poly3d = [[tupleList[vertices[ix][iy]] for iy in range(len(vertices[0]))] for ix in range(len(vertices))]
-        #ax.plot(pt_lst[0][0],pt_lst[1][0],pt_lst[2][0])
-        self.ax.add_collection3d(Poly3DCollection(poly3d, edgecolors= 'k',facecolors=face_color, linewidths=1, alpha=0.5))
+        face_color = 'y'
+        if self.cell_face_flag == True:
+            alpha_val = 0.5
+        else:
+            alpha_val = 0.0
+        self.ax.add_collection3d(Poly3DCollection(poly3d, edgecolors= 'k',facecolors=face_color, linewidths=1, alpha=alpha_val))
+        
+
      
 
     def read_particle_data(self,file_name):
@@ -269,23 +364,25 @@ class BaseGenData:
         results = []
         
         with open(file_name, "rb") as f:
+            
             while True:
-                data = f.read(struct_len)
-                if not data: 
+                record = pdata()
+                ret = f.readinto(record)
+                #print(ret)
+                if ret == 0:
                     break
-                if(len(data) < struct_len):
-                    break
-                s = struct_unpack(data)
-                results.append(s)
+                results.append(record)
+                #print(record.pnum,record.rx)
+
         #len_data = len(results)
         #print(len_data)
         p_lst = []
         #for ii in range(4):
         #   print("partnum:{:.0f},rx:{:.2f},ry:{:.2f},rz:{:.2f}".format(results[ii][0],results[ii][1],results[ii][2],results[ii][3]))
-        return np.array(results)
+        return results
     
     
-    def plotSphere(plist,ax,scolor=None,aspoints=True,start=0,end=None):
+    def plotSphere(self,plist,ax,scolor=None,aspoints=True,start=0,end=None):
         
         theta = np.linspace(0, 2 * np.pi, 10)
         phi = np.linspace(0, np.pi, 10)
@@ -295,58 +392,16 @@ class BaseGenData:
         else:
             for ii in plist:
                 # Convert to Cartesian coordinates
-                x = ii[1] + ii[4] * np.sin(phi) * np.cos(theta)
-                y = ii[2] + ii[4] * np.sin(phi) * np.sin(theta)
-                z = ii[3] + ii[4] * np.cos(phi)
+                x = ii.rx + ii.radius * np.sin(phi) * np.cos(theta)
+                y = ii.ry + ii.radius * np.sin(phi) * np.sin(theta)
+                z = ii.rz + ii.radius * np.cos(phi)
                 if scolor == None:
                     ax.plot_surface(x, y, z, alpha=0.8)
                 else:
                     ax.plot_surface(x, y, z, color=scolor,alpha=0.8)
-                
-    def plotParticleArray(self,npplist,scolor=None,aspoints=True,start=0,end=None,sidelen=None):
-    
-        self.ax.set_title('3D Line Plot')
-        self.ax.set_xlabel('X')
-        self.ax.set_ylabel('Y')
-        self.ax.set_zlabel('Z')
-        if sidelen != None:
-            lims = [0,sidelen]
-            self.ax.set_xlim(lims)
-            self.ax.set_ylim(lims)
-            self.ax.set_zlim(lims)
-        else:
-            mxlims = max(npplist[:,1])
-            mylims = max(npplist[:,2])
-            mzlims = max(npplist[:,3])
-            lims = [0,max([mxlims,mylims,mzlims])]
-            self.ax.set_xlim(lims)
-            self.ax.set_ylim(lims)
-            self.ax.set_zlim(lims)
-        self.ax.set_title('3D Sphere')
-        plt.gca().set_aspect('equal')
-        
-    def zoom_factory(self,ax,base_scale = 2.):
-        def zoom_fun(self,event):
-            # get the current x and y limits
-            cur_xlim = ax.get_xlim()
-            cur_ylim = ax.get_ylim()
-            cur_xrange = (cur_xlim[1] - cur_xlim[0])*.5
-            cur_yrange = (cur_ylim[1] - cur_ylim[0])*.5
-            xdata = event.xdata # get event x location
-            ydata = event.ydata # get event y location
-            if event.button == 'up':
-                # deal with zoom in
-                scale_factor = 1/base_scale
-            elif event.button == 'down':
-                # deal with zoom out
-                scale_factor = base_scale
-            else:
-                # deal with something that should never happen
-                scale_factor = 1
-                #print event.button
-            # set new limits
-            ax.set_xlim([xdata - cur_xrange*scale_factor,
-                        xdata + cur_xrange*scale_factor])
-            ax.set_ylim([ydata - cur_yrange*scale_factor,
-                        ydata + cur_yrange*scale_factor])
-            plt.draw() # force re-draw
+                print(f"Particle Loc: <{ii.rx:2f},{ii.ry:2f},{ii.rz:2f})>")
+
+    def plotParticleArray(self,npplist,scolor=None,aspoints=True,start=0,end=None,sidelen=None,view_num=None):
+        self.plotSphere(npplist,self.ax,scolor,aspoints,start,end)
+      
+ 

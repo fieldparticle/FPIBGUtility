@@ -28,14 +28,13 @@ class TabGenData(QTabWidget):
 
     ObjName = ""
     ltxObj = None
+   
 
-    def __init__(self, FPIBGBase, ObjName, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.ObjName = ObjName
-        self.bobj = FPIBGBase
-        self.cfg = self.bobj.cfg.config
-        self.log = self.bobj.log
-        self.log.logs(self,"TabFormLatex finished init.")
+
+    def __init__(self, *args, **kwargs ):
+        super().__init__(*args, **kwargs )
+        
+       
         
     
     def setSize(self,control,H,W):
@@ -44,6 +43,16 @@ class TabGenData(QTabWidget):
         control.setMaximumHeight(H)
         control.setMaximumWidth(W)
 
+    def update_cfg_section(self):
+        self.ltxObj.clearConfigGrp()
+        self.ltxObj.OpenLatxCFG()
+        files_names = self.itemcfg.config.data_dir + "/*.bin"
+        files = glob.glob(files_names)
+        for ii in files:
+            self.ListObj.addItem(ii)
+        self.SaveButton.setEnabled(True)
+        self.GenDataButton.setEnabled(True)
+    
     def SaveConfigurationFile(self):
         self.ltxObj.updateCfgData()
         
@@ -72,20 +81,21 @@ class TabGenData(QTabWidget):
                 return 
             if self.hasConfig == True:
                 self.ltxObj.clearConfigGrp()
-            self.ltxObj = LatexDataConfigurationClass(self)
-            self.ltxObj.setConfigGroup(self.tab_layout)
-            self.ltxObj.OpenLatxCFG()
-            self.hasConfig = True
             files_names = self.itemcfg.config.data_dir + "/*.bin"
             files = glob.glob(files_names)
             for ii in files:
                  self.ListObj.addItem(ii)
             self.SaveButton.setEnabled(True)
             self.GenDataButton.setEnabled(True)
-            gen_class = self.load_class(f"{self.itemcfg.config.import_text}.{self.itemcfg.config.import_text}")
-            self.gen_obj = None
-            self.gen_obj = gen_class(self.bobj,"BaseGenClass",self.itemcfg)
+            gen_class_txt = f"{self.itemcfg.config.import_text}.{self.itemcfg.config.import_text}"
+            self.ltxObj = LatexDataConfigurationClass()
+            self.ltxObj.Create(self.bobj,self,gen_class_txt)
+            self.ltxObj.setConfigGroup(self.tab_layout)
+            self.ltxObj.OpenLatxCFG()
+            self.hasConfig = True
 
+
+   
 
     def browseNewItem(self):
         """ Opens a dialog window for the user to select a folder in the file system. """
@@ -116,57 +126,29 @@ class TabGenData(QTabWidget):
             self.OpenLatxCFG(self.CfgFile)
 
 
+    def plot_closed(self):
+        self.ltxObj.clearConfigGrp()
+        self.ltxObj.setConfigGroup(self.tab_layout)
+        self.ltxObj.OpenLatxCFG()
 
     def gen_data(self):
-        self.gen_obj.gen_data()
+        self.ltxObj.gen_data()
 
     def plot_particles(self):
         selected_items = self.ListObj.selectedItems()
         if selected_items:
-            self.gen_obj.plot_particle_cell(selected_items[0].text())
+            self.ltxObj.plot(selected_items[0].text())
+            
+           
         else:
             print("no item selected")
+       
 
-    def load_class(self,class_name):
-        module_name, class_name = class_name.rsplit('.', 1)
-        module = importlib.import_module(module_name)
-        return getattr(module, class_name)
-
-    
-        """
-        import_str = f"from {self.itemcfg.config.import_text} import *"
-        module = __import__(self.itemcfg.config.import_text)
-        try:
-            ret = exec(import_str)     
-        except BaseException as e:
-            print(f"Command {import_str} is invalid or ill formed e=:")
-        gen_obj = getattr(module, "run")
-        module.run()
-        """
-        """
-        self.SaveConfigurationFile()
-        previewFile = f"{self.itemcfg.config.tex_dir}/preview.tex"
-        previewPdf =  f"{self.itemcfg.config.tex_dir}/preview.pdf"
-        previewTex = f"{self.itemcfg.config.tex_dir}/{self.itemcfg.config.name_text}.tex"
-        prviewWorkingDir = self.itemcfg.config.tex_dir
-        valFile = f"{self.itemcfg.config.tex_dir}/_vals_{self.itemcfg.config.name_text}.tex"
-        prvCls = LatexPreview(previewFile,previewTex,prviewWorkingDir,valFile)
-        prvCls.ProcessLatxCode()
-        prvCls.Run()
-        with open('termPreview.log', "r") as infile:  
-            txt_line = infile.readline().strip("\n")
-            self.terminal.append(txt_line)
-            while txt_line:
-                txt_line = infile.readline().strip("\n")
-                self.terminal.append(txt_line)
-        prv = PreviewDialog(previewPdf)
-        prv.exec()
-        """
-
-        
-
-    def Create(self):
-        self.log.logs(self,"TabFormLatex started Create.")
+    def Create(self,FPIBGBase):
+        self.bobj = FPIBGBase
+        self.cfg = self.bobj.cfg.config
+        self.log = self.bobj.log
+        self.log.logs(self,"TabFormLatex finished init.")
         try:
             self.setStyleSheet("background-color:  #eeeeee")
             self.tab_layout = QGridLayout()
@@ -224,6 +206,7 @@ class TabGenData(QTabWidget):
             #self.ListObj.itemSelectionChanged.connect(lambda: self.valueChangeArray(self.ListObj))
             dirgrid.addWidget(self.ListObj,3,0,1,2)
             self.log.logs(self,"TabFormLatex finished Create.")
+            
             
             ## -------------------------------------------------------------
             ## Comunications Interface

@@ -1,4 +1,4 @@
-
+import importlib
 from PyQt6.QtCore import Qt
 from PyQt6.QtWidgets import QWidget,QScrollArea,QVBoxLayout,QTabWidget,QFileDialog
 from PyQt6.QtGui import QPixmap
@@ -19,20 +19,67 @@ class LatexDataConfigurationClass():
     sumFile = ""
     data_files = []
     average_list = []
-       
+    cells_plot_toggle = True
+    cur_file_name = ""
+  
 
     #LatexFileImage = None
     imagelo = None
 
-    def __init__(self,Parent):
-        self.Parent = Parent
-        self.bobj = self.Parent.bobj
+    def __init__(self):
+        pass
+    
+        
+    def Create(self,FPIBGBase,gui_parent,gen_class_txt):
+        self.gui_parent = gui_parent
+        self.bobj = FPIBGBase
         self.gcfg = self.bobj.cfg.config
         self.log = self.bobj.log
-        # So we can pass a diffenrent item conf when parent does not own just one
-        self.itemcfg = Parent.itemcfg 
-        self.cfg = Parent.itemcfg .config
+        self.cfg = self.gui_parent.itemcfg.config
+
+        gen_class = self.load_class(gen_class_txt)
+        self.gen_obj = None
+        self.gen_obj = gen_class()
+        self.gen_obj.Create(self.bobj,"BaseGenClass",self.cfg,self)
         
+
+    def side_value_change(self):
+        side_txt = self.side_len_edit.text().split(':')
+        self.gen_obj.side_value_changed(side_txt)
+        
+    def toggle_cell_face(self):
+        self.gen_obj.toggle_cell_face()
+        
+
+    def toggle_cells(self):
+        if(self.cells_plot_toggle == False):
+            self.cells_plot_toggle = True
+        else:
+            self.cells_plot_toggle = False
+        self.gen_obj.set_cell_toggle_flag(self.cells_plot_toggle)
+        self.gen_obj.update_plot()
+
+    def plot(self,file_name):
+        self.cur_file_name = file_name
+        self.gen_obj.plot_base(file_name,cells_on=self.cells_plot_toggle)
+        self.do_plot_group()
+
+    def plot_view_changed(self):
+        view = self.viewObj.currentRow()
+        self.gen_obj.set_view_num(view)
+        self.gen_obj.update_plot()
+        return
+
+    def gen_data(self):
+        self.gen_obj.gen_data()
+
+    def DoArray(self):
+        pass
+
+    def load_class(self,class_name):
+        module_name, class_name = class_name.rsplit('.', 1)
+        module = importlib.import_module(module_name)
+        return getattr(module, class_name)
 
     def setTypeText(self,Text):
         self.type_text.setTypeText(Text)
@@ -40,7 +87,7 @@ class LatexDataConfigurationClass():
     def updateCfgData(self):
         for oob in self.objArry:
             oob.updateCFGData()
-        self.itemcfg.updateCfg()
+        self.cfg.updateCfg()
         self.LatexFileImage.Write() 
 
     def setSize(self,control,H,W):
@@ -53,18 +100,18 @@ class LatexDataConfigurationClass():
         return   
  
     def SaveConfigurationFile(self):
-        self.itemcfg.updateCfg()
-        self.LatexFileImage.Create(self.bobj,self.itemcfg.config.name_text)
+        self.cfg.updateCfg()
+        self.LatexFileImage.Create(self.bobj,self.cfg.config.name_text)
         self.LatexFileImage.cleanPRE = True
         self.LatexFileImage.width = 0
         self.LatexFileImage.height = 0
-        self.LatexFileImage.Write(self.itemcfg.config,plt) 
+        self.LatexFileImage.Write(self.cfg.config,plt) 
     
     def OpenLatxCFG(self):
-        #print(self.itemcfg)
-        #self.LatexFileImage.outDirectory = self.itemcfg.config.tex_dir
-        #self.LatexFileImage.ltxDirectory = self.itemcfg.config.tex_image_dir
-        self.doItems(self.itemcfg.config)
+        #print(self.cfg)
+        #self.LatexFileImage.outDirectory = self.cfg.config.tex_dir
+        #self.LatexFileImage.ltxDirectory = self.cfg.config.tex_image_dir
+        self.doItems(self.cfg)
     
     def clearLayout(self,layout):
      #   print("-- -- input layout: "+str(layout))
@@ -93,6 +140,7 @@ class LatexDataConfigurationClass():
         
 
     def setConfigGroup(self,layout):
+        self.parent_lay_out = layout
         self.ConfigGroup = QGroupBox("Latex File Configuration")
         layout.addWidget(self.ConfigGroup,0,2,1,1,alignment= Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignTop)
         self.cfglayout = QVBoxLayout()
@@ -130,7 +178,7 @@ class LatexDataConfigurationClass():
                 #print("List",k,len(v))
             elif type(v) == libconf.AttrDict:
                 widget = CfgDict(k,v)
-                self.layouts[self.lyCount].addWidget(widget.Create(cfg,self.itemcfg,self.Parent))
+                self.layouts[self.lyCount].addWidget(widget.Create(cfg,self.cfg,self.gui_parent))
                 self.objArry.append(widget)    
                 self.cfgHeight += 70
             elif type(v) == str:
@@ -139,13 +187,13 @@ class LatexDataConfigurationClass():
             elif type(v) == bool:
                 #print("Str",k,v)
                 widget = CfgBool(k,v)
-                self.layouts[self.lyCount].addWidget(widget.Create(cfg,self.itemcfg,self))
+                self.layouts[self.lyCount].addWidget(widget.Create(cfg,self.cfg,self))
                 self.objArry.append(widget)
                 self.cfgHeight += 70
             elif type(v) == int:
                 #print("int",k,v)
                 widget = CfgInt(k,v)
-                self.layouts[self.lyCount].addWidget(widget.Create(cfg,self.itemcfg,self))
+                self.layouts[self.lyCount].addWidget(widget.Create(cfg,self.cfg,self))
                 self.objArry.append(widget)    
                 self.cfgHeight += 70
             elif type(v) == tuple   :
@@ -153,14 +201,58 @@ class LatexDataConfigurationClass():
                self.cfgHeight += H
         #self.setSize(self.ConfigGroup,self.cfgHeight,450)
 
-    def DoImageList(self,cfg,k,v):
-        self.ImagesList = CfgImageArray(k,v)
-        self.layouts[self.lyCount].addWidget(self.ImagesList.Create(cfg,self.itemcfg,self))    
-        self.objArry.append(self.ImagesList) 
-        return self.ImagesList.getHW()         
+    
+        
 
-    def DoArray(self):
-        pass
+
+    def do_plot_group(self):
+        self.clearConfigGrp()
+        self.ConfigGroup = QGroupBox("Latex Plot Configuration")
+        self.parent_lay_out.addWidget(self.ConfigGroup,0,2,1,1,alignment= Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignTop)
+        self.cfglayout = QVBoxLayout()
+        self.setSize(self.ConfigGroup,200,500) 
+        self.paramlo = QGridLayout()
+        self.ConfigGroup.setLayout(self.paramlo)
+
+        self.side_len_edit_label = QLabel("Side Length Range")
+        self.paramlo.addWidget(self.side_len_edit_label,0,0,1,1,alignment= Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignTop)
+        self.side_len_edit = QLineEdit()
+        self.side_len_edit.setStyleSheet("background-color:  #FFFFFF")
+        side_txt = self.gen_obj.get_side_length_txt()
+        
+        self.side_len_edit.setText(side_txt)
+        self.side_len_edit.editingFinished.connect(self.side_value_change)
+        self.paramlo.addWidget(self.side_len_edit,0,1,1,1,alignment= Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignTop)
+
+        self.view_label = QLabel("Plot View")
+        #elf.LabelObj.setFont(self.font)
+        #self.setSize(self.LabelObj,20,self.lwidth) 
+        self.paramlo.addWidget(self.view_label,1,0,1,1,alignment= Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignTop)
+        self.viewObj =  QListWidget()
+        #self.ListObj.setFont(self.font)
+        self.viewObj.setStyleSheet("background-color:  #FFFFFF")
+        self.setSize(self.viewObj,150,300)
+        self.viewObj.itemSelectionChanged.connect(self.plot_view_changed)
+        self.viewObj.insertItem(0, "XY = (90,-90,0)")
+        self.viewObj.insertItem(1, "XZ = (90,-90,0)")
+        self.viewObj.insertItem(2, "YZ = (90,-90,0)")
+        self.viewObj.insertItem(3, "-XY = (90,-90,0)")
+        self.viewObj.insertItem(4, "-XZ = (90,-90,0)")
+        self.viewObj.insertItem(5, "-YZ = (90,-90,0))")
+        self.paramlo.addWidget(self.viewObj,2,0,1,1,alignment= Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignTop)
+
+        self.toggle_cells_btn = QPushButton("Toggle Cells")
+        self.setSize(self.toggle_cells_btn,30,100)
+        self.toggle_cells_btn.setStyleSheet("background-color:  #dddddd")
+        self.toggle_cells_btn.clicked.connect(self.toggle_cells)
+        self.paramlo.addWidget(self.toggle_cells_btn,0,3,1,1,alignment= Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignTop)
+  
+        self.toggle_cell_face_btn = QPushButton("Toggle Cell Face")
+        self.setSize(self.toggle_cell_face_btn,30,100)
+        self.toggle_cell_face_btn.setStyleSheet("background-color:  #dddddd")
+        self.toggle_cell_face_btn.clicked.connect(self.toggle_cell_face)
+        self.paramlo.addWidget(self.toggle_cell_face_btn,1,3,1,1,alignment= Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignTop)
+
 
     def doList(self,cfg,k,v):
         #print("tuple",k,len(v))
@@ -168,17 +260,17 @@ class LatexDataConfigurationClass():
             H,W = self.DoImageList(cfg,k,v)
         elif "caption_array" in k:
             widget = CfgArray(k,v)
-            self.layouts[self.lyCount].addWidget(widget.Create(cfg,self.itemcfg,self))    
+            self.layouts[self.lyCount].addWidget(widget.Create(cfg,self.cfg,self))    
             self.objArry.append(widget) 
             H,W = widget.getHW()
         elif "command_dict" in k:
             widget = CfgDict(k,v)
-            self.layouts[self.lyCount].addWidget(widget.Create(cfg,self.itemcfg,self))
+            self.layouts[self.lyCount].addWidget(widget.Create(cfg,self.cfg,self))
             self.objArry.append(widget)                 
             H,W = widget.getHW()
         else:
             widget = CfgArray(k,v)
-            self.layouts[self.lyCount].addWidget(widget.Create(cfg,self.itemcfg,self))    
+            self.layouts[self.lyCount].addWidget(widget.Create(cfg,self.cfg,self))    
             self.objArry.append(widget) 
             H,W = widget.getHW()
         return H,W
@@ -190,61 +282,61 @@ class LatexDataConfigurationClass():
         W = 0
         if "caption_box" == k:
             widget = CfgTextBox(k,v,self)
-            self.layouts[self.lyCount].addWidget(widget.Create(cfg,self.itemcfg,self))
+            self.layouts[self.lyCount].addWidget(widget.Create(cfg,self.cfg,self))
             H,W = widget.setHW(100,250)
             self.objArry.append(widget)
         elif "type_text" in k:
             self.type_text = CfgString(k,v,self)
-            self.layouts[self.lyCount].addWidget(self.type_text.Create(cfg,self.itemcfg,self))
+            self.layouts[self.lyCount].addWidget(self.type_text.Create(cfg,self.cfg,self))
             H,W = self.type_text.setHW(30,250)     
             self.objArry.append(self.type_text)
         elif "data_file" in k:
             self.name_text = CfgDataString(k,v,self)
-            self.layouts[self.lyCount].addWidget(self.name_text.Create(cfg,self.itemcfg,self))
+            self.layouts[self.lyCount].addWidget(self.name_text.Create(cfg,self.cfg,self))
             H,W = self.name_text.setHW(30,250)     
             self.objArry.append(self.name_text)
         elif "images_name_text" in k:
             self.images_name_text = CfgString(k,v,self)
-            self.layouts[self.lyCount].addWidget(self.images_name_text.Create(cfg,self.itemcfg,self))
+            self.layouts[self.lyCount].addWidget(self.images_name_text.Create(cfg,self.cfg,self))
             H,W = self.images_name_text.setHW(30,250)     
             self.objArry.append(self.images_name_text)
         elif "name_text" in k:
             self.name_text = CfgString(k,v,self)
-            self.layouts[self.lyCount].addWidget(self.name_text.Create(cfg,self.itemcfg,self))
+            self.layouts[self.lyCount].addWidget(self.name_text.Create(cfg,self.cfg,self))
             H,W = self.name_text.setHW(30,250)     
             self.objArry.append(self.name_text)
         elif "tex_dir" in k:
             self.tex_dir = CfgString(k,v,self)
             self.tex_dir.setAsDir()
-            self.layouts[self.lyCount].addWidget(self.tex_dir.Create(cfg,self.itemcfg,self))
+            self.layouts[self.lyCount].addWidget(self.tex_dir.Create(cfg,self.cfg,self))
             H,W = self.tex_dir.setHW(100,250)
             self.objArry.append(self.tex_dir)  
         elif "images_dir" in k:
             self.images_dir = CfgString(k,v,self)
             self.images_dir.setAsDir()
-            self.layouts[self.lyCount].addWidget(self.images_dir.Create(cfg,self.itemcfg,self))
+            self.layouts[self.lyCount].addWidget(self.images_dir.Create(cfg,self.cfg,self))
             H,W = self.images_dir.setHW(100,250)
             self.objArry.append(self.images_dir)
         elif "cmd" in k:
             widget = CfgCmd(k,v,self)
-            self.layouts[self.lyCount].addWidget(widget.Create(cfg,self.itemcfg,self))
+            self.layouts[self.lyCount].addWidget(widget.Create(cfg,self.cfg,self))
             H,W = 0,0
             self.objArry.append(widget)
         elif "dir" in k:
             widget = CfgString(k,v,self)
             widget.setAsDir()
-            self.layouts[self.lyCount].addWidget(widget.Create(cfg,self.itemcfg,self))
+            self.layouts[self.lyCount].addWidget(widget.Create(cfg,self.cfg,self))
             H,W = widget.setHW(100,250)
             self.objArry.append(widget)
         elif "file" in k:
             widget = CfgString(k,v,self)
             widget.setAsFile()
-            self.layouts[self.lyCount].addWidget(widget.Create(cfg,self.itemcfg,self))
+            self.layouts[self.lyCount].addWidget(widget.Create(cfg,self.cfg,self))
             H,W = widget.setHW(100,250)
             self.objArry.append(widget)
         else:
             widget = CfgString(k,v,self)
-            self.layouts[self.lyCount].addWidget(widget.Create(cfg,self.itemcfg,self))
+            self.layouts[self.lyCount].addWidget(widget.Create(cfg,self.cfg,self))
             H,W = widget.setHW(30,250)
             self.objArry.append(widget)
         
