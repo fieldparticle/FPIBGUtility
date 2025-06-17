@@ -56,7 +56,7 @@ class BaseGenData:
     bin_file = None
     start_cell = 0
     end_cell = 0
-    plt_exists  = False
+    flg_plt_exists  = False
     toggle_flag = False
     cur_view_num = 0
     cur_file = ""
@@ -264,15 +264,16 @@ class BaseGenData:
 
     def set_up_plot(self):
         self.fig = plt.figure(1)
-        plt.figure(1, clear=True) 
-        self.ax = plt.axes(projection='3d')
-        self.fig.canvas.mpl_connect('close_event', self.on_close)
+        #self.ax = plt.axes(projection='3d')
+        self.ax = self.fig.add_subplot(projection='3d')
+        self.fig.canvas.mpl_connect('scroll_event', self.on_scroll)
+        
 
     def do_plot(self,view_num=None,cells_on=True):
         #if self.plt_exists == True:
-        plt.cla()
+        #plt.cla()
         #self.plt_exists = True
-        print("do_plot: cells_on = ", cells_on)
+        #print("do_plot: cells_on = ", self.flg_plot_cells)
         self.plot_particles(self.plist,aspoints=False)
         if self.flg_plot_cells == True:
             for ii in range(self.tst_side_length):
@@ -280,19 +281,16 @@ class BaseGenData:
                     for kk in range(self.tst_side_length):
                         self.plot_cells(ii,jj,kk)
 
-        disconnect_zoom = zoom_factory(self.ax)
-        pan_handler = panhandler(self.fig)
+        #disconnect_zoom = zoom_factory(self.ax)
+        #pan_handler = panhandler(self.fig)
         self.end_plot()
+        self.flg_plt_exists  = True
 
-    def update_plot(self):  
-        plt.close()
-        self.set_up_plot()
-        file_prefix = os.path.splitext(self.cur_file)[0]
-        self.test_file_name = file_prefix + ".tst"
-        self.tst_file_cfg.Create(self.bobj.log,self.test_file_name)
-        self.tst_side_length = int(self.cfg.start_sidelen_text)
-        self.plist = self.read_particle_data(self.cur_file)
+    def update_plot(self): 
+        plt.cla()
         self.do_plot()
+        plt.show(block=False)
+        plt.pause(0.01)
         
     def plot_base(self,file_name,view_num=None,cells_on=True):
         self.cur_file = file_name        
@@ -303,6 +301,7 @@ class BaseGenData:
         self.tst_side_length = int(self.cfg.start_sidelen_text)
         self.plist = self.read_particle_data(file_name)
         self.do_plot()
+        plt.show(block=False)
         
     def side_value_changed(self,side_txt):
         if len(side_txt) < 2:
@@ -336,7 +335,7 @@ class BaseGenData:
         self.ax.set_title('3D Sphere')
         plt.gca().set_aspect('equal')
         #plt.get_current_fig_manager().full_screen_toggle()
-        plt.show(block=False)
+        
 
 
     def get_side_length_txt(self):
@@ -374,7 +373,7 @@ class BaseGenData:
     def read_particle_data(self,file_name):
         struct_fmt = 'dddddddddddddd'
         struct_len = struct.calcsize(struct_fmt)
-        print(struct_len)
+        #print(struct_len)
         struct_unpack = struct.Struct(struct_fmt).unpack_from
         count = 0
         results = []
@@ -412,14 +411,47 @@ class BaseGenData:
                         self.ax.plot_surface(x, y, z, alpha=0.8)
                     else:
                         self.ax.plot_surface(x, y, z, color=scolor,alpha=0.8)
-                    print(f"Particle {p_count} Loc: <{ii.rx:2f},{ii.ry:2f},{ii.rz:2f})>")
+                    #print(f"Particle {p_count} Loc: <{ii.rx:2f},{ii.ry:2f},{ii.rz:2f})>")
                     
                 p_count +=1
                 if(p_count > p_end):
                     break
                     
 
-    #def plotParticleArray(self,npplist,scolor=None,aspoints=True,start=0,end=None,sidelen=None,view_num=None):
-        #self.plotSphere(npplist,self.ax,scolor,aspoints,start,end)
-      
- 
+    def on_scroll(self, event):
+        print(event.button, event.step)
+        
+        # Check if the event is a scroll event
+        if event.button == 'up':
+            scale_factor = 1.1  # Increase the scale factor to zoom in more
+        elif event.button == 'down':
+            scale_factor = 0.9  # Decrease the scale factor to zoom out more
+        else:
+            scale_factor = 1.0
+
+        # Get the current x and y limits of the axes
+        x_limits = self.ax.get_xlim()
+        y_limits = self.ax.get_ylim()
+        z_limits = self.ax.get_xlim()
+
+        # Calculate the new limits based on the scroll event
+        x_range = (event.xdata - x_limits[0]) / (x_limits[1] - x_limits[0])
+        y_range = (event.ydata - y_limits[0]) / (y_limits[1] - y_limits[0])
+        z_Range = y_range
+        new_x_limits = (
+            event.xdata - (x_limits[1] - x_limits[0]) * scale_factor * x_range,
+            event.xdata + (x_limits[1] - x_limits[0]) * scale_factor * (1 - x_range)
+        )
+        new_y_limits = (
+            event.ydata - (y_limits[1] - y_limits[0]) * scale_factor * y_range,
+            event.ydata + (y_limits[1] - y_limits[0]) * scale_factor * (1 - y_range)
+        )
+        
+
+        # Update the x and y limits of the axes
+        self.ax.set_xlim(new_x_limits)
+        self.ax.set_ylim(new_y_limits)
+        self.ax.set_zlim(new_y_limits)
+
+
+        plt.pause(0.01)

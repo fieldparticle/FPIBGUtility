@@ -92,7 +92,7 @@ class LatexDataConfigurationClass():
         control.setMaximumWidth(W)
 
     def itemChanged(self,key,val):
-        print("Items Chnaged in Parent:",key,val)
+        print("Items Changed in Parent:",key,val)
         if key == "Toggle Cells":
             self.toggle_cells()
         elif(key == "Toggle Cell Face"):
@@ -108,26 +108,20 @@ class LatexDataConfigurationClass():
         self.LatexFileImage.Write(self.cfg.config,plt) 
     
     def OpenLatxCFG(self):
-        #print(self.cfg)
-        #self.LatexFileImage.outDirectory = self.cfg.config.tex_dir
-        #self.LatexFileImage.ltxDirectory = self.cfg.config.tex_image_dir
         self.doItems(self.cfg)
     
     def clearLayout(self,layout):
-     #   print("-- -- input layout: "+str(layout))
+     
         for i in reversed(range(layout.count())):
             layoutItem = layout.itemAt(i)
             if layoutItem.widget() is not None:
                 widgetToRemove = layoutItem.widget()
-      #          print("found widget: " + str(widgetToRemove))
                 widgetToRemove.setParent(None)
                 layout.removeWidget(widgetToRemove)
             elif layoutItem.spacerItem() is not None:
                 continue
-       #         print("found spacer: " + str(layoutItem.spacerItem()))
             else:
                 layoutToRemove = layout.itemAt(i)
-                #        print("-- found Layout: "+str(layoutToRemove))
                 self.clearLayout(layoutToRemove)
 
     def clearConfigGrp(self):

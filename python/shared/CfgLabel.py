@@ -1024,7 +1024,7 @@ class CfgButton():
 
 	def valueChange(self):
 		self.Parent.itemChanged(self.key,self.value)
-		print(self.key,self.value)
+		#print(self.key,self.value)
 
 			
 			

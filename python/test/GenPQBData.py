@@ -41,7 +41,7 @@ class GenPQBData(BaseGenData):
             #print(f"Particle Loc: <{rx:2f},{ry:2f},{rz:2f})>")
 
         #if (self.number_particles%1000 == 0):
-        print(f"Current particle:{self.particle_count}")
+        #print(f"Current particle:{self.particle_count}")
 
         particle_struct = pdata()
         particle_struct.pnum = self.particle_count
