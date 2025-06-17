@@ -90,10 +90,9 @@ class CfgDict():
 	def changedFocus(self):
 		print("Changed Focus")
 
-	def Create(self,config,FPIBGConfig,parent):
-		self.cfg = config
-		self.base = FPIBGConfig
+	def Create(self,parent):
 		self.Parent = parent
+		self.cfg = self.Parent.bobj.cfg.config
 			
 		self.font = QFont("Times", 10)
 		self.font.setBold(False)
@@ -114,7 +113,7 @@ class CfgDict():
 		self.dict = AttrDictFields()
 		for k,v in self.value.items():
 			widget = CfgArray(k,v)
-			self.paramlo.addWidget(widget.Create(self.value,self.base,self))    
+			self.paramlo.addWidget(widget.Create(self))    
 			self.ListObj.append(widget) 
 			H,W = widget.getHW()
 		"""
@@ -396,10 +395,10 @@ class CfgArray():
 									QMessageBox.StandardButton.Ok
 								)
 	
-	def Create(self,config,FPIBGConfig,parent):
-		self.cfg = config
-		self.base = FPIBGConfig
+	def Create(self,parent):
 		self.Parent = parent
+		self.cfg = self.Parent.bobj.cfg.config
+		
 			
 		self.font = QFont("Times", 10)
 		self.font.setBold(False)
@@ -467,6 +466,8 @@ class CfgArray():
 		if selected_items:
 			#print("Value Changed",selected_items[0].text())
 			self.Parent.itemChanged(self.key,self.value)
+			print(self.key,self.value)
+
 			
 			
 	def getHW(self):
@@ -495,10 +496,10 @@ class CfgString():
 	W = 0
 	
 
-	def __init__(self,key,value,parent):
+	def __init__(self,key,value):
 		self.key = key
 		self.value = value
-		self.Parent = parent
+		
 
 	def setAsDir(self):
 		self.dirFlg = True
@@ -515,10 +516,10 @@ class CfgString():
 	def updateCFGData(self):
 		self.cfg[self.key] = self.EditObj.text()
 
-	def Create(self,config,FPIBGConfig,parent):
-		self.cfg = config
-		self.base = FPIBGConfig
+	def Create(self,parent):
 		self.Parent = parent
+		self.cfg = self.Parent.bobj.cfg.config
+
 	
 		
 		self.font = QFont("Times", 10)
@@ -674,11 +675,10 @@ class CfgDataString():
 	def updateCFGData(self):
 		self.cfg[self.key] = self.EditObj.text()
 
-	def Create(self,config,FPIBGConfig,parent):
-		self.cfg = config
-		self.base = FPIBGConfig
+	def Create(self,parent):
 		self.Parent = parent
-	
+		self.cfg = self.Parent.bobj.cfg.config
+
 		self.font = QFont("Times", 10)
 		self.font.setBold(False)
 
@@ -775,10 +775,10 @@ class CfgTextBox():
 	def updateCFGData(self):
 		self.cfg[self.key]=self.EditObj.toPlainText()
 
-	def Create(self,config,FPIBGConfig,parent):
-		self.cfg = config
-		self.base = FPIBGConfig
+	def Create(self,parent):
 		self.Parent = parent
+		self.cfg = self.Parent.bobj.cfg.config
+
 	
 		
 		self.font = QFont("Times", 10)
@@ -856,10 +856,10 @@ class CfgBool():
 			self.cfg[self.key]=False
 		
 
-	def Create(self,config,FPIBGConfig,parent):
-		self.cfg = config
-		self.base = FPIBGConfig
-		self.Parent = parent
+		def Create(self,parent):
+			self.Parent = parent
+			self.cfg = self.Parent.bobj.cfg.config
+
 	
 		self.font = QFont("Times", 10)
 		self.font.setBold(False)
@@ -931,10 +931,10 @@ class CfgInt():
 			self.cfg[self.key]=self.EditObj.text()
 		
 
-	def Create(self,config,FPIBGConfig,parent):
-		self.cfg = config
-		self.base = FPIBGConfig
+	def Create(self,parent):
 		self.Parent = parent
+		self.cfg = self.Parent.bobj.cfg.config
+
 	
 		
 		self.font = QFont("Times", 12)
@@ -975,3 +975,67 @@ class CfgInt():
 		
 		
 
+class CfgButton():
+	def __init__(self,key,value):
+		self.key = key
+		self.value = value
+  	
+	def setSize(self,control,H,W):
+		control.setMinimumHeight(H)
+		control.setMinimumWidth(W)
+		control.setMaximumHeight(H)
+		control.setMaximumWidth(W)
+
+	def updateCFGData(self):
+		pass
+
+	
+	
+	def Create(self,parent):
+		self.Parent = parent
+		self.cfg = self.Parent.bobj.cfg.config
+		
+		
+		self.font = QFont("Times", 10)
+		self.font.setBold(False)
+
+		metrics = QFontMetrics(self.font)
+
+		self.paramgrp = QGroupBox("")
+		self.paramlo = QGridLayout()
+		self.paramgrp.setLayout(self.paramlo)
+		self.paramgrp.setStyleSheet('background-color: 111111;')
+		text = self.key + ":"
+		self.LabelObj = QLabel(text)
+		self.LabelObj.setFont(self.font)
+		self.lwidth = metrics.horizontalAdvance(text)
+		self.setSize(self.LabelObj,20,self.lwidth) 
+		self.paramlo.addWidget(self.LabelObj,0,0,alignment= Qt.AlignmentFlag.AlignVCenter | Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignAbsolute)
+
+		self.Button = QPushButton(self.key)
+		self.setSize(self.Button,30,100)
+		self.Button.setStyleSheet("background-color:  #dddddd")
+		self.Button.clicked.connect(self.valueChange)
+		self.paramlo.addWidget(self.Button)
+		return self.paramgrp
+	
+	def getLayout(self):
+		return self.paramlo
+
+	def valueChange(self):
+		self.Parent.itemChanged(self.key,self.value)
+		print(self.key,self.value)
+
+			
+			
+	def getHW(self):
+		H = self.vcnt*20
+		W = 300
+		return H,W
+
+	def setHW(self,H,W):
+		self.setSize(self.ListObj,H,W)
+		Hg = H+20
+		Wg = W+20+self.lwidth
+		self.setSize(self.paramgrp,Hg,Wg)
+		return Hg,Wg

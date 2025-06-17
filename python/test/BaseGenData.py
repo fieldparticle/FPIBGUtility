@@ -60,7 +60,8 @@ class BaseGenData:
     toggle_flag = False
     cur_view_num = 0
     cur_file = ""
-    cell_face_flag = True
+    flg_plot_cell_faces = True
+    flg_plot_cells = True
 
     views = [('XY',   (90, -90, 0)),
         ('XZ',    (0, -90, 0)),
@@ -128,17 +129,20 @@ class BaseGenData:
                 for row in reader:
                     if row["sel"] == 's':
                         self.select_list.append(row)
-                        return
+                        
                         
         except BaseException as e:
-            print(e)
+            print(f"Error opening:{self.cfg.selections_file_text}, err:", e)
 
        
     def calulate_cell_properties(self,index,sel_dict):
-        self.collision_density           = float(sel_dict['cdens'])
-        self.number_particles       =  int(sel_dict['tot'])
-        self.radius                 = float(sel_dict['radius'])
-        self.sepdist                =  float(self.cfg.particle_separation_text)
+        try :
+            self.collision_density           = float(sel_dict['cdens'])
+            self.number_particles       =  int(sel_dict['tot'])
+            self.radius                 = float(sel_dict['radius'])
+            self.sepdist                =  float(self.cfg.particle_separation_text)
+        except BaseException as e:
+            print(f"Key error in record:",e)
         self.center_line_length          = 2*self.radius  + self.radius*self.sepdist
         self.particles_in_row       = int(math.floor(1.00 /self.center_line_length))
         self.particles_in_col       = int(math.floor(1.00 /self.center_line_length))
@@ -225,6 +229,10 @@ class BaseGenData:
         for ii in self.select_list:
             self.calulate_cell_properties(index,ii)
             self.write_test_file(index,ii)
+            self.open_bin_file()
+            self.do_cells()
+            self.bin_file.close()
+
             index+=1
         self.select_list.clear()
         # Define the event handling function
@@ -232,10 +240,20 @@ class BaseGenData:
 # Connect the event handler to the source figure
 ####################################################################################################
     def toggle_cell_face(self):
-        if self.cell_face_flag == True:
-            self.cell_face_flag = False
+        if self.flg_plot_cell_faces == True:
+            self.flg_plot_cell_faces = False
         else:
-            self.cell_face_flag = False
+            self.flg_plot_cell_faces = False
+        if self.flg_plot_cells == True:
+            self.update_plot()
+        else:
+            print("Plotting cells is off.")
+
+    def toggle_cells(self):
+        if(self.flg_plot_cells == True):
+            self.flg_plot_cells = False
+        else:
+            self.flg_plot_cells = True
         self.update_plot()
 
     def set_view_num(self,viewnum):
@@ -255,8 +273,8 @@ class BaseGenData:
         plt.cla()
         #self.plt_exists = True
         print("do_plot: cells_on = ", cells_on)
-        self.plotParticleArray(self.plist,aspoints=False,sidelen=self.tst_side_length)
-        if self.toggle_flag == True:
+        self.plot_particles(self.plist,aspoints=False)
+        if self.flg_plot_cells == True:
             for ii in range(self.tst_side_length):
                 for jj in range(self.tst_side_length):
                     for kk in range(self.tst_side_length):
@@ -272,7 +290,7 @@ class BaseGenData:
         file_prefix = os.path.splitext(self.cur_file)[0]
         self.test_file_name = file_prefix + ".tst"
         self.tst_file_cfg.Create(self.bobj.log,self.test_file_name)
-        self.tst_side_length = int(self.tst_file_cfg.config.CellAryW)
+        self.tst_side_length = int(self.cfg.start_sidelen_text)
         self.plist = self.read_particle_data(self.cur_file)
         self.do_plot()
         
@@ -282,7 +300,7 @@ class BaseGenData:
         file_prefix = os.path.splitext(file_name)[0]
         self.test_file_name = file_prefix + ".tst"
         self.tst_file_cfg.Create(self.bobj.log,self.test_file_name)
-        self.tst_side_length = int(self.tst_file_cfg.config.CellAryW)
+        self.tst_side_length = int(self.cfg.start_sidelen_text)
         self.plist = self.read_particle_data(file_name)
         self.do_plot()
         
@@ -340,12 +358,11 @@ class BaseGenData:
         z = pt_lst[:,2]
         # Face IDs
         vertices = [[0,1,2,3],[1,5,6,2],[3,2,6,7],[4,0,3,7],[5,4,7,6],[4,5,1,0]]
-        #face_color = [1.0/cx,1.0/cy,1.0/cz]
         
         tupleList = list(zip(x, y, z))
         poly3d = [[tupleList[vertices[ix][iy]] for iy in range(len(vertices[0]))] for ix in range(len(vertices))]
         face_color = 'y'
-        if self.cell_face_flag == True:
+        if self.flg_plot_cell_faces == True:
             alpha_val = 0.5
         else:
             alpha_val = 0.0
@@ -356,7 +373,6 @@ class BaseGenData:
 
     def read_particle_data(self,file_name):
         struct_fmt = 'dddddddddddddd'
-        #struct_fmt = 'ffffffffffffff'
         struct_len = struct.calcsize(struct_fmt)
         print(struct_len)
         struct_unpack = struct.Struct(struct_fmt).unpack_from
@@ -368,40 +384,42 @@ class BaseGenData:
             while True:
                 record = pdata()
                 ret = f.readinto(record)
-                #print(ret)
                 if ret == 0:
                     break
                 results.append(record)
-                #print(record.pnum,record.rx)
-
-        #len_data = len(results)
-        #print(len_data)
         p_lst = []
-        #for ii in range(4):
-        #   print("partnum:{:.0f},rx:{:.2f},ry:{:.2f},rz:{:.2f}".format(results[ii][0],results[ii][1],results[ii][2],results[ii][3]))
         return results
     
     
-    def plotSphere(self,plist,ax,scolor=None,aspoints=True,start=0,end=None):
+    def plot_particles(self,plist,aspoints=True,scolor=None):
         
+        p_count = 0
+        p_start = int(self.cfg.particle_range_array[0])
+        p_end = int(self.cfg.particle_range_array[1])
         theta = np.linspace(0, 2 * np.pi, 10)
         phi = np.linspace(0, np.pi, 10)
         theta, phi = np.meshgrid(theta, phi)
         if aspoints == True:    
-            ax.scatter(plist[:,1],plist[:,2],plist[:,3])
+            self.ax.scatter(plist[:,1],plist[:,2],plist[:,3])
         else:
             for ii in plist:
-                # Convert to Cartesian coordinates
-                x = ii.rx + ii.radius * np.sin(phi) * np.cos(theta)
-                y = ii.ry + ii.radius * np.sin(phi) * np.sin(theta)
-                z = ii.rz + ii.radius * np.cos(phi)
-                if scolor == None:
-                    ax.plot_surface(x, y, z, alpha=0.8)
-                else:
-                    ax.plot_surface(x, y, z, color=scolor,alpha=0.8)
-                print(f"Particle Loc: <{ii.rx:2f},{ii.ry:2f},{ii.rz:2f})>")
+                if (p_count >= p_start):
+                    # Convert to Cartesian coordinates
+                    x = ii.rx + ii.radius * np.sin(phi) * np.cos(theta)
+                    y = ii.ry + ii.radius * np.sin(phi) * np.sin(theta)
+                    z = ii.rz + ii.radius * np.cos(phi)
+                    if scolor == None:
+                        self.ax.plot_surface(x, y, z, alpha=0.8)
+                    else:
+                        self.ax.plot_surface(x, y, z, color=scolor,alpha=0.8)
+                    print(f"Particle {p_count} Loc: <{ii.rx:2f},{ii.ry:2f},{ii.rz:2f})>")
+                    
+                p_count +=1
+                if(p_count > p_end):
+                    break
+                    
 
-    def plotParticleArray(self,npplist,scolor=None,aspoints=True,start=0,end=None,sidelen=None,view_num=None):
-        self.plotSphere(npplist,self.ax,scolor,aspoints,start,end)
+    #def plotParticleArray(self,npplist,scolor=None,aspoints=True,start=0,end=None,sidelen=None,view_num=None):
+        #self.plotSphere(npplist,self.ax,scolor,aspoints,start,end)
       
  

@@ -207,6 +207,7 @@ class TabGenData(QTabWidget):
             dirgrid.addWidget(self.ListObj,3,0,1,2)
             self.log.logs(self,"TabFormLatex finished Create.")
             
+
             
             ## -------------------------------------------------------------
             ## Comunications Interface
@@ -217,7 +218,7 @@ class TabGenData(QTabWidget):
         except BaseException as e:
             print(e)
    
-    def valueChangeArray(self,listObj):  
+    def valueChange(self,listObj):  
         selected_items = listObj.selectedItems()
         if selected_items:
             #print("List object Value Changed",selected_items[0].text())

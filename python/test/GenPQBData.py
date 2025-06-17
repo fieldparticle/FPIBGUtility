@@ -12,9 +12,7 @@ class GenPQBData(BaseGenData):
     def gen_data(self):
         self.gen_data_base()
         self.open_bin_file()
-        self.do_cells()
-        self.bin_file.close()
-
+        
     def plot_particle_cell(self,file_name):
         self.plot_particle_cell_base(file_name)
     
@@ -27,19 +25,23 @@ class GenPQBData(BaseGenData):
         if (self.particle_count >= self.number_particles):
             return 3
         
-        print(f"particle: {self.particle_count}, xx={xx}, yy= {yy}, zz={zz}, layer= {layer}, row= {row} col= {col}")
+        #print(f"particle: {self.particle_count}, xx={xx}, yy= {yy}, zz={zz}, layer= {layer}, row= {row} col= {col}")
         #                         |offset so no particle is in a cell with a zero in it|
         single_particle_length  = 0.5 + self.center_line_length 
         
 
-        #if(self.collsions_in_cell_count <= self.num_collisions_per_cell):
-            #rx = single_particle_length*row - self.radius/2.0 + xx
-            #self.collsions_in_cell_count+=2
-        #else:
-        rx = 0.5 + self.radius + 0.15 * self.radius + self.center_line_length*row+xx
+        if(self.collsions_in_cell_count <= self.num_collisions_per_cell & (row % 2) != 0 ):
+            rx = 0.5 + self.radius/2.0 + self.center_line_length*row+xx
+            self.collsions_in_cell_count+=2
+        else:
+            rx = 0.5 + self.radius + 0.15 * self.radius + self.center_line_length*row+xx
+
         ry = 0.5 + self.radius + 0.15 * self.radius + self.center_line_length*col+yy
         rz = 0.5 + self.radius + 0.15 * self.radius + self.center_line_length*layer+zz
-        print(f"Particle Loc: <{rx:2f},{ry:2f},{rz:2f})>")
+            #print(f"Particle Loc: <{rx:2f},{ry:2f},{rz:2f})>")
+
+        #if (self.number_particles%1000 == 0):
+        print(f"Current particle:{self.particle_count}")
 
         particle_struct = pdata()
         particle_struct.pnum = self.particle_count
@@ -58,9 +60,6 @@ class GenPQBData(BaseGenData):
         ret = 0
         self.w_list = []
         self.particle_count = 0
-        
-       
-            
         for zz in range(self.cell_z_len-1):
             for yy in range(self.cell_y_len-1):
                 for xx in range(self.cell_x_len-1):
