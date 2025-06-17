@@ -59,12 +59,7 @@ class TCPIPClient:
             self.Text =  f"Created client successfully {self.server_ip}:{self.server_port}"
             return 0
         except Exception as err:
-            self.bobj.log.log( 0,  inspect.currentframe().f_lineno,
-                __file__,
-                inspect.currentframe().f_code.co_name,
-                self.objname,
-                self.dlvl+1,
-                err)
+            self.bobj.log.log(self,f"Failed to get cfg items" )
             self.isConnected = False
             return 1
         

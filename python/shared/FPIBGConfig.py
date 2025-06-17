@@ -11,24 +11,18 @@ class FPIBGConfig:
     lvl = 100
     def Create(self,LogObj,CfgFileName):
         self.log = LogObj
-        self.log.logs(self,"FPIBG into Create.");
+        self.log.log(self,"FPIBG into Create.");
         self.CfgFileName = CfgFileName
         self.configPath = self.CfgFileName
         try:
             with io.open(self.configPath) as f:
-                self.log.logs(self,"FPIBG into Open config file.")
+                self.log.log(self,"FPIBG into Open config file.")
                 self.config = libconf.load(f)
         except IOError as e:
-            print(f"Config File Open error {e}")    
-            self.log.logs(self,f"Config File Open error {e}")
+            self.log.log(self,f"Config File Open error {e}")
             exit()
 
-        self.log.log( 1,  inspect.currentframe().f_lineno,
-                        __file__,
-                        inspect.currentframe().f_code.co_name,
-                        self.ObjName,
-                        0,
-                        "Successfully Loaded Config File.")       
+        self.log.log(self,"Successfully Loaded Config File.")       
             
             
     def get_repo_root(self):

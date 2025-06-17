@@ -50,6 +50,8 @@ class LatexDataConfigurationClass():
     def toggle_cell_face(self):
         self.gen_obj.toggle_cell_face()
         
+    def close_plot(self):
+        self.gen_obj.close_plot()
 
     def toggle_cells(self):
         self.gen_obj.toggle_cells()

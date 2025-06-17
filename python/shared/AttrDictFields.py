@@ -15,3 +15,4 @@ class AttrDictFields(collections.OrderedDict):
             return self.__getitem__(attr)
         except KeyError:
             raise AttributeError("Attribute %r not found" % attr)
+            

@@ -187,7 +187,7 @@ class LatexPlotBase(LatexConfigurationClass):
             try:
                 exec(func_str)     
             except BaseException as e:
-                print(f"Command {func_str} is invalid or ill formed")
+                self.log.log(self,f"Command {func_str} is invalid or ill formed")
         
 
                            
@@ -275,7 +275,7 @@ class LatexPlotBase(LatexConfigurationClass):
                     else:
                         plt.rcParams[cmd_item] = str(val_item)
                 except BaseException as e:
-                    print(e)
+                    self.log.log(self,e)
                     continue
 
 

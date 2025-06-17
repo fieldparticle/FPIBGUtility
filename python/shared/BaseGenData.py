@@ -60,8 +60,8 @@ class BaseGenData:
     toggle_flag = False
     cur_view_num = 0
     cur_file = ""
-    flg_plot_cell_faces = True
-    flg_plot_cells = True
+    flg_plot_cell_faces = False
+    flg_plot_cells = False
 
     views = [('XY',   (90, -90, 0)),
         ('XZ',    (0, -90, 0)),
@@ -79,7 +79,7 @@ class BaseGenData:
         self.bobj = FPIBGBase
         self.cfg = self.bobj.cfg.config
         self.log = self.bobj.log
-        self.log.logs(self,"TabFormLatex finished init.")
+        self.log.log(self,"TabFormLatex finished init.")
         self.itemcfg = itemcfg
         self.cfg = self.itemcfg
         self.cur_view_num = int(self.cfg.default_view_text)
@@ -107,17 +107,49 @@ class BaseGenData:
     
     
     def open_bin_file(self):
-         self.bin_file = open(self.test_bin_name,"wb")
+        try:
+            if self.bin_file:
+                del self.bin_file
+            self.bin_file = open(self.test_bin_name,"wb")
+        except BaseException as e:
+            self.log.log(self,e)
+        self.count = 0
 
     def write_bin_file(self,w_lst):
-        for ii in w_lst:
-            self.bin_file.write(ii)
+        try:
+            for ii in w_lst:
+                self.bin_file.write(ii)
+                self.count+=1
+        except BaseException as e:
+            self.log.log(self,e)
         
-
+    def close_bin_file(self):
+        self.bin_file.flush()
+        self.bin_file.close()
+        if(self.bin_file.closed != True):
+            self.bobj.log.log("File:{self.test_bin_name} not closed")
+        
     def write_test_file(self):
         if not os.path.exists(os.path.isdir(self.cfg.data_dir)):
             os.makedirs(os.path.isdir(self.cfg.data_dir))
 
+    def gen_data_base(self):
+        if not os.path.exists(self.cfg.data_dir):
+            os.makedirs(self.cfg.data_dir)
+        # Scan each line of the selections list, calulate properties, and gen data
+        self.open_selections_file()
+        index = 0
+        
+        for ii in self.select_list:
+            self.calulate_cell_properties(index,ii)
+            self.write_test_file(index,ii)
+            self.open_bin_file()
+            self.do_cells()
+            self.close_bin_file()
+            self.bobj.log.log(self,f"Wrote {self.count} particle to {self.test_bin_name}")
+            index+=1
+        self.select_list.clear()
+        # Define the event handling function
     def calc_test_parms(self):
         pass
 
@@ -132,7 +164,7 @@ class BaseGenData:
                         
                         
         except BaseException as e:
-            print(f"Error opening:{self.cfg.selections_file_text}, err:", e)
+            self.log.log(self,f"Error opening:{self.cfg.selections_file_text}, err:", e)
 
        
     def calulate_cell_properties(self,index,sel_dict):
@@ -142,7 +174,7 @@ class BaseGenData:
             self.radius                 = float(sel_dict['radius'])
             self.sepdist                =  float(self.cfg.particle_separation_text)
         except BaseException as e:
-            print(f"Key error in record:",e)
+            self.log.log(self,f"Key error in record:",e)
         self.center_line_length          = 2*self.radius  + self.radius*self.sepdist
         self.particles_in_row       = int(math.floor(1.00 /self.center_line_length))
         self.particles_in_col       = int(math.floor(1.00 /self.center_line_length))
@@ -171,9 +203,9 @@ class BaseGenData:
         self.test_bin_name = self.cfg.data_dir + '/' + self.set_file_name + '.bin'
         self.report_file = self.cfg.data_dir + '/' + self.set_file_name
 
-        print(f"Collsion Density: { self.collision_density},Number particles:{self.number_particles},Radius: {self.radius}, Separation Dist: {self.sepdist }, Center line length: {self.center_line_length:.2f}")
-        print(f"Particles in row: {self.particles_in_row}, Particles in Column: {self.particles_in_col}, Particles per cell: {self.particles_in_cell}")
-        print(f"Particles in space: {self.particles_in_space}, Cell array size: {self.cell_array_size }")
+        self.log.log(self,f"Collsion Density: { self.collision_density},Number particles:{self.number_particles},Radius: {self.radius}, Separation Dist: {self.sepdist }, Center line length: {self.center_line_length:.2f}")
+        self.log.log(self,f"Particles in row: {self.particles_in_row}, Particles in Column: {self.particles_in_col}, Particles per cell: {self.particles_in_cell}")
+        self.log.log(self,f"Particles in space: {self.particles_in_space}, Cell array size: {self.cell_array_size }")
 
     def write_test_file(self,index,sel_dict):
         
@@ -216,26 +248,10 @@ class BaseGenData:
             f.write(fstr)
             fstr = f"ColArySize = {self.cell_array_size};\n"
             f.write(fstr)
+        f.close()
 
 
-
-    def gen_data_base(self):
-        if not os.path.exists(self.cfg.data_dir):
-            os.makedirs(self.cfg.data_dir)
-        # Scan each line of the selections list, calulate properties, and gen data
-        self.open_selections_file()
-        index = 0
-        
-        for ii in self.select_list:
-            self.calulate_cell_properties(index,ii)
-            self.write_test_file(index,ii)
-            self.open_bin_file()
-            self.do_cells()
-            self.bin_file.close()
-
-            index+=1
-        self.select_list.clear()
-        # Define the event handling function
+  
     
 # Connect the event handler to the source figure
 ####################################################################################################
@@ -243,7 +259,7 @@ class BaseGenData:
         if self.flg_plot_cell_faces == True:
             self.flg_plot_cell_faces = False
         else:
-            self.flg_plot_cell_faces = False
+            self.flg_plot_cell_faces = True
         if self.flg_plot_cells == True:
             self.update_plot()
         else:
@@ -262,18 +278,16 @@ class BaseGenData:
     def set_cell_toggle_flag(self, flag):
         self.toggle_flag = flag
 
+    def close_plot(self):
+        plt.close()
+
     def set_up_plot(self):
-        self.fig = plt.figure(1)
-        #self.ax = plt.axes(projection='3d')
+        self.fig = plt.figure(1,figsize=(12, 10))
         self.ax = self.fig.add_subplot(projection='3d')
         self.fig.canvas.mpl_connect('scroll_event', self.on_scroll)
         
 
     def do_plot(self,view_num=None,cells_on=True):
-        #if self.plt_exists == True:
-        #plt.cla()
-        #self.plt_exists = True
-        #print("do_plot: cells_on = ", self.flg_plot_cells)
         self.plot_particles(self.plist,aspoints=False)
         if self.flg_plot_cells == True:
             for ii in range(self.tst_side_length):
@@ -281,8 +295,6 @@ class BaseGenData:
                     for kk in range(self.tst_side_length):
                         self.plot_cells(ii,jj,kk)
 
-        #disconnect_zoom = zoom_factory(self.ax)
-        #pan_handler = panhandler(self.fig)
         self.end_plot()
         self.flg_plt_exists  = True
 
@@ -393,11 +405,13 @@ class BaseGenData:
     def plot_particles(self,plist,aspoints=True,scolor=None):
         
         p_count = 0
+        sphere_facets = int(self.cfg.sphere_facets_text)
         p_start = int(self.cfg.particle_range_array[0])
         p_end = int(self.cfg.particle_range_array[1])
-        theta = np.linspace(0, 2 * np.pi, 10)
-        phi = np.linspace(0, np.pi, 10)
+        theta = np.linspace(0, 2 * np.pi, sphere_facets)
+        phi = np.linspace(0, np.pi, sphere_facets)
         theta, phi = np.meshgrid(theta, phi)
+        pcolor = self.cfg.particle_color_text
         if aspoints == True:    
             self.ax.scatter(plist[:,1],plist[:,2],plist[:,3])
         else:
@@ -407,10 +421,10 @@ class BaseGenData:
                     x = ii.rx + ii.radius * np.sin(phi) * np.cos(theta)
                     y = ii.ry + ii.radius * np.sin(phi) * np.sin(theta)
                     z = ii.rz + ii.radius * np.cos(phi)
-                    if scolor == None:
-                        self.ax.plot_surface(x, y, z, alpha=0.8)
+                    if ii.ptype == 1:
+                        self.ax.plot_surface(x, y, z, color='blue',alpha=0.8)
                     else:
-                        self.ax.plot_surface(x, y, z, color=scolor,alpha=0.8)
+                        self.ax.plot_surface(x, y, z, color=pcolor,alpha=0.8)
                     #print(f"Particle {p_count} Loc: <{ii.rx:2f},{ii.ry:2f},{ii.rz:2f})>")
                     
                 p_count +=1
@@ -419,12 +433,12 @@ class BaseGenData:
                     
 
     def on_scroll(self, event):
-        print(event.button, event.step)
+        #print(event.button, event.step)
         
         # Check if the event is a scroll event
-        if event.button == 'up':
+        if event.button == 'down':
             scale_factor = 1.1  # Increase the scale factor to zoom in more
-        elif event.button == 'down':
+        elif event.button == 'up':
             scale_factor = 0.9  # Decrease the scale factor to zoom out more
         else:
             scale_factor = 1.0
@@ -452,6 +466,4 @@ class BaseGenData:
         self.ax.set_xlim(new_x_limits)
         self.ax.set_ylim(new_y_limits)
         self.ax.set_zlim(new_y_limits)
-
-
         plt.pause(0.01)

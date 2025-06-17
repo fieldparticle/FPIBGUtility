@@ -16,16 +16,10 @@ class FPIBGLatexWin(QWidget):
         self.ObjName = ObjName
         self.bs = FPIBGBase
         self.log = self.bs.log
-        self.log.log(    1,
-                            inspect.currentframe().f_lineno,
-                            __file__,
-                            inspect.currentframe().f_code.co_name,
-                            self.ObjName,
-                            0,
-                            "Test 1 Main Window Success")
+        self.log.log(self,"Logging system initialized")
         self.ObjName = ObjName
         self.setWindowTitle('FPIBG Utility Main Window')
-        self.setGeometry(100, 100, 1200, 768)
+        self.setGeometry(100, 100, 1200, 1000)
         self.setWindowIcon(QIcon("Logo.png"))
         main_layout = QGridLayout(self)
         ## Create a tab widget
@@ -55,12 +49,6 @@ class FPIBGLatexWin(QWidget):
     def Create(self,FPIBGBase):
         
         self.bs = FPIBGBase
-        self.bs.log.log(    1,
-                            inspect.currentframe().f_lineno,
-                            __file__,
-                            inspect.currentframe().f_code.co_name,
-                            self.ObjName,
-                            0,
-                            "Test 1 Main Window Success")
+        self.bs.log.log(self, "FPIBGLatexWin.Created")
 
    

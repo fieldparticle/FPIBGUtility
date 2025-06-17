@@ -18,13 +18,13 @@ class LatexDataParticle(LatexDataBaseClass):
             self.topdir = data_dir + "/perfdata" + data_type
             self.sumFile = self.topdir + "/perfdata" + data_type + ".csv"
         except BaseException as e:
-            print(e)
+            self.log.log(self,e)
         try :
             self.create_summary()
             self.check_data_files()
             self.get_averages()
         except BaseException as e:
-            print(e)
+            self.log.log(self,e)
             self.hasData = False
             return None
         self.data = pd.read_csv(self.sumFile,header=0)  

@@ -103,7 +103,7 @@ class TabFormLatex(QTabWidget):
                 self.itemcfg.Create(self.bobj.log,self.CfgFile)
                 
             except BaseException as e:
-                print(f"Unable to open item configurations file:{e}")
+                self.log.log(self,f"Unable to open item configurations file:{e}")
                 self.hasConfig = False
                 return 
             self.type = self.itemcfg.config.type_text 
@@ -206,8 +206,8 @@ class TabFormLatex(QTabWidget):
         self.bobj = FPIBGBase
         self.cfg = self.bobj.cfg.config
         self.log = self.bobj.log
-        self.log.logs(self,"TabFormLatex finished init.")
-        self.log.logs(self,"TabFormLatex started Create.")
+        self.log.log(self,"TabFormLatex finished init.")
+        self.log.log(self,"TabFormLatex started Create.")
         try:
             self.setStyleSheet("background-color:  #eeeeee")
             self.tab_layout = QGridLayout()
@@ -265,7 +265,7 @@ class TabFormLatex(QTabWidget):
             self.ListObj.insertItem(3, "multiimage")
             self.ListObj.itemSelectionChanged.connect(lambda: self.valueChangeArray(self.ListObj))
             dirgrid.addWidget(self.ListObj,3,0,1,2)
-            self.log.logs(self,"TabFormLatex finished Create.")
+            
 
             ## -------------------------------------------------------------
             ## Comunications Interface
@@ -274,7 +274,7 @@ class TabFormLatex(QTabWidget):
             self.setSize(self.terminal,225,900)
             self.tab_layout.addWidget(self.terminal,4,0,1,3,alignment= Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignBottom)
         except BaseException as e:
-            print(e)
+            self.log.log(self,e)
    
     def valueChangeArray(self,listObj):  
         selected_items = listObj.selectedItems()

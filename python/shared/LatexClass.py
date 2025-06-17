@@ -146,7 +146,7 @@ class LatexTableWriter(LatexClass):
         try:
             f = open(loutname, "w")
         except IOError as e:
-            print(f"Couldn't write to file ({e})")
+            self.log.log(self,f"Couldn't write to file ({e})")
             return
         self.SingleTable(f)
 
@@ -249,7 +249,7 @@ class LatexMultiImageWriter(LatexClass):
         try:
             f = open(outfile, "w")
         except IOError as e:
-            print(f"Couldn't write to file ({e})")
+            self.log.log(self,f"Couldn't write to file ({e})")
         w ="\\begingroup\n"
         f.write(w)
         w = "\\centering\n"
@@ -285,7 +285,7 @@ class LatexMultiImageWriter(LatexClass):
             w = "\\endgroup"
             f.write(w)
         except IOError as e:
-            print(f"Couldn't write to file ({e})")
+            self.log.log(self,f"Couldn't write to file ({e})")
             f.close()
             return
         f.close()

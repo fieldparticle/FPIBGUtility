@@ -25,7 +25,7 @@ class TabGenData(QTabWidget):
     startDir = "J:/MOD/FPIBGUtility/Latex"
     startDir = "J:/FPIBGJournalStaticV2/rpt"
     startDir = "J:/FPIBGDATAPY/cfg"
-
+    selected_item = -1
     ObjName = ""
     ltxObj = None
    
@@ -76,7 +76,7 @@ class TabGenData(QTabWidget):
                 self.itemcfg.Create(self.bobj.log,self.CfgFile)
                 
             except BaseException as e:
-                print(f"Unable to open item configurations file:{e}")
+                self.log.log(self,f"Unable to open item configurations file:{e}")
                 self.hasConfig = False
                 return 
             if self.hasConfig == True:
@@ -93,7 +93,6 @@ class TabGenData(QTabWidget):
             self.ltxObj.setConfigGroup(self.tab_layout)
             self.ltxObj.OpenLatxCFG()
             self.hasConfig = True
-
 
    
 
@@ -124,7 +123,7 @@ class TabGenData(QTabWidget):
             self.texFileName = os.path.splitext(os.path.basename(self.CfgFile))[0]
             self.dirEdit.setText(self.CfgFile)
             self.OpenLatxCFG(self.CfgFile)
-
+            self.log.log(self,f"Opened {self.CfgFile}")
 
     def plot_closed(self):
         self.ltxObj.clearConfigGrp()
@@ -133,13 +132,23 @@ class TabGenData(QTabWidget):
 
     def gen_data(self):
         self.ltxObj.gen_data()
+        self.ListObj.clear()
+        files_names = self.itemcfg.config.data_dir + "/*.bin"
+        files = glob.glob(files_names)
+        for ii in files:
+                self.ListObj.addItem(ii)
+
 
     def plot_particles(self):
-        selected_items = self.ListObj.selectedItems()
-        if selected_items:
-            self.ltxObj.plot(selected_items[0].text())
-            
-           
+        
+        selected_item = self.ListObj.selectedItems()
+        if selected_item ==self.selected_item:
+            return
+        else:
+            self.selected_item = selected_item
+            self.ltxObj.close_plot()
+        if self.selected_item:
+            self.ltxObj.plot(self.selected_item[0].text())
         else:
             print("no item selected")
        
@@ -148,7 +157,7 @@ class TabGenData(QTabWidget):
         self.bobj = FPIBGBase
         self.cfg = self.bobj.cfg.config
         self.log = self.bobj.log
-        self.log.logs(self,"TabFormLatex finished init.")
+        self.log.log(self,"TabFormLatex finished init.")
         try:
             self.setStyleSheet("background-color:  #eeeeee")
             self.tab_layout = QGridLayout()
@@ -159,7 +168,7 @@ class TabGenData(QTabWidget):
             ## -------------------------------------------------------------
             ## Set parent directory
             LatexcfgFile = QGroupBox("Generate/Test Particle Data")
-            self.setSize(LatexcfgFile,450,500)
+            self.setSize(LatexcfgFile,450,600)
             self.tab_layout.addWidget(LatexcfgFile,0,0,2,2,alignment= Qt.AlignmentFlag.AlignLeft)
             
             dirgrid = QGridLayout()
@@ -205,7 +214,7 @@ class TabGenData(QTabWidget):
             self.vcnt = 0            
             #self.ListObj.itemSelectionChanged.connect(lambda: self.valueChangeArray(self.ListObj))
             dirgrid.addWidget(self.ListObj,3,0,1,2)
-            self.log.logs(self,"TabFormLatex finished Create.")
+            self.log.log(self,"TabFormLatex finished Create.")
             
 
             
@@ -214,9 +223,10 @@ class TabGenData(QTabWidget):
             self.terminal =  QTextEdit(self)
             self.terminal.setStyleSheet("background-color:  #ffffff; color: green")
             self.setSize(self.terminal,225,900)
-            self.tab_layout.addWidget(self.terminal,4,0,3,3,alignment= Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignBottom)
+            self.tab_layout.addWidget(self.terminal,5,0,3,3,alignment= Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignBottom)
         except BaseException as e:
-            print(e)
+            self.log.log(self,f"Error in Create:{e}")
+        self.bobj.connect_to_output(self.terminal)
    
     def valueChange(self,listObj):  
         selected_items = listObj.selectedItems()

@@ -58,7 +58,7 @@ class PreviewDialog(QDialog):
 		try:
 			document.load(pdfName)
 		except BaseException as e:
-			print(e)
+			self.log.log(self,e)
 		view = QPdfView(self)
 		#view.setPageMode(QPdfView.PageMode.MultiPage)
 		view.setDocument(document)

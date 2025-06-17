@@ -11,7 +11,6 @@ class GenPQBData(BaseGenData):
 
     def gen_data(self):
         self.gen_data_base()
-        self.open_bin_file()
         
     def plot_particle_cell(self,file_name):
         self.plot_particle_cell_base(file_name)
@@ -25,31 +24,27 @@ class GenPQBData(BaseGenData):
         if (self.particle_count >= self.number_particles):
             return 3
         
+        particle_struct = pdata()
         #print(f"particle: {self.particle_count}, xx={xx}, yy= {yy}, zz={zz}, layer= {layer}, row= {row} col= {col}")
         #                         |offset so no particle is in a cell with a zero in it|
-        single_particle_length  = 0.5 + self.center_line_length 
+       
         
-
-        if(self.collsions_in_cell_count <= self.num_collisions_per_cell & (row % 2) != 0 ):
-            rx = 0.5 + self.radius/2.0 + self.center_line_length*row+xx
+        if(self.collsions_in_cell_count <= self.num_collisions_per_cell):
+            ry = 0.5 + 2.0*self.radius + self.center_line_length*col+yy
             self.collsions_in_cell_count+=2
+            particle_struct.ptype = 1
         else:
-            rx = 0.5 + self.radius + 0.15 * self.radius + self.center_line_length*row+xx
+            particle_struct.ptype = 0
+            ry = 0.5 + self.radius + 0.15 * self.radius + self.center_line_length*col+yy
 
-        ry = 0.5 + self.radius + 0.15 * self.radius + self.center_line_length*col+yy
+        rx = 0.5 + self.radius + 0.15 * self.radius + self.center_line_length*row+xx
         rz = 0.5 + self.radius + 0.15 * self.radius + self.center_line_length*layer+zz
-            #print(f"Particle Loc: <{rx:2f},{ry:2f},{rz:2f})>")
-
-        #if (self.number_particles%1000 == 0):
-        #print(f"Current particle:{self.particle_count}")
-
-        particle_struct = pdata()
+    
         particle_struct.pnum = self.particle_count
         particle_struct.rx = rx
         particle_struct.ry = ry
         particle_struct.rz = rz
         particle_struct.radius = self.radius
-        #packed_struct = bytearray(particle_struct)
         w_list.append(particle_struct)
         self.particle_count+=1
         self.particles_in_cell_count +=1
@@ -71,12 +66,14 @@ class GenPQBData(BaseGenData):
                             for row in range(self.particles_in_row):                            
                                 ret = self.place_particles(xx,yy,zz,row,col,layer,self.w_list)
                                 if ret == 3:
-                                    self.write_bin_file(self.w_list)
+                                    if len(self.w_list) > 0:
+                                        self.write_bin_file(self.w_list)
                                     return 0
                                 if len(self.w_list) >= int(self.cfg.write_block_len_text):
                                     self.write_bin_file(self.w_list)
                                     self.w_list.clear()
         self.write_bin_file(self.w_list)
+        
         
                                     
         
