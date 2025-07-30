@@ -3,118 +3,81 @@ from FPIBGConfig import FPIBGConfig
 #from TableModel import *
 import os
 import inspect
-
-
+import matplotlib.pyplot as plt
+from ValHandler import *
+#############################################################################################
+# 						base class LatexClass
+#############################################################################################
 class LatexClass:
 
     ##  Constructor for the LatexClass object.
     # @param   ObjName --  (string) Saves the name of the object.
-    def __init__(self):
-        self.caption = ""
-        self.name = ""
-        self.width = 0
-        self.height = 0
-        self.title = ""
-        self.scale = 0
-        self.fontSize = 8
-        self.float = False
-        self.placement = "h"
-        self.arrayStretch = 1.60
+    def __init__(self,Parent):
+        self.Parent = Parent
+        self.bobj = self.Parent.bobj
+        self.log = self.bobj.log
+        self.cfg = Parent.itemcfg.config 
+        self.itemcfg = Parent.itemcfg 
+        self.cleanPRE = True
+        self.valHandler = ValHandler()
 
-    def setPlacment(self,pl):
-        self.placement = pl
+    def setCleanPre(self, flg):
+        self.cleanPRE = flg
 
-    def setFontSize(self,fsz):
-        self.fontSize = fsz
-
-    def setArrayStretch(self,st):
-        self.arrayStretch = st
-
-    def saveCaption(self,Text):
-        capname = self.outDirectory + "/" + self.name + ".cap"     
-        f = open(capname, "w")
-        f.write(Text)
-
-    def readCapFile(self):
-        
-        capname = self.outDirectory + "/" + self.name + ".cap"     
-        if os.path.exists(capname):
-            f = open(capname, "r")
-            buf= f.read()    
-            f.close()
-            return buf
+    def WritePre(self,pre_name):
+        cfg = self.Parent.itemcfg.config
+        preoutname = cfg.tex_dir + "/" + pre_name +".tex"
+        if self.cleanPRE == True:
+            p = open(preoutname, "w")
         else:
-            # Commented this out to prevent errors trying to open a file that doesn't exist
-            # f = open(capname, "w")
-            # f.write("No caption")
-            # f.close()            
-            return "No Caption"
-        
-    def WritePre(self,mode):
-        if not os.path.exists(self.outDirectory):
-            os.makedirs(self.outDirectory)
-        preoutname = self.outDirectory + "/" + "pre_tables.tex"
-        p = open(preoutname, "w")
-        w = "%%============================================= Plot %s\r"%(self.name)
+            p = open(preoutname, "a")
+        w = "%%============================================= Plot %s\r"%(cfg.name_text )
         p.write(w)
-        w = "Fig. \\ref{fig:%s}\r"%(self.name)
+        w = "Fig. \\ref{fig:%s}\r"%(cfg.name_text)
         p.write(w)
-        loutname = self.outDirectory + "/" + self.name + ".tex"
+        if len(cfg.tex_dir) == 0:
+            loutname = cfg.name_text + ".tex"
+        else:
+            loutname =  cfg.tex_dir + "/" + cfg.name_text + ".tex"
         w = "\\input{%s}\r"%(loutname)
         p.write(w)
         p.close()    
 
    
-      
-
-
-class LatexTable(LatexClass):
-    def __init__(self,BaseObj,data):
-        super().__init__()   
-        self.data = data
-        self.bobj = BaseObj
-        self.cfg = self.bobj.cfg.config
-        self.log = self.bobj.log 
-        
-        
-
-    header_arry = []
+#############################################################################################
+# 						class LatexTableWriter
+#############################################################################################
+class LatexTableWriter(LatexClass):
     
+    def __init__(self,Parent):
+        super().__init__(Parent)
 
-    def Create(self,rows,cols,fileName):
-        self.name = fileName
-       
-        # Assign this objects debug level
-        self.dlvl = 10000
-        self.outDirectory = self.cfg.plots_dir
-        self.table_array  = [[0 for x in range(cols)] for y in range(rows)] 
-        self.rows = rows
-        self.cols = cols
-        self.name = fileName
-        self.outDirectory = self.cfg.tables_dir
+    def Create(self,data):
+        self.data = data
+        self.cols = self.data.shape[0]
+        self.rows = self.data.shape[1]
+        self.table_array  = [[0 for x in range(self.cols)] for y in range(self.rows)] 
         self.setLatexData()
         
+    header_arry = []
     
     def setLatexHeaderArray(self, header):
         self.header_arry = header
 
     def setTableItemArray(self, cellstr,col, row):
         self.table_array[row][col] = cellstr
-        
 
     def setLatexData(self):
-        
         for i in range(self.cols):
             for j in range(self.rows):
                 self.loadItem(i,j)
 
     def loadItem(self,i,j):
             cellstr = ""
-            value =  self.data.values[j][i]
-            if (i == 0):
-                self.setTableItemArray(str("%.0f" % value),i,j)
-                return "%.0f" % value
-                
+            value =  self.data[i][j]
+            self.setTableItemArray(str(value),i,j)
+            return str(value)
+            return 
             if (i == 1):
                 self.setTableItemArray(str("%.2f" % (1000*value)),i,j)
                 return "%.2f" % (1000*value)
@@ -132,43 +95,38 @@ class LatexTable(LatexClass):
                 return "%d" % (value)
 
                     
-
-    def WriteLatexTable(self):
-        self.readCapFile()
-        #self.saveCaption(self.caption)
-        if not os.path.exists(self.outDirectory):
-            os.makedirs(self.outDirectory)
-           
-        loutname = self.outDirectory + "/" + self.name + ".tex"
-        f = open(loutname, "w")
-        f.write("\\begin{table}[%s]\n" % self.placement)
-        f.write("\\fontsize{%d}{%d}\\selectfont\n" % (self.fontSize,self.fontSize))
-        f.write("\\renewcommand{\\arraystretch}{%0.2f}\n" % (self.arrayStretch))
+    def SingleTable(self,f):
+        f.write("\\begin{table}[%s]\n" % self.cfg.placement_text)
+        f.write("\\fontsize{%s}{%s}\\selectfont\n" % (self.cfg.font_size,self.cfg.font_size))
+        f.write("\\renewcommand{\\arraystretch}{%s}\n" % (self.cfg.arystretch_text))
         f.write("\\caption{\\textit{")
-        f.write(self.readCapFile())
+        f.write(self.cfg.caption_box)
         f.write("}}\n")
-        f.write("\\label{tab:%s}\n"%self.name)
+        f.write("\\label{tab:%s}\n"%self.cfg.name_text)
         f.write("\\begin{center}\n")
         f.write("\\begin{tabular}\n{")
         for k in range(self.cols):
             f.write("l ")
         f.write("}\n")
         f.write("\\hline \\\\ \n")
-        lsz = len(self.header_arry)
+        header_key = f"header_array1"
+        lsz = len(self.cfg.command_dict[header_key])
+        headers = self.cfg.command_dict[header_key]
         if (self.cols != lsz):
             f.close()
-            print("No Latex Headers")    
+            print("No Latex Headers")   
+            return 
         for k in range(lsz):
             if(k < lsz-1):
                 txt = ""
-                txt = "\\makecell{" + self.header_arry[k] + "}&"
+                txt = "\\makecell{" + headers[k] + "}&"
             else:
-                txt = "\\makecell{" + self.header_arry[k] + "}"
+                txt = "\\makecell{" + headers[k] + "}"
             f.write(txt)
         
         f.write("\\\\ \\hline\n")
 
-        for i in range(self.rows):
+        for i in range(0,self.rows): #,skip):
             for j in range(self.cols):
                 if(j < self.cols-1):
                     txt = str(self.table_array[i][j]) + "&"
@@ -178,64 +136,163 @@ class LatexTable(LatexClass):
                     f.write(txt)
         f.write("\\hline\n\\end{tabular}\n\\end{center}\n\\end{table}\n")
         f.close()
-        self.WritePre("append")
+        self.WritePre("pre_tables")
 
 
-    
 
-class LatexPlot(LatexClass):
+        
+    def Write(self):
+        loutname = self.cfg.tex_dir + "/" + self.cfg.name_text + ".tex"
+        try:
+            f = open(loutname, "w")
+        except IOError as e:
+            self.log.log(self,f"Couldn't write to file ({e})")
+            return
+        self.SingleTable(f)
+
+        
+#############################################################################################
+# 						class LatexPlotWriter
+#############################################################################################
+class LatexPlotWriter(LatexClass):
 
    ##  Constructor for the LatexClass object.
     # @param   ObjName --  (string) Saves the name of the object.
-    def __init__(self,ObjName):
+    def __init__(self,Parent):
         ## ObjName contains the name of this object.
-        self.ObjName = ObjName
-        super().__init__()
-        self.caption = ""
-        self.name = ""
-        self.width = 0
-        self.height = 0
-        self.title = ""
-        self.scale = 0
-        self.fontSize = 8
-        self.float = False
-        self.placement = "h"
-
-    def Create(self,BaseObj,Name):
-     
-        self.name = Name
-         ## bobj contains the global object.
-        self.bobj = BaseObj
-        self.cfg = self.bobj.cfg.config
-        self.log = self.bobj.log
-        # Assign this objects debug level
-        self.dlvl = 10000
-        self.outDirectory = self.cfg.plots_dir
+        super().__init__(Parent)
  
-    def Write(self,Plot):
-        self.saveCaption(self.caption)
-        if not os.path.exists(self.outDirectory):
-            os.makedirs(self.outDirectory)
-        outname = self.outDirectory + "/" + self.name + ".png"
-        Plot.savefig(outname)
-        loutname = self.outDirectory + "/" + self.name + ".tex"
+    def Write(self):
+        cfg = self.Parent.itemcfg.config    
+        outname = cfg.tex_dir + "/" + cfg.name_text + ".png"
+        plt.savefig(outname)
+        loutname = cfg.tex_dir + "/" + cfg.name_text + ".tex"
         f = open(loutname, "w")
-        w = "\\begin{figure*}[" + self.placement + "]\r"
+        w = "\\begin{figure*}[" + cfg.placement_text + "]\r"
         f.write(w)
         w = "\\centering\r"
         f.write(w)
-        w = "\\includegraphics[width=%0.2fin]{%s}\r"%(8.5*self.scale,outname)
+        if len(cfg.tex_dir) == 0:
+            loutname = cfg.name_text 
+        else:
+            loutname = cfg.tex_dir + "/" + cfg.name_text
+        w = "\\includegraphics[width=%0.2fin]{%s}\r"%(8.5*float(cfg.scale_text),loutname)
         f.write(w)
-        w = "\\captionof{figure}[%s]{\\textit{%s}}\r"%(self.title,self.caption)
+        w = "\\captionof{figure}[%s]{\\textit{%s}}\r"%(cfg.title_text,cfg.caption_box)
         f.write(w)
-        w = "\\label{fig:%s}\r"%(self.name)
+        w = "\\label{fig:%s}\r"%(cfg.name_text)
         f.write(w)
         w = "\\end{figure*}\r"
         f.write(w)
         f.close()
+        self.WritePre("pre_plots")
+        
+     
+
+#############################################################################################
+# 						class LatexImageWriter
+#############################################################################################
+class LatexImageWriter(LatexClass):
+
+  ##  Constructor for the LatexClass object.
+    # @param   ObjName --  (string) Saves the name of the object.
+    def __init__(self,Parent):
+        ## ObjName contains the name of this object.
+        super().__init__(Parent)
+       
+    
+ 
+    def Write(self):
+        cfg = self.Parent.itemcfg.config
+        loutname = cfg.tex_dir + "/" + cfg.name_text + ".tex"
+        f = open(loutname, "w")
+        w = "\\begin{figure*}[" + cfg.placement_text + "]\r"
+        f.write(w)
+        w = "\\centering\r"
+        f.write(w)
+        if len(cfg.tex_dir) == 0:
+            loutname = cfg.name_text 
+        else:
+            loutname = cfg.tex_dir + "/" + cfg.name_text
+        w = "\\includegraphics[width=%0.2fin]{%s}\r"%(8.5*float(cfg.scale_text),loutname)
+        f.write(w)
+        w = "\\captionof{figure}[%s]{\\textit{%s}}\r"%(cfg.title_text,cfg.caption_box)
+        f.write(w)
+        w = "\\label{fig:%s}\r"%(cfg.name_text)
+        f.write(w)
+        w = "\\end{figure*}\r"
+        f.write(w)
+        f.close()
+        self.WritePre("pre_plots")
+     
       
         pass
 
+
+#############################################################################################
+# 						class LatexMultiImageWriter
+#############################################################################################
+class LatexMultiImageWriter(LatexClass):
+
+
+    
+   ##  Constructor for the LatexClass object.
+    # @param   ObjName --  (string) Saves the name of the object.
+    def __init__(self,Parent):
+        ## ObjName contains the name of this object.
+        super().__init__(Parent)
+        self.images = []
+ 
+    def Write(self):
+        cfg = self.Parent.itemcfg.config
+        outfile = cfg.tex_dir + "/" + cfg.name_text + ".tex"
+        try:
+            f = open(outfile, "w")
+        except IOError as e:
+            self.log.log(self,f"Couldn't write to file ({e})")
+        w ="\\begingroup\n"
+        f.write(w)
+        w = "\\centering\n"
+        f.write(w)
+        w = "\\begin{figure*}[" + cfg.placement_text + "]\n"
+        f.write(w)
+        
+        try:
+            for ii in range(0,int(self.cfg.num_plots_text)):
+                w = "\t\\begin{subfigure}[b]{" + cfg.plot_width_text + "in}\n"
+                f.write(w)
+                previewTex = f"{cfg.plots_dir}/{cfg.name_text}{ii+1}.png"
+                gdir = "".join(previewTex.rsplit(cfg.tex_dir))
+                sgdir = ''.join( c for c in gdir if  c not in '/' )
+                print(sgdir)    
+                w = "\t\t\\includegraphics[width=" +  cfg.plot_width_text +  "in]{" + sgdir + "}\n"
+                f.write(w)
+                w = "\t\t\\subcaption[" + "" +"]{" + cfg.caption_array[ii] + "}\n"
+                f.write(w)
+                refname = os.path.splitext(os.path.basename(gdir))[0]
+                w = "\t\t\\label{fig:" + refname + "}\n"
+                f.write(w)
+                w = "\t\\end{subfigure}\n"
+                f.write(w)
+                w = "\\hspace{" + cfg.hspace_text + "in}\n"
+                f.write(w)
+            w = "\\captionof{figure}[TITLE:" + cfg.title_text + "]{\\textit{" + cfg.caption_box + "}}\n"
+            f.write(w)
+            w = "\t\t\\label{fig:" + cfg.name_text + "}\n"
+            f.write(w)
+            w = "\\end{figure*}\n"
+            f.write(w)
+            w = "\\endgroup"
+            f.write(w)
+        except IOError as e:
+            self.log.log(self,f"Couldn't write to file ({e})")
+            f.close()
+            return
+        f.close()
+
+     
+      
+        
 
 
 

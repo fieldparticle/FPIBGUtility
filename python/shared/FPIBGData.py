@@ -5,6 +5,9 @@ import pandas as pd
 
 class DataClass:
 
+    hasRawData == False
+    hasSummaryData = False
+
     def __init__(self, ObjName):
         self.data_files = []
         self.average_list = []
@@ -12,14 +15,10 @@ class DataClass:
         
 
 
-    def Create(self, BaseObj):
+    def Create(self, BaseObj,testType):
         self.bobj = BaseObj
         self.cfg = self.bobj.cfg.config
         self.bobj.lvl = 1000
-        
-        
-      
-                
 
     def Open(self,file_end):
         match(file_end):
@@ -84,16 +83,12 @@ class DataClass:
     # Returns true if number of .tst files equal to number of R or D files
     def check_data_files(self) -> bool:
         if(os.path.exists(self.topdir) == False):
-            print ("Data Direcoptries not available" )
+            print ("Data directories not available" )
             return False
         tst_files = [i for i in os.listdir(self.topdir) if i.endswith(".tst")]
-        self.data_files = [i[:-5] for i in os.listdir(self.topdir) if i.endswith("D.csv")]
-        self.hasData = len(tst_files) == len(self.data_files)
-        if(self.hasData == False):
-            return False
         self.data_files = [i[:-5] for i in os.listdir(self.topdir) if i.endswith("R.csv")]
         self.hasData = len(tst_files) == len(self.data_files)
-        if(self.hasData == False):
+        if(self.hasRawData == False):
             return False
         
         return True
@@ -112,7 +107,13 @@ class DataClass:
     def get_averages(self):
         if(self.hasData == False):
             return False
-        directory = self.new_path(self.topdir) + ".csv"
+        summaryFile = self.new_path(self.topdir) + ".csv"
+        try:
+            sf = open(summaryFile, mode= 'w')
+        except BaseException as e:
+            print(e)
+            return
+
         for i in self.data_files:
             file_path_debug = self.topdir + "/" + i + "D.csv"
             file_path_release = self.topdir + "/" + i + "R.csv"

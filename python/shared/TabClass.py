@@ -10,6 +10,9 @@ from TabFormSetUp import *
 from TabFormWelcome import *
 from TabFormGenData import *
 from TabFormGenSimPlots import *
+from TabFormConfig import *
+from TabFormLatex import *
+from FPIBGException import *
 ## Add all tabs
 class TabObj(QTabWidget):
     def __init__(self, *args, **kwargs):
@@ -29,18 +32,23 @@ class TabObj(QTabWidget):
         self.tabFormRunSim = TabRunSim()
         self.tabFormSetup = TabSetup()
         self.tabFormGenData = TabGenData()        
-        self.tabFormSimPlots = TabSimPlots()        
+        self.tabFormSimPlots = TabSimPlots()       
+        self.tabFormConfig = TabFormConfig()        
+
 
         ## Add the tabs to tabs to this tab container.
         self.addTab(self.tabFormWelcome, 'Welcome')
         self.addTab(self.tabFormGenConfig, 'General Configuration')
         self.addTab(self.tabFormGenVPerf, 'Verification and Performance Testing')
-        self.addTab(self.tabFormReports, 'Reports')
+        
         self.addTab(self.tabFormRunSim, 'Run Simulation')
         self.addTab(self.tabFormSimPlots, 'Simulation Plots')
+        self.addTab(self.tabFormReports, 'Reports')
+
         self.addTab(self.tabFormRunRpt, 'Movie ')
         self.addTab(self.tabFormGenData, 'Solution Suite')
         self.addTab(self.tabFormSetup, 'Setup')
+        self.addTab(self.tabFormConfig,'Config File reader')
 
         ## Call set form to 
         self.tabFormWelcome.Create()
@@ -52,4 +60,4 @@ class TabObj(QTabWidget):
         self.tabFormGenData.Create(FPIBGBase)
         self.tabFormGenVPerf.Create(FPIBGBase)
         self.tabFormSimPlots.Create(FPIBGBase)
-        
+        self.tabFormConfig.Create(FPIBGBase)

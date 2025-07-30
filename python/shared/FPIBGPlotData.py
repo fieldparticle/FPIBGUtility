@@ -6,8 +6,15 @@ import numpy as np
 from scipy.optimize import curve_fit
 import matplotlib.pyplot as plt
 from PyQt6.QtGui import QPixmap, QImage
+from FPIBGData import *
 
 class PlotData:
+
+    dataPQB = DataClass("PQB")
+    dataPCD = DataClass("PCD")
+    dataDUP = DataClass("DUP")
+    dataCFB = DataClass("CFB")
+
     def Create(self, BaseObj):
         self.bobj = BaseObj
         self.cfg = self.bobj.cfg.config

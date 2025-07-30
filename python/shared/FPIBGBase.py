@@ -5,7 +5,7 @@ import inspect
 
 class FPIBGBase:
 
-    
+    widget = None
     """
     This class is the global class for all other classes
 
@@ -33,20 +33,33 @@ class FPIBGBase:
             self : this.
        
         """
+
+        
+        
         self.log = FPIBGLog("GlobalLoggingObject")   
         self.log.Create(LogName)
         self.log.Open()
+        self.log.log(self,"FPIBGBase Create Start.")
+        self.log.log(self,"FPIBGBase Create Start FPIBGConfig.")
         self.cfg = FPIBGConfig("GlobalConfigObject")
         self.cfg.Create(self.log,CfgFileName)
+        self.log.log(self,"FPIBGBase Create end FPIBGConfig.")
         #Added by Ben
         self.cfgname = CfgFileName
+        
     
     #Added by Ben
     def WriteConfig(self, dict):
         self.cfg.WriteConfig(dict)
         return
        
-
+        
+    def connect_to_output(self,widget):
+        try:
+            self.log.set_out_widget(widget)    
+            self.log.log(self,"Linked ot output")
+        except BaseException as e:
+            self.log.log(self,e)
 # @abstrctmethod
     def testObject(self,modNumber,dbglvl):
         if modNumber == 1 and dbglvl == 5:
